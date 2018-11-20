@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'SF-ui-text-regular';
+    font-style: normal;
+    font-weight: normal;
+    src: url('assets/fonts/sf-ui-text-regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'SF-ui-text-light';
+    font-style: normal;
+    font-weight: normal;
+    src: url('assets/fonts/sf-ui-text-light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'SF-ui-text-italic';
+    font-style: normal;
+    font-weight: normal;
+    src: url('assets/fonts/sf-ui-text-heavy-italic.woff') format('woff');
+}
+
+$primary-color: #46a9ff;
+$black-color: #4c4c4c;
+$blue-gradient: #1AC6FC;
+$gery-color: #bababa;
+$regular-font: 'SF-ui-text-regular';
+$light-font: 'SF-ui-text-light';
+$italic-font: 'SF-ui-text-italic';
+body {
+    font-family: $regular-font
+}

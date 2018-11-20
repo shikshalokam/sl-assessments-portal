@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule , APP_INITIALIZER} from '@angular/core';
-
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { ModulesModule } from './modules/modules.module';
 import { CoreModule } from './core/core.module';
@@ -19,7 +20,8 @@ import { keycloakInitializer } from './core/auth/keycloak-initializer';
     KeycloakAngularModule,
     SharedModule,
     CoreModule,
-    ModulesModule
+    ModulesModule, 
+    BrowserAnimationsModule
   ],
   providers: [
     {
