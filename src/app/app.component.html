@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+<div class="container-fluid">
+    <div class="row parent">
+        <div class="mod headerpart">
+            <app-navbar></app-navbar>
+            <mat-divider class="mod"></mat-divider>
+        </div>
+        
+       <div class="subparent">
+            <div class="side cla1">
+                <div *ngFor= "let link of links" > 
+                    <br>
+                    <app-sidenav [link] = "link" ></app-sidenav>
+                </div>
+            </div>
+            <div class="main" style="overflow-y:auto;">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,24 @@
+@import '../../../../assets/varibles.scss';
+.centerText{
+    text-align: center;
+}
+.mod{
+    margin-top: 0px;
+    margin-bottom: 0px;
+   
+}
+a :hover{
+    background-color:$primary-color;
+    color: white;
+}
+a{
+    text-decoration: none;
+    color:$black-color;
+
+}
+.head{
+    color: $black-color;
+}
+.subtitle{
+    color:$gery-color;
+}

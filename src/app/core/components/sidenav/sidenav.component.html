@@ -1,0 +1,7 @@
+<mat-card-title-group  >
+  <br>
+    <mat-card-subtitle class="subtitle" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{link.linkHeading}}</mat-card-subtitle>
+        <mat-card-subtitle *ngFor = "let option of link.options" class="subtitle"> 
+          <a href="{{option.anchorLink}}"><div style="padding : 8px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{option.value}}</div></a> 
+        </mat-card-subtitle>
+</mat-card-title-group>

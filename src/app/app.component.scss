@@ -1,0 +1,39 @@
+.mod{
+    margin: 0px;
+    padding: 0px;
+}
+.cla1{
+	position: relative;
+}
+.cla1:after {
+    content:""; 
+    background: lightgrey; 
+    position: absolute; 
+    top : 0%;
+    right: 0px; 
+    height: 100%; 
+    width: 1px;
+  }
+  .side{
+      width:250px;
+      float: left;
+      display: block;
+      height :calc(100vh - 52px);
+  }
+  .main{
+    
+    position: relative;
+      height: calc(100vh - 52px);
+      width :calc(100% - 250px);
+      float: right;
+  }
+  .headerpart{
+      height: 52px;
+  }
+  .parent{
+      height: 100vh;
+  }
+  .subparent{
+      height: calc(100vh - 52px) !important;
+  }
+ 
