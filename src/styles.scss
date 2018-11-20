@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @font-face {
     font-family: 'SF-ui-text-regular';
     font-style: normal;
@@ -28,6 +28,7 @@ $gery-color: #bababa;
 $regular-font: 'SF-ui-text-regular';
 $light-font: 'SF-ui-text-light';
 $italic-font: 'SF-ui-text-italic';
+$border-color : #e5e5e5;
 body {
     font-family: $regular-font
 }

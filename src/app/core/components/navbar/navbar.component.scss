@@ -1,0 +1,78 @@
+@import '../../../../assets/varibles.scss';
+.mod{
+    margin: 0px;
+    padding: 0px;
+}.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    left: -100px;
+    min-width: 400px;
+    min-height: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.brand{
+    color:$primary-color;
+
+}
+mat-icon[_ngcontent-c1] {
+    background-repeat: no-repeat;
+    display: -webkit-inline-box;
+    fill: currentColor;
+    height: 24px;
+    width: 13px;
+}
+#helpicon{
+    background-repeat: no-repeat;
+    display: -webkit-inline-box;
+    fill: currentColor;
+    height: 40px;
+    width: 25px;
+}
+#usercaret{
+    background-repeat: no-repeat;
+    
+    fill: currentColor;
+    width: 8px;
+}
+.user{
+    display: flex;
+    align-items:center;
+}
+.cla{
+	position: relative;
+}
+
+.cla:before {
+  content:""; 
+  background:$border-color; 
+  position: absolute; 
+  bottom: 25%; 
+  left: -9px; 
+  height: 50%; 
+  width: 1.5px;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+}
+.line{
+    line-height: 12px;
+}
+.navicon{
+    font-size: 80px; 
+    color:linear-gradient(to bottom, $primary-color  10%, $blue-gradient 100%);
+   
+}
