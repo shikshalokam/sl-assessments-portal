@@ -11,5 +11,6 @@ export class ParentInterviewComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
+  
 }

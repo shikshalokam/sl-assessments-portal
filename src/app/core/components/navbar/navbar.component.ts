@@ -7,7 +7,7 @@ import {MatIconRegistry} from '@angular/material';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+showDropdown = false;
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'thumbs-up',
@@ -15,8 +15,24 @@ export class NavbarComponent implements OnInit {
       iconRegistry.addSvgIcon(
         'help',
         sanitizer.bypassSecurityTrustResourceUrl('assets/info.svg'));
+        iconRegistry.addSvgIcon(
+          'creat',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/creat.svg'));
    }
   ngOnInit() {
   }
+  myFunction() {
+    if(this.showDropdown == true)
+    {
+      this.showDropdown = false;
+    }
+    else{
+      this.showDropdown =true;
+    }
+  }
 
+ 
 }
+
+
+  
