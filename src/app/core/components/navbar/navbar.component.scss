@@ -1,49 +1,13 @@
 @import '../../../../assets/varibles.scss';
 
-.mod{
+.noMarginPadding{
     margin: 0px;
     padding: 0px;
-}.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.material-icons{
-    line-height: 2;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    left: -100px;
-    min-width: 400px;
-    min-height: 250px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 .brand{
     color:$primary-color;
 
 }
-mat-icon[_ngcontent-c1] {
-    background-repeat: no-repeat;
-    display: -webkit-inline-box;
-    fill: currentColor;
-    height: 24px;
-    width: 13px;
-}
-#helpicon{
-    background-repeat: no-repeat;
-    display: -webkit-inline-box;
-    fill: currentColor;
-    height: 40px;
-    width: 25px;
-}
-
 .apple{
     background-image: linear-gradient(to bottom,#1cdffe 10%,#2462e9 90%);
     height: 80px;
@@ -52,28 +16,27 @@ mat-icon[_ngcontent-c1] {
     border-radius: 15px;
     padding: 10px;
 }
-#usercaret{
-    background-repeat: no-repeat;
-    
-    fill: currentColor;
-    width: 8px;
-}
-.user{
-    display: flex;
-    align-items:center;
-}
-.cla{
-	position: relative;
-}
 
-.cla:before {
+.horizontalLine{
+    position: relative;
+    padding: 0px 8px;
+}
+.icon{
+    font-size: 16px;
+    padding-right: 10px;
+}
+.helpIcon{
+    font-weight: 10px;
+}
+.horizontalLine:before {
   content:""; 
   background:$border-color; 
   position: absolute; 
-  bottom: 25%; 
-  left: -9px; 
-  height: 50%; 
-  width: 1.5px;
+  bottom: 20%; 
+  left: -5px; 
+  height: 60%; 
+  width: 1px;
+
 }
 
 .navbar{
@@ -86,36 +49,8 @@ mat-icon[_ngcontent-c1] {
 .navicon{
     font-size: 80px; 
     color:linear-gradient(to bottom,from $primary-color  100%, to $blue-gradient 100%);
-   
 }
-.w3-dropdown-content {
-    cursor: auto;
-    color: #000;
-    background-color: #fff;
-    display: none;
-    position: absolute;
-    min-width: 500px;
-    height:350px;
-    margin: 0;
-    padding: 0;
-    left:-80px;
-    top:45px;
-    z-index: 1;
-    border-radius: 3px;
-    box-shadow: 0px 0px 3px 3px  rgba(0,0,0,0.08);
-}
-.mat-menu-panel{
-    margin-top: 15px;
-    min-width: 112px;
-    max-width: 280px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    max-height: calc(100vh - 48px);
-    border-radius: 4px;
-    outline: 0;
-}
-
-.demo{
+.dropdownDiv{
     cursor: auto;
     color: #000;
     background-color: #fff;
@@ -129,7 +64,11 @@ mat-icon[_ngcontent-c1] {
     z-index:5;
     border-radius: 3px;
     box-shadow: 0px 0px 3px 3px  rgba(0,0,0,0.08);
-
+    margin:20px;
+    padding: 20px 0px;
+}
+.dropdownFeature{
+    padding: 20px;
 }
 #overlay {
     position: fixed;
@@ -144,6 +83,52 @@ mat-icon[_ngcontent-c1] {
     z-index: 2;
     cursor: pointer;
 }
-i .icon-white{
+#whiteIcon{
     color: white;
+    font-size : 60px;
+    line-height: 1;
+}
+
+.verticalCenteralign{
+    display:flex; 
+    flex-direction :column;
+    align-items: center;
+}
+.pageBrand{
+    font-size :18px;
+    padding: 0px 10px;
+}
+
+.alingCenterline{
+    display:flex; 
+    align-items:center;
+}
+.dropdownIcon{
+    top:1px;
+    line-height:2;
+}
+.active{
+    margin-top:10px;
+    border-radius: 12px; 
+    border:1px solid  #46a9ff; 
+    padding:5px 10px; 
+    background-color: #e5f2fe; 
+}
+.right{
+    display: flex;
+    justify-content: flex-end;
+}
+.matmenuIcon{
+    display:flex;
+    align-items:center;
+    color:#bababa;
+}
+.padding{
+    padding-left:10px; 
+}
+.bigPadding{
+    padding-left:40px; 
+}
+.black{
+    color:#4c4c4c;
 }

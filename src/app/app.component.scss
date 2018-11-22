@@ -1,11 +1,11 @@
-.mod{
+.noMarginPadding{
     margin: 0px;
     padding: 0px;
 }
-.cla1{
+.horizontalLine{
 	position: relative;
 }
-.cla1:after {
+.horizontalLine:after {
     content:""; 
     background: lightgrey; 
     position: absolute; 
@@ -14,26 +14,27 @@
     height: 100%; 
     width: 1px;
   }
-  .side{
+  .sideDiv{
       width:250px;
       float: left;
       display: block;
       height :calc(100vh - 52px);
   }
-  .main{
+  .routingDiv{
     
     position: relative;
       height: calc(100vh - 52px);
       width :calc(100% - 250px);
       float: right;
+      overflow-y: auto ;
   }
-  .headerpart{
+  .headerDiv{
       height: 52px;
   }
-  .parent{
+  .completeDiv{
       height: 100vh;
   }
-  .subparent{
+  .bodyDiv{
       height: calc(100vh - 52px) !important;
   }
  

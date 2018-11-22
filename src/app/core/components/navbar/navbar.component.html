@@ -1,120 +1,77 @@
-<nav class="navbar mod" >
-  
-    <div class="col-sm-6 mod" style = " display:flex; align-items:center;">
-      <!-- <div class="col-sm-1 mod"></div>
-        <h4 class="col-sm-11">App Store Connect&nbsp;
-            <div class="dropdown">
-              <span class="brand"> My Apps<span class="caret"></span> </span>
-              <div class="dropdown-content">
-                <p>Hello World!</p>
+<nav class="navbar noMarginPadding">
+
+  <div class="col-sm-6 alingCenterline">
+    <mat-card-title class="pageBrand">
+      <strong>Samikhsa</strong>
+    </mat-card-title>
+    <span (click)="openDropdown()">
+      <span class="glyphicon glyphicon-th dropdownIcon"></span>
+    </span>
+
+    <div id="overlay" (click)="openDropdown()" *ngIf="showDropdown">
+      <div class="dropdownDiv">
+        <div class="col-sm-3 dropdownFeature">
+          <a href="#">
+            <div class="verticalCenteralign">
+              <div class="apple">
+                <i class="material-icons" id="whiteIcon">
+                  create
+                </i>
+              </div>
+              <div class="active">
+                MyApps
               </div>
             </div>
-        </h4> -->
-      <mat-card-title style="font-size:18px; ">&nbsp;&nbsp;&nbsp;&nbsp;
-          <strong>Samikhsa&nbsp;</strong>
-      </mat-card-title>
-      <span (click)="myFunction()"><span class="glyphicon glyphicon-th" style ="top:1px;line-height:2;"></span></span>
-          <div id="overlay" (click)="myFunction()"*ngIf="showDropdown">
-            
-            <div class="row demo" style="padding:20px;">
-                <div class="col-sm-3" style="margin:20px;"  >
-                    <a href = "#">
-                      <div class="col-sm-12 mod " style="display:flex; flex-direction :column; align-items: center;">
-                            <div class="apple"><i class="material-icons" style="color:white; font-size:60px;">
-                                create
-                                </i></div>
-                        <div class="active" style=" margin-top:10px;border-radius: 12px; border:.5px solid  #46a9ff; padding:5px 10px; background-color: #e5f2fe; ">My Apps</div>
-                      </div>
-                    </a>
-                </div>     
-
-            </div>
-          </div>
-       
-        
+          </a>
+        </div>
+      </div>
     </div>
-      
-    <!-- <div class="col-sm-4 mod ">
+  </div>
+
+  <!-- <div class="col-sm-4 mod ">
        <mat-card-title style="font-size:18px; color:gray; text-align: center;" >
         Sikhshalocham Samikhsa 
           <mat-icon svgIcon="thumbs-up" style="font-size:29px; color: gray;">
           </mat-icon>
       </mat-card-title> 
     </div> -->
-      
-    <div class="col-sm-6 user">
-      <div class="col-sm-3 mod "></div>
-      <div class="col-sm-9 mod" style="padding-top: 5px;">
-        <div class="col-sm-11 mod "  >
-          <div class="dropdown " style="float:right;line-height: 2px;">
-                                          <!-- <span class="brand ">
-                                            <mat-card-subtitle>
-                                            <span class="brand user">Bachi AlamSetthy&nbsp;&nbsp;
-                                              <mat-icon svgIcon="thumbs-up" id="usercaret" style="font-size:19px;">
-                                              </mat-icon><br>
-                                            </span>
-                                            </mat-card-subtitle>
-                                            <mat-card-subtitle style="font-size:13px;">
-                                                &nbsp;&nbsp;Bachi AlamSetthy 
-                                            </mat-card-subtitle>
-                                          </span>
-                                        <div class="dropdown-content" style="left: -200px; min-width: 300px;min-height: 200px; top:35px;">
-                                              <mat-card-subtitle><span class="brand">Bachi AlamSetthy<span class= "caret"></span></span> </mat-card-subtitle>
-                                              <mat-card-subtitle>&nbsp;Bachi AlamSetthy </mat-card-subtitle> 
-                                        </div>
-                                      </div>     --> 
-                <span mat-button [matMenuTriggerFor]="menu" style="line-height:0;">
-                    <span class="brand ">
-                        <mat-card-subtitle>
-                        <span class="brand user">Bachi AlamSetthy&nbsp;&nbsp;
-                          <mat-icon svgIcon="thumbs-up" id="usercaret" style="font-size:19px;">
-                          </mat-icon><br>
-                        </span>
-                        </mat-card-subtitle>
-                        <mat-card-subtitle style="font-size:13px;">
-                            &nbsp;&nbsp;Bachi AlamSetthy 
-                        </mat-card-subtitle>
-                      </span>
-                    </span>
-                <mat-menu #menu="matMenu">
 
-                  <!-- <div mat-menu-item> 
-                    <span class = "col-sm-3">
-                      <i class="fas fa-user-circle"></i>
-                    </span>
-                    <span class = "col-sm-9">
-                      <span>bachi@Sikhshalocham.com</span>
-                      <br>
-                    </span>
-
-                  </div> -->
-
-                  <!-- <a mat-menu-item href="#">Edit Profile</a> -->
-                  
-                  
-                  <span mat-menu-item style="display:flex;align-items:center;">
-                      <i class="fas fa-user-circle" style="font-size:20px; color:#bababa"></i>
-                      <span style="color:#bababa;"> &nbsp;&nbsp; &nbsp;bachi@Sikhshalocham.org</span>
-                      <!-- <a href="#">Edit Profile</a>  -->
-                  </span>
-
-                  <mat-divider></mat-divider>
-                  <span mat-menu-item style="display:flex;align-items:center; color:#4c4c4c;">
-                      <i class="material-icons" >
-                          done
-                      </i>
-                      <span>&nbsp; &nbsp;Bachi AlamSetthy</span>
-
-                  </span>
-
-                  <mat-divider></mat-divider>
-
-                  <span mat-menu-item >&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Signout</span>
-                </mat-menu>
-          </div>
-        </div>
-        <div class="col-sm-1 "><mat-icon class = "cla" svgIcon="help" id="helpicon"></mat-icon></div>
-      </div>
+  <div class="col-sm-6 right">
+    <span mat-button [matMenuTriggerFor]="menu" class="alingCenterline">
+      <span class="brand ">
+        <mat-card-subtitle>
+          <span class="brand ">Bachi AlamSetthy</span>
+        </mat-card-subtitle>
+      </span>
+      <i class="material-icons brand icon">
+        keyboard_arrow_down
+      </i>
+    </span>
+    <mat-menu #menu="matMenu">
+      <span mat-menu-item class="matmenuIcon">
+          <i class="material-icons">
+              supervised_user_circle
+          </i>
+          <span class="padding">bachi@Sikhshalocham.org</span>
+      </span>
+      <mat-divider></mat-divider>
+      <span mat-menu-item  class="matmenuIcon black">
+        <i class="material-icons">
+          done
+        </i>
+        <span class="padding">Bachi AlamSetthy</span>
+      </span>
+      <mat-divider></mat-divider>
+      <span mat-menu-item class="padding">
+        <span class="bigPadding black">
+            SignOut
+        </span>
+      </span>
+    </mat-menu>
+    <div class="right horizontalLine">
+      <i class="material-icons brand helpIcon">
+        help_outline
+      </i>
     </div>
-
+  </div>
 </nav>
