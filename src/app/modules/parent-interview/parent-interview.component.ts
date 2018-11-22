@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParentInterviewComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+   }
 
   ngOnInit() {
   }
