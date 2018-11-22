@@ -1,18 +1,16 @@
 <div class="container-fluid">
-    <div class="row parent">
-        <div class="mod headerpart">
+    <div class="row completeDiv">
+        <div class="mod headerDiv">
             <app-navbar></app-navbar>
-            <mat-divider class="mod"></mat-divider>
+            <mat-divider class="noMarginPadding"></mat-divider>
         </div>
-        
-       <div class="subparent">
-            <div class="side cla1">
+       <div class="bodyDiv">
+            <div class="sideDiv horizontalLine">
                 <div *ngFor= "let link of links" > 
-                    <br>
                     <app-sidenav [link] = "link" ></app-sidenav>
                 </div>
             </div>
-            <div class="main" style="overflow-y:auto;">
+            <div class="routingDiv">
                 <router-outlet></router-outlet>
             </div>
         </div>

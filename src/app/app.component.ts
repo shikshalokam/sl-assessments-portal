@@ -7,44 +7,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sl-assessments-portal';
-  links = [
-    
-    //   linkHeading :"APP STORE INFORMATION",
-    //   options : [
-    //     { 
-    //       value :"App Information",
-    //       anchorLink : "https://www.google.com/"
-    //     },
-    //     { 
-    //       value :"Pricing & Avability",
-    //       anchorLink : "https://www.yahoo.com/"
-    //   }
-    //   ]
-    // },
-    // {
-    //   linkHeading :"IOS APP",
-    //   options : [
-    //     { 
-    //       value :"1.0 Pending Developer",
-    //       anchorLink : "https://www.google.com/"
-    //     },
-    //     { 
-    //       value :"Pricing & Avability",
-    //       anchorLink : "https://www.yahoo.com/"
-    //   }
-    //   ]
-    // }
-   { 
-     linkHeading : "Features",
-     options:[ 
-              {
-                value : "Parent Interview",
-                anchorLink : "https://www.google.com/"
-        
-                }
-             ]  
-    }
-] ;
+  links = [  
+          { 
+            linkHeading : "features",
+            options:[ 
+                      {
+                        value : "parentInterview",
+                        anchorLink : "https://www.google.com/"
+                
+                        }
+                    ]  
+            }
+        ] ;
 
 }
 
