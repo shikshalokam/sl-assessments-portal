@@ -11,7 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { keycloakInitializer } from './core/auth/keycloak-initializer';
 import { TranslateService } from './core/services/translate-service/translate.service';
 import { ModulesModule } from './modules/modules.module';
-import { MatDivider, MatDividerModule } from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
@@ -20,8 +20,7 @@ export function setupTranslateFactory(
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent    
   ],
   imports: [
     BrowserModule,
