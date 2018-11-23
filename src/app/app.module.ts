@@ -2,33 +2,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
-import { ModulesModule } from './modules/modules.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { keycloakInitializer } from './core/auth/keycloak-initializer';
 import { TranslateService } from './core/services/translate-service/translate.service';
+import { ModulesModule } from './modules/modules.module';
+import { MatDivider, MatDividerModule } from '@angular/material/divider';
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
-  return () => service.use('ma');
+  return () => service.use('en');
 }
 
 @NgModule({
   declarations: [
     AppComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     KeycloakAngularModule,
     SharedModule,
+    CoreModule,
+    ModulesModule, 
+    MatDividerModule,
     CoreModule.forRoot(),
-    ModulesModule,
-    BrowserAnimationsModule,
     HttpClientModule
   ],
   providers: [

@@ -1,4 +1,19 @@
 {
-    "test": "Test",
-    "shikshalokam": "Shikshalokam"
+    "features" : "Features",
+    "parentInterview":"Parent Intereview",
+
+
+    "shikshalokam": "Sample",
+    "buttons": {
+
+    },
+    "headings": {
+
+    },
+    "labels": {
+
+    },
+    "sideNavLinks": {
+        
+    }
 }

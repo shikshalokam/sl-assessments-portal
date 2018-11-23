@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @font-face {
     font-family: 'SF-ui-text-regular';
     font-style: normal;
@@ -20,7 +20,28 @@
     font-weight: normal;
     src: url('assets/fonts/sf-ui-text-heavy-italic.woff') format('woff');
 }
-
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/angularMaterial.woff2') format('woff2');
+  }
+  
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
 $primary-color: #46a9ff;
 $black-color: #4c4c4c;
 $blue-gradient: #1AC6FC;
@@ -28,6 +49,7 @@ $gery-color: #bababa;
 $regular-font: 'SF-ui-text-regular';
 $light-font: 'SF-ui-text-light';
 $italic-font: 'SF-ui-text-italic';
+$border-color : #e5e5e5;
 body {
     font-family: $regular-font
 }
