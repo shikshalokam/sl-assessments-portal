@@ -1,0 +1,77 @@
+<nav class="navbar noMarginPadding">
+
+  <div class="col-sm-6 alingCenterline">
+    <mat-card-title class="pageBrand">
+      <strong>Samikhsa</strong>
+    </mat-card-title>
+    <span (click)="openDropdown()">
+      <span class="glyphicon glyphicon-th dropdownIcon"></span>
+    </span>
+
+    <div id="overlay" (click)="openDropdown()" *ngIf="showDropdown">
+      <div class="dropdownDiv">
+        <div class="col-sm-3 dropdownFeature">
+          <a href="#">
+            <div class="verticalCenteralign">
+              <div class="apple">
+                <i class="material-icons" id="whiteIcon">
+                  create
+                </i>
+              </div>
+              <div class="active">
+                MyApps
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="col-sm-4 mod ">
+       <mat-card-title style="font-size:18px; color:gray; text-align: center;" >
+        Sikhshalocham Samikhsa 
+          <mat-icon svgIcon="thumbs-up" style="font-size:29px; color: gray;">
+          </mat-icon>
+      </mat-card-title> 
+    </div> -->
+
+  <div class="col-sm-6 right">
+    <span mat-button [matMenuTriggerFor]="menu" class="alingCenterline">
+      <span class="brand ">
+        <mat-card-subtitle>
+          <span class="brand ">Bachi AlamSetthy</span>
+        </mat-card-subtitle>
+      </span>
+      <i class="material-icons brand icon">
+        keyboard_arrow_down
+      </i>
+    </span>
+    <mat-menu #menu="matMenu">
+      <span mat-menu-item class="matmenuIcon">
+          <i class="material-icons">
+              supervised_user_circle
+          </i>
+          <span class="padding">bachi@Sikhshalocham.org</span>
+      </span>
+      <mat-divider></mat-divider>
+      <span mat-menu-item  class="matmenuIcon black">
+        <i class="material-icons">
+          done
+        </i>
+        <span class="padding">Bachi AlamSetthy</span>
+      </span>
+      <mat-divider></mat-divider>
+      <span mat-menu-item class="padding">
+        <span class="bigPadding black">
+            SignOut
+        </span>
+      </span>
+    </mat-menu>
+    <div class="right horizontalLine">
+      <i class="material-icons brand helpIcon">
+        help_outline
+      </i>
+    </div>
+  </div>
+</nav>

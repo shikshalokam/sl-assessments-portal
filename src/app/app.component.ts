@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sl-assessments-portal';
+  links = [  
+          { 
+            linkHeading : "features",
+            options:[ 
+                      {
+                        value : "parentInterview",
+                        anchorLink : "https://www.google.com/"
+                
+                        }
+                    ]  
+            }
+        ] ;
+
 }
+

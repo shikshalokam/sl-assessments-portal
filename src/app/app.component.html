@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<div class="container-fluid">
+    <div class="row completeDiv">
+        <div class="mod headerDiv">
+            <app-navbar></app-navbar>
+            <mat-divider class="noMarginPadding"></mat-divider>
+        </div>
+       <div class="bodyDiv">
+            <div class="sideDiv horizontalLine">
+                <div *ngFor= "let link of links" > 
+                    <app-sidenav [link] = "link" ></app-sidenav>
+                </div>
+            </div>
+            <div class="routingDiv">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
