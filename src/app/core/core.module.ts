@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TranslateService } from './services';
 import { TranslatePipe } from './pipes';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-
+// import { MyInterceptor } from './services/interceptor-service'
 
 @NgModule({
   declarations: [
@@ -32,7 +32,13 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     HttpClientModule,
     MatDividerModule,
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: MyInterceptor,
+    //   multi: true
+    // }
+  ],
   exports: [
     TranslatePipe,
     NavbarComponent,

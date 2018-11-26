@@ -3,7 +3,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { CoreModule } from './core/core.module';
@@ -12,6 +12,7 @@ import { keycloakInitializer } from './core/auth/keycloak-initializer';
 import { TranslateService } from './core/services/translate-service/translate.service';
 import { ModulesModule } from './modules/modules.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { MyInterceptor } from 'src/app/core/services/interceptor-service';
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
@@ -34,6 +35,11 @@ export function setupTranslateFactory(
     HttpClientModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyInterceptor,
+      multi: true
+   },
     TranslateService,
     {
       provide: APP_INITIALIZER,
