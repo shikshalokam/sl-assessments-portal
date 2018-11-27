@@ -2,7 +2,9 @@
   <div class="sideNavheading">
     {{ link?.linkHeading | translate }}
   </div>
-  <div class="sideNavSubheading" *ngFor="let option of link?.options">
-    <a href="{{option.anchorLink}}" id="subHeading">{{ option.value | translate }}</a>
+    <a href="{{option.anchorLink}}" *ngFor="let option of link?.options"  id="subHeading">
+  <div class="sideNavSubheading">
+      {{ option.value | translate }}
   </div>
+  </a>
 </div>

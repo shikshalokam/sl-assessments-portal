@@ -6,7 +6,7 @@
 .sideNavSubheading{
     height: 30px;
     font-size: 15px;
-    padding-top: 4px;
+    padding: 4px 0px 0px 15px;
     width: 250px;
 }
 #subHeading{
@@ -23,4 +23,5 @@
 .sideNavSubheading:hover{
     background-color:$primary-color;
     color: white;
+    width:250px;
 }

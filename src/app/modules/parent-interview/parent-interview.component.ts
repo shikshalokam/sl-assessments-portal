@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core';
 
 @Component({
   selector: 'app-parent-interview',
@@ -10,12 +9,11 @@ import { AuthService } from 'src/app/core';
 })
 export class ParentInterviewComponent implements OnInit {
 
-  constructor(private auth: AuthService) {
+  constructor() {
 
    }
 
   ngOnInit() {
-    console.log(this.auth.getToken())
   }
   
   
