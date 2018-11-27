@@ -12,10 +12,14 @@ import { keycloakInitializer } from './core/auth/keycloak-initializer';
 import { TranslateService } from './core/services/translate-service/translate.service';
 import { ModulesModule } from './modules/modules.module';
 import { MatDivider, MatDividerModule } from '@angular/material/divider';
+import { AuthService } from './core/services/auth/auth.service';
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('en');
+}
+export function authFactory(authService: AuthService) {
+  return () => authService.init();
 }
 
 @NgModule({
@@ -44,9 +48,9 @@ export function setupTranslateFactory(
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: keycloakInitializer,
+      useFactory: authFactory,
       multi: true,
-      deps: [KeycloakService]
+      deps: [AuthService]
     },
 
   ],
