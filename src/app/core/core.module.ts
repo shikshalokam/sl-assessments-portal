@@ -31,7 +31,13 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     HttpClientModule,
     MatDividerModule,
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: MyInterceptor,
+    //   multi: true
+    // }
+  ],
   exports: [
     TranslatePipe,
     NavbarComponent,
