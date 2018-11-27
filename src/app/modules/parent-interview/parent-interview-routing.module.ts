@@ -5,7 +5,7 @@ import { SchoolListComponent } from './school-list/school-list.component';
 
 const routes: Routes = [
   {
-    path: 'parent-list', component: ParentInterviewComponent,
+    path: 'parent', component: ParentInterviewComponent,
     data: {},
     children: [
       {
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'parent-list'
+    redirectTo: 'parent'
   }
 
 

@@ -13,7 +13,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-// import { MyInterceptor } from './services/interceptor-service'
 
 @NgModule({
   declarations: [
@@ -32,13 +31,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     HttpClientModule,
     MatDividerModule,
   ],
-  providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: MyInterceptor,
-    //   multi: true
-    // }
-  ],
+  providers: [],
   exports: [
     TranslatePipe,
     NavbarComponent,
