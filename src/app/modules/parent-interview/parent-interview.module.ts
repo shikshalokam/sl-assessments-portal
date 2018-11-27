@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParentInterviewComponent } from './parent-interview.component';
 import { ParentInterviewRoutingModule } from './parent-interview-routing.module';
@@ -22,7 +22,6 @@ import { ApiFetch } from 'src/app/core/services/api-fetch-service';
 
   ],
   providers:[
-    SchoolListComponent,
     ApiFetch
   ]
 })
