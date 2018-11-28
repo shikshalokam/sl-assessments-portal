@@ -1,26 +1,29 @@
-<div class="example-container mat-elevation-z8 conentMiddle" >
-  <table mat-table [dataSource]="dataSource">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="_id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element._id}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="externalId">
-      <th mat-header-cell *matHeaderCellDef> External - Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.externalId}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+<mat-form-field class = "contentMiddle">
+    <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<i class="material-icons search">search</i>
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 contentMiddle">
+  
+      <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.name}} </span></td>
+        </ng-container>
+    
+        <ng-container matColumnDef="_id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="externalId">
+          <th mat-header-cell *matHeaderCellDef> External - Id </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="spaceBetween">
+                <span>{{element.externalId}}</span> 
+                <a class="active" [routerLink]="['/parent/parent-list' , element._id ]">Click Here</a>
+            </span>
+          </td>
+        </ng-container>
+        
+    <tr mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>

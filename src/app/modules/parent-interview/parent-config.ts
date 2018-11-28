@@ -1,6 +1,5 @@
 
 export const ParentConfig = {
-    
-        schoolListFind: "assessors/schools"
-    
+        schoolListFind: "assessors/schools",
+        parentListFind : "parentRegistry/list/" 
 }

@@ -8,21 +8,27 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { ApiFetch } from 'src/app/core/services/api-fetch-service';
+import { ParentApiFetch } from 'src/app/core/services/parent-api-fetch-service';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
+
+import { ParentListComponent } from './parent-list/parent-list.component';
 @NgModule({
-  declarations: [ParentInterviewComponent, SchoolListComponent],
+  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent],
   imports: [
     CommonModule,
     ParentInterviewRoutingModule,
     CoreModule,
     MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
     HttpClientModule,
     HttpModule,
-
+    RouterModule
   ],
   providers:[
-    ApiFetch
+    ParentApiFetch
   ]
 })
 export class ParentInterviewModule { }

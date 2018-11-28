@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ParentInterviewComponent } from './parent-interview.component';
 import { SchoolListComponent } from './school-list/school-list.component';
-
+import { ParentListComponent } from './parent-list/parent-list.component';
 const routes: Routes = [
   {
     path: 'parent', component: ParentInterviewComponent,
@@ -11,6 +11,10 @@ const routes: Routes = [
       {
         path: 'school-list',
         component: SchoolListComponent
+      },
+      {
+        path : 'parent-list/:id',
+        component : ParentListComponent,
       },
       {
         path: '**',
@@ -27,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class ParentInterviewRoutingModule { }
