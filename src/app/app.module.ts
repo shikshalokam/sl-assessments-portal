@@ -13,7 +13,8 @@ import { ModulesModule } from './modules/modules.module';
 import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MyInterceptor } from 'src/app/core/services/interceptor-service';
-import { ApiFetch } from './core/services/api-fetch-service';
+import { ParentApiFetch } from './core/services/parent-api-fetch-service';
+import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
@@ -36,7 +37,8 @@ export function authFactory(authService: AuthService) {
     ModulesModule, 
     MatDividerModule,
     CoreModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ParentInterviewRoutingModule
   ],
   providers: [
     {
@@ -44,7 +46,7 @@ export function authFactory(authService: AuthService) {
       useClass: MyInterceptor,
       multi: true
    },
-     ApiFetch,
+     ParentApiFetch,
     TranslateService,
     {
       provide: APP_INITIALIZER,

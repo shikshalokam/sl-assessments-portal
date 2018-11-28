@@ -9,9 +9,7 @@ table {
     font-size: 15px;
     width: 75%;
 }
-.capitalise{
-    text-transform: capitalize;
-}
+
 .filterInput{
     padding-left: 25px;
 }
@@ -24,8 +22,20 @@ table {
     padding:2px 8px; 
     background-color: #e5f2fe; 
 }
+.capitalise{
+    text-transform: capitalize;
+}
+.brand{
+    color:#bababa;
+    cursor: pointer;
+    margin-left: 40px;
 
+}
 .spaceBetween{
     display:flex;
     justify-content: space-between;
+}
+example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
 }

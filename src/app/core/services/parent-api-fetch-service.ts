@@ -12,12 +12,13 @@ export interface Config {
     ]
   }
 @Injectable()
-export class ApiFetch {
+export class ParentApiFetch {
     constructor(private http: HttpClient) { }
     configUrl ;
 
     getConfig( baseurl :string , temp :string) {
          this.configUrl = baseurl+temp;
+        console.log(this.configUrl);
          return this.http.get<Config>(this.configUrl);
     }
 }

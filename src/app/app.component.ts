@@ -12,7 +12,7 @@ export class AppComponent {
             options:[ 
                       {
                         value : "Parent Interview",
-                        anchorLink : "https://www.google.com/"
+                        anchorLink : "/parent"
                 
                         }
                     ]  
