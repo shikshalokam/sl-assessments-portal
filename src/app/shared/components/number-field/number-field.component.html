@@ -1,0 +1,16 @@
+<div [formGroup]="parentForm" class="example-full-width col-sm-12">
+    <!-- <span class ="space bold">{{parentEditData.label}} :</span> -->
+  <mat-form-field >
+      <span *ngIf="parentEditData.input == 'number'" matPrefix>+91 &nbsp;</span>
+      <input type="tel" placeholder="{{parentEditData.label}} " formControlName="{{parentEditData.field}}" matInput required>
+    </mat-form-field>
+    
+  <span *ngIf = "parentEditData.validation.required"> 
+  <span class="help-block" *ngIf="{'has-error' : parentForm.get(parentEditData.field).errors  && 
+                                  (parentForm.get(parentEditData.field).touched || parentForm.get(parentEditData.field).dirty)}">
+    <div *ngIf="!parentForm.get(parentEditData.field)?.valid" class="example-full-width col-sm-12 right">
+      {{parentEditData.label}} is Required.
+    </div>
+  </span>
+  </span>
+</div>

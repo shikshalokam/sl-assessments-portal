@@ -36,7 +36,7 @@
           <span class="spaceBetween">
               <span class ="capitalise">{{element.grade}}</span> 
               <span class="spaceBetween">
-                    <a mat-fab routerLink="."><i class="material-icons brand">
+                    <a mat-fab [routerLink]="['/parent/parent-edit' , element._id ]" ><i class="material-icons brand">
                         priority_high
                     </i></a>
                     <a mat-fab routerLink="."><i class="material-icons brand">

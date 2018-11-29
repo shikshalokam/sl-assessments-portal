@@ -14,6 +14,7 @@ export class MyInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = this.auth.getToken();
+    console.log(authToken);
     const authReq = req.clone({ setHeaders: { "X-authenticated-user-token" : authToken } });
     return next.handle(authReq);
   }

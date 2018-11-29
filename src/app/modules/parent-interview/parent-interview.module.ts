@@ -13,12 +13,15 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { ParentListComponent } from './parent-list/parent-list.component';
+import { ParentEditComponent } from './parent-edit/parent-edit.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
-  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent],
+  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent],
   imports: [
     CommonModule,
     ParentInterviewRoutingModule,
     CoreModule,
+    SharedModule,
     MatTableModule,
     MatInputModule,
     MatFormFieldModule,

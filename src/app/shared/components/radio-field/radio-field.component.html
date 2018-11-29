@@ -1,0 +1,16 @@
+
+<div [formGroup]="parentForm">
+  <mat-radio-group formControlName="{{parentEditData.field}}"  required>
+    <!-- <span class ="space bold">{{parentEditData.label}} :</span> -->
+    <div class="example-selected-value">{{parentEditData.label}}  is: </div>
+    <span *ngFor="let opt of parentEditData.options"  >
+      <mat-radio-button  class ="space"value="{{opt.value}}">{{opt.label}}</mat-radio-button>
+    </span>
+  </mat-radio-group>
+  <span *ngIf ="parentEditData.validation.required && !parentForm.get(parentEditData.field).valid">
+      <div  class="example-full-width col-sm-12 right">
+        {{parentEditData.label}} is Required.
+      </div>
+  </span>
+  
+  </div>
