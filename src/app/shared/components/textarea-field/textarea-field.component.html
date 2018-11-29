@@ -1,0 +1,21 @@
+<div [formGroup]= "parentForm" *ngIf="parentForm">
+    <mat-form-field class="example-full-width col-sm-12">
+        <div class="form-group" >
+            <!-- <span class ="bold">{{parentEditData.label}} :</span> -->
+            <textarea matInput formControlName="{{parentEditData.field}}" required placeholder="{{parentEditData.label}} "></textarea>
+        </div>
+    </mat-form-field>
+    <span *ngIf = "parentEditData.validation.required">
+        <span class="help-block" *ngIf="{'has-error' : parentForm?.get(parentEditData?.field)?.errors  && 
+    (parentForm?.get(parentEditData?.field)?.touched || parentForm?.get(parentEditData?.field)?.dirty)}">
+
+        <div *ngIf="!parentForm.get(parentEditData.field)?.valid" class=" right example-full-width col-sm-12">
+        {{parentEditData.field}} &nbsp;is Required.
+        </div>
+    </span> 
+    </span>
+
+</div>
+
+
+
