@@ -7,14 +7,12 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./text-field.component.scss']
 })
 export class TextFieldComponent implements OnInit {
-  @Input()parentEditData;
-  @Input()parentForm:FormGroup;
+  @Input()genericData;
+  @Input()genericForm:FormGroup;
   
   constructor() { }
 
   ngOnInit() {
   }
-  check(val){
-    console.dir(val);
-  }
+  
 }

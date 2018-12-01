@@ -1,19 +1,18 @@
-<div class="col-sm-12 " [formGroup]= "parentForm"  *ngIf="parentForm">
-      
-  <div *ngFor="let parentData of parentEditData" >
+<div class="col-sm-12 " [formGroup]= "genericForm"  *ngIf=" genericForm" >
+  <div *ngFor="let parentData of genericData" >
     <div class="space">
-      <app-radio-field *ngIf="parentData.input == 'radio' && parentData.visible " [parentEditData]="parentData" [parentForm]="parentForm"></app-radio-field>
+      <app-radio-field *ngIf="parentData.input == 'radio' && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-radio-field>
     </div>
     <div class="space">
-        <app-text-field *ngIf="parentData.input == 'text'  && parentData.visible " [parentEditData]="parentData" [parentForm]="parentForm"></app-text-field>
+        <app-text-field *ngIf="parentData.input == 'text'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-text-field>
     </div>
     <div class="space">
-    <app-textarea-field *ngIf="parentData.input == 'textarea'  && parentData.visible " [parentEditData]="parentData" [parentForm]="parentForm"></app-textarea-field>
+    <app-textarea-field *ngIf="parentData.input == 'textarea'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-textarea-field>
     </div>
     <div class="space">
-    <app-number-field *ngIf="parentData.input == 'number'  && parentData.visible " [parentEditData]="parentData" [parentForm]="parentForm"></app-number-field>
+    <app-number-field *ngIf="parentData.input == 'number'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-number-field>
     </div>
   </div> 
 
-  <button class="btn btn-success" [disabled]="!parentForm?.valid" (click)="getData()" >Submit</button>
+
 </div>

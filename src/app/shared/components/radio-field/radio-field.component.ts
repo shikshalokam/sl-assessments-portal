@@ -7,8 +7,8 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./radio-field.component.scss']
 })
 export class RadioFieldComponent implements OnInit {
-@Input()parentEditData;
-@Input()parentForm:FormGroup;
+@Input()genericData;
+@Input()genericForm:FormGroup;
 
   constructor() { }
 

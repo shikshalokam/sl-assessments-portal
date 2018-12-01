@@ -8,13 +8,14 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { ParentApiFetch } from 'src/app/core/services/parent-api-fetch-service';
+import { ApiService } from 'src/app/core/services/api-service';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
-import { RouterModule } from '@angular/router';
+// import { RouterModule } from '@angular/router';
 
 import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 @NgModule({
   declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent],
   imports: [
@@ -28,10 +29,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     BrowserAnimationsModule,
     HttpClientModule,
     HttpModule,
-    RouterModule
+    // RouterModule
   ],
   providers:[
-    ParentApiFetch
+    ApiService,
+    CreateFormGroup
   ]
 })
 export class ParentInterviewModule { }

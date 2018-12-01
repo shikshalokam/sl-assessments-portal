@@ -1,16 +1,15 @@
-<div [formGroup]= "parentForm" *ngIf="parentForm">
+<div [formGroup]= "genericForm" *ngIf="genericForm">
     <mat-form-field class="example-full-width col-sm-12">
         <div class="form-group" >
-            <!-- <span class ="bold">{{parentEditData.label}} :</span> -->
-            <textarea matInput formControlName="{{parentEditData.field}}" required placeholder="{{parentEditData.label}} "></textarea>
+            <textarea matInput formControlName="{{genericData.field}}" required placeholder="{{genericData.label}} "></textarea>
         </div>
     </mat-form-field>
-    <span *ngIf = "parentEditData.validation.required">
-        <span class="help-block" *ngIf="{'has-error' : parentForm?.get(parentEditData?.field)?.errors  && 
-    (parentForm?.get(parentEditData?.field)?.touched || parentForm?.get(parentEditData?.field)?.dirty)}">
+    <span *ngIf = "genericData.validation.required">
+        <span class="help-block" *ngIf="{'has-error' : genericForm?.get(genericData?.field)?.errors  && 
+    (genericForm?.get(genericData?.field)?.touched || genericForm?.get(genericData?.field)?.dirty)}">
 
-        <div *ngIf="!parentForm.get(parentEditData.field)?.valid" class=" right example-full-width col-sm-12">
-        {{parentEditData.field}} &nbsp;is Required.
+        <div *ngIf="!genericForm.get(genericData.field)?.valid" class=" right example-full-width col-sm-12">
+        {{genericData.field}} &nbsp;is Required.
         </div>
     </span> 
     </span>

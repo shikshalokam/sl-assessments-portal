@@ -14,8 +14,6 @@ import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ParentInterviewRoutingModule } from '../modules/parent-interview/parent-interview-routing.module';
-import { RouterModule } from '@angular/router';
-
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -32,7 +30,6 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     HttpClientModule,
     MatDividerModule,
-    RouterModule,
     ParentInterviewRoutingModule
   ],
   providers: [
