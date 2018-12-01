@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-// import { ParentEditComponent} from '../../../modules/parent-interview/parent-edit/parent-edit.component'
+import { EventEmitter } from 'events';
+import { ParentEditComponent } from 'src/app/modules/parent-interview/parent-edit/parent-edit.component';
 @Component({
 
   selector: 'app-dynamic-form',
@@ -9,15 +10,16 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() parentEditData : any ;
-  parentForm :FormGroup;
-  constructor() { }
+  @Input() genericData : any ;
+  @Input()genericForm :FormGroup;
+  flag = false;
+
+  constructor(private parenteditcomponent:ParentEditComponent) { 
+    
+    
+  }
 
   ngOnInit() {
-    this.parentEditData=JSON.stringify(this.parentEditData.result);
-    this.parentEditData = JSON.parse(this.parentEditData);
-    console.log(this.parentEditData)
-    this.parentForm = this.toGroup(this.parentEditData) ;
   }
 
   toGroup(inputs) {
@@ -30,7 +32,5 @@ export class DynamicFormComponent implements OnInit {
 
     return new FormGroup(group);
   }
-  getData(){
-    console.log(this.parentForm.controls.value);
-  }
+  
 }

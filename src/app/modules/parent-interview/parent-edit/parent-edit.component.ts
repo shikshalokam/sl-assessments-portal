@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ParentApiFetch } from 'src/app/core/services/parent-api-fetch-service';
-import { ParentConfig } from '../parent-config';
-import { environment } from 'src/environments/environment.prod';
+import { ApiService } from 'src/app/core/services/api-service';
+import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
+import { FormGroup } from '@angular/forms';
+import { startWith, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-parent-edit',
@@ -12,26 +13,31 @@ import { environment } from 'src/environments/environment.prod';
 export class ParentEditComponent implements OnInit {
   sendUrl;
   parentEditData;
-  constructor(private route :ActivatedRoute ,private apiFetch :ParentApiFetch) { 
+  flag=false;
+  parentForm:FormGroup;
+  constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup) { 
     this.route.params.subscribe(params => {
-      console.log( params["id"] );
-      this.sendUrl = ParentConfig.parentEditFind + params["id"];
-
+      this.sendUrl = params["id"];
   });
-  this.showConfig();
-  console.log(this.parentEditData);
+  this.showConfig(); 
+  }
+  ngOnInit() {
 
   }
-
-  ngOnInit() {
-    
-}
-
+  
 showConfig() {
-  this.apiFetch.getConfig(environment.apibaseurl,this.sendUrl)
+  this.apiFetch.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
-        this.parentEditData = data;
+        this.parentEditData = data.result;
+        this.parentForm = this.createForm.toGroup(data.result) ;
+        console.log(this.parentForm);
+        console.log(this.parentEditData);
+
       });
 }
+getData(){
+  console.log(this.parentForm.controls);
+}
+
 } 

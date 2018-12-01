@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ParentConfig } from '../parent-config';
-import { ParentApiFetch } from '../../../core/services/parent-api-fetch-service';
+import { ApiService } from '../../../core/services/api-service';
 import { environment } from '../../../../environments/environment.prod';
 import {MatTableDataSource} from '@angular/material';
 @Component({
@@ -12,11 +12,11 @@ export class SchoolListComponent implements OnInit{
   displayedColumns: string[] = ['name', '_id', 'externalId'];
 
   dataSource;
-  constructor(private apiFetch :ParentApiFetch ) {
+  constructor(private apiFetch :ApiService ) {
   this.showConfig();
   }
   showConfig() {
-  this.apiFetch.getConfig(environment.apibaseurl,ParentConfig.schoolListFind)
+  this.apiFetch.getSchoolList()
       .subscribe(data => {
   this.dataSource = new MatTableDataSource(data.result)
       });

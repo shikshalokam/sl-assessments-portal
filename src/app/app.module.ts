@@ -5,15 +5,15 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {  KeycloakAngularModule } from 'keycloak-angular';
+// import {  KeycloakAngularModule } from 'keycloak-angular';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TranslateService } from './core/services/translate-service/translate.service';
 import { ModulesModule } from './modules/modules.module';
 import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
-import { MyInterceptor } from 'src/app/core/services/interceptor-service';
-import { ParentApiFetch } from './core/services/parent-api-fetch-service';
+import { ApiInterceptor } from 'src/app/core/services/interceptor-service';
+import { ApiService } from './core/services/api-service';
 import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
 
 export function setupTranslateFactory(
@@ -31,7 +31,7 @@ export function authFactory(authService: AuthService) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    KeycloakAngularModule,
+    // KeycloakAngularModule,
     SharedModule,
     CoreModule,
     ModulesModule, 
@@ -43,10 +43,10 @@ export function authFactory(authService: AuthService) {
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: MyInterceptor,
+      useClass: ApiInterceptor,
       multi: true
    },
-     ParentApiFetch,
+     ApiService,
     TranslateService,
     {
       provide: APP_INITIALIZER,

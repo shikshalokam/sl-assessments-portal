@@ -7,8 +7,8 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./number-field.component.scss']
 })
 export class NumberFieldComponent implements OnInit {
-  @Input()parentEditData;
-  @Input()parentForm:FormGroup;
+  @Input()genericData;
+  @Input()genericForm:FormGroup;
   constructor() { }
 
   ngOnInit() {

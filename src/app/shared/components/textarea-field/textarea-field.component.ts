@@ -7,8 +7,8 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./textarea-field.component.scss']
 })
 export class TextareaFieldComponent implements OnInit {
-  @Input()parentEditData;
-  @Input()parentForm:FormGroup;
+  @Input()genericData;
+  @Input()genericForm:FormGroup;
   constructor() { }
 
   ngOnInit() {
