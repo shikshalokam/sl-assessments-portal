@@ -8,16 +8,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   links = [  
           { 
-            linkHeading : "features",
+            linkHeading : "Features",
             options:[ 
                       {
-                        value : "parentInterview",
-                        anchorLink : "https://www.google.com/"
+                        value : "Parent Interview",
+                        anchorLink : "/parent"
                 
                         }
                     ]  
             }
         ] ;
-
+      
 }
 

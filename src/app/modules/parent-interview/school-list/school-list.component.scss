@@ -1,0 +1,31 @@
+table {
+    width: 100%;
+  }
+.contentMiddle{
+    width: 80%;
+    margin : 2% 0 0 10%;
+}
+.mat-form-field {
+    font-size: 15px;
+    width: 75%;
+}
+.capitalise{
+    text-transform: capitalize;
+}
+.filterInput{
+    padding-left: 25px;
+}
+.search{
+    padding: 0px 15px;
+}
+.active{
+    border-radius: 12px; 
+    border:1px solid  #46a9ff; 
+    padding:2px 8px; 
+    background-color: #e5f2fe; 
+}
+
+.spaceBetween{
+    display:flex;
+    justify-content: space-between;
+}

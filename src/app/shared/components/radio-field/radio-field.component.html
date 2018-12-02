@@ -1,0 +1,15 @@
+
+<div [formGroup]="genericForm">
+  <mat-radio-group formControlName="{{genericData.field}}"  required>
+    <div class="example-selected-value">{{genericData.label}}  is: </div>
+    <span *ngFor="let opt of genericData.options"  >
+      <mat-radio-button  class ="space"value="{{opt.value}}">{{opt.label}}</mat-radio-button>
+    </span>
+  </mat-radio-group>
+  <span *ngIf ="genericData.validation.required && !genericForm.get(genericData.field).valid">
+      <div  class="example-full-width col-sm-12 right">
+        {{genericData.label}} is Required.
+      </div>
+  </span>
+  
+  </div>

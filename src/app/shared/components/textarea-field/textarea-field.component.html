@@ -1,0 +1,20 @@
+<div [formGroup]= "genericForm" *ngIf="genericForm">
+    <mat-form-field class="example-full-width col-sm-12">
+        <div class="form-group" >
+            <textarea matInput formControlName="{{genericData.field}}" required placeholder="{{genericData.label}} "></textarea>
+        </div>
+    </mat-form-field>
+    <span *ngIf = "genericData.validation.required">
+        <span class="help-block" *ngIf="{'has-error' : genericForm?.get(genericData?.field)?.errors  && 
+    (genericForm?.get(genericData?.field)?.touched || genericForm?.get(genericData?.field)?.dirty)}">
+
+        <div *ngIf="!genericForm.get(genericData.field)?.valid" class=" right example-full-width col-sm-12">
+        {{genericData.field}} &nbsp;is Required.
+        </div>
+    </span> 
+    </span>
+
+</div>
+
+
+

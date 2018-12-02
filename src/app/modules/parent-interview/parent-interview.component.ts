@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { AuthService } from 'src/app/core';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @Component({
   selector: 'app-parent-interview',
   templateUrl: './parent-interview.component.html',
-  styleUrls: ['./parent-interview.component.scss']
+  styleUrls: ['./parent-interview.component.scss'],
+  providers: [
+   ]
 })
 export class ParentInterviewComponent implements OnInit {
 
-  constructor(private keycloakService: KeycloakService, private auth: AuthService) {
+  constructor() {
 
    }
 
   ngOnInit() {
-    console.log(this.auth.getToken())
   }
   
   

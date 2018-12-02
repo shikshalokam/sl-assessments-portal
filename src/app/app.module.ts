@@ -3,16 +3,18 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
+// import {  KeycloakAngularModule } from 'keycloak-angular';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { keycloakInitializer } from './core/auth/keycloak-initializer';
 import { TranslateService } from './core/services/translate-service/translate.service';
 import { ModulesModule } from './modules/modules.module';
-import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { AuthService } from './core/services/auth/auth.service';
+import { MatDividerModule } from '@angular/material/divider';
+import { ApiInterceptor } from 'src/app/core/services/interceptor-service';
+import { ApiService } from './core/services/api-service';
+import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
@@ -24,21 +26,27 @@ export function authFactory(authService: AuthService) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    KeycloakAngularModule,
+    // KeycloakAngularModule,
     SharedModule,
     CoreModule,
     ModulesModule, 
     MatDividerModule,
     CoreModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ParentInterviewRoutingModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+   },
+     ApiService,
     TranslateService,
     {
       provide: APP_INITIALIZER,
