@@ -9,7 +9,7 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./school-list.component.scss']
 })
 export class SchoolListComponent implements OnInit{
-  displayedColumns: string[] = ['name', '_id', 'externalId'];
+  displayedColumns: string[] = ['name', 'city', 'state', 'externalId'];
 
   dataSource;
   constructor(private apiFetch :ApiService ) {
