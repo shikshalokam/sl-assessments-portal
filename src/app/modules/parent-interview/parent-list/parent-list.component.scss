@@ -1,0 +1,41 @@
+table {
+    width: 100%;
+  }
+.contentMiddle{
+    width: 80%;
+    margin : 2% 0 0 10%;
+}
+.mat-form-field {
+    font-size: 15px;
+    width: 75%;
+}
+
+.filterInput{
+    padding-left: 25px;
+}
+.search{
+    padding: 0px 15px;
+}
+.active{
+    border-radius: 12px; 
+    border:1px solid  #46a9ff; 
+    padding:2px 8px; 
+    background-color: #e5f2fe; 
+}
+.capitalise{
+    text-transform: capitalize;
+}
+.brand{
+    color:#bababa;
+    cursor: pointer;
+    margin-left: 40px;
+
+}
+.spaceBetween{
+    display:flex;
+    justify-content: space-between;
+}
+example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}

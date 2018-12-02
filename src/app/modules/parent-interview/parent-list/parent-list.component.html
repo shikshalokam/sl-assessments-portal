@@ -1,0 +1,52 @@
+<mat-form-field class = "contentMiddle">
+    <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<i class="material-icons search">search</i>
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 contentMiddle">
+  
+      <ng-container matColumnDef="studentName">
+          <th mat-header-cell *matHeaderCellDef> Student Name </th>
+          <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.studentName}} </span></td>
+      </ng-container>
+    
+      <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.name}} </span></td>
+      </ng-container>
+    
+      <ng-container matColumnDef="phone1">
+        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef> Gender </th>
+        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> Address </th>
+          <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.address}} </span></td>
+      </ng-container>
+
+      <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef>Grade</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="spaceBetween">
+              <span class ="capitalise">{{element.grade}}</span> 
+              <span class="spaceBetween">
+                    <a mat-fab [routerLink]="['/parent/parent-edit' , element._id ]" ><i class="material-icons brand">
+                        priority_high
+                    </i></a>
+                    <a mat-fab routerLink="."><i class="material-icons brand">
+                        create
+                    </i></a>
+              </span>  
+          </span>
+        </td>
+      </ng-container>
+        
+    <tr mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
