@@ -2,7 +2,7 @@
 
   <div class="col-sm-6 alingCenterline">
     <mat-card-title class="pageBrand">
-      <strong>shamikhsa</strong>
+      <strong>Samiksha</strong>
     </mat-card-title>
     <span (click)="openDropdown()">
       <span class="glyphicon glyphicon-th dropdownIcon"></span>
@@ -11,9 +11,9 @@
     <div id="overlay" (click)="openDropdown()" *ngIf="showDropdown">
       <div class="dropdownDiv">
         <div class="col-sm-3 dropdownFeature">
-          <a href="#">
+          <!-- <a href="#"> -->
             <div class="verticalCenteralign">
-              <div class="apple">
+              <div class="apple" >
                 <i class="material-icons" id="whiteIcon">
                   create
                 </i>
@@ -22,7 +22,7 @@
                 My Apps
               </div>
             </div>
-          </a>
+          <!-- </a> -->
         </div>
       </div>
     </div>
@@ -37,10 +37,10 @@
     </div> -->
 
   <div class="col-sm-6 right">
-    <span mat-button [matMenuTriggerFor]="menu" class="alingCenterline">
+    <span mat-button [matMenuTriggerFor]="menu" class="alingCenterline _cursor-pointer">
       <span class="brand ">
         <mat-card-subtitle>
-          <span class="brand ">Bachi AlamSetthy</span>
+          <span class="brand ">{{currentUser?.name}}</span>
         </mat-card-subtitle>
       </span>
       <i class="material-icons brand icon">
@@ -52,14 +52,14 @@
           <i class="material-icons">
               supervised_user_circle
           </i>
-          <span class="padding">bachi@Sikhshalocham.org</span>
+          <span class="padding">{{currentUser?.email}}</span>
       </span>
       <mat-divider></mat-divider>
       <span mat-menu-item  class="matmenuIcon black">
         <i class="material-icons">
           done
         </i>
-        <span class="padding">Bachi AlamSetthy</span>
+        <span class="padding">{{currentUser?.name}}</span>
       </span>
       <mat-divider></mat-divider>
       <span mat-menu-item class="padding">

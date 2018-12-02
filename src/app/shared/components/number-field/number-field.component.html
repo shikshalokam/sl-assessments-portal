@@ -1,15 +1,15 @@
 <div [formGroup]="genericForm" class="example-full-width col-sm-12">
-  <mat-form-field >
-      <span *ngIf="genericData.input == 'number'" matPrefix>+91 &nbsp;</span>
-      <input type="tel" placeholder="{{genericData.label}} " formControlName="{{genericData.field}}" matInput required>
-    </mat-form-field>
-    
-  <span *ngIf = "genericData.validation.required"> 
-  <span class="help-block" *ngIf="{'has-error' : genericForm.get(genericData.field).errors  && 
+  <mat-form-field>
+    <span *ngIf="genericData.input == 'number'" matPrefix>+91 &nbsp;</span>
+    <input type="tel" placeholder="{{genericData.label}} " formControlName="{{genericData.field}}" matInput required>
+  </mat-form-field>
+
+  <!-- <span *ngIf="genericData.validation.required">
+    <span class="help-block" *ngIf="{'has-error' : genericForm.get(genericData.field).errors  && 
                                   (genericForm.get(genericData.field).touched || genericForm.get(genericData.field).dirty)}">
-    <div *ngIf="!genericForm.get(genericData.field)?.valid" class="example-full-width col-sm-12 right">
-      {{genericData.label}} is Required.
-    </div>
-  </span>
-  </span>
+      <div *ngIf="!genericForm.get(genericData.field)?.valid" class="example-full-width col-sm-12 right">
+        {{genericData.label}} is Required.
+      </div>
+    </span>
+  </span> -->
 </div>

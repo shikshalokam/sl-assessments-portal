@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import * as jwt_decode from "jwt-decode";
 
 declare var Keycloak: any;
 
@@ -30,6 +31,11 @@ export class AuthService {
   
   getToken(): string {
     return this.keycloakAuth.token;
+  }
+
+  getCurrentUserDetails() {
+    console.log(jwt_decode(this.keycloakAuth.token).name)
+    return jwt_decode(this.keycloakAuth.token);
   }
 
 }

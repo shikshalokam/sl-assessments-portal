@@ -1,4 +1,4 @@
-<mat-form-field class = "contentMiddle">
+<mat-form-field class = "contentMiddle _full-width">
     <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 <i class="material-icons search">search</i>
@@ -37,7 +37,7 @@
               <span class ="capitalise">{{element.grade}}</span> 
               <span class="spaceBetween">
                     <a mat-fab [routerLink]="['/parent/parent-edit' , element._id ]" ><i class="material-icons brand">
-                        priority_high
+                        person
                     </i></a>
                     <a mat-fab routerLink="."><i class="material-icons brand">
                         create

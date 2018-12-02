@@ -4,7 +4,7 @@
             <input matInput type="text" placeholder="{{genericData.label}} " formControlName="{{genericData?.field}}"  required>
         </div>
     </mat-form-field>
-    <span *ngIf = "genericData.validation.required">
+    <!-- <span *ngIf = "genericData.validation.required">
         <span class="help-block" *ngIf="{'has-error' : genericForm?.get(genericData?.field)?.errors  && 
     (genericForm?.get(genericData?.field)?.touched || genericForm?.get(genericData?.field)?.dirty)}">
 
@@ -12,7 +12,7 @@
         {{genericData.field}} &nbsp;is Required.
         </div>
     </span> 
-    </span>
+    </span> -->
 
 </div>
 
