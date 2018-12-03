@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'parent-interview',
-    loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule' // load private module only if logged in
+    loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
+   // load private module only if logged in
   },
   {
     path: '**',

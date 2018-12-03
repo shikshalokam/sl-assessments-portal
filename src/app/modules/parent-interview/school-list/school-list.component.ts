@@ -10,7 +10,6 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class SchoolListComponent implements OnInit{
   displayedColumns: string[] = ['name', 'city', 'state', 'externalId'];
-
   dataSource;
   constructor(private apiFetch :ApiService ) {
   this.showConfig();
