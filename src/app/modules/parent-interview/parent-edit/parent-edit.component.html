@@ -1,8 +1,14 @@
+<!-- <div class="heading">
+            <app-breadcrumb [breadcrumbRoute]="breadcrumbRoute" ></app-breadcrumb>
+    </div> -->
 <div *ngIf = "parentEditData && parentForm">
-      <div>
-            <app-dynamic-form [genericData] = "parentEditData" [genericForm] = "parentForm"  ></app-dynamic-form>
+      <div  class="example-full-width col-sm-12 alingCenterline heading " >
+            <h2>{{parentInfoHeading | translate }}</h2>
       </div>
-      <div class="example-full-width col-sm-12 right">
-            <button class="btn btn-success " [disabled]="!parentForm?.valid" (click)="getData()" >Submit</button>    
+      <div>
+            <app-dynamic-form [genericData] = "parentEditData" [genericForm] = "parentForm" [genericEdit] = "isEdit" ></app-dynamic-form>
+      </div>
+      <div class="example-full-width col-sm-12" >
+            <button class="btn btn-success right" [disabled]="!parentForm?.valid" (click)="getUpdateData()"  >Submit</button>    
       </div>  
 </div>

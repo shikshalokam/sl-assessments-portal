@@ -8,13 +8,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   links = [  
           { 
-            linkHeading : "Features",
+            linkHeading : "features",
             options:[ 
                       {
-                        value : "Parent Interview",
+                        value : "parentInterview",
                         anchorLink : "/parent"
-                
-                        }
+                      }
                     ]  
             }
         ] ;

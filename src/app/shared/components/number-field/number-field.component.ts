@@ -9,6 +9,8 @@ import { FormGroup } from '@angular/forms';
 export class NumberFieldComponent implements OnInit {
   @Input()genericData;
   @Input()genericForm:FormGroup;
+  @Input()genericEdit:boolean;
+
   constructor() { }
 
   ngOnInit() {
