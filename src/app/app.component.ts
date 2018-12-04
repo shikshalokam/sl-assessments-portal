@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from './core/services/translate-service/translate.service';
 
 @Component({
   selector: 'app-root',
@@ -6,12 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor(private translate: TranslateService) {
+    translate.use('en').then(() => {
+      console.log(translate.language);
+      console.log("app test of translatxe")
+    });
+  }
+
   links = [  
           { 
-            linkHeading : "Features",
+            linkHeading : "features",
             options:[ 
                       {
-                        value : "parent Interview",
+                        value : "parentInterview",
                         anchorLink : "/parent"
                       }
                     ]  
