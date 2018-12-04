@@ -38,7 +38,7 @@ export class ParentEditComponent implements OnInit {
         id: this.schoolId
       },
       {
-        label : "Parent List",
+        label : "Parent Information",
         url : "/parent/parent-edit/",
         id: this.sendUrl
       }
