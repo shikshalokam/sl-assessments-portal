@@ -38,4 +38,9 @@ export class AuthService {
     return jwt_decode(this.keycloakAuth.token);
   }
 
+  getLogout(){
+    console.log("logoutcalled");
+   return this.keycloakAuth.logout();
+  }
+
 }

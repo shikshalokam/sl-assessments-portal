@@ -19,6 +19,10 @@ export class NavbarComponent implements OnInit {
   openDropdown() {
     this.showDropdown = !this.showDropdown;
   }
+  onSignout()
+  {
+    return this.authService.getLogout();
+  }
 }
 
 

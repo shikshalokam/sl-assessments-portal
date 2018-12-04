@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class TranslateService {
 
-  language: any;
+  language: any = {};
 
   constructor(private http: HttpClient) { }
 
@@ -14,7 +14,6 @@ export class TranslateService {
       this.http.get<{}>(langPath).subscribe(
         translation => {
           this.language = Object.assign({}, translation || {});
-          console.log(JSON.stringify(this.language))
           resolve(this.language);
         },
         error => {
