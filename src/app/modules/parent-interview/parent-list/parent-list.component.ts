@@ -13,21 +13,30 @@ import {MatTableDataSource} from '@angular/material';
 export class ParentListComponent implements OnInit {
   dataSource;
   errorMessage;
+  breadcrumbRoute;
   constructor( private route :ActivatedRoute,private apiFetch :ApiService) { 
+    this.route.params.subscribe(params => {
+      this.schoolId = params["id"];
+  });
   }
   schoolId :any;
   isProdEnvironment:string;
   displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade'];
-
+ 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.schoolId = params["id"];
-  });
+    this.breadcrumbRoute = [ 
+      {
+        label : "Parent List",
+        url : "/parent/parent-list/",
+        id : this.schoolId
+      }
+  ];
   this.showConfig();
 
  }
  applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
+  
 }
  showConfig() {
   this.apiFetch.getParentList(this.schoolId)

@@ -1,5 +1,5 @@
 {
-    "features" : "Features",
+    "Features" : "Features",
     "parentInterview":"Parent Intereview",
 
 
@@ -8,6 +8,8 @@
 
     },
     "headings": {
+        "parentInfoHeading" : "Parent Information ."
+
 
     },
     "labels": {

@@ -1,0 +1,11 @@
+<div [formGroup]="genericForm" >
+  <mat-form-field class="example-full-width col-sm-6 fixSize">
+    <mat-select placeholder="{{genericData.label}}" formControlName="{{genericData.field}}" required>
+      <span *ngFor="let opt of genericData.options">
+        <mat-option  [value]="opt.value" >
+          {{opt.label}}
+        </mat-option>
+      </span>
+    </mat-select>
+  </mat-form-field>
+</div>

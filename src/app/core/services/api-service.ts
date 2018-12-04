@@ -4,6 +4,7 @@ import { ParentConfig } from '../../modules/parent-interview/parent-config';
 import { environment } from 'src/environments/environment.prod';
 import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { error } from '@angular/compiler/src/util';
 export interface Config {
     message: string;
     status: number;
@@ -28,9 +29,12 @@ export class ApiService {
     }
     getParentInfo( temp :string) {
         return this.http.get<Config>(environment.apibaseurl+ParentConfig.parentEditFind+temp);
-   }
-   getSchoolList( ) {
+    }
+    getSchoolList( ) {
          return this.http.get<Config>(environment.apibaseurl+ParentConfig.schoolListFind);
+    }
+    postParentData(temp:string , updateData ){
+        return this.http.post<Config>(environment.apibaseurl+ParentConfig.parentEditFetch+temp, updateData)
     }
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
