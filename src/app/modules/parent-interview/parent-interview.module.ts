@@ -15,6 +15,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {MatButtonModule} from '@angular/material/button';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 @NgModule({
   declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent],
@@ -24,6 +25,7 @@ import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service'
     CoreModule,
     SharedModule,
     MatTableModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
@@ -33,7 +35,8 @@ import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service'
   ],
   providers:[
     ApiService,
-    CreateFormGroup
+    CreateFormGroup,
+    
   ]
 })
 export class ParentInterviewModule { }
