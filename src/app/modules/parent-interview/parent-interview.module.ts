@@ -15,6 +15,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {MatButtonModule} from '@angular/material/button';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 @NgModule({
@@ -25,6 +26,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     CoreModule,
     SharedModule,
     MatTableModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
@@ -34,7 +36,8 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
   ],
   providers:[
     ApiService,
-    CreateFormGroup
+    CreateFormGroup,
+    
   ]
 })
 export class ParentInterviewModule { }

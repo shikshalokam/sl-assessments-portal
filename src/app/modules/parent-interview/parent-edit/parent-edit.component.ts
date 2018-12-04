@@ -20,7 +20,7 @@ export class ParentEditComponent implements OnInit {
   isEdit = false;
   breadcrumbRoute ;
   schoolId;
-  parentInfoHeading = "Parent Information";  
+  // parentInfoHeading = "Parent Information";  
   constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];

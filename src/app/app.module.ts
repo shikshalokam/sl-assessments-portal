@@ -41,12 +41,6 @@ export function authFactory(authService: AuthService) {
     ParentInterviewRoutingModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiInterceptor,
-      multi: true
-   },
-     ApiService,
     TranslateService,
     {
       provide: APP_INITIALIZER,
@@ -54,6 +48,12 @@ export function authFactory(authService: AuthService) {
       deps: [TranslateService],
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+   },
+     ApiService,
     {
       provide: APP_INITIALIZER,
       useFactory: authFactory,

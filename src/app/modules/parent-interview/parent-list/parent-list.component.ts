@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/core/services/api-service';
 import { environment } from 'src/environments/environment.prod';
 import { ParentConfig } from '../parent-config';
 import {MatTableDataSource} from '@angular/material';
+import { TranslateService } from 'src/app/core';
 
 @Component({
   selector: 'app-parent-list',
@@ -14,7 +15,7 @@ export class ParentListComponent implements OnInit {
   dataSource;
   errorMessage;
   breadcrumbRoute;
-  constructor( private route :ActivatedRoute,private apiFetch :ApiService) { 
+  constructor( private route :ActivatedRoute,private apiFetch :ApiService ) { 
     this.route.params.subscribe(params => {
       this.schoolId = params["id"];
   });
