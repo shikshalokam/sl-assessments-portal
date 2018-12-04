@@ -1,17 +1,13 @@
 <div class="col-sm-12 " [formGroup]= "genericForm"  *ngIf=" genericForm" >
   <div *ngFor="let parentData of genericData" >
-    <div class="space">
-      <app-radio-field *ngIf="parentData.input == 'radio' && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-radio-field>
-    </div>
-    <div class="space">
-        <app-text-field *ngIf="parentData.input == 'text'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-text-field>
-    </div>
-    <div class="space">
-    <app-textarea-field *ngIf="parentData.input == 'textarea'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-textarea-field>
-    </div>
-    <div class="space">
-    <app-number-field *ngIf="parentData.input == 'number'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm"></app-number-field>
-    </div>
+    <app-dropdown-field *ngIf="parentData.input == 'radio' && parentData.visible " [genericData]="parentData" [genericForm]="genericForm" [genericEdit]= "genericEdit"></app-dropdown-field>
+  
+    <app-text-field *ngIf="parentData.input == 'text'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm" [genericEdit]= "genericEdit"></app-text-field>
+    
+    <app-textarea-field *ngIf="parentData.input == 'textarea'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm" [genericEdit]= "genericEdit"></app-textarea-field>
+   
+    <app-number-field *ngIf="parentData.input == 'number'  && parentData.visible " [genericData]="parentData" [genericForm]="genericForm" [genericEdit]= "genericEdit"></app-number-field>
+    
   </div> 
 
 

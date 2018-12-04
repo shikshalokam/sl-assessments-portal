@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api-service';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { FormGroup } from '@angular/forms';
-import { startWith, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment.prod';
+import { ParentConfig } from '../parent-config';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-parent-edit',
@@ -13,31 +15,57 @@ import { startWith, tap } from 'rxjs/operators';
 export class ParentEditComponent implements OnInit {
   sendUrl;
   parentEditData;
-  flag=false;
+  updateData
   parentForm:FormGroup;
-  constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup) { 
+  isEdit = false;
+  breadcrumbRoute ;
+  schoolId;
+  parentInfoHeading = "Parent Information";  
+  constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
+      
   });
+
   this.showConfig(); 
   }
   ngOnInit() {
-
+    
+    this.breadcrumbRoute = [ 
+      {
+        label : "Parent List",
+        url : "/parent/parent-list/",
+        id: this.schoolId
+      },
+      {
+        label : "Parent Information",
+        url : "/parent/parent-edit/",
+        id: this.sendUrl
+      }
+  ];
   }
-  
-showConfig() {
+    showConfig() {
   this.apiFetch.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
         this.parentEditData = data.result;
         this.parentForm = this.createForm.toGroup(data.result) ;
+        
         console.log(this.parentForm);
         console.log(this.parentEditData);
 
       });
 }
-getData(){
-  console.log(this.parentForm.controls);
-}
-
+  getUpdateData(){
+  this.updateData = this.parentForm.getRawValue(); 
+  console.log(this.updateData)
+    this.apiFetch.postParentData(this.sendUrl,this.updateData).
+    subscribe(data => {
+      console.log(data);
+   });
+   this.isEdit=!this.isEdit;
+  }
+  onEdit(){
+    this.isEdit = !this.isEdit ;
+  }
 } 
