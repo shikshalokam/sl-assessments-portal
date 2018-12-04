@@ -1,8 +1,5 @@
 <div class =" breadCrumbheading">
-  <span *ngFor="let rout of breadcrumbRoute;let i = index" [routerLink]="[rout.url,rout.id ]"routerLinkActive="active">
-    <span *ngIf="i == 0 ; else elseBlock">  
-        {{rout.label}}
-    </span>
-    <ng-template #elseBlock>< {{rout.label}} </ng-template> 
+  <span *ngFor="let rout of breadcrumbRoute;last as isLast" [routerLink]="[rout.url,rout.id ]"routerLinkActive="active">
+   {{rout.label}} <span *ngIf="!isLast"> > </span>
    </span>
 </div>
