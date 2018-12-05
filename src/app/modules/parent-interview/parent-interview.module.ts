@@ -16,8 +16,9 @@ import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 @NgModule({
-  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent],
+  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent, QuestionnaireComponent],
   imports: [
     CommonModule,
     ParentInterviewRoutingModule,
