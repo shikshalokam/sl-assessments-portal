@@ -20,17 +20,21 @@ export class ApiService {
     constructor(private http: HttpClient) { }
     configUrl ;
 
-    getParentList( temp :string){
-         return this.http.get<Config>(environment.apibaseurl+ParentConfig.parentListFind+temp)
+    getParentList( schoolId :string){
+         return this.http.get<Config>(environment.apibaseurl+ParentConfig.parentListFind+schoolId)
          .pipe(
             catchError(this.handleError)
           );;
     }
-    getParentInfo( temp :string) {
-        return this.http.get<Config>(environment.apibaseurl+ParentConfig.parentEditFind+temp);
+    getParentInfo( parentId :string) {
+        return this.http.get<Config>(environment.apibaseurl+ParentConfig.parentEditFind+parentId);
    }
    getSchoolList( ) {
          return this.http.get<Config>(environment.apibaseurl+ParentConfig.schoolListFind);
+    }
+
+    getAssessmentQuestions(schoolId) {
+        return this.http.get(environment.apibaseurl+ParentConfig.getSurveyQuestions + schoolId + '?oncall=1');
     }
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {

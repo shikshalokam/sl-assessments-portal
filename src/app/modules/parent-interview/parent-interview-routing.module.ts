@@ -4,6 +4,8 @@ import { ParentInterviewComponent } from './parent-interview.component';
 import { SchoolListComponent } from './school-list/school-list.component';
 import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+
 const routes: Routes = [
   {
     path: 'parent', component: ParentInterviewComponent,
@@ -20,6 +22,10 @@ const routes: Routes = [
       {
         path : 'parent-edit/:id',
         component : ParentEditComponent,
+      },
+      {
+        path: 'survey/:schoolId/:parentId',
+        component: QuestionnaireComponent
       },
       {
         path: '**',
