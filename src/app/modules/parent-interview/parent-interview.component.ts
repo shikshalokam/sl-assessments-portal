@@ -12,7 +12,6 @@ import { TranslateService } from 'src/app/core/services/translate-service/transl
 export class ParentInterviewComponent implements OnInit {
 
   constructor(private translate: TranslateService) {
-    console.log(translate.language);
    }
 
   ngOnInit() {

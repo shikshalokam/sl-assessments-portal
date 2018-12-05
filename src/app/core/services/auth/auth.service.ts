@@ -39,7 +39,6 @@ export class AuthService {
   }
 
   getLogout(){
-    console.log("logoutcalled");
    return this.keycloakAuth.logout();
   }
 

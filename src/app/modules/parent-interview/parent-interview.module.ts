@@ -18,8 +18,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { ParentInformationComponent } from './parent-information/parent-information.component';
 @NgModule({
-  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent, QuestionnaireComponent],
+  declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent, QuestionnaireComponent,ParentInformationComponent],
   imports: [
     CommonModule,
     ParentInterviewRoutingModule,
