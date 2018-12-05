@@ -46,7 +46,7 @@
                         <span class="active" [routerLink]="['/parent/parent-edit' , element._id ]" >
                                 {{'tableLabel.buttons.edit'| translate}}
                         </span>
-                        <span  class="active" routerLink=".">
+                        <span  class="active" [routerLink]="['/parent/parent-information' , element._id ]">
                                 {{'tableLabel.buttons.startSurvey'| translate}}
                         </span>
                   </span>  
