@@ -1,8 +1,6 @@
 <div [formGroup]= "genericForm" *ngIf="genericForm">
-    <mat-form-field class="example-full-width col-sm-12">
-        <div class="form-group" >
-            <input matInput type="text" placeholder="{{genericData.label}} " formControlName="{{genericData?.field}}"  required>
-        </div>
+    <mat-form-field  class="example-full-width col-sm-6 fixSize">
+            <input matInput   type="text" placeholder="{{genericData.label}} " formControlName="{{genericData?.field}}"  required>
     </mat-form-field>
     <!-- <span *ngIf = "genericData.validation.required">
         <span class="help-block" *ngIf="{'has-error' : genericForm?.get(genericData?.field)?.errors  && 
