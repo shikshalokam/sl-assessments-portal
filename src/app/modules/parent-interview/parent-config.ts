@@ -2,7 +2,7 @@
 export const ParentConfig = {
         schoolListFind: "assessors/schools",
         parentListFind : "parentRegistry/list/",
-        parentEditFind : "parentRegistry/form/",
+        parentEditFind : "parentRegistry/fetch/",
         getSurveyQuestions: "schools/assessments/",
         parentEditFetch : "parentRegistry/update/",
 }

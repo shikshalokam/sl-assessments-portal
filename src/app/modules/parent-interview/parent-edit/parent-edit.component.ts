@@ -24,7 +24,7 @@ export class ParentEditComponent implements OnInit {
   constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
-      
+      console.log(this.sendUrl)
   });
 
   this.showConfig(); 
