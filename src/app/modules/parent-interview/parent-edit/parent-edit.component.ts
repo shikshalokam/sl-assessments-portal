@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api-service';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { FormGroup } from '@angular/forms';
-import { environment } from 'src/environments/environment.prod';
-import { ParentConfig } from '../parent-config';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

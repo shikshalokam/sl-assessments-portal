@@ -46,7 +46,6 @@
                                 {{'tableLabel.buttons.edit'| translate}}
                         </span>
                         <span  class="active" [routerLink]="['/parent/survey' , schoolId , element._id ]">
-                      
                                 {{'tableLabel.buttons.startSurvey'| translate}}
                         </span>
                   </span>  
@@ -57,4 +56,3 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
