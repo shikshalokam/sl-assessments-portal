@@ -1,7 +1,6 @@
 {
     "features" : "Features",
     "parentInterview":"Parent Intereview",
-    "signOut" :"Sign Out",
     "brand" : "Shamiksha",
     "shikshalokam": "Sample",
     "buttons": {
@@ -23,7 +22,9 @@
         
     },
     "menuDropdown" : {
-        "myApps" : "My Apps"
+        "myApps" : "My Apps",
+        "signOut" :"Sign Out"
+
     },
     "tableLabel":{
         "name" :"Name",
