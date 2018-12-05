@@ -1,4 +1,4 @@
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParentInterviewComponent } from './parent-interview.component';
 import { ParentInterviewRoutingModule } from './parent-interview-routing.module';
@@ -10,12 +10,12 @@ import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ApiService } from 'src/app/core/services/api-service';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
-// import { RouterModule } from '@angular/router';
-
+import {MatCardModule} from '@angular/material/card';
 import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { ParentInformationComponent } from './parent-information/parent-information.component';
@@ -23,9 +23,11 @@ import { ParentInformationComponent } from './parent-information/parent-informat
   declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent, QuestionnaireComponent,ParentInformationComponent],
   imports: [
     CommonModule,
+    MatCardModule,
     ParentInterviewRoutingModule,
     CoreModule,
     SharedModule,
+    MatSelectModule,
     MatTableModule,
     MatButtonModule,
     MatInputModule,
@@ -38,6 +40,7 @@ import { ParentInformationComponent } from './parent-information/parent-informat
   providers:[
     ApiService,
     CreateFormGroup,
+    
     
   ]
 })
