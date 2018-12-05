@@ -10,8 +10,7 @@ export class AppComponent {
 
   constructor(private translate: TranslateService) {
     translate.use('en').then(() => {
-      console.log(translate.language);
-      console.log("app test of translatxe")
+    
     });
   }
 
