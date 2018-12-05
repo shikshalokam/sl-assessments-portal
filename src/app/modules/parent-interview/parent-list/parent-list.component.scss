@@ -24,7 +24,10 @@ table {
 .capitalise{
     text-transform: capitalize;
 }
-
+.heading{
+    margin-top:8px;
+    margin-bottom: 0px;
+}
 .spaceBetween{
     display:flex;
     justify-content: space-between;

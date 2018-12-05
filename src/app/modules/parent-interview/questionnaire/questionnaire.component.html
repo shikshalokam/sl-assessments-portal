@@ -1,1 +1,15 @@
 
+<app-parent-information [parentId]="parentId" (callResponse)="setcallResponse($event)"></app-parent-information>
+<mat-card class = "question">
+
+    <div *ngFor="let ques of generalQuestion | slice:x:x+1">
+        <div *ngFor="let question of ques.question ">
+            {{question}}
+        </div>
+    
+        <div class="spaceBetween">
+            <button (click) = "previousQuestion()" >Back</button>
+            <button (click) = "nextQuestion()" >Next</button>
+        </div>
+    </div>
+</mat-card>
