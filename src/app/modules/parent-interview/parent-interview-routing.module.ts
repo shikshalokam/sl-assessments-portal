@@ -13,15 +13,18 @@ const routes: Routes = [
     children: [
       {
         path: 'school-list',
-        component: SchoolListComponent
+        component: SchoolListComponent,
+       
       },
       {
         path : 'parent-list/:id',
         component : ParentListComponent,
+       
       },
       {
         path : 'parent-edit/:id',
         component : ParentEditComponent,
+       
       },
       {
         path: 'survey/:schoolId/:parentId',

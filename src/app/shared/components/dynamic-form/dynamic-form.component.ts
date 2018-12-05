@@ -12,7 +12,8 @@ export class DynamicFormComponent implements OnInit {
 
   @Input() genericData : any ;
   @Input()genericForm :FormGroup;
-  flag = false;
+  @Input()genericEdit:boolean;
+
 
   constructor(private parenteditcomponent:ParentEditComponent) { 
     

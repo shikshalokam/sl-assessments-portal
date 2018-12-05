@@ -11,10 +11,9 @@ export class AppComponent {
             linkHeading : "Features",
             options:[ 
                       {
-                        value : "Parent Interview",
+                        value : "parent Interview",
                         anchorLink : "/parent"
-                
-                        }
+                      }
                     ]  
             }
         ] ;
