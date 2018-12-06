@@ -4,6 +4,8 @@ import { ApiService } from 'src/app/core/services/api-service';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { UtilityService } from 'src/app/core/services/utility-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-parent-edit',
@@ -18,8 +20,8 @@ export class ParentEditComponent implements OnInit {
   isEdit = false;
   breadcrumbRoute ;
   schoolId;
-  // parentInfoHeading = "Parent Information";  
-  constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
+  headings = 'headings.parentInfoHeading';
+  constructor(private location: Location,private route :ActivatedRoute,private showLoader : UtilityService ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
       console.log(this.sendUrl)
@@ -43,12 +45,21 @@ export class ParentEditComponent implements OnInit {
   ];
   }
     showConfig() {
+      this.showLoader.show();
+
   this.apiFetch.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
         this.parentEditData = data.result;
+        for(let i =0;i<this.parentEditData.length;i++){
+          if(this.parentEditData[i]['field'] == "callResponse")
+          {
+            this.parentEditData[i].visible = false ;
+            console.log(this.parentEditData[i].visible);
+          }
+        }
         this.parentForm = this.createForm.toGroup(data.result) ;
-        
+        this.showLoader.hide();
         console.log(this.parentForm);
         console.log(this.parentEditData);
 
@@ -65,5 +76,8 @@ export class ParentEditComponent implements OnInit {
   }
   onEdit(){
     this.isEdit = !this.isEdit ;
+  }
+  onCancel(){
+    this.location.back();
   }
 } 

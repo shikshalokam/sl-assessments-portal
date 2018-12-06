@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 // import {  KeycloakAngularModule } from 'keycloak-angular';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -15,7 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ApiInterceptor } from 'src/app/core/services/interceptor-service';
 import { ApiService } from './core/services/api-service';
 import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
-
+import { UtilityService } from './core/services/utility-service';
 export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('en');
@@ -26,7 +24,7 @@ export function authFactory(authService: AuthService) {
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +32,7 @@ export function authFactory(authService: AuthService) {
     // KeycloakAngularModule,
     SharedModule,
     CoreModule,
-    ModulesModule, 
+    ModulesModule,
     MatDividerModule,
     CoreModule.forRoot(),
     HttpClientModule,
@@ -52,8 +50,9 @@ export function authFactory(authService: AuthService) {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true
-   },
-     ApiService,
+    },
+    ApiService,
+    UtilityService,
     {
       provide: APP_INITIALIZER,
       useFactory: authFactory,

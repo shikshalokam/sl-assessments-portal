@@ -1,9 +1,8 @@
 <!-- <div class="heading">
         <app-breadcrumb [breadcrumbRoute]="breadcrumbRoute"></app-breadcrumb>
 </div> -->
-<div  class="example-full-width alingCenterline heading " >
-        <h2 class="font">{{'headings.parentListHeading'| translate }}</h2>
-  </div>
+<app-parent-heading [genericHeading]="headings"  (flagValue)="setFlag($event)"></app-parent-heading>
+
     <mat-form-field class = "contentMiddle _full-width">
         <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
     </mat-form-field>
