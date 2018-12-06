@@ -2,7 +2,7 @@
 
   <div class="col-sm-6 alingCenterline">
     <mat-card-title class="pageBrand">
-      <strong>Samiksha</strong>
+      <strong>{{ 'brand' | translate }}</strong>
     </mat-card-title>
     <span (click)="openDropdown()">
       <span class="glyphicon glyphicon-th dropdownIcon"></span>
@@ -19,7 +19,7 @@
                 </i>
               </div>
               <div class="active">
-                My Apps
+                {{'menuDropdown.myApps' | translate}}
               </div>
             </div>
           <!-- </a> -->
@@ -39,7 +39,7 @@
   <div class="col-sm-6 right">
     <span mat-button [matMenuTriggerFor]="menu" class="alingCenterline _cursor-pointer">
       <span class="brand ">
-        <mat-card-subtitle>
+        <mat-card-subtitle class="pageMenu">
           <span class="brand ">{{currentUser?.name}}</span>
         </mat-card-subtitle>
       </span>
@@ -62,9 +62,9 @@
         <span class="padding">{{currentUser?.name}}</span>
       </span>
       <mat-divider></mat-divider>
-      <span mat-menu-item class="padding">
+      <span mat-menu-item class="padding" (click)="onSignout()">
         <span class="bigPadding black">
-            SignOut
+            {{'menuDropdown.signOut' | translate}}
         </span>
       </span>
     </mat-menu>

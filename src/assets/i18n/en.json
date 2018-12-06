@@ -1,14 +1,17 @@
 {
-    "Features" : "Features",
+    "features" : "Features",
     "parentInterview":"Parent Intereview",
-
-
+    "brand" : "Shamiksha",
     "shikshalokam": "Sample",
     "buttons": {
-
+        "update" : "Update"
     },
+    "search": "Search",
     "headings": {
-        "parentInfoHeading" : "Parent Information ."
+        "parentInfoHeading" : "Parent Information",
+        "parentListHeading" : "Parent List",
+        "schoolListHeading" : "School List"
+
 
 
     },
@@ -17,5 +20,26 @@
     },
     "sideNavLinks": {
         
+    },
+    "menuDropdown" : {
+        "myApps" : "My Apps",
+        "signOut" :"Sign Out"
+
+    },
+    "tableLabel":{
+        "name" :"Name",
+        "studentName" : "Student Name",
+        "phone" : "Phone",
+        "gender":"Gender",
+        "grade":"Grade",
+        "address":"Address",
+        "city":"City",
+        "state":"State",
+        "externalId":"External-Id",
+        "buttons":{
+            "clickHere" : "Click Here",
+            "edit" : "Edit",
+            "startSurvey" : "Start Survey"
+        }
     }
 }

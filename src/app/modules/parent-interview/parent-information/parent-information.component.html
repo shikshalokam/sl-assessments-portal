@@ -1,0 +1,30 @@
+<mat-card class = "card">
+  <div class="col-sm-4" *ngFor="let res of data ">
+    <span *ngIf="res.input == 'radio' ; else other" >
+      <span *ngIf="res.label == 'Call Response' ; else otherLabel">
+        <span class="bold"> {{res.label}} : </span>
+        <mat-form-field class="form">
+          <span *ngFor="let opt of res.options">
+            <span *ngIf="res.value == opt.value">
+              <mat-select [(value)]="selected" >
+                <mat-option *ngFor="let opt of res.options" [value]="opt.value" (click)="sendcallResponse()">
+                  {{opt.label}}
+                </mat-option>
+              </mat-select>
+            </span>
+          </span>
+          </mat-form-field> 
+      </span>
+      <ng-template #otherLabel >
+          <span *ngFor="let opt of res.options">
+              <span *ngIf="res.value == opt.value">
+               <span class="bold"> {{res.label}} : </span> {{opt.label}}
+              </span>
+            </span>
+      </ng-template>
+    </span>
+    <ng-template #other>
+        <span class="bold"> {{res.label}} : </span> {{res.value}}
+    </ng-template>
+  </div>
+</mat-card>
