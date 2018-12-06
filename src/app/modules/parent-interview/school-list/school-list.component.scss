@@ -1,14 +1,11 @@
+@import '../../../../assets/varibles.scss';
 table {
     width: 100%;
   }
-// .contentMiddle{
-//     width: 80%;
-//     margin : 2% 0 0 10%;
-// }
-// .mat-form-field {
-//     font-size: 15px;
-//     width: 75%;
-// }
+.heading{
+    margin-top: 7px;
+    margin-bottom: 0px;
+}
 .capitalise{
     text-transform: capitalize;
 }
@@ -20,7 +17,7 @@ table {
 }
 .active{
     border-radius: 12px; 
-    border:1px solid  #46a9ff; 
+    border:1px solid $primary-color; 
     padding:2px 8px; 
     background-color: #e5f2fe; 
     cursor: pointer;

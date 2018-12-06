@@ -21,6 +21,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.genericForm);
   }
 
   toGroup(inputs) {

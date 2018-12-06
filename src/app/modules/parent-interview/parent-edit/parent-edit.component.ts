@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api-service';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { FormGroup } from '@angular/forms';
-import { environment } from 'src/environments/environment.prod';
-import { ParentConfig } from '../parent-config';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -20,11 +18,11 @@ export class ParentEditComponent implements OnInit {
   isEdit = false;
   breadcrumbRoute ;
   schoolId;
-  parentInfoHeading = "Parent Information";  
+  // parentInfoHeading = "Parent Information";  
   constructor(private route :ActivatedRoute ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
-      
+      console.log(this.sendUrl)
   });
 
   this.showConfig(); 
