@@ -37,6 +37,9 @@ export class ApiService {
     getAssessmentQuestions(schoolId) {
         return this.http.get(environment.apibaseurl + ParentConfig.getSurveyQuestions + schoolId + '?oncall=1');
     }
+    postSubmission(submissionId) {
+        return this.http.post(environment.apibaseurl + ParentConfig.getParentinterview + submissionId,{});
+    }
 
     postParentData(temp: string, updateData) {
         return this.http.post<Config>(environment.apibaseurl + ParentConfig.parentEditFetch + temp, updateData)

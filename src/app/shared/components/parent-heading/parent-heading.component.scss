@@ -1,0 +1,17 @@
+@import '../../../../assets/varibles.scss';
+.heading{
+   margin-top: 0px;
+}
+.btnColor{
+    background-color: $primary-color;
+    color :white;
+}
+.alingCenterline{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.backButton{
+    font-size: 40px;
+
+}

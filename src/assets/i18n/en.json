@@ -3,8 +3,17 @@
     "parentInterview":"Parent Intereview",
     "brand" : "Shamiksha",
     "shikshalokam": "Sample",
+    "dialogBox" :{
+        "alertHeading" : "ALERT !!",
+        "alertMessage" : "Are You Sure TO Submit !!!!"
+    },
+
+    
     "buttons": {
-        "update" : "Update"
+        "update" : "Update",
+        "markasComplete" : "Mark As Complete",
+        "complete" : "Complete",
+        "cancel" : "Cancel"
     },
     "search": "Search",
     "headings": {
