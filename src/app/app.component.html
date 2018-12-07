@@ -1,10 +1,11 @@
 <div class="container-fluid">
     <div class="row completeDiv">
-        <div class="mod headerDiv">
+        <div class="headerDiv">
             <app-navbar></app-navbar>
+            <app-responsive-navbar></app-responsive-navbar>
             <mat-divider class="noMarginPadding"></mat-divider>
         </div>
-       <div class="bodyDiv">
+        <div class="bodyDiv test">
             <div class="sideDiv horizontalLine">
                 <div *ngFor= "let link of links" > 
                     <app-sidenav [link] = "link" ></app-sidenav>
