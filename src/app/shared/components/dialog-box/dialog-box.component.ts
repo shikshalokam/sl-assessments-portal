@@ -15,13 +15,9 @@ export class DialogBoxComponent implements OnInit {
 
   ngOnInit() {
   }
-  onNoClick(): void {
+  onCancel(): void {
     this.dialogRef.close();
   }
-  // sendFlag(){
-  //   console.log(this.flag);
-  //    this.flagValue.emit(this.flag);
-  //    console.log("emitted")
-  // }
+  
 
 }

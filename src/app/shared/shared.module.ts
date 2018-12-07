@@ -15,11 +15,10 @@ import { CoreModule } from '../core';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component'
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import { LoaderComponent } from './components/loader/loader.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, LoaderComponent ],
+  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent ],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,6 +33,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CoreModule
   ],
   entryComponents: [DialogBoxComponent],
-  exports : [DynamicFormComponent,BreadcrumbComponent,ParentHeadingComponent ,LoaderComponent]
+  exports : [DynamicFormComponent,BreadcrumbComponent,ParentHeadingComponent]
 })
 export class SharedModule { }

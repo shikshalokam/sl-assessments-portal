@@ -1,6 +1,6 @@
-<div  class="example-full-width alingCenterline  " >
+<div  class=" alingCenterline  " >
   <h2 class="heading">
-      <button *ngIf="genericHeading != 'headings.schoolListHeading'"mat-icon-button class="backButton"(click)="onBack()"><i class="material-icons backButton">
+      <button *ngIf=" noBackButton.indexOf(genericHeading)" mat-icon-button class="backButton"(click)="onBack()"><i class="material-icons backButton">
           keyboard_arrow_left
           </i></button>{{ genericHeading | translate}}
   </h2>

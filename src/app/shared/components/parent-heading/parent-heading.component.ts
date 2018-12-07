@@ -2,9 +2,8 @@ import { Component, OnInit, Input,Inject, Output, EventEmitter } from '@angular/
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { Location } from '@angular/common';
+import { UtilityService } from 'src/app/core/services/utility-service';
 export interface DialogData {
-  animal: string;
-  name: string;
 }
 @Component({
   selector: 'app-parent-heading',
@@ -15,8 +14,9 @@ export interface DialogData {
 export class ParentHeadingComponent implements OnInit {
 @Input()genericHeading : string ; 
  flag : boolean = true;
-@Output()flagValue = new EventEmitter<boolean>();
-constructor(public dialog: MatDialog, private location : Location) {}
+ noBackButton  = [ 'headings.schoolListHeading' ,];
+@Output()sendMarkAsComplete = new EventEmitter<boolean>();
+constructor(public dialog: MatDialog, private utilityService : UtilityService) {}
 
 
   ngOnInit() {
@@ -34,12 +34,10 @@ constructor(public dialog: MatDialog, private location : Location) {}
     });
   }
   sendFlag(){
-    console.log(this.flag);
-     this.flagValue.emit(this.flag);
-     console.log("flag emitted");
+     this.sendMarkAsComplete.emit(this.flag);
   }
 
   onBack(){
-    this.location.back();
+    this.utilityService.onBack();
   }
 }
