@@ -7,8 +7,6 @@ import { DialogData } from '../parent-heading/parent-heading.component';
   styleUrls: ['./dialog-box.component.scss']
 })
 export class DialogBoxComponent implements OnInit {
-  // flag : boolean = true;
-  // @Output()flagValue = new EventEmitter<boolean>();
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}

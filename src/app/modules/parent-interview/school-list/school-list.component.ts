@@ -14,14 +14,14 @@ export class SchoolListComponent implements OnInit{
   dataSource;
   error: any;
   headings = 'headings.schoolListHeading';
-  constructor(private apiFetch :ApiService ,private showLoader : UtilityService ) {
+  constructor(private apiFetch :ApiService ,private utility : UtilityService ) {
     this.showConfig();
   }
   showConfig() {
   this.apiFetch.getSchoolList()
       .subscribe(data => {
               this.dataSource = new MatTableDataSource(data.result)
-              this.showLoader.loaderHide();
+              this.utility.loaderHide();
       },
       (error) => {
         this.error = error;
@@ -32,7 +32,7 @@ applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() { 
-    this.showLoader.loaderShow(); 
+    this.utility.loaderShow(); 
   }
   
   

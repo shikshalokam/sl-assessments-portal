@@ -13,7 +13,6 @@ export interface DialogData {
 
 export class ParentHeadingComponent implements OnInit {
 @Input()genericHeading : string ; 
- flag : boolean = true;
  noBackButton  = [ 'headings.schoolListHeading' ,];
 @Output()sendMarkAsComplete = new EventEmitter<boolean>();
 constructor(public dialog: MatDialog, private utilityService : UtilityService) {}
@@ -34,7 +33,7 @@ constructor(public dialog: MatDialog, private utilityService : UtilityService) {
     });
   }
   sendFlag(){
-     this.sendMarkAsComplete.emit(this.flag);
+     this.sendMarkAsComplete.emit(true);
   }
 
   onBack(){

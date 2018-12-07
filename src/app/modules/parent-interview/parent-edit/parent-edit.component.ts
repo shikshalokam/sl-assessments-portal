@@ -22,7 +22,7 @@ export class ParentEditComponent implements OnInit {
   schoolId;
   error;
   headings = 'headings.parentInfoHeading';
-  constructor(private location: Location,private route :ActivatedRoute,private showLoader : UtilityService ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
+  constructor(private location: Location,private route :ActivatedRoute,private utility : UtilityService ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
       console.log(this.sendUrl)
@@ -46,21 +46,21 @@ export class ParentEditComponent implements OnInit {
   ];
   }
     showConfig() {
-      this.showLoader.loaderShow();
+      this.utility.loaderShow();
 
   this.apiFetch.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
         this.parentEditData = data.result;
-        for(let i =0;i<this.parentEditData.length;i++){
-          if(this.parentEditData[i]['field'] == "callResponse")
-          {
-            this.parentEditData[i].visible = false ;
-            console.log(this.parentEditData[i].visible);
-          }
-        }
+        this.parentEditData.forEach( element => {
+          if(element['field'] == "callResponse")
+            {
+              element.visible = false ;
+              console.log(element.visible);
+            }
+        });
         this.parentForm = this.createForm.toGroup(data.result) ;
-        this.showLoader.loaderHide();
+        this.utility.loaderHide();
         console.log(this.parentForm);
         console.log(this.parentEditData);
 
