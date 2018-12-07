@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TranslateService, AuthService } from './services';
 import { TranslatePipe } from './pipes';
@@ -14,6 +14,8 @@ import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ParentInterviewRoutingModule } from '../modules/parent-interview/parent-interview-routing.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -21,6 +23,7 @@ import { ParentInterviewRoutingModule } from '../modules/parent-interview/parent
     SidenavComponent
   ],
   imports: [
+    NgxSpinnerModule,
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,

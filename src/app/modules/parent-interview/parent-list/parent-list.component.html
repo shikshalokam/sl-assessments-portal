@@ -1,9 +1,9 @@
 <!-- <div class="heading">
         <app-breadcrumb [breadcrumbRoute]="breadcrumbRoute"></app-breadcrumb>
 </div> -->
-<div  class="example-full-width alingCenterline heading " >
-        <h2 class="font">{{'headings.parentListHeading'| translate }}</h2>
-  </div>
+<div *ngIf="!error">
+<app-parent-heading [genericHeading]="headings"  (sendMarkAsComplete)="parentInterviewSubmit($event)"></app-parent-heading>
+
     <mat-form-field class = "contentMiddle _full-width">
         <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
     </mat-form-field>
@@ -56,3 +56,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+
+    </div>
+<div *ngIf=" error" >
+    {{error.message}}
+    </div>

@@ -1,8 +1,11 @@
 @import '../../../../assets/varibles.scss';
 
-.right{
-    float: right;
+.alingCenterline{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
 .btnColor{
     background-color: $primary-color;
     color :white;
