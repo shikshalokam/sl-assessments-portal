@@ -7,8 +7,7 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./responsive-navbar.component.scss']
 })
 export class ResponsiveNavbarComponent implements OnInit {
-  showDropdown = false;
-  @Input() dropdownLabel ;
+  
   currentUser: any;
 
   constructor(private authService: AuthService) {
@@ -16,9 +15,7 @@ export class ResponsiveNavbarComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUserDetails();
   }
-  openDropdown() {
-    this.showDropdown = !this.showDropdown;
-  }
+  
   onSignout()
   {
     return this.authService.getLogout();
