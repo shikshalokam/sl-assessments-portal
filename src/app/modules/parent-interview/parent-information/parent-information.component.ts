@@ -12,6 +12,7 @@ export class ParentInformationComponent implements OnInit {
   @Input()parentId;
   data;
   selected;
+  error;
   @Output()callResponse = new EventEmitter<string>();
   constructor( private apiFetch :ApiService , private showLoader : UtilityService ) { 
   }
@@ -22,11 +23,11 @@ export class ParentInformationComponent implements OnInit {
   }
 
   showConfig() {
-  this.showLoader.show();
+  this.showLoader.loaderShow();
     this.apiFetch.getParentInfo(this.parentId)
       .subscribe(data => {
         console.log(data.result);
-        this.showLoader.hide();
+        this.showLoader.loaderHide();
         console.log("result");
 
         this.data = data.result
@@ -36,7 +37,11 @@ export class ParentInformationComponent implements OnInit {
             this.selected = data.result[i]['value'] ;
           }
         }
-        });
+        },
+        (error)=>{
+          this.error = error;
+        }
+        );
         console.log(this.selected);
   }
   

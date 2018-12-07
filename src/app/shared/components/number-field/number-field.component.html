@@ -1,5 +1,5 @@
 <div [formGroup]="genericForm">
-  <mat-form-field class="example-full-width col-sm-6 fixSize">
+  <mat-form-field class="col-sm-6 fixSize">
     <span *ngIf="genericData.input == 'number'" matPrefix>+91 &nbsp;</span>
     <input type="tel" placeholder="{{genericData.label}} " formControlName="{{genericData.field}}" matInput required > 
   </mat-form-field>

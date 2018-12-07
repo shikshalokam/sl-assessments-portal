@@ -1,8 +1,5 @@
 {
-    "features" : "Features",
-    "parentInterview":"Parent Intereview",
     "brand" : "Shamiksha",
-    "shikshalokam": "Sample",
     "dialogBox" :{
         "alertHeading" : "ALERT !!",
         "alertMessage" : "Are You Sure TO Submit !!!!"
@@ -19,10 +16,9 @@
     "headings": {
         "parentInfoHeading" : "Parent Information",
         "parentListHeading" : "Parent List",
-        "schoolListHeading" : "School List"
-
-
-
+        "schoolListHeading" : "School List",
+        "parentInterview":"Parent Intereview",
+        "features" : "Features"
     },
     "labels": {
 

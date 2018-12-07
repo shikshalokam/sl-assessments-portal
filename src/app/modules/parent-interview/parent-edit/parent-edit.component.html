@@ -1,14 +1,17 @@
 <!-- <div class="heading">
             <app-breadcrumb [breadcrumbRoute]="breadcrumbRoute" ></app-breadcrumb>
     </div> -->
-<div *ngIf = "parentEditData && parentForm ">
+<div *ngIf = " !error && parentEditData && parentForm ">
       <app-parent-heading [genericHeading]="headings"></app-parent-heading>
 
       <div>
             <app-dynamic-form [genericData] = "parentEditData" [genericForm] = "parentForm" [genericEdit] = "isEdit" ></app-dynamic-form>
       </div>
-      <div class="example-full-width col-sm-12 alingCenterline" >
+      <div class="col-sm-12 alingCenterline" >
             <button mat-raised-button class=" btnColor "  (click)="onCancel()" >{{'buttons.cancel' | translate}}</button>    
             <button mat-raised-button class=" btnColor " [disabled]="!parentForm?.valid" (click)="getUpdateData()"  >{{'buttons.update' | translate}}</button>    
       </div>  
+</div>
+<div *ngIf="error">
+      {{error.message}}
 </div>

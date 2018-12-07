@@ -15,23 +15,24 @@ export class SchoolListComponent implements OnInit{
   error: any;
   headings = 'headings.schoolListHeading';
   constructor(private apiFetch :ApiService ,private showLoader : UtilityService ) {
-  this.showConfig();
+    this.showConfig();
   }
   showConfig() {
-    this.showLoader.show();
   this.apiFetch.getSchoolList()
       .subscribe(data => {
               this.dataSource = new MatTableDataSource(data.result)
-              this.showLoader.hide();
+              this.showLoader.loaderHide();
       },
-      error => this.error = error 
+      (error) => {
+        this.error = error;
+        ;}
       );
 }
 applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() { 
-    // console.log(headings.schoolListHeading);
+    this.showLoader.loaderShow(); 
   }
   
   

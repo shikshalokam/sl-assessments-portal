@@ -1,10 +1,7 @@
-import { Component, OnInit, AfterContentChecked, OnChanges, AfterContentInit, DoCheck } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api-service';
-import { environment } from 'src/environments/environment.prod';
-import { ParentConfig } from '../parent-config';
 import {MatTableDataSource} from '@angular/material';
-import { TranslateService } from 'src/app/core';
 import { UtilityService } from 'src/app/core/services/utility-service';
 
 @Component({
@@ -16,8 +13,8 @@ export class ParentListComponent implements OnInit{
   dataSource;
   errorMessage;
   breadcrumbRoute;
+  error;
   headings = "headings.parentListHeading";
-  flag : boolean = false;
   constructor( private route :ActivatedRoute,private apiFetch :ApiService,private showLoader : UtilityService ) { 
     this.route.params.subscribe(params => {
       this.schoolId = params["id"];
@@ -39,41 +36,41 @@ export class ParentListComponent implements OnInit{
   this.showConfig();
   
  }
-
-    
-   
- 
- 
  applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
   
 }
  showConfig() {
-  this.showLoader.show();
-  this.apiFetch.getParentList(this.schoolId)
+  this.showLoader.loaderShow();
+  this.apiFetch.getParentList(this.schoolId )
       .subscribe(data => {
         console.log(data);
         this.dataSource = new MatTableDataSource(data.result)
-        this.showLoader.hide();
+        this.showLoader.loaderHide();
 
+      },
+      (error)=>{
+        this.error = error;
       });
 }
-setFlag(flag :boolean){
+parentInterviewSubmit(flag :boolean){
   if(flag){
-    this.flag = flag;
-    console.log("eventCatch");
     this.apiFetch.getAssessmentQuestions(this.schoolId).subscribe(successData => {
       this.submissionId =  successData['result'].assessments[0]['submissionId'];
-      console.log(this.submissionId);
-      this.apiFetch.postSubmission(this.submissionId)
+      this.apiFetch.parentInterviewSubmission(this.submissionId)
       .subscribe(successData =>{
         console.log(successData);
       },
-        errorData=>{});
-    },errorData =>{}
+      (error)=>{
+        this.error = error;
+      });
+    },(error)=>{
+      this.error = error;
+    }
     );
 
   }
 
 }
+
 }

@@ -20,6 +20,7 @@ export class ParentEditComponent implements OnInit {
   isEdit = false;
   breadcrumbRoute ;
   schoolId;
+  error;
   headings = 'headings.parentInfoHeading';
   constructor(private location: Location,private route :ActivatedRoute,private showLoader : UtilityService ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
@@ -45,7 +46,7 @@ export class ParentEditComponent implements OnInit {
   ];
   }
     showConfig() {
-      this.showLoader.show();
+      this.showLoader.loaderShow();
 
   this.apiFetch.getParentInfo(this.sendUrl)
       .subscribe(data => {
@@ -59,11 +60,15 @@ export class ParentEditComponent implements OnInit {
           }
         }
         this.parentForm = this.createForm.toGroup(data.result) ;
-        this.showLoader.hide();
+        this.showLoader.loaderHide();
         console.log(this.parentForm);
         console.log(this.parentEditData);
 
-      });
+      },
+      (error) => {
+        this.error = error;
+      }
+      );
 }
   getUpdateData(){
   this.updateData = this.parentForm.getRawValue(); 

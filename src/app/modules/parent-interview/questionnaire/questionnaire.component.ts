@@ -16,6 +16,7 @@ export class QuestionnaireComponent implements OnInit {
   length : number;
   selectResponse :string;
   generalQuestion : [];
+  error;
   constructor(private apiService: ApiService, private route: ActivatedRoute) { 
     this.schoolId = this.route.snapshot.paramMap.get('schoolId');
     console.log(this.schoolId)
@@ -37,9 +38,9 @@ export class QuestionnaireComponent implements OnInit {
         this.length = this.generalQuestion.length
         console.log(this.generalQuestion);
       }
-    }, errorData => {
-
-    })
+    },(error) => {
+      this.error = error;
+      ;})
   }
 
   setcallResponse(select :string){
