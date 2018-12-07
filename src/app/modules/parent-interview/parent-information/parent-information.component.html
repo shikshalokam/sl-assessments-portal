@@ -1,3 +1,4 @@
+<div *ngIf="!error">
 <mat-card class = "card">
   <div class="col-sm-4" *ngFor="let res of data ">
     <span *ngIf="res.input == 'radio' ; else other" >
@@ -28,3 +29,7 @@
     </ng-template>
   </div>
 </mat-card>
+</div>
+<div *ngIf="error">
+  {{error.message}}
+</div>

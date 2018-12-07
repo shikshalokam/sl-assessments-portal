@@ -22,10 +22,7 @@ export class ApiService {
     configUrl;
 
     getParentList(schoolId: string) {
-        return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentListFind + schoolId)
-            .pipe(
-                catchError(this.handleError)
-            );
+        return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentListFind + schoolId);
     }
     getParentInfo(parentId: string) {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentEditFind + parentId);
@@ -36,6 +33,9 @@ export class ApiService {
 
     getAssessmentQuestions(schoolId) {
         return this.http.get(environment.apibaseurl + ParentConfig.getSurveyQuestions + schoolId + '?oncall=1');
+    }
+    parentInterviewSubmission(submissionId) {
+        return this.http.post(environment.apibaseurl + ParentConfig.parentInterviewSubmission + submissionId,{});
     }
 
     postParentData(temp: string, updateData) {

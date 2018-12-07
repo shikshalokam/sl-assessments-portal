@@ -10,17 +10,29 @@ import { TextareaFieldComponent } from './components/textarea-field/textarea-fie
 import {MatSelectModule} from '@angular/material/select';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RouterModule } from '@angular/router';
+import { ParentHeadingComponent } from './components/parent-heading/parent-heading.component';
+import { CoreModule } from '../core';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component'
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @NgModule({
-  declarations: [DynamicFormComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent],
+  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatDialogModule,
     MatRadioModule,
     MatSelectModule,
-    RouterModule
+    RouterModule,
+    CoreModule
   ],
-  exports : [DynamicFormComponent,BreadcrumbComponent]
+  entryComponents: [DialogBoxComponent],
+  exports : [DynamicFormComponent,BreadcrumbComponent,ParentHeadingComponent]
 })
 export class SharedModule { }

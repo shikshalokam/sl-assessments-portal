@@ -16,10 +16,10 @@ export class AppComponent {
 
   links = [  
           { 
-            linkHeading : "features",
+            linkHeading : "headings.features",
             options:[ 
                       {
-                        value : "parentInterview",
+                        value : "headings.parentInterview",
                         anchorLink : "/parent"
                       }
                     ]  

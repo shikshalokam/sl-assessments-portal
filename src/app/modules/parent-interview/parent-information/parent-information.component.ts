@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api-service';
+import { UtilityService } from 'src/app/core/services/utility-service';
 
 @Component({
   selector: 'app-parent-information',
@@ -11,8 +12,9 @@ export class ParentInformationComponent implements OnInit {
   @Input()parentId;
   data;
   selected;
+  error;
   @Output()callResponse = new EventEmitter<string>();
-  constructor( private apiFetch :ApiService ) { 
+  constructor( private apiFetch :ApiService , private utility : UtilityService ) { 
   }
 
   ngOnInit() {
@@ -21,9 +23,11 @@ export class ParentInformationComponent implements OnInit {
   }
 
   showConfig() {
+  this.utility.loaderShow();
     this.apiFetch.getParentInfo(this.parentId)
       .subscribe(data => {
         console.log(data.result);
+        this.utility.loaderHide();
         console.log("result");
 
         this.data = data.result
@@ -33,7 +37,11 @@ export class ParentInformationComponent implements OnInit {
             this.selected = data.result[i]['value'] ;
           }
         }
-        });
+        },
+        (error)=>{
+          this.error = error;
+        }
+        );
         console.log(this.selected);
   }
   

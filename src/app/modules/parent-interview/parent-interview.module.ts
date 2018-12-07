@@ -18,11 +18,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ParentInformationComponent } from './parent-information/parent-information.component';
 @NgModule({
   declarations: [ParentInterviewComponent, SchoolListComponent, ParentListComponent, ParentEditComponent, QuestionnaireComponent,ParentInformationComponent],
   imports: [
     CommonModule,
+    NgxSpinnerModule,
     MatCardModule,
     ParentInterviewRoutingModule,
     CoreModule,

@@ -1,0 +1,8 @@
+<div  class=" alingCenterline  " >
+  <h2 class="heading">
+      <button *ngIf=" noBackButton.indexOf(genericHeading)" mat-icon-button class="backButton"(click)="onBack()"><i class="material-icons backButton">
+          keyboard_arrow_left
+          </i></button>{{ genericHeading | translate}}
+  </h2>
+  <span *ngIf="genericHeading == 'headings.parentListHeading'"><button mat-raised-button  class=" btnColor "(click)="openDialog()">{{'buttons.markasComplete' | translate}}</button></span>
+</div>
