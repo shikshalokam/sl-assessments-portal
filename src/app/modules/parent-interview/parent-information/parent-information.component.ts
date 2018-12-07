@@ -14,7 +14,7 @@ export class ParentInformationComponent implements OnInit {
   selected;
   error;
   @Output()callResponse = new EventEmitter<string>();
-  constructor( private apiFetch :ApiService , private showLoader : UtilityService ) { 
+  constructor( private apiFetch :ApiService , private utility : UtilityService ) { 
   }
 
   ngOnInit() {
@@ -23,11 +23,11 @@ export class ParentInformationComponent implements OnInit {
   }
 
   showConfig() {
-  this.showLoader.loaderShow();
+  this.utility.loaderShow();
     this.apiFetch.getParentInfo(this.parentId)
       .subscribe(data => {
         console.log(data.result);
-        this.showLoader.loaderHide();
+        this.utility.loaderHide();
         console.log("result");
 
         this.data = data.result

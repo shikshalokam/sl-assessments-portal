@@ -15,7 +15,7 @@ export class ParentListComponent implements OnInit{
   breadcrumbRoute;
   error;
   headings = "headings.parentListHeading";
-  constructor( private route :ActivatedRoute,private apiFetch :ApiService,private showLoader : UtilityService ) { 
+  constructor( private route :ActivatedRoute,private apiFetch :ApiService,private utility : UtilityService ) { 
     this.route.params.subscribe(params => {
       this.schoolId = params["id"];
   });
@@ -41,12 +41,12 @@ export class ParentListComponent implements OnInit{
   
 }
  showConfig() {
-  this.showLoader.loaderShow();
+  this.utility.loaderShow();
   this.apiFetch.getParentList(this.schoolId )
       .subscribe(data => {
         console.log(data);
         this.dataSource = new MatTableDataSource(data.result)
-        this.showLoader.loaderHide();
+        this.utility.loaderHide();
 
       },
       (error)=>{
