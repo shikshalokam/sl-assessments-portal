@@ -1,3 +1,4 @@
+// @import '../assets/scss/responsive.scss';
 .noMarginPadding {
     margin: 0px;
     padding: 0px;
@@ -43,3 +44,22 @@
 .bodyDiv {
     height: calc(100vh - 52px) !important;
 }
+
+// @media only screen and (max-width: 800px){
+//     .sideDiv {
+//         // width: 0px;
+//         // float: left;
+//         display: none
+//         // display: block;
+//         // height: calc(100vh - 52px);
+//     }
+    
+//     .routingDiv {
+//         position: relative;
+//         height: calc(100vh - 52px);
+//         // width: calc(100% - 250px);
+//         width: 100%;
+//         float: right;
+//         overflow-y: auto;
+//     }
+// } 
