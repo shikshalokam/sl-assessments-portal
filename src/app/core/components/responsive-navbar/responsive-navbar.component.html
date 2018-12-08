@@ -1,0 +1,60 @@
+<nav class="responsiveNavbar noMarginPadding">
+  <div class=" col-xs-12  alingCenterline">
+    <span class="col-xs-4">
+      <span mat-button [matMenuTriggerFor]="menu" class=" _cursor-pointer">
+        <i class="material-icons dropdownIcon">
+            menu
+            </i>
+      </span>
+
+      <mat-menu #menu="matMenu">
+
+        <span mat-menu-item class="matmenuIcon">
+          <i class="material-icons">
+            supervised_user_circle
+          </i>
+          <span class="padding">{{currentUser?.email}}</span>
+        </span>
+
+        <mat-divider></mat-divider>
+
+        <span mat-menu-item class="matmenuIcon black">
+          <i class="material-icons">
+            done
+          </i>
+          <span class="padding">{{currentUser?.name}}</span>
+        </span>
+
+        <mat-divider></mat-divider>
+
+        <span mat-menu-item class="padding">
+          <span class="bigPadding black">
+            {{'menuDropdown.myApps' | translate}}
+          </span>
+        </span>
+
+        <span mat-menu-item class="padding" disabled>
+          <span class="bigPadding black">
+            {{'headings.parentInterview' | translate}}
+          </span>
+        </span>
+
+        <span mat-menu-item class="padding" routerLink="/parent" routerLinkActive="active" >
+          <span class="bigPadding black" >
+            {{'headings.parentInterview' | translate}}
+          </span>
+        </span>
+
+        <span mat-menu-item class="padding" (click)="onSignout()">
+          <span class="bigPadding black">
+            {{'menuDropdown.signOut' | translate}}
+          </span>
+        </span>
+
+      </mat-menu>
+    </span>
+    <mat-card-title class="pageBrand col-xs-4">
+      <strong>{{ 'brand' | translate }}</strong>
+    </mat-card-title>
+  </div>
+</nav>
