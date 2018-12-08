@@ -1,0 +1,37 @@
+@media only screen and (max-width: 600px){
+    .sideDiv {
+        display: none !important;
+    }
+    .routingDiv {
+        // position: relative;
+        // height: calc(100vh - 52px);
+        width: 100% !important;
+        // float: right;
+        // overflow-y: auto;
+    }
+    .sideDiv{
+        display :none !important;
+    }
+    .navbar{
+        display : none !important;
+    }
+    .responsiveNavbar{
+        display: flex !important;
+    }
+  
+}
+
+@media only screen and (min-width: 600px) {
+   
+}
+
+@media only screen and (min-width: 768px) {
+    
+}
+
+@media only screen and (min-width: 992px) {
+
+}
+
+@media only screen and (min-width: 1200px) {
+}

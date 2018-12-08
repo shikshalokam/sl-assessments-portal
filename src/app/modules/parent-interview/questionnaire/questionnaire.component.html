@@ -1,7 +1,7 @@
 
 <app-parent-information [parentId]="parentId" (callResponse)="setcallResponse($event)"></app-parent-information>
 <div *ngIf="!error">
-<mat-card class = "question">
+<mat-card class = "question col-xs-12">
 
     <div *ngFor="let ques of generalQuestion | slice:x:x+1">
         <div *ngFor="let question of ques.question ">
