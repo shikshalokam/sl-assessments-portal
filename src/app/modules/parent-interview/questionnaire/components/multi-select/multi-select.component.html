@@ -1,0 +1,3 @@
+<section class="_flex-box _flex-wrap _justify-content-center">
+    <mat-checkbox [checked]="data?.value.includes(option.value)" *ngFor="let option of data?.options"  class="checkBoxAdj" (change)="updateModelValue(option?.value)" [value]="option?.value">{{option?.label}}</mat-checkbox>
+  </section>

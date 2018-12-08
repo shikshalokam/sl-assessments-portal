@@ -1,0 +1,5 @@
+<mat-radio-group [(ngModel)]="data.value" (change)="updated()" class="_flex-box _flex-wrap _justify-content-center">
+  <mat-radio-button class="radio-adj" *ngFor="let option of data?.options" [value]="option?.value">
+    {{option?.label}}
+  </mat-radio-button>
+</mat-radio-group>
