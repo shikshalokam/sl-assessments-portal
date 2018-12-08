@@ -4,7 +4,13 @@
     "brand" : "Shamiksha",
     "shikshalokam": "Sample",
     "buttons": {
-        "update" : "Update"
+        "update" : "Update",
+        "next": "Next",
+        "back":"Back",
+        "submit": "Submit",
+        "save": "Save",
+        "cancel":"Cancel",
+        "ok": "Ok"
     },
     "search": "Search",
     "headings": {

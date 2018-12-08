@@ -4,7 +4,7 @@ import { ParentConfig } from '../../modules/parent-interview/parent-config';
 import { environment } from 'src/environments/environment.prod';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { error } from '@angular/compiler/src/util';
+
 export interface Config {
     message: string;
     status: number;
@@ -41,6 +41,16 @@ export class ApiService {
     postParentData(temp: string, updateData) {
         return this.http.post<Config>(environment.apibaseurl + ParentConfig.parentEditFetch + temp, updateData)
     }
+
+    submitParentsurvey(submissionId, payload)  {
+        return this.http.post(environment.apibaseurl + ParentConfig.submitParentInterview + submissionId, payload )
+    }
+
+    getParentResponses(submissionId, parentId) {
+        return this.http.get(environment.apibaseurl + ParentConfig.getPreviousParentResponse + submissionId +'?parentId='+parentId )
+
+    }
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             console.error('An error occurred:', error.error.message);

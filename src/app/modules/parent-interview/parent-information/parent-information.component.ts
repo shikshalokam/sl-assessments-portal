@@ -8,15 +8,16 @@ import { ApiService } from 'src/app/core/services/api-service';
   styleUrls: ['./parent-information.component.scss']
 })
 export class ParentInformationComponent implements OnInit {
-  @Input()parentId;
+  @Input() parentId;
+
   data;
   selected;
-  @Output()callResponse = new EventEmitter<string>();
-  constructor( private apiFetch :ApiService ) { 
+  @Output() callResponse = new EventEmitter<string>();
+  constructor(private apiFetch: ApiService) {
   }
 
   ngOnInit() {
-  this.showConfig();
+    this.showConfig();
 
   }
 
@@ -27,18 +28,22 @@ export class ParentInformationComponent implements OnInit {
         console.log("result");
 
         this.data = data.result
-        for(let i=0;i<data.result.length;i++){
-          if( data.result[i]['field'] == "callResponse" )
-          {
-            this.selected = data.result[i]['value'] ;
+        for (let i = 0; i < data.result.length; i++) {
+          if (data.result[i]['field'] == "callResponse") {
+            this.selected = data.result[i]['value'];
+            this.sendcallResponse(data.result);
           }
         }
-        });
-        console.log(this.selected);
+      });
   }
-  
-  sendcallResponse(){
+
+  sendcallResponse(callStatus) {
     console.log(this.selected);
-     this.callResponse.emit(this.selected);
+    for (const field of this.data) {
+      if(field.field === "callResponse") {
+        field.value = this.selected;
+      }
+    }
+    this.callResponse.emit(this.data);
   }
 }
