@@ -5,4 +5,6 @@ export const ParentConfig = {
         parentEditFind : "parentRegistry/fetch/",
         getSurveyQuestions: "schools/assessments/",
         parentEditFetch : "parentRegistry/update/",
+        submitParentInterview: "submissions/parentInterview/",
+        getPreviousParentResponse: "submissions/getParentInterviewResponse/"
 }

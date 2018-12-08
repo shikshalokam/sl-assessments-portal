@@ -7,7 +7,7 @@
           <span *ngFor="let opt of res.options">
             <span *ngIf="res.value == opt.value">
               <mat-select [(value)]="selected" >
-                <mat-option *ngFor="let opt of res.options" [value]="opt.value" (click)="sendcallResponse()">
+                <mat-option *ngFor="let opt of res.options" [value]="opt.value" (click)="sendcallResponse(opt)">
                   {{opt.label}}
                 </mat-option>
               </mat-select>
