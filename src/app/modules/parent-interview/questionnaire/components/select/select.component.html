@@ -1,0 +1,7 @@
+<mat-form-field class="widthAdj">
+  <mat-select placeholder="Select"  [(ngModel)]="data.value" (selectionChange)="updated()">
+    <mat-option *ngFor="let option of data?.options" [value]="option.value">
+      {{option.label}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

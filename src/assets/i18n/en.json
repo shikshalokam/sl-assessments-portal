@@ -10,7 +10,12 @@
         "update" : "Update",
         "markasComplete" : "Mark As Complete",
         "complete" : "Complete",
-        "cancel" : "Cancel"
+        "cancel" : "Cancel",
+        "next": "Next",
+        "back":"Back",
+        "submit": "Submit",
+        "save": "Save",
+        "ok": "Ok"
     },
     "search": "Search",
     "headings": {
