@@ -10,6 +10,7 @@ import { TextareaFieldComponent } from './components/textarea-field/textarea-fie
 import {MatSelectModule} from '@angular/material/select';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RouterModule } from '@angular/router';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [DynamicFormComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent],
   imports: [
@@ -19,8 +20,9 @@ import { RouterModule } from '@angular/router';
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
-    RouterModule
+    RouterModule,
+    MatSnackBarModule
   ],
-  exports : [DynamicFormComponent,BreadcrumbComponent]
+  exports : [DynamicFormComponent,BreadcrumbComponent, MatSnackBarModule]
 })
 export class SharedModule { }
