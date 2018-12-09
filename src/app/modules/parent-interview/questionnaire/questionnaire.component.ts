@@ -28,6 +28,7 @@ export class QuestionnaireComponent implements OnInit {
   submitBtnDisable: boolean;
   previousResponses: any;
   callstatusLabel: any;
+  parentInterviewCompleted: boolean;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, 
     public dialog: MatDialog, private snackBar : MatSnackBar, private location: Location) {
@@ -70,6 +71,9 @@ export class QuestionnaireComponent implements OnInit {
         this.previousResponses  = resp[key].value;
       }
       this.mapPreviousResponse()
+      if(response['result'].status === 'completed') {
+        this.parentInterviewCompleted = true;
+      }
       // console.log(this.previousResponses)
     })
   }
@@ -82,6 +86,7 @@ export class QuestionnaireComponent implements OnInit {
           question.remarks = response[question._id ].remarks;
           question.startTime = response[question._id ].startTime;
           question.endTime = response[question._id].endtime;
+          question.isCompleted = (response[question._id ].value && response[question._id ].value.length) ? true : false;
         }
       }
     }
