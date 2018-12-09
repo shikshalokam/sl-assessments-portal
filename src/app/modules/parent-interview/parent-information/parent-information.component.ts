@@ -44,14 +44,12 @@ export class ParentInformationComponent implements OnInit {
             }
           }
         }
-
       });
   }
 
   sendcallResponse(callStatus) {
-    console.log(this.selected);
     for (const field of this.data) {
-      if (field.field === "callResponse") {
+      if(field.field === "callResponse") {
         field.value = this.selected;
       }
     }
