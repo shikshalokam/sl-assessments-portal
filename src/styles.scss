@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "./assets//scss//varibles.scss";
+
+
 @font-face {
     font-family: 'SF-ui-text-regular';
     font-style: normal;
@@ -48,7 +51,7 @@
 $primary-color: #46a9ff;
 $black-color: #4c4c4c;
 $blue-gradient: #1AC6FC;
-$gery-color: #bababa;
+$grey-color: #bababa;
 $regular-font: 'SF-ui-text-regular';
 $light-font: 'SF-ui-text-light';
 $italic-font: 'SF-ui-text-italic';
@@ -62,8 +65,20 @@ body {
     align-items: center
 }
 
+._flex-direction-column {
+    flex-direction: column;
+}
+
 ._justify-content-center {
     justify-content: center;
+}
+
+._justify-content-space-between {
+    justify-content: space-between;
+}
+
+._flex-wrap {
+    flex-wrap: wrap !important;
 }
 
 ._full-width {
@@ -72,4 +87,14 @@ body {
 
 ._cursor-pointer {
     cursor: pointer;
+}
+
+._green-btn {
+    background: $green-color;
+    color: $white-color;
+}
+
+._primary-btn {
+    background: $primary-color;
+    color: $white-color;
 }
