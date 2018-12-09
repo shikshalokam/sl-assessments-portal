@@ -16,7 +16,6 @@ export class QuestionnaireComponent implements OnInit {
   parentInfo: any;
   parentId: string;
   schoolId: string;
-
   start: number = 0;
   end: number = 1;
   length: number;
@@ -77,6 +76,7 @@ export class QuestionnaireComponent implements OnInit {
       // console.log(this.previousResponses)
     })
   }
+
 
   mapPreviousResponse(): void {
     for (const question of this.generalQuestions[0]['instanceQuestions']) {
