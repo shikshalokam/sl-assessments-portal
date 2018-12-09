@@ -16,7 +16,7 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   confirm() {
-    this.dialogRef.close('confirmed');
+    this.dialogRef.close(this.data.status);
   }
 
 }
