@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import { ApiService } from 'src/app/core/services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-questionnaire',
@@ -25,8 +27,10 @@ export class QuestionnaireComponent implements OnInit {
   currentCallStatus = {};
   submitBtnDisable: boolean;
   previousResponses: any;
+  callstatusLabel: any;
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, public dialog: MatDialog) {
+  constructor(private apiService: ApiService, private route: ActivatedRoute, 
+    public dialog: MatDialog, private snackBar : MatSnackBar, private location: Location) {
     this.schoolId = this.route.snapshot.paramMap.get('schoolId');
     console.log(this.schoolId)
     this.parentId = this.route.snapshot.paramMap.get('parentId');
@@ -38,11 +42,16 @@ export class QuestionnaireComponent implements OnInit {
     this.getSurveyQuestions();
   }
 
+  goBack() {
+    this.location.back();
+  }
   getSurveyQuestions(): void {
     this.apiService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
       console.log(successData);
       if (successData['result'].assessments) {
         this.generalQuestions = successData['result'].assessments[0]['generalQuestions'];
+        console.log(this.currentCallStatus['type'])
+        this.generalQuestions[0]['instanceQuestions'][0].value = (this.generalQuestions && !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
         this.submissionId = successData['result'].assessments[0].submissionId;
         this.getPreviousResponses();
         // [0]['instanceQuestions']
@@ -76,6 +85,7 @@ export class QuestionnaireComponent implements OnInit {
         }
       }
     }
+    // this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
   }
 
   setcallResponse(select: string) {
@@ -100,11 +110,17 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
-  updateCallStatus(callStatus) {
-    for (const field of callStatus) {
+  updateCallStatus(callStatusObj) {
+    for (const field of JSON.parse(callStatusObj).obj) {
       this.currentCallStatus[field['field']] = field['value']
     }
+    this.callstatusLabel = JSON.parse(callStatusObj).callStatus.label;
+    console.log(this.callstatusLabel)
     this.submitBtnDisable = this.currentCallStatus['callResponse'] === 'R7' && !this.allQuestionsAnswered ? true : false;
+    if(this.generalQuestions && this.generalQuestions[0] && !this.generalQuestions[0]['instanceQuestions'][0].value) {
+      this.generalQuestions[0]['instanceQuestions'][0].value = (this.generalQuestions && !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+    }
+
   }
 
   nextQuestion(): void {
@@ -119,6 +135,11 @@ export class QuestionnaireComponent implements OnInit {
       }
     } else {
       this.checkForCompletionOfInterview();
+      if(this.allQuestionsAnswered){
+        this.snackBar.open("All questions Answered. Please Change the call status to completed and save.","Ok" ,{duration: 10000})
+      } else {
+        this.snackBar.open("Please complete all the questions and complete the survey")
+      }
     }
   }
 
@@ -132,34 +153,42 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
-  openConfirmDialog(): void {
-    const message = `Call status will be updated as ${this.currentCallStatus['label']}`
+  openConfirmDialog(status): void {
+    const message = status=== 'save' ? `Call status will be updated as " ${this.callstatusLabel}"`  : `All your unsaved datas will be lost. Do you want to continue ? `
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: { message: message },
+      data: { message: message , status: status},
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === "confirmed") {
+      if (result === "save") {
         this.submitSurvey();
+      } if(result === "cancel") {
+        this.goBack();
+      }else {
       }
       console.log('The dialog was closed' + result);
     });
   }
   submitSurvey(): void {
-    const payload = this.constructPayload("started");
+    let surveyStatus = this.currentCallStatus['callResponse'] === 'R7' ? "completed" : "started";
+    // if(this.currentCallStatus['callResponse'] === 'R7'){
+
+    // }
+    const payload = this.constructPayload(surveyStatus);
     this.apiService.submitParentsurvey(this.submissionId, payload).subscribe(response => {
       this.submitCallStatus();
     })
   }
 
-  submitBtnEnable() {
-
-  }
-
   submitCallStatus() {
+    if(this.currentCallStatus['type'] !== this.generalQuestions[0]['instanceQuestions'][0].value){
+      this.currentCallStatus['type'] = this.generalQuestions[0]['instanceQuestions'][0].value;
+    }
     this.apiService.postParentData(this.parentId, this.currentCallStatus).
-      subscribe(data => {
+      subscribe(response => {
+        this.snackBar.open(response.message, "Ok", {duration: 3000});
+        this.goBack();
       });
   }
 

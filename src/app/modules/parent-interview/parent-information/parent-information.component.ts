@@ -36,7 +36,12 @@ export class ParentInformationComponent implements OnInit {
         for (let i = 0; i < data.result.length; i++) {
           if (data.result[i]['field'] == "callResponse") {
             this.selected = data.result[i]['value'];
-            this.sendcallResponse(data.result);
+            for (const option of data.result[i]['options']) {
+              if(option.value === data.result[i]['value']){
+                this.sendcallResponse({value:data.result[i]['value'], label: option.label });
+
+              }
+            }
           }
         }
 
@@ -50,6 +55,7 @@ export class ParentInformationComponent implements OnInit {
         field.value = this.selected;
       }
     }
-    this.callResponse.emit(this.data);
+    const obj = JSON.stringify({"obj":this.data, "callStatus":callStatus });
+    this.callResponse.emit(obj);
   }
 }
