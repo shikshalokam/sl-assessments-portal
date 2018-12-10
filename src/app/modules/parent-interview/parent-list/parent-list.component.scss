@@ -21,9 +21,7 @@ table {
     background-color:green;
     color : white;
 }
-.wrapper {
-    padding: 0px 20px !important;
-}
+
 
 .search{
     padding: 0px 15px;
@@ -60,11 +58,6 @@ example-button-row button,
 }
 .mat-paginator-sticky {
     bottom: 0px;
-    position: sticky;
-    z-index: 10;
-  }
-  .mat-header-sticky {
-    top: 0px;
     position: sticky;
     z-index: 10;
   }
