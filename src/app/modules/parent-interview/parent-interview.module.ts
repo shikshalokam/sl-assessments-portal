@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 
+
 import { ParentInterviewComponent } from './parent-interview.component';
 import { ParentInterviewRoutingModule } from './parent-interview-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
@@ -29,6 +30,7 @@ import { RadioComponent } from './questionnaire/components/radio/radio.component
 import { SelectComponent } from './questionnaire/components/select/select.component';
 import { MultiSelectComponent } from './questionnaire/components/multi-select/multi-select.component';
 import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/confirm-modal.component';
+import { RemarksComponent } from './questionnaire/components/remarks/remarks.component';
 @NgModule({
   declarations: [
     ParentInterviewComponent,
@@ -40,7 +42,8 @@ import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/
     RadioComponent,
     SelectComponent,
     MultiSelectComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    RemarksComponent
   ],
   imports: [
     CommonModule,
