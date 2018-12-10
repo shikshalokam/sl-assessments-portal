@@ -6,9 +6,9 @@
 
 
 </div> -->
-<app-parent-heading [genericHeading]="'headings.survey'"></app-parent-heading>
+<app-parent-heading [schoolName]="schoolName"  [genericHeading]="'headings.survey'"></app-parent-heading>
 <div class="col-xs-12">
-    <app-parent-information [parentId]="parentId" [schoolName]="schoolName" (callResponse)="updateCallStatus($event)"></app-parent-information>
+    <app-parent-information [parentId]="parentId"  (callResponse)="updateCallStatus($event)"></app-parent-information>
 
 </div>
 <div class="col-xs-12">
