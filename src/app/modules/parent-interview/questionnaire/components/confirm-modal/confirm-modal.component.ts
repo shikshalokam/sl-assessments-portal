@@ -8,6 +8,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class ConfirmModalComponent implements OnInit {
 
+  remarksObj = {remarks: ""};
+
   constructor(private dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
@@ -16,7 +18,11 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   confirm() {
-    this.dialogRef.close(this.data.status);
+    if(this.data.status === 'completed') {
+      this.dialogRef.close({status:this.data.status, remarks: this.remarksObj.remarks});
+    } else {
+      this.dialogRef.close(this.data.status);
+    }
   }
 
 }
