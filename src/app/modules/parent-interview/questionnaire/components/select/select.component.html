@@ -1,7 +1,11 @@
-<mat-form-field class="widthAdj">
-  <mat-select placeholder="Select"  [(ngModel)]="data.value" (selectionChange)="updated()">
-    <mat-option *ngFor="let option of data?.options" [value]="option.value">
-      {{option.label}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+
+<div class="_flex-direction-column _flex-box _justify-content-center">
+    <mat-form-field class="widthAdj">
+        <mat-select placeholder="Select"  [(ngModel)]="data.value" (selectionChange)="updated()">
+          <mat-option *ngFor="let option of data?.options" [value]="option.value">
+            {{option.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <app-remarks *ngIf="data?.showRemarks" [data]="data"></app-remarks>
+</div>

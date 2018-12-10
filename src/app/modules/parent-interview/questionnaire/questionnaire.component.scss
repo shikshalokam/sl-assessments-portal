@@ -14,12 +14,13 @@
 .questionFooter {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     z-index: 1;
     height: 80px;
     .btns {
         margin-right: 20px; 
-        width: 100px;
+        min-width: 100px;
     }
 }
 

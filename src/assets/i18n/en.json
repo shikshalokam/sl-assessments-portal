@@ -15,7 +15,9 @@
         "back":"Back",
         "submit": "Submit",
         "save": "Save",
-        "ok": "Ok"
+        "ok": "Ok",
+        "saveSurvey": "Save Survey",
+        "cancelSurvey": "Cancel Survey"
     },
     "search": "Search",
     "headings": {
@@ -23,7 +25,8 @@
         "parentListHeading" : "Parent List",
         "schoolListHeading" : "School List",
         "parentInterview":"Parent Intereview",
-        "features" : "Features"
+        "features" : "Features",
+        "survey": "Survey"
     },
     "labels": {
 
