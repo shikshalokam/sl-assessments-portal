@@ -6,17 +6,25 @@ table {
 .font{
     font-style: $regular-font;
 }
+
 .active{
     border-radius: 12px; 
     border:1px solid $primary-color; 
     padding:2px 8px; 
     background-color: #e5f2fe; 
     cursor: pointer;
-    margin-right: 25px;
 }
-.filterInput{
-    padding-left: 25px;
+.complete{
+    border-radius: 12px; 
+    border:1px solid green; 
+    padding:2px 8px; 
+    background-color:green;
+    color : white;
 }
+.wrapper {
+    padding: 0px 20px !important;
+}
+
 .search{
     padding: 0px 15px;
 }
@@ -36,3 +44,27 @@ example-button-row button,
 .example-button-row a {
   margin-right: 8px;
 }
+
+
+.middle{
+   padding: 30vh 0 0 40%;
+}
+
+
+.example-container {
+    height: calc(100vh - 210px) !important;
+  }
+.tableContainer{
+    height: calc(100vh - 260px) !important;
+    overflow: auto;
+}
+.mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+  }
+  .mat-header-sticky {
+    top: 0px;
+    position: sticky;
+    z-index: 10;
+  }

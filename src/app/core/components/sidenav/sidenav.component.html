@@ -1,8 +1,8 @@
 <div>
-  <div class="sideNavheading">
+  <!-- <div class="sideNavheading">
     {{ link?.linkHeading | translate }}
 
-  </div>
+  </div> -->
     <a  routerLink = "{{option.anchorLink}}" routerLinkActive="active"*ngFor="let option of link?.options"  class="subHeading">
         <span class="sideNavSubheading">
           {{ option.value | translate }}
