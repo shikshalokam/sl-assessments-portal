@@ -4,7 +4,7 @@
     "message" :{
         "alertHeading" : "ALERT !!",
         "alertMessage" : "Mark as complete will be updated 'Are you sure to submit' ? ",
-        "noData" :"There is no  data in "
+        "noData" :"No data found"
     },
 
     
@@ -17,8 +17,9 @@
         "back":"Back",
         "submit": "Submit",
         "save": "Save",
-        "ok": "Ok"
-        
+        "ok": "Ok",
+        "saveSurvey": "Save Survey",
+        "cancelSurvey": "Cancel Survey"
     },
     "search": "Search",
     "headings": {
@@ -26,7 +27,8 @@
         "parentListHeading" : "Parent List",
         "schoolListHeading" : "School List",
         "parentInterview":"Parent Intereview",
-        "features" : "Features"
+        "features" : "Features",
+        "survey": "Survey"
     },
     "labels": {
 

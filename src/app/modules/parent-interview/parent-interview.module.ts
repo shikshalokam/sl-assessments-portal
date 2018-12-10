@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 
+
 import { ParentInterviewComponent } from './parent-interview.component';
 import { ParentInterviewRoutingModule } from './parent-interview-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
@@ -30,6 +31,7 @@ import { SelectComponent } from './questionnaire/components/select/select.compon
 import { MultiSelectComponent } from './questionnaire/components/multi-select/multi-select.component';
 import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/confirm-modal.component';
 import { MatPaginatorModule } from '@angular/material';
+import { RemarksComponent } from './questionnaire/components/remarks/remarks.component';
 @NgModule({
   declarations: [
     ParentInterviewComponent,
@@ -42,6 +44,7 @@ import { MatPaginatorModule } from '@angular/material';
     SelectComponent,
     MultiSelectComponent,
     ConfirmModalComponent,
+    RemarksComponent
   ],
   imports: [
     CommonModule,

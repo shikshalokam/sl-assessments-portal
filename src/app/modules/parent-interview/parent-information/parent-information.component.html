@@ -1,32 +1,36 @@
-<div *ngIf="!error">
-<mat-card class = "card col-xs-12">
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 " *ngFor="let res of data ">
-    <span *ngIf="res.input == 'radio' ; else other" >
-      <span *ngIf="res.label == 'Call Response' ; else otherLabel">
-        <span class="bold"> {{res.label}} : </span>
-        <mat-form-field class="form">
-          <span *ngFor="let opt of res.options">
-            <span *ngIf="res.value == opt.value">
+
+  <mat-card class="card col-xs-12">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 " *ngFor="let res of data ">
+      <span *ngIf="res.input == 'radio' ; else other">
+        <span *ngIf="res.field === 'callResponse' ; else otherLabel">
+          <!-- <span class="bold"> {{res.label}} : </span> -->
+          <!-- <mat-form-field class="form" >
               <mat-select [(value)]="selected" >
-                <mat-option *ngFor="let opt of res.options" [value]="opt.value" (click)="sendcallResponse(opt)">
-                  {{opt.label}}
-                </mat-option>
-              </mat-select>
-            </span>
-          </span>
-          </mat-form-field> 
-      </span>
-      <ng-template #otherLabel >
-          <span *ngFor="let opt of res.options">
+                  <mat-option value="">Select call response</mat-option>
+                  <mat-option *ngFor="let opt of res.options" [value]="opt.value" (click)="sendcallResponse(opt)">
+                    {{opt.label}}
+                  </mat-option>
+                </mat-select>
+            <span *ngFor="let opt of res.options">
+          
               <span *ngIf="res.value == opt.value">
-               <span class="bold"> {{res.label}} : </span> {{opt.label}}
               </span>
             </span>
-      </ng-template>
-    </span>
-    <ng-template #other>
+          </mat-form-field> -->
+        </span>
+        <ng-template #otherLabel>
+            <span class="bold"> {{res.label}} :</span>
+          <span *ngFor="let opt of res.options">
+            <span *ngIf="res.value === opt.value">
+                {{opt.label}}
+            </span>
+          </span>
+        </ng-template>
+      </span>
+      <ng-template #other>
         <span class="bold"> {{res.label}} : </span> {{res.value}}
     </ng-template>
   </div>
 </mat-card>
-</div>
+
+
