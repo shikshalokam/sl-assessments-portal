@@ -21,16 +21,20 @@ export class ParentEditComponent implements OnInit {
   breadcrumbRoute ;
   schoolId;
   error;
+  schoolName;
   headings = 'headings.parentInfoHeading';
   constructor(private location: Location,private route :ActivatedRoute,private utility : UtilityService ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
+      this.schoolName =params["name"];
       console.log(this.sendUrl)
   });
 
   this.showConfig(); 
   }
   ngOnInit() {
+    this.utility.loaderShow();
+
     
     this.breadcrumbRoute = [ 
       {
@@ -46,7 +50,6 @@ export class ParentEditComponent implements OnInit {
   ];
   }
     showConfig() {
-      this.utility.loaderShow();
 
   this.apiFetch.getParentInfo(this.sendUrl)
       .subscribe(data => {
@@ -60,13 +63,13 @@ export class ParentEditComponent implements OnInit {
             }
         });
         this.parentForm = this.createForm.toGroup(data.result) ;
-        this.utility.loaderHide();
         console.log(this.parentForm);
         console.log(this.parentEditData);
-
+        this.utility.loaderHide();
       },
       (error) => {
         this.error = error;
+      this.utility.loaderHide();
       }
       );
 }

@@ -1,3 +1,5 @@
+@import '../../../../assets/scss/varibles.scss';
+
 .question{
     margin-top: 20px;
     min-height: 400px;
@@ -22,7 +24,10 @@
         width: 100px;
     }
 }
-
 .adjust {
     margin-bottom: 20px
+}
+.btnColor{
+    background-color: $primary-color;
+    color :white;
 }

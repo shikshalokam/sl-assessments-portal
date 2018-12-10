@@ -17,12 +17,12 @@ const routes: Routes = [
        
       },
       {
-        path : 'parent-list/:id',
+        path : 'parent-list/:name/:id',
         component : ParentListComponent,
        
       },
       {
-        path : 'parent-edit/:id',
+        path : 'parent-edit/:name/:id',
         component : ParentEditComponent,
        
       },
