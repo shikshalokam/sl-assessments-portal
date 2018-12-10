@@ -4,7 +4,7 @@
     "message" :{
         "alertHeading" : "ALERT !!",
         "alertMessage" : "Mark as complete will be updated 'Are you sure to submit' ? ",
-        "noData" :"There is no  data in "
+        "noData" :"No data found"
     },
 
     
