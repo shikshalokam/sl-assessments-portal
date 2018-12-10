@@ -27,7 +27,7 @@ const routes: Routes = [
        
       },
       {
-        path: 'survey/:schoolId/:parentId',
+        path: 'survey/:schoolName/:schoolId/:parentId',
         component: QuestionnaireComponent
       },
       {

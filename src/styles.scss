@@ -98,3 +98,7 @@ body {
     background: $primary-color;
     color: $white-color;
 }
+span:focus {
+    outline: none;
+    border: 0;
+ }

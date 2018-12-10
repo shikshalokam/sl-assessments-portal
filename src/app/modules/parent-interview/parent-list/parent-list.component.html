@@ -67,7 +67,7 @@
                     <ng-container matColumnDef="type">
                             <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let element">
-                                    <span *ngIf=" !(element.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolId , element._id ]">
+                                    <span *ngIf=" !(element.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , element._id ]">
                                         {{'tableLabel.buttons.startSurvey'| translate}}
                                     </span>
                                     <ng-template #complete>
