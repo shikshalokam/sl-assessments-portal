@@ -29,6 +29,7 @@ import { RadioComponent } from './questionnaire/components/radio/radio.component
 import { SelectComponent } from './questionnaire/components/select/select.component';
 import { MultiSelectComponent } from './questionnaire/components/multi-select/multi-select.component';
 import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/confirm-modal.component';
+import { MatPaginatorModule } from '@angular/material';
 @NgModule({
   declarations: [
     ParentInterviewComponent,
@@ -40,7 +41,7 @@ import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/
     RadioComponent,
     SelectComponent,
     MultiSelectComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +60,7 @@ import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/
     HttpModule,
     FormsModule,
     MatRadioModule,
+    MatPaginatorModule,
     MatCheckboxModule,
     MatDialogModule
     // RouterModule

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input,Inject, Output, EventEmitter } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { Location } from '@angular/common';
 import { UtilityService } from 'src/app/core/services/utility-service';
 export interface DialogData {
 }
@@ -12,31 +11,34 @@ export interface DialogData {
 })
 
 export class ParentHeadingComponent implements OnInit {
-@Input()genericHeading : string ; 
- noBackButton  = [ 'headings.schoolListHeading' ,];
-@Output()sendMarkAsComplete = new EventEmitter<boolean>();
-constructor(public dialog: MatDialog, private utilityService : UtilityService) {}
-
-
+  @Input() genericHeading: string;
+  @Input() schoolName;
+  @Input() atleastOneComplete;
+  noBackButton = ['headings.schoolListHeading',];
+  @Output() sendMarkAsComplete = new EventEmitter<boolean>();
+  constructor(public dialog: MatDialog, private utilityService: UtilityService) { }
+ 
   ngOnInit() {
+
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '450px',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if(result)
+      if (result)
         this.sendFlag();
     });
   }
-  sendFlag(){
-     this.sendMarkAsComplete.emit(true);
+  sendFlag() {
+    this.sendMarkAsComplete.emit(true);
   }
 
-  onBack(){
+  onBack() {
     this.utilityService.onBack();
   }
 }

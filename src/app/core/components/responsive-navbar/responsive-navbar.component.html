@@ -27,17 +27,17 @@
 
         <mat-divider></mat-divider>
 
-        <span mat-menu-item class="padding">
+        <!-- <span mat-menu-item class="padding">
           <span class="bigPadding black">
             {{'menuDropdown.myApps' | translate}}
           </span>
-        </span>
+        </span> -->
 
-        <span mat-menu-item class="padding" disabled>
+        <!-- <span mat-menu-item class="padding" disabled>
           <span class="bigPadding black">
             {{'headings.parentInterview' | translate}}
           </span>
-        </span>
+        </span> -->
 
         <span mat-menu-item class="padding" routerLink="/parent" routerLinkActive="active" >
           <span class="bigPadding black" >
@@ -53,8 +53,9 @@
 
       </mat-menu>
     </span>
-    <mat-card-title class="pageBrand col-xs-4">
-      <strong>{{ 'brand' | translate }}</strong>
+    <mat-card-title class="pageBrand col-xs-4 alingCenterline">
+      <img class="responsiveLogo" src = "../../../../assets/logo.png">
+      <strong>{{ 'brandResponsive' | translate }}</strong>
     </mat-card-title>
   </div>
 </nav>

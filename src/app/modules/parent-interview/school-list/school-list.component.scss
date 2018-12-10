@@ -6,8 +6,12 @@ table {
 .capitalise{
     text-transform: capitalize;
 }
-.filterInput{
-    padding-left: 25px;
+.complete{
+    border-radius: 12px; 
+    border:1px solid green; 
+    padding:2px 8px; 
+    background-color:green;
+    color : white;
 }
 .search{
     padding: 0px 15px;
@@ -24,3 +28,20 @@ table {
     display:flex;
     justify-content: space-between;
 }
+.example-container {
+    height: calc(100vh - 160px) !important;
+  }
+.tableContainer{
+    height: calc(100vh - 216px) !important;
+    overflow: auto;
+}
+
+.mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+  }
+  .middle{
+    padding: 30vh 0 0 40%;
+ }
+ 

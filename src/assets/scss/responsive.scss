@@ -18,6 +18,12 @@
     .responsiveNavbar{
         display: flex !important;
     }
+    .alingCenterlineParentHeading {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
   
 }
 

@@ -5,7 +5,12 @@
     align-items: center;
     justify-content: space-between;
 }
-
+.card{
+    // height: auto;
+    margin: 20px 0px;
+    padding: 15px 0px;
+    line-height: 1.7;
+}
 .btnColor{
     background-color: $primary-color;
     color :white;
@@ -13,7 +18,10 @@
 .alingCenterline{
     display:flex; 
     align-items:center;
-    justify-content: space-between;
+    justify-content:flex-end;
+}
+.margin{
+    margin-left:10px; 
 }
 .heading{
     padding-bottom : 50px; 

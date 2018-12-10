@@ -1,8 +1,10 @@
 {
-    "brand" : "Shamiksha",
-    "dialogBox" :{
+    "brand" : "School Development Index",
+    "brandResponsive": "SDI",
+    "message" :{
         "alertHeading" : "ALERT !!",
-        "alertMessage" : "Are You Sure TO Submit !!!!"
+        "alertMessage" : "Mark as complete will be updated 'Are you sure to submit' ? ",
+        "noData" :"There is no  data in "
     },
 
     
@@ -16,6 +18,7 @@
         "submit": "Submit",
         "save": "Save",
         "ok": "Ok"
+        
     },
     "search": "Search",
     "headings": {
@@ -48,8 +51,9 @@
         "externalId":"External-Id",
         "buttons":{
             "clickHere" : "Click Here",
-            "edit" : "Edit",
-            "startSurvey" : "Start Survey"
+            "edit" : "Profile Edit",
+            "startSurvey" : "Start Survey",
+            "complete" : "Completed"
         }
     }
 }
