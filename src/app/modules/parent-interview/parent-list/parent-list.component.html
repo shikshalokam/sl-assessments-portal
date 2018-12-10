@@ -61,6 +61,7 @@
                             <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let element"> <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
                                 {{'tableLabel.buttons.edit'| translate}}
+
                             </span></td>
                     </ng-container>
 
@@ -77,6 +78,7 @@
                                         </ng-template>
                             </td>
                     </ng-container>
+
 
 
                     <tr mat-header-row class=" mat-header-sticky" *matHeaderRowDef="displayedColumns ; sticky: true"></tr>
