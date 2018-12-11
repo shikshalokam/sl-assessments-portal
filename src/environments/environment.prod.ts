@@ -7,9 +7,9 @@ const apibaseurl = ' https://dev.shikshalokam.org/assessment/api/v1/'
 let keycloakConfig: KeycloakConfig = {
   url: base_url + '/auth',
   realm: 'sunbird',
-  clientId: 'sl-ionic-connect',
+  clientId: 'YOUR_CLIENT_ID',
   "credentials": {
-    "secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkYTJiMTA5MWVlMDE0MDQ3OTdhYjRjZDI3ODJmYTFkZCJ9.olC-mJ9JVqeeIf-eyBVYciPIIsqDm46XHbKuO1GgNG0"
+    "secret": "YOUR_KEY"
   }  
 };
 
