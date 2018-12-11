@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { ApiService } from 'src/app/core/services/api-service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
+import { UtilityService } from 'src/app/core/services/utility-service';
 
 @Component({
   selector: 'app-questionnaire',
@@ -28,12 +29,12 @@ export class QuestionnaireComponent implements OnInit {
   previousResponses: any;
   callstatusLabel: any;
   parentInterviewCompleted: boolean;
-  remarksObj = {remarks: ""};
+  remarksObj = { remarks: "" };
   schoolName: string;
 
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, 
-    public dialog: MatDialog, private snackBar : MatSnackBar, private location: Location) {
+  constructor(private apiService: ApiService, private route: ActivatedRoute,
+    public dialog: MatDialog, private snackBar: MatSnackBar, private location: Location, private utils: UtilityService) {
     this.schoolId = this.route.snapshot.paramMap.get('schoolId');
     //console.log(this.schoolId)
     this.schoolName = this.route.snapshot.paramMap.get('schoolName')
@@ -44,6 +45,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.utils.loaderShow();
     this.getSurveyQuestions();
   }
 
@@ -57,41 +59,44 @@ export class QuestionnaireComponent implements OnInit {
         this.generalQuestions = successData['result'].assessments[0]['generalQuestions'];
         //console.log(this.currentCallStatus['type']);
 
-        this.generalQuestions[0]['instanceQuestions'][0].value = (this.generalQuestions && !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+        // this.generalQuestions[0]['instanceQuestions'][0].value = (this.generalQuestions && !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
         this.submissionId = successData['result'].assessments[0].submissionId;
+        this.utils.loaderHide();
+
         this.getPreviousResponses();
         // [0]['instanceQuestions']
         // this.length = this.generalQuestion.length
         // //console.log(this.generalQuestion);
       }
-    },(error) => {
-      ;})
+    }, (error) => {
+      ;
+    })
   }
 
 
   getPreviousResponses(): void {
-    this.apiService.getParentResponses(this.submissionId, this.parentId).subscribe( response => {
-      if(response['result']) {
-        const resp= response['result'].answers;
-        if(resp){
+    this.apiService.getParentResponses(this.submissionId, this.parentId).subscribe(response => {
+      if (response['result']) {
+        const resp = response['result'].answers;
+        if (resp) {
           for (const key of Object.keys(resp)) {
-            this.previousResponses  = resp[key].value;
+            this.previousResponses = resp[key].value;
           }
           this.mapPreviousResponse()
-          if(response['result'].status === 'completed') {
+          if (response['result'].status === 'completed') {
             this.parentInterviewCompleted = true;
           }
         } else {
-          this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+          this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
         }
 
       } else {
-    //console.log(this.currentCallStatus['type'] +"hihiii")
-      //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
-    this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+        //console.log(this.currentCallStatus['type'] +"hihiii")
+        //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
+        this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
 
       }
-     
+
       // //console.log(this.previousResponses)
     })
   }
@@ -101,18 +106,18 @@ export class QuestionnaireComponent implements OnInit {
     console.log("yesss")
     for (const question of this.generalQuestions[0]['instanceQuestions']) {
       for (const response of this.previousResponses) {
-        if(response[question._id ]){
-          question.value = response[question._id ].value;
-          question.remarks = response[question._id ].remarks;
-          question.startTime = response[question._id ].startTime;
+        if (response[question._id]) {
+          question.value = response[question._id].value;
+          question.remarks = response[question._id].remarks;
+          question.startTime = response[question._id].startTime;
           question.endTime = response[question._id].endtime;
-          question.isCompleted = (response[question._id ].payload.isCompleted) ? true : false;
+          question.isCompleted = (response[question._id].payload.isCompleted) ? true : false;
         }
       }
     }
     console.log(JSON.stringify(this.generalQuestions[0]['instanceQuestions']))
     //console.log(this.currentCallStatus['type'] +"hihiii")
-    this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+    this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
   }
 
   setcallResponse(select: string) {
@@ -146,8 +151,8 @@ export class QuestionnaireComponent implements OnInit {
     this.callstatusLabel = JSON.parse(callStatusObj).callStatus.label;
     //console.log(this.callstatusLabel)
     this.submitBtnDisable = this.currentCallStatus['callResponse'] === 'R7' && !this.allQuestionsAnswered ? true : false;
-    if(this.generalQuestions && this.generalQuestions[0] && !this.generalQuestions[0]['instanceQuestions'][0].value) {
-      this.generalQuestions[0]['instanceQuestions'][0].value = ( !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+    if (this.generalQuestions && this.generalQuestions[0] && !this.generalQuestions[0]['instanceQuestions'][0].value) {
+      this.generalQuestions[0]['instanceQuestions'][0].value = (!this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
     }
 
   }
@@ -167,7 +172,7 @@ export class QuestionnaireComponent implements OnInit {
       }
     } else {
       this.checkForCompletionOfInterview();
-      if(this.allQuestionsAnswered) {
+      if (this.allQuestionsAnswered) {
         this.openCompleteModel("completed")
       }
       // if(this.allQuestionsAnswered){
@@ -188,27 +193,49 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
 
+  onCancelDialog() {
+    const message = "All your unsaved datas will be lost. Do you want to continue ?"
+    // const message = status=== 'save' ? `Call status will be updated as " ${this.callstatusLabel}"`  : `All your unsaved datas will be lost. Do you want to continue ? `
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: { message: message, status: 'cancel' },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      if (result === "save") {
+        // this.submitSurvey("started");
+        // this.goBack();
+
+      } if (result === "cancel") {
+        this.goBack();
+      } else {
+      }
+      //console.log('The dialog was closed' + result);
+    });
+  }
+
   openConfirmDialog(status): void {
     const message = "Do you want to save the current changes?"
     // const message = status=== 'save' ? `Call status will be updated as " ${this.callstatusLabel}"`  : `All your unsaved datas will be lost. Do you want to continue ? `
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: { message: message , status: status},
+      data: { message: message, status: status },
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === "save") {
         this.submitSurvey("started");
-      } if(result === "cancel") {
+      } if (result === "cancel") {
         this.goBack();
-      }else {
+      } else {
       }
       //console.log('The dialog was closed' + result);
     });
   }
 
   submitSurvey(status): void {
-    let surveyStatus = status ;
+    let surveyStatus = status;
     // if(this.currentCallStatus['callResponse'] === 'R7'){
 
     // }
@@ -220,15 +247,15 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   submitCallStatus(status) {
-    if(this.currentCallStatus['type'] !== this.generalQuestions[0]['instanceQuestions'][0].value){
+    if (this.currentCallStatus['type'] !== this.generalQuestions[0]['instanceQuestions'][0].value) {
       this.currentCallStatus['type'] = this.generalQuestions[0]['instanceQuestions'][0].value;
     }
     // if(status === 'completed'){
-      this.currentCallStatus['callResponse'] = status === 'completed' ?"R7" :"R4";
+    this.currentCallStatus['callResponse'] = status === 'completed' ? "R7" : "R4";
     // }
     this.apiService.postParentData(this.parentId, this.currentCallStatus).
       subscribe(response => {
-        this.snackBar.open(response.message, "Ok", {duration: 3000});
+        this.snackBar.open(response.message, "Ok", { duration: 3000 });
         this.goBack();
       });
   }
@@ -281,12 +308,12 @@ export class QuestionnaireComponent implements OnInit {
   openCompleteModel(status) {
     const message = `All questions are completed. Do you want submit the survey? `
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: { message: message , status: "completed", okBtn: "Complete Survey", remarks: true, remarksData: this.remarksObj},
+      data: { message: message, status: "completed", okBtn: "Complete Survey", remarks: true, remarksData: this.remarksObj },
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
       // //console.log(result)
-      if(result.status === 'completed') {
+      if (result.status === 'completed') {
         this.generalQuestions[0].remarks = result.remarks;
         this.submitSurvey("completed");
       }
@@ -339,18 +366,18 @@ export class QuestionnaireComponent implements OnInit {
           "endTime": instanceQuestion.endTime,
           "countOfInstances": 1,
         }
-        if(instanceQuestion.responseType === "radio"){
+        if (instanceQuestion.responseType === "radio") {
           for (const optn of instanceQuestion.options) {
-            if(optn.value === instanceQuestion.value){
+            if (optn.value === instanceQuestion.value) {
               obj[instanceQuestion._id].payload.labels.push(optn.label)
             }
           }
         } else {
           for (const val of instanceQuestion.value) {
             for (const option of instanceQuestion.options) {
-                if(val === option.value){
-                  obj[instanceQuestion._id].payload.labels.push(option.label)
-                }
+              if (val === option.value) {
+                obj[instanceQuestion._id].payload.labels.push(option.label)
+              }
             }
             // if(optn.value === instanceQuestion.value){
             //   obj[instanceQuestion._id].payload.labels.push(optn.label)
