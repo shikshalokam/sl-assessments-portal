@@ -4,13 +4,17 @@ import { ApiService } from '../../../core/services/api-service';
 import { environment } from '../../../../environments/environment.prod';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service';
+
+elementData:{
+  
+}
 @Component({
   selector: 'app-school-list',
   templateUrl: './school-list.component.html',
   styleUrls: ['./school-list.component.scss']
 })
 export class SchoolListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'state', 'externalId',' '];
+  displayedColumns: string[] = ['name', 'city', 'state', 'externalId','isParentInterviewCompleted'];
   dataSource;
   result;
   error: any;
@@ -24,10 +28,10 @@ export class SchoolListComponent implements OnInit {
     this.apiFetch.getSchoolList()
       .subscribe(data => {
         this.result = data.result.length;
-        console.log(data.result);
         this.dataSource = new MatTableDataSource(data.result);
-        this.dataSource.paginator = this.paginator;
-        this.utility.loaderHide();
+        console.log(data.result);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        this.utility.loaderHide()
       },
         (error) => {
           this.error = error;
@@ -41,6 +45,7 @@ export class SchoolListComponent implements OnInit {
   }
   ngOnInit() {
     this.utility.loaderShow();
+
   }
 
 

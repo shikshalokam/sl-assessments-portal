@@ -20,9 +20,9 @@
     }
     .alingCenterlineParentHeading {
         display: flex;
-        align-items: flex-start;
+        align-items: flex-start !important;
         flex-direction: column;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
   
 }
