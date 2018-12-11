@@ -73,13 +73,18 @@ export class QuestionnaireComponent implements OnInit {
     this.apiService.getParentResponses(this.submissionId, this.parentId).subscribe( response => {
       if(response['result']) {
         const resp= response['result'].answers;
-        for (const key of Object.keys(resp)) {
-          this.previousResponses  = resp[key].value;
+        if(resp){
+          for (const key of Object.keys(resp)) {
+            this.previousResponses  = resp[key].value;
+          }
+          this.mapPreviousResponse()
+          if(response['result'].status === 'completed') {
+            this.parentInterviewCompleted = true;
+          }
+        } else {
+          this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
         }
-        this.mapPreviousResponse()
-        if(response['result'].status === 'completed') {
-          this.parentInterviewCompleted = true;
-        }
+
       } else {
     //console.log(this.currentCallStatus['type'] +"hihiii")
       //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
@@ -142,7 +147,7 @@ export class QuestionnaireComponent implements OnInit {
     //console.log(this.callstatusLabel)
     this.submitBtnDisable = this.currentCallStatus['callResponse'] === 'R7' && !this.allQuestionsAnswered ? true : false;
     if(this.generalQuestions && this.generalQuestions[0] && !this.generalQuestions[0]['instanceQuestions'][0].value) {
-      this.generalQuestions[0]['instanceQuestions'][0].value = (this.generalQuestions && !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
+      this.generalQuestions[0]['instanceQuestions'][0].value = ( !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
     }
 
   }
