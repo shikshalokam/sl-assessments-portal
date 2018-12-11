@@ -11,6 +11,7 @@
 .alingCenterlineParentHeading{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .active{
     border-radius: 12px; 
