@@ -78,7 +78,7 @@ parentInterviewSubmit(flag :boolean){
       .subscribe(successData =>{
         console.log(successData);
         this.snackBar.open(successData['message'], "Ok", {duration: 9000});
-        // this.utility.onBack();
+        this.utility.onBack();
       },
       (error)=>{
         this.snackBar.open(error['message'], "Ok", {duration: 9000});
