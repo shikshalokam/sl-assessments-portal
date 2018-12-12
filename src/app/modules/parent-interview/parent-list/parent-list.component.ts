@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/core/services/api-service';
+import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import {MatTableDataSource, MatPaginator, MatSnackBar} from '@angular/material';
-import { UtilityService } from 'src/app/core/services/utility-service';
+import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 @Component({
   selector: 'app-parent-list',
   templateUrl: './parent-list.component.html',
@@ -19,7 +19,7 @@ export class ParentListComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
 
-  constructor( private route :ActivatedRoute,private snackBar : MatSnackBar,private apiFetch :ApiService,private utility : UtilityService ) { 
+  constructor( private route :ActivatedRoute,private snackBar : MatSnackBar,private parentService :ParentService,private utility : UtilityService ) { 
     this.route.params.subscribe(params => {
       this.schoolId = params["id"];
       this.schoolName =params["name"];
@@ -50,7 +50,7 @@ export class ParentListComponent implements OnInit{
   
 }
  showConfig() {
-  this.apiFetch.getParentList(this.schoolId )
+  this.parentService.getParentList(this.schoolId )
       .subscribe(data => {
         data.result.forEach(element=>{
           if(element['callResponse'] == 'R7')
@@ -71,10 +71,10 @@ export class ParentListComponent implements OnInit{
 }
 parentInterviewSubmit(flag :boolean){
   if(flag){
-    this.apiFetch.getAssessmentQuestions(this.schoolId).subscribe(successData => {
+    this.parentService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
       this.submissionId =  successData['result'].assessments[0]['submissionId'];
       console.log(this.submissionId);
-      this.apiFetch.parentInterviewSubmission(this.submissionId)
+      this.parentService.parentInterviewSubmission(this.submissionId)
       .subscribe(successData =>{
         console.log(successData);
         this.snackBar.open(successData['message'], "Ok", {duration: 9000});

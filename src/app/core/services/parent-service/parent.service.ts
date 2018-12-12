@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ParentConfig } from '../../modules/parent-interview/parent-config';
+import { ParentConfig } from '../../../modules/parent-interview/parent-config';
 import { environment } from 'src/environments/environment.prod';
 import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 export interface Config {
     message: string;
@@ -17,7 +16,7 @@ export interface Config {
     ]
 }
 @Injectable()
-export class ApiService {
+export class ParentService {
     constructor(private http: HttpClient) { }
     configUrl;
 

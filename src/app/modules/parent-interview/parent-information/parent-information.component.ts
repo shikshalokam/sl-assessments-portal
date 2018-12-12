@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/core/services/api-service';
-import { UtilityService } from 'src/app/core/services/utility-service';
+import { ParentService } from 'src/app/core/services/parent-service/parent.service';
+import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 
 @Component({
   selector: 'app-parent-information',
@@ -15,7 +14,7 @@ export class ParentInformationComponent implements OnInit {
   selected;
   error;
   @Output() callResponse = new EventEmitter();
-  constructor(private apiFetch: ApiService, private utility: UtilityService) {
+  constructor(private parentService: ParentService, private utility: UtilityService) {
 
   }
 
@@ -26,7 +25,7 @@ export class ParentInformationComponent implements OnInit {
 
   showConfig() {
     this.utility.loaderShow();
-    this.apiFetch.getParentInfo(this.parentId)
+    this.parentService.getParentInfo(this.parentId)
       .subscribe(data => {
         console.log(data.result);
         this.utility.loaderHide();

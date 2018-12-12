@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
-import { ApiService } from 'src/app/core/services/api-service';
+import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
@@ -32,7 +32,7 @@ export class QuestionnaireComponent implements OnInit {
   schoolName: string;
 
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, 
+  constructor(private parentService: ParentService, private route: ActivatedRoute, 
     public dialog: MatDialog, private snackBar : MatSnackBar, private location: Location) {
     this.schoolId = this.route.snapshot.paramMap.get('schoolId');
     //console.log(this.schoolId)
@@ -51,7 +51,7 @@ export class QuestionnaireComponent implements OnInit {
     this.location.back();
   }
   getSurveyQuestions(): void {
-    this.apiService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
+    this.parentService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
       //console.log(successData);
       if (successData['result'].assessments) {
         this.generalQuestions = successData['result'].assessments[0]['generalQuestions'];
@@ -70,7 +70,7 @@ export class QuestionnaireComponent implements OnInit {
 
 
   getPreviousResponses(): void {
-    this.apiService.getParentResponses(this.submissionId, this.parentId).subscribe( response => {
+    this.parentService.getParentResponses(this.submissionId, this.parentId).subscribe( response => {
       if(response['result']) {
         const resp= response['result'].answers;
         if(resp){
@@ -214,7 +214,7 @@ export class QuestionnaireComponent implements OnInit {
     // }
     const payload = this.constructPayload(surveyStatus);
     console.log(JSON.stringify(payload))
-    this.apiService.submitParentsurvey(this.submissionId, payload).subscribe(response => {
+    this.parentService.submitParentsurvey(this.submissionId, payload).subscribe(response => {
       this.submitCallStatus(status);
     })
   }
@@ -226,7 +226,7 @@ export class QuestionnaireComponent implements OnInit {
     // if(status === 'completed'){
       this.currentCallStatus['callResponse'] = status === 'completed' ?"R7" :"R4";
     // }
-    this.apiService.postParentData(this.parentId, this.currentCallStatus).
+    this.parentService.postParentData(this.parentId, this.currentCallStatus).
       subscribe(response => {
         this.snackBar.open(response.message, "Ok", {duration: 3000});
         this.goBack();
