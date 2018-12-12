@@ -10,10 +10,10 @@ import { TranslateService } from './core/services/translate-service/translate.se
 import { ModulesModule } from './modules/modules.module';
 import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
-import { ApiInterceptor } from 'src/app/core/services/interceptor-service';
-import { ApiService } from './core/services/api-service';
+import { ApiInterceptor } from 'src/app/core/services/interceptor-service/interceptor.service';
+import { ParentService } from './core/services/parent-service/parent.service';
 import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
-import { UtilityService } from './core/services/utility-service';
+import { UtilityService } from './core/services/utility-service/utility.service';
 export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('en');
@@ -51,7 +51,7 @@ export function authFactory(authService: AuthService) {
       useClass: ApiInterceptor,
       multi: true
     },
-    ApiService,
+    ParentService,
     UtilityService,
     {
       provide: APP_INITIALIZER,

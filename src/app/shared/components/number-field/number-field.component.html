@@ -1,6 +1,8 @@
 <div [formGroup]="genericForm">
   <mat-form-field class="col-sm-6 fixSize">
     <span *ngIf="genericData.input == 'number'" matPrefix>+91 &nbsp;</span>
-    <input type="tel" placeholder="{{genericData.label}} " formControlName="{{genericData.field}}" matInput required > 
+    <input type="number"  pattern="^[0-9]{10}$" placeholder="{{genericData.label}} " formControlName="{{genericData.field}}" matInput required > 
+    <!-- {{genericData.regex}} -->
   </mat-form-field>
 </div>
+<!-- pattern="[genericData.input.validation.regex]*"  -->

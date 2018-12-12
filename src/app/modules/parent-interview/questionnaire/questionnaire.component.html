@@ -6,7 +6,7 @@
 
 
 </div> -->
-<app-parent-heading [schoolName]="schoolName"  [genericHeading]="'headings.survey'"></app-parent-heading>
+<app-parent-heading [schoolName]="schoolName" [schoolId]="schoolId"  [genericHeading]="'headings.survey'"></app-parent-heading>
 <div class="col-xs-12">
     <app-parent-information [parentId]="parentId"  (callResponse)="updateCallStatus($event)"></app-parent-information>
 
