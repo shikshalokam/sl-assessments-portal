@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, AfterViewInit} from '@angular/core';
 import { Location } from '@angular/common';
 import { ApiService } from 'src/app/core/services/api-service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,14 +6,15 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { MatSnackBar } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service';
+import { ParentInformationComponent } from '../parent-information/parent-information.component';
 
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss']
 })
-export class QuestionnaireComponent implements OnInit {
-
+export class QuestionnaireComponent implements OnInit,AfterViewInit {
+  @ViewChild(ParentInformationComponent) parentInfoCmp: ParentInformationComponent; 
   parentInfo: any;
   parentId: string;
   schoolId: string;
@@ -31,6 +32,7 @@ export class QuestionnaireComponent implements OnInit {
   parentInterviewCompleted: boolean;
   remarksObj = { remarks: "" };
   schoolName: string;
+  currentParentType: any;
 
 
   constructor(private apiService: ApiService, private route: ActivatedRoute,
@@ -47,6 +49,10 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit() {
     this.utils.loaderShow();
     this.getSurveyQuestions();
+  }
+
+  ngAfterViewInit() {
+    // console.log(this.parentInfoCmp.getParentInfo())
   }
 
   goBack() {
@@ -76,8 +82,11 @@ export class QuestionnaireComponent implements OnInit {
 
   getPreviousResponses(): void {
     this.apiService.getParentResponses(this.submissionId, this.parentId).subscribe(response => {
+      this.currentParentType = this.parentInfoCmp.getParentInfo().type;
+      console.log(this.currentParentType)
       if (response['result']) {
         const resp = response['result'].answers;
+    // console.log(this.parentInfoCmp.getParentInfo())
         if (resp) {
           for (const key of Object.keys(resp)) {
             this.previousResponses = resp[key].value;
@@ -87,13 +96,14 @@ export class QuestionnaireComponent implements OnInit {
             this.parentInterviewCompleted = true;
           }
         } else {
-          this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
+          console.log("in elseeeeeee");
+          this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
         }
 
       } else {
         //console.log(this.currentCallStatus['type'] +"hihiii")
         //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
-        this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
+        this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
 
       }
 
@@ -172,7 +182,7 @@ export class QuestionnaireComponent implements OnInit {
       }
     } else {
       this.checkForCompletionOfInterview();
-      if (this.allQuestionsAnswered) {
+      if (this.allQuestionsAnswered && !this.parentInterviewCompleted) {
         this.openCompleteModel("completed")
       }
       // if(this.allQuestionsAnswered){
