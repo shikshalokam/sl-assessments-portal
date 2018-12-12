@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/core/services/api-service';
-import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
+import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { UtilityService } from 'src/app/core/services/utility-service';
+import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -23,7 +22,7 @@ export class ParentEditComponent implements OnInit {
   error;
   schoolName;
   headings = 'headings.parentInfoHeading';
-  constructor(private location: Location,private route :ActivatedRoute,private utility : UtilityService ,private apiFetch :ApiService , private createForm :CreateFormGroup , private http :HttpClient) { 
+  constructor(private location: Location,private route :ActivatedRoute,private utility : UtilityService ,private parentService :ParentService ,  private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
       this.schoolName =params["name"];
@@ -51,7 +50,7 @@ export class ParentEditComponent implements OnInit {
   }
     showConfig() {
 
-  this.apiFetch.getParentInfo(this.sendUrl)
+  this.parentService.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
         this.parentEditData = data.result;
@@ -62,7 +61,7 @@ export class ParentEditComponent implements OnInit {
               console.log(element.visible);
             }
         });
-        this.parentForm = this.createForm.toGroup(data.result) ;
+        this.parentForm = this.utility.toGroup(data.result) ;
         console.log(this.parentForm);
         console.log(this.parentEditData);
         this.utility.loaderHide();
@@ -76,7 +75,7 @@ export class ParentEditComponent implements OnInit {
   getUpdateData(){
   this.updateData = this.parentForm.getRawValue(); 
   console.log(this.updateData)
-    this.apiFetch.postParentData(this.sendUrl,this.updateData).
+    this.parentService.postParentData(this.sendUrl,this.updateData).
     subscribe(data => {
       console.log(data);
    });
