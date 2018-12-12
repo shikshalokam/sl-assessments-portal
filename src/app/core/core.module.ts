@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { TranslateService, AuthService } from './services';
+import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor } from './services';
 import { TranslatePipe } from './pipes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
@@ -51,7 +51,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [TranslateService, AuthService]
+      providers: [TranslateService, AuthService,UtilityService,ParentService,ApiInterceptor]
     };
   }
 }

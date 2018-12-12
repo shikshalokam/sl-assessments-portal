@@ -1,11 +1,11 @@
-import { Component, OnInit , ViewChild, AfterViewInit} from '@angular/core';
-import { Location } from '@angular/common';
-import { ApiService } from 'src/app/core/services/api-service';
+import { Component, OnInit , ViewChild, } from '@angular/core';
+import {Location} from '@angular/common';
+import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog,   } from '@angular/material';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { MatSnackBar } from '@angular/material';
-import { UtilityService } from 'src/app/core/services/utility-service';
+import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { ParentInformationComponent } from '../parent-information/parent-information.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { ParentInformationComponent } from '../parent-information/parent-informa
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss']
 })
-export class QuestionnaireComponent implements OnInit,AfterViewInit {
+export class QuestionnaireComponent implements OnInit {
   @ViewChild(ParentInformationComponent) parentInfoCmp: ParentInformationComponent; 
   parentInfo: any;
   parentId: string;
@@ -35,15 +35,12 @@ export class QuestionnaireComponent implements OnInit,AfterViewInit {
   currentParentType: any;
 
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute,
-    public dialog: MatDialog, private snackBar: MatSnackBar, private location: Location, private utils: UtilityService) {
+
+  constructor(private parentService: ParentService, private route: ActivatedRoute, 
+    public dialog: MatDialog, private snackBar : MatSnackBar, private location: Location, private utils: UtilityService) {
     this.schoolId = this.route.snapshot.paramMap.get('schoolId');
-    //console.log(this.schoolId)
     this.schoolName = this.route.snapshot.paramMap.get('schoolName')
-
     this.parentId = this.route.snapshot.paramMap.get('parentId');
-    //console.log(this.parentId)
-
   }
 
   ngOnInit() {
@@ -51,42 +48,33 @@ export class QuestionnaireComponent implements OnInit,AfterViewInit {
     this.getSurveyQuestions();
   }
 
-  ngAfterViewInit() {
-    // console.log(this.parentInfoCmp.getParentInfo())
-  }
 
   goBack() {
     this.location.back();
   }
   getSurveyQuestions(): void {
-    this.apiService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
-      //console.log(successData);
+    this.parentService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
       if (successData['result'].assessments) {
         this.generalQuestions = successData['result'].assessments[0]['generalQuestions'];
-        //console.log(this.currentCallStatus['type']);
 
-        // this.generalQuestions[0]['instanceQuestions'][0].value = (this.generalQuestions && !this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type']:this.generalQuestions[0]['instanceQuestions'][0].value;
         this.submissionId = successData['result'].assessments[0].submissionId;
         this.utils.loaderHide();
 
         this.getPreviousResponses();
-        // [0]['instanceQuestions']
-        // this.length = this.generalQuestion.length
-        // //console.log(this.generalQuestion);
       }
     }, (error) => {
+
       ;
     })
   }
 
 
   getPreviousResponses(): void {
-    this.apiService.getParentResponses(this.submissionId, this.parentId).subscribe(response => {
+    this.parentService.getParentResponses(this.submissionId, this.parentId).subscribe(response => {
       this.currentParentType = this.parentInfoCmp.getParentInfo().type;
       console.log(this.currentParentType)
       if (response['result']) {
         const resp = response['result'].answers;
-    // console.log(this.parentInfoCmp.getParentInfo())
         if (resp) {
           for (const key of Object.keys(resp)) {
             this.previousResponses = resp[key].value;
@@ -251,7 +239,7 @@ export class QuestionnaireComponent implements OnInit,AfterViewInit {
     // }
     const payload = this.constructPayload(surveyStatus);
     console.log(JSON.stringify(payload))
-    this.apiService.submitParentsurvey(this.submissionId, payload).subscribe(response => {
+    this.parentService.submitParentsurvey(this.submissionId, payload).subscribe(response => {
       this.submitCallStatus(status);
     })
   }
@@ -263,7 +251,7 @@ export class QuestionnaireComponent implements OnInit,AfterViewInit {
     // if(status === 'completed'){
     this.currentCallStatus['callResponse'] = status === 'completed' ? "R7" : "R4";
     // }
-    this.apiService.postParentData(this.parentId, this.currentCallStatus).
+    this.parentService.postParentData(this.parentId, this.currentCallStatus).
       subscribe(response => {
         this.snackBar.open(response.message, "Ok", { duration: 3000 });
         this.goBack();
