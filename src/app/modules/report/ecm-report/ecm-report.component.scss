@@ -1,0 +1,20 @@
+.alingCenterLine{
+    display : flex;
+    align-items: baseline;
+}
+.spaceBetween{
+    justify-content: space-between;
+}
+.wrapper{
+    padding:20px 2px;
+}
+.card{
+    margin-bottom: 15px;
+}
+.labels{
+    text-transform: capitalize;
+    font-weight: 550;
+}
+.padding{
+    padding: 10px 0px !important;
+}
