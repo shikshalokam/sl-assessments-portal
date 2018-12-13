@@ -26,9 +26,11 @@
         "parentInfoHeading" : "Parent Information",
         "parentListHeading" : "Parent List",
         "schoolListHeading" : "School List",
+        "ecmReportsHeading" : "ECM Reports",
         "parentInterview":"Parent Intereview",
         "features" : "Features",
-        "survey": "Survey"
+        "survey": "Survey",
+        "reports" : "Reports"
     },
     "labels": {
 

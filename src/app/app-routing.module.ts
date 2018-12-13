@@ -8,9 +8,13 @@ const routes: Routes = [
    // load private module only if logged in
   },
   {
-    path: '**',
-    redirectTo: 'parnet-interview'
-  }
+    path: 'parent-report',
+    loadChildren: './modules/report/report.module#ReportModule'
+  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'report'
+  // }
 ];
 
 @NgModule({
