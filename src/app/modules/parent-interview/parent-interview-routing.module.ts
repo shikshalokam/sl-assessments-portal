@@ -40,10 +40,10 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: '**',
-    redirectTo: 'parent'
-  }
+  // {
+  //   path: '**',
+  //   redirectTo: 'parent'
+  // }
 
 
 ];
