@@ -16,7 +16,7 @@ import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-
 import { UtilityService } from './core/services/utility-service/utility.service';
 export function setupTranslateFactory(
   service: TranslateService): Function {
-  return () => service.use('en');
+  return () => service.use('od');
 }
 export function authFactory(authService: AuthService) {
   return () => authService.init();
