@@ -20,6 +20,7 @@ export class EcmReportComponent implements OnInit {
   payloads = [];
   submissionId;
   data;
+  today: number = Date.now();
   headings = 'headings.ecmReportsHeading';
   constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private parentService: ParentService, private utility: UtilityService) {
     this.route.params.subscribe(params => {
