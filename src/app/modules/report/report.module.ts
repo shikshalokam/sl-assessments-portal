@@ -10,6 +10,7 @@ import { MatTableModule, MatButtonModule, MatInputModule, MatFormFieldModule, Ma
 import { EcmReportComponent } from './ecm-report/ecm-report.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MatCardModule} from '@angular/material/card';
     MatCardModule,
     MatTabsModule,
     NgxSpinnerModule,
+    MatExpansionModule,
     MatTableModule,
     MatButtonModule,
     MatInputModule,
