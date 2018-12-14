@@ -76,6 +76,7 @@ export class QuestionnaireComponent implements OnInit {
       if (response['result']) {
         const resp = response['result'].answers;
         if (resp) {
+
           for (const key of Object.keys(resp)) {
             this.previousResponses = resp[key].value;
           }
