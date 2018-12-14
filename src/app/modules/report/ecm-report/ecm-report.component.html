@@ -4,29 +4,61 @@
   <span *ngFor=" let evidences of ecmData ">
     <mat-tab *ngIf="evidences.isSubmitted && submissionData" label="{{evidences.name}}">
       <div *ngFor="let submission of submissionData" class="wrapper">
-        <mat-card class="col-xs-12 card ">
-          <div *ngFor=" let key of objectKeys(submission)">
-            <span *ngIf=" key != 'answers' && key != 'isValid' && key != 'externalId'">
-              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 alingCenterLine">
-                <span class="labels"> {{key}} &nbsp;</span>
-                <span>&nbsp;:&nbsp; {{submission[key]}}</span>
-              </div>
-            </span>
-          </div>
-          <div *ngFor=" let key of objectKeys(submission);let i = index" class="col-xs-12">
-            <div class="padding" *ngIf="i == 0">
-              <mat-divider></mat-divider>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span class="labels"> Submitted By : {{submission.submittedByName}} </span>
+            </mat-panel-title>
+            <mat-panel-description>
+              <span class="labels flex-1"> Start Time :  {{submission.startTime | date }}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-card class="col-xs-12 card ">
+            <div *ngFor=" let key of objectKeys(submission)">
+              <span *ngIf=" key != 'answers' && key != 'isValid' && key != 'externalId'">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 alingCenterLine">
+                  <span class="labels"> {{key}} &nbsp;</span>
+                  <span *ngIf =" key == 'endTime' || key == 'startTime' || key == '' ; else other"> {{submission[key] | date :'yyyy-MM-dd HH:mm:ss'}}</span>
+                  <ng-template #other>&nbsp;:&nbsp; {{submission[key]}}</ng-template>
+                </div>
+              </span>
             </div>
-            <span *ngIf=" key == 'answers'">
-              <div *ngFor=" let answer of objectKeys(submission.answers)">
-                <span *ngIf="submission.answers[answer].responseType != 'matrix'" class="alingCenterLine spaceBetween">
-                  <span>{{submission.answers[answer]['payload']['question'][0]}}</span>
-                  <span>{{submission.answers[answer]['payload']['labels']}}</span>
-                </span>
+            <div *ngFor=" let key of objectKeys(submission);let i = index" class="col-xs-12">
+              <div class="padding" *ngIf="i == 0">
+                <mat-divider></mat-divider>
               </div>
-            </span>
-          </div>
-        </mat-card>
+              <span *ngIf=" key == 'answers'">
+                <div *ngFor=" let answer of objectKeys(submission.answers)">
+                  <span *ngIf="submission.answers[answer].responseType == 'matrix'">
+                    <div>{{submission.answers[answer]['payload']['question'][0]}}</div>
+                    <div *ngFor=" let label of submission.answers[answer]['payload']['labels']">
+                      <div *ngFor="let keys of label ; let i = index " class="instanceQuestion">
+                        <div class="labels instanceLabel ">Instance - {{i+1}}</div>
+                        <div *ngFor="let key of keys" class="alingCenterLine ">
+                          <span class="flex-2">{{key.question[0]}}</span>
+                          <span *ngIf="key.responseType == 'radio';  else others ">
+                            <span *ngFor="let opt of key.options">
+                              <span *ngIf="opt.value == key.value">
+                                <span class="flex-1">{{opt.label}}</span>
+                              </span>
+                            </span>
+                          </span>
+                          <ng-template #others>
+                            <span class="flex-1">{{key.value}}</span>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  <span *ngIf="submission.answers[answer].responseType != 'matrix'" class="alingCenterLine ">
+                    <span class="flex-2">{{submission.answers[answer]['payload']['question'][0]}}</span>
+                    <span class="flex-1">{{submission.answers[answer]['payload']['labels']}}</span>
+                  </span>
+                </div>
+              </span>
+            </div>
+          </mat-card>
+        </mat-expansion-panel>
       </div>
     </mat-tab>
     <mat-tab *ngIf="!evidences.isSubmitted" label="{{evidences.name}}">{{'message.noData' | translate}}</mat-tab>
