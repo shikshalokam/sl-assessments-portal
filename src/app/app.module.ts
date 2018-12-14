@@ -3,7 +3,6 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import {  KeycloakAngularModule } from 'keycloak-angular';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TranslateService } from './core/services/translate-service/translate.service';
@@ -11,12 +10,10 @@ import { ModulesModule } from './modules/modules.module';
 import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { ApiInterceptor } from 'src/app/core/services/interceptor-service/interceptor.service';
-import { ParentService } from './core/services/parent-service/parent.service';
 import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
-import { UtilityService } from './core/services/utility-service/utility.service';
 export function setupTranslateFactory(
   service: TranslateService): Function {
-  return () => service.use('en');
+  return () => service.use('od');
 }
 export function authFactory(authService: AuthService) {
   return () => authService.init();
@@ -29,7 +26,6 @@ export function authFactory(authService: AuthService) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // KeycloakAngularModule,
     SharedModule,
     CoreModule,
     ModulesModule,
@@ -51,8 +47,6 @@ export function authFactory(authService: AuthService) {
       useClass: ApiInterceptor,
       multi: true
     },
-    ParentService,
-    UtilityService,
     {
       provide: APP_INITIALIZER,
       useFactory: authFactory,
