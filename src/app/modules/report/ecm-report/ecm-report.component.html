@@ -50,10 +50,10 @@
                       </div>
                     </div>
                   </span>
-                  <span *ngIf="submission.answers[answer].responseType != 'matrix'" class="alingCenterLine ">
-                    <span class="flex-2">{{submission.answers[answer]['payload']['question'][0]}}</span>
-                    <span class="flex-1">{{submission.answers[answer]['payload']['labels']}}</span>
-                  </span>
+                  <div *ngIf="submission.answers[answer].responseType != 'matrix'" class="alingCenterLine ">
+                    <div class="flex-2">{{submission.answers[answer]['payload']['question'][0]}}</div>
+                    <div class="flex-1">{{submission.answers[answer]['payload']['labels']}}</div>
+                  </div>
                 </div>
               </span>
             </div>
