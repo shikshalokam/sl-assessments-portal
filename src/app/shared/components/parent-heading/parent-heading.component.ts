@@ -14,6 +14,7 @@ export class ParentHeadingComponent implements OnInit {
   @Input() genericHeading: string;
   @Input() schoolName;
   @Input() atleastOneComplete;
+  @Input() schoolId;
   noBackButton = ['headings.schoolListHeading',];
   @Output() sendMarkAsComplete = new EventEmitter<boolean>();
   constructor( public dialog: MatDialog, private utilityService: UtilityService) { }
