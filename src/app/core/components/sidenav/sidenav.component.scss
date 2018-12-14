@@ -1,29 +1,21 @@
 @import '../../../../assets/scss/varibles.scss';
-.sideNavheading{
-    color:$grey-color;
-    padding: 20px 0px 15px 5px;
-    
-}
+
 .sideNavSubheading{
-    height: 30px;
     font-size: 15px;
-    padding: 4px 0px 0px 15px;
+    padding: 10px 23px;
+    height: 40px;
+    display: flex;
+    cursor: pointer;
 }
 .subHeading{
     color:$grey-color;
-    padding: 3px 96px 5px 15px;
-    text-decoration: none;
 }
 
 .subHeading:hover{  
     color:white;
-    width:250px;
     background-color: $primary-color;
-    text-decoration: none;
-
 }
 .active {
     background-color:$primary-color;
     color: white;
-    width:250px;
 }

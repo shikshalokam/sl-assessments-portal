@@ -12,7 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { ApiService } from 'src/app/core/services/api-service';
+import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { ParentListComponent } from './parent-list/parent-list.component';
@@ -22,7 +22,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
-import { CreateFormGroup } from 'src/app/core/services/create-formgroup-service';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ParentInformationComponent } from './parent-information/parent-information.component';
@@ -66,11 +65,9 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
     MatPaginatorModule,
     MatCheckboxModule,
     MatDialogModule
-    // RouterModule
   ],
   providers: [
-    ApiService,
-    CreateFormGroup,
+    ParentService,
   ],
   entryComponents: [ConfirmModalComponent]
 })
