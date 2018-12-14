@@ -1,0 +1,40 @@
+.alingCenterLine{
+    display : flex;
+    align-items: center;
+}
+
+.wrapper{
+    padding:20px 2px;
+}
+.card{
+    margin-bottom: 15px;
+}
+.labels{
+    text-transform: capitalize;
+    font-weight: 550;
+}
+.padding{
+    padding: 10px 0px !important;
+}
+.instanceQuestion{
+    padding: 10px;
+    width:100%;
+    border: 1px solid #bababa;
+    box-shadow: 1px;
+    margin: 10px;
+}
+.flex-1{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.flex-2{
+    flex: 2;
+}
+.instanceLabel{
+    font-weight: 500;
+    padding :10px;
+    border-bottom:  1px solid #bababa;
+    margin-bottom: 10px;
+   display: flex;
+}
