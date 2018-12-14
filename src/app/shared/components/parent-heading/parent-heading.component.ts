@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, } from '@angular/material';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { UtilityService } from 'src/app/core/services/utility-service';
+import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 export interface DialogData {
 }
 @Component({
@@ -14,10 +14,11 @@ export class ParentHeadingComponent implements OnInit {
   @Input() genericHeading: string;
   @Input() schoolName;
   @Input() atleastOneComplete;
+  @Input() schoolId;
   noBackButton = ['headings.schoolListHeading',];
   @Output() sendMarkAsComplete = new EventEmitter<boolean>();
-  constructor(public dialog: MatDialog, private utilityService: UtilityService) { }
- 
+  constructor( public dialog: MatDialog, private utilityService: UtilityService) { }
+
   ngOnInit() {
 
   }
@@ -39,6 +40,6 @@ export class ParentHeadingComponent implements OnInit {
   }
 
   onBack() {
-    this.utilityService.onBack();
+      this.utilityService.onBack();
   }
 }

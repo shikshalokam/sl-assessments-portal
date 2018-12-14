@@ -14,6 +14,7 @@ export class NumberFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.genericData.validation.regex)
   }
 
 }
