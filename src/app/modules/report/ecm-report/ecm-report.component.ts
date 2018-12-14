@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ParentService, UtilityService } from 'src/app/core';
 import { MatSnackBar } from '@angular/material';
-import { getCurrencySymbol } from '@angular/common';
 
 @Component({
   selector: 'app-ecm-report',
