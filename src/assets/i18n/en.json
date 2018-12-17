@@ -3,6 +3,7 @@
     "brandResponsive": "SDI",
     "message" :{
         "alertHeading" : "ALERT !!",
+        "imageHeading" : "Images",
         "alertMessage" : "Mark as complete will be updated 'Are you sure to submit' ? ",
         "noData" :"No data found"
     },

@@ -11,10 +11,11 @@ const routes: Routes = [
     path: 'parent-report',
     loadChildren: './modules/report/report.module#ReportModule'
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'report'
-  // }
+  {
+    path: '',
+    redirectTo: 'parent/school-list',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

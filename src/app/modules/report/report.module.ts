@@ -11,13 +11,15 @@ import { EcmReportComponent } from './ecm-report/ecm-report.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ImageModalComponent } from './ecm-report/image-modal/image-modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     ReportComponent,
     SchoolListComponent,
-    EcmReportComponent
-    
+    EcmReportComponent,
+    ImageModalComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTabsModule,
     NgxSpinnerModule,
     MatExpansionModule,
+    MatDialogModule,
     MatTableModule,
     MatButtonModule,
     MatInputModule,
@@ -36,6 +39,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ReportRoutingModule
 
   ],
+  entryComponents: [ImageModalComponent],
+
   providers: [
   ],
 //   entryComponents: [ConfirmModalComponent]
