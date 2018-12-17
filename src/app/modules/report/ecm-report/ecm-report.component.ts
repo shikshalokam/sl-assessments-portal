@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ParentService, UtilityService } from 'src/app/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ImageModalComponent } from '../ecm-report/image-modal/image-modal.component';
+export interface DialogData {
+  fileName: any;
+}
 
 @Component({
   selector: 'app-ecm-report',
@@ -19,8 +23,10 @@ export class EcmReportComponent implements OnInit {
   payloads = [];
   submissionId;
   data;
+  imageArray = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGTVf63Vm3XgOncMVSOy0-jSxdMT8KVJIc8WiWaevuWiPGe0Pm'];
   headings = 'headings.ecmReportsHeading';
-  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private parentService: ParentService, private utility: UtilityService) {
+  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private parentService: ParentService, private utility: UtilityService,
+    public dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.schoolId = params["id"];
       this.schoolName = params["name"];
@@ -38,9 +44,11 @@ export class EcmReportComponent implements OnInit {
         console.log(this.submissionId);
         this.parentService.getSubmission(this.submissionId).subscribe(
           data => {
-              this.data = data['result'].evidences;
-              this.submissionData = this.data[Object.keys(this.data)[0]].submissions;
-              console.log(this.submissionData);
+            this.data = data['result'].evidences;
+            this.submissionData = this.data[Object.keys(this.data)[0]].submissions;
+            console.log(this.submissionData);
+            this.utility.loaderHide();
+
           },
           (error) => {
             this.error = error;
@@ -61,14 +69,27 @@ export class EcmReportComponent implements OnInit {
   objectKeys(obj) {
     return Object.keys(obj);
   }
-  getIndex(event){
+  getIndex(event) {
     console.log(event.index);
     this.getSubmissionData(event.index);
   }
 
-  getSubmissionData(index)
-  {
+  getSubmissionData(index) {
     this.submissionData = this.data[this.ecmData[Object.keys(this.ecmData)[index]].externalId].submissions;
     console.log(this.submissionData);
   }
+  openDialog(imageFile): void {
+    const dialogRef = this.dialog.open(ImageModalComponent, {
+      // imageArray = imageFile
+      width: '650px',
+      height: '600px',
+      data: { fileName: imageFile },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }

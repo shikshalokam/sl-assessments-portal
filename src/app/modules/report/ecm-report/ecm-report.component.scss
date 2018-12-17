@@ -27,9 +27,13 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+
 }
 .flex-2{
     flex: 2;
+    display: flex;
+    align-items: center;
 }
 .instanceLabel{
     font-weight: 500;
@@ -37,4 +41,10 @@
     border-bottom:  1px solid #bababa;
     margin-bottom: 10px;
    display: flex;
+}
+.uploadImageIcon{
+    padding-left: 20px;
+}
+.expansionCard{
+    background-color: #f2f2f2;
 }
