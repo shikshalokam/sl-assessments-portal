@@ -37,7 +37,7 @@
                 <span *ngIf=" key == 'answers'">
                   <div *ngFor=" let answer of objectKeys(submission.answers); let j = index">
                     <span *ngIf="submission.answers[answer].responseType == 'matrix'">
-                      <div class="alingCenterLine "> {{questionNo+j}} .
+                      <div class="alingCenterLine "> {{1+j}} .
                         {{submission.answers[answer]['payload']['question'][0]}}</div>
                       <div *ngFor=" let label of submission.answers[answer]['payload']['labels']">
                         <div *ngFor="let keys of label ; let i = index " class="instanceQuestion">
