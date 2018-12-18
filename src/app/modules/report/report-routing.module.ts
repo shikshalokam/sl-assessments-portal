@@ -26,10 +26,10 @@ const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'report'
-  // }
+  {
+    path: '**',
+    redirectTo: 'report'
+  }
 
 
 ];
