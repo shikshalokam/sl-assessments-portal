@@ -19,14 +19,14 @@
           </mat-form-field> -->
         </span>
         <ng-template #otherLabel class=" col-xs-12 col-md-4 col-sm-12 col-lg-4 alingParentInfo">
-            <span class="bold spaceBetween col-md-6 col-xs-12">
+            <div class="bold spaceBetween col-md-6 col-xs-12">
               <span >{{res.label}}</span>
               <span>:</span>  
-            </span>
+            </div>
           <span *ngFor="let opt of res.options" >
-            <span *ngIf="res.value === opt.value"  class=" col-md-6 col-xs-12">
+            <div *ngIf="res.value === opt.value"  class=" col-md-6 col-xs-12">
                 {{opt.label}}
-            </span>
+            </div>
           </span>
         </ng-template>
       </span>
@@ -36,7 +36,7 @@
             <span>{{res.label}}</span>
             <span>:</span>   
           </span>
-          <span class="col-md-6 col-xs-12"> {{res.value}}</span> 
+          <div class="col-md-6 col-xs-12"> {{res.value}}</div> 
           </span>
     </ng-template>
   </div>
