@@ -17,8 +17,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ImageCardComponent } from './components/image-card/image-card.component';
 @NgModule({
-  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent ],
+  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent ],
   imports: [
     CommonModule,
     FormsModule,
@@ -35,7 +36,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSnackBarModule
   ],
   entryComponents: [DialogBoxComponent],
-  exports : [DynamicFormComponent,BreadcrumbComponent,ParentHeadingComponent, MatSnackBarModule]
+  exports : [DynamicFormComponent,BreadcrumbComponent,ParentHeadingComponent, MatSnackBarModule,ImageCardComponent]
 
 })
 export class SharedModule { }
