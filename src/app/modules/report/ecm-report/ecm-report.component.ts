@@ -14,6 +14,7 @@ export interface DialogData {
 })
 export class EcmReportComponent implements OnInit {
   schoolId;
+  questionNo = 1 ;
   schoolName;
   error;
   ecmData;
@@ -91,5 +92,4 @@ export class EcmReportComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
 }

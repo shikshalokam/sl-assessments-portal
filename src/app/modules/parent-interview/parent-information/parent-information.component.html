@@ -1,6 +1,6 @@
 
   <mat-card class="card col-xs-12">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 " *ngFor="let res of data ">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  " *ngFor="let res of data ">
       <span *ngIf="res.input == 'radio' ; else other">
         <span *ngIf="res.field === 'callResponse' ; else otherLabel">
           <!-- <span class="bold"> {{res.label}} : </span> -->
@@ -18,17 +18,26 @@
             </span>
           </mat-form-field> -->
         </span>
-        <ng-template #otherLabel>
-            <span class="bold"> {{res.label}} :</span>
-          <span *ngFor="let opt of res.options">
-            <span *ngIf="res.value === opt.value">
+        <ng-template #otherLabel class=" col-xs-12 col-md-4 col-sm-12 col-lg-4 alingParentInfo">
+            <span class="bold spaceBetween col-md-6 col-xs-12">
+              <span >{{res.label}}</span>
+              <span>:</span>  
+            </span>
+          <span *ngFor="let opt of res.options" >
+            <span *ngIf="res.value === opt.value"  class=" col-md-6 col-xs-12">
                 {{opt.label}}
             </span>
           </span>
         </ng-template>
       </span>
-      <ng-template #other>
-        <span class="bold"> {{res.label}} : </span> {{res.value}}
+      <ng-template #other class="col-xs-12 col-md-4 col-sm-12 col-lg-4 alingParentInfo">
+        <span >
+          <span class="bold spaceBetween col-md-6 col-xs-12 ">
+            <span>{{res.label}}</span>
+            <span>:</span>   
+          </span>
+          <span class="col-md-6 col-xs-12"> {{res.value}}</span> 
+          </span>
     </ng-template>
   </div>
 </mat-card>
