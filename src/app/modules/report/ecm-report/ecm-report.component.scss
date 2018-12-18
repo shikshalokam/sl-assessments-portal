@@ -1,3 +1,4 @@
+@import '../../../../assets/scss/varibles.scss';
 .alingCenterLine{
     display : flex;
     align-items: center;
@@ -46,5 +47,5 @@
     padding-left: 20px;
 }
 .expansionCard{
-    background-color: #f2f2f2;
+    background-color: $background-color;
 }
