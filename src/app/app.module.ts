@@ -11,6 +11,8 @@ import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { ApiInterceptor } from 'src/app/core/services/interceptor-service/interceptor.service';
 import { ParentInterviewRoutingModule } from './modules/parent-interview/parent-interview-routing.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('od');
@@ -32,7 +34,8 @@ export function authFactory(authService: AuthService) {
     MatDividerModule,
     CoreModule.forRoot(),
     HttpClientModule,
-    ParentInterviewRoutingModule
+    ParentInterviewRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     TranslateService,
