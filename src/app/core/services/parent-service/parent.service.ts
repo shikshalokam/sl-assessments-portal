@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ParentConfig } from '../../../modules/parent-interview/parent-config';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { ReportConfig } from 'src/app/modules/report/report-config';
 

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor } from './services';
 import { TranslatePipe } from './pipes';
+import { CamelCasePipe } from './pipes'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +21,7 @@ import { ResponsiveNavbarComponent } from './components/responsive-navbar/respon
 @NgModule({
   declarations: [
     TranslatePipe,
+    CamelCasePipe,
     NavbarComponent,
     SidenavComponent,
     ResponsiveNavbarComponent
@@ -43,8 +45,8 @@ import { ResponsiveNavbarComponent } from './components/responsive-navbar/respon
     TranslatePipe,
     NavbarComponent,
     SidenavComponent,
-    ResponsiveNavbarComponent
-
+    ResponsiveNavbarComponent,
+    CamelCasePipe
   ]
 })
 export class CoreModule {

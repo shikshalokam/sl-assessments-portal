@@ -1,21 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-school-list',
-//   templateUrl: './school-list.component.html',
-//   styleUrls: ['./school-list.component.scss']
-// })
-// export class SchoolListComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
-
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParentService } from '../../../core/services/parent-service/parent.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
@@ -30,7 +12,7 @@ elementData:{
   styleUrls: ['./school-list.component.scss']
 })
 export class SchoolListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'state', 'externalId','isParentInterviewCompleted'];
+  displayedColumns: string[] = ['externalId','name', 'city', 'state', 'isParentInterviewCompleted'];
   dataSource;
   result;
   error: any;

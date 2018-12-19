@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParentConfig } from '../parent-config';
 import { ParentService } from '../../../core/services/parent-service/parent.service';
-import { environment } from '../../../../environments/environment.prod';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
+import { environment } from 'src/environments/environment';
 
 elementData:{
   
@@ -14,7 +14,7 @@ elementData:{
   styleUrls: ['./school-list.component.scss']
 })
 export class SchoolListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'state', 'externalId','isParentInterviewCompleted'];
+  displayedColumns: string[] = ['externalId','name', 'city', 'state','isParentInterviewCompleted'];
   dataSource;
   result;
   error: any;
