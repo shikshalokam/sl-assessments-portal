@@ -21,8 +21,8 @@ import { ParentService } from '../../../core/services/parent-service/parent.serv
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 
-elementData:{
-  
+elementData: {
+
 }
 @Component({
   selector: 'app-school-list',
@@ -30,8 +30,9 @@ elementData:{
   styleUrls: ['./school-list.component.scss']
 })
 export class SchoolListComponent implements OnInit {
-  displayedColumns: string[] = ['externalId','name', 'city', 'state', 'isParentInterviewCompleted'];
+  displayedColumns: string[] = ['externalId', 'name', 'city', 'state', 'isParentInterviewCompleted'];
   dataSource;
+  data;
   result;
   error: any;
   headings = 'headings.schoolListHeading';
@@ -43,7 +44,9 @@ export class SchoolListComponent implements OnInit {
   showConfig() {
     this.parentService.getSchoolList()
       .subscribe(data => {
+        this.data = data.result;
         this.result = data.result.length;
+        console.log(this.data);
         this.dataSource = new MatTableDataSource(data.result);
         console.log(data.result);
         setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -58,13 +61,16 @@ export class SchoolListComponent implements OnInit {
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    // this.data.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() {
     this.utility.loaderShow();
 
   }
 
-
+  objectKeys(obj) {
+    return Object.keys(obj);
+  }
 
 
 }

@@ -30,7 +30,21 @@
     .mat-content{
         display :inline !important;
     }
-  
+    .bigTabel{
+        display: none !important;
+    }
+    .responsiveTabel{
+        display:inline !important;
+    }
+    .responsiveTabelParentInterview{
+        display:inline !important;
+    }
+    .mat-expansion-panel-header{
+        align-items: baseline !important;
+    }
+    .widthAdj {
+        width: 200px !important;
+    }
 }
 
 @media only screen and (min-width: 600px) {

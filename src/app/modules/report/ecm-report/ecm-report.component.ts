@@ -23,6 +23,7 @@ export class EcmReportComponent implements OnInit {
   payloads = [];
   submissionId;
   data;
+  questionNo = 1;
   imageArray = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGTVf63Vm3XgOncMVSOy0-jSxdMT8KVJIc8WiWaevuWiPGe0Pm'];
   headings = 'headings.ecmReportsHeading';
   constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private parentService: ParentService, private utility: UtilityService,

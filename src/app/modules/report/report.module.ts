@@ -8,11 +8,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core';
 import { MatTableModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatPaginatorModule, MatDividerModule } from '@angular/material';
 import { EcmReportComponent } from './ecm-report/ecm-report.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatCardModule} from '@angular/material/card';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ImageModalComponent } from './ecm-report/image-modal/image-modal.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatDialogModule,
     MatTableModule,
+    MatTooltipModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
@@ -43,6 +45,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 
   providers: [
   ],
-//   entryComponents: [ConfirmModalComponent]
+  //   entryComponents: [ConfirmModalComponent]
 })
 export class ReportModule { }
