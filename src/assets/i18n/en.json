@@ -10,6 +10,7 @@
 
     
     "buttons": {
+        "download" : "Download",
         "update" : "Update",
         "markasComplete" : "Mark As Complete",
         "complete" : "Complete",
@@ -22,6 +23,7 @@
         "saveSurvey": "Save Survey",
         "cancelSurvey": "Cancel Survey"
     },
+    "downloadReport":"Select a Evendince Method to Download",
     "search": "Search",
     "headings": {
         "parentInfoHeading" : "Parent Information",
@@ -31,7 +33,8 @@
         "parentInterview":"Parent Intereview",
         "features" : "Features",
         "survey": "Survey",
-        "reports" : "Reports"
+        "reports" : "Reports",
+        "downloadReport" : "Download Evedince Report"
     },
     "labels": {
 

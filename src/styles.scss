@@ -64,7 +64,9 @@ body {
     display: flex;
     align-items: center
 }
-
+._fullWidth{
+    width: 50%;
+}
 ._responsiveTabel{
     display: none;
     width: 100%;
