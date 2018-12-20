@@ -30,7 +30,7 @@
                     <app-select [data]="question" (valueUpdated)="updateValues()" *ngIf="question?.responseType === 'radio' && question?.options.length >=5"></app-select>
                 </div>
             </div>
-            <div class=" _flex-box responsiveNextButton   " style="justify-content: flex-end">
+            <div class=" _flex-box responsiveNextButton   " style="justify-content: space-between">
                 <button mat-raised-button class="btns _primary-btn " [disabled]="!start" (click)="previousQeustion()">
                     {{'buttons.back'| translate }}</button>
                 <button mat-raised-button class="btns _primary-btn  next" (click)="nextQuestion()">

@@ -9,7 +9,6 @@ import { UtilityService } from 'src/app/core/services/utility-service/utility.se
 })
 export class ParentInformationComponent implements OnInit {
   @Input() parentId;
-
   data;
   selected;
   error;
@@ -24,11 +23,9 @@ export class ParentInformationComponent implements OnInit {
   }
 
   showConfig() {
-    // this.utility.loaderShow();
     this.parentService.getParentInfo(this.parentId)
       .subscribe(data => {
         console.log(data.result);
-        // this.utility.loaderHide();
         console.log("result");
 
         this.data = data.result
