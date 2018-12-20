@@ -33,12 +33,10 @@
     .bigTabel{
         display: none !important;
     }
-    .responsiveTabel{
+    ._responsiveTabel{
         display:inline !important;
     }
-    .responsiveTabelParentInterview{
-        display:inline !important;
-    }
+    
     .mat-expansion-panel-header{
         align-items: baseline !important;
     }
@@ -80,9 +78,11 @@
     .card{
         padding: 0px;
     }
-    ._justify-content-center {
+    .justifyContentflexStart{
         justify-content: flex-start !important;
     }
+        
+    
 }
 
 @media only screen and (min-width: 600px) {
@@ -93,12 +93,10 @@
     .bigTabel{
         display: none !important;
     }
-    .responsiveTabel{
+    ._responsiveTabel{
         display:inline !important;
     }
-    .responsiveTabelParentInterview{
-        display:inline !important;
-    }
+    
     .mat-expansion-panel-header{
         align-items: baseline !important;
     }
@@ -134,9 +132,10 @@
         height: 0!important;
         position: relative !important;
     }
-    ._justify-content-center {
+    .justifyContentflexStart{
         justify-content: flex-start !important;
     }
+   
 }
 
 @media only screen and (min-width: 992px) {

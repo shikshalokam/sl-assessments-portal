@@ -14,7 +14,7 @@ elementData: {
 export class SchoolListComponent implements OnInit {
   displayedColumns: string[] = ['externalId', 'name', 'city', 'state', 'isParentInterviewCompleted'];
   dataSource;
-  data;
+  schoolList;
   result;
   error: any;
   headings = 'headings.schoolListHeading';
@@ -26,9 +26,9 @@ export class SchoolListComponent implements OnInit {
   showConfig() {
     this.parentService.getSchoolList()
       .subscribe(data => {
-        this.data = data.result;
+        this.schoolList = data.result;
         this.result = data.result.length;
-        console.log(this.data);
+        console.log(this.schoolList);
         this.dataSource = new MatTableDataSource(data.result);
         console.log(data.result);
         setTimeout(() => this.dataSource.paginator = this.paginator);

@@ -13,7 +13,7 @@ export class ParentListComponent implements OnInit{
   errorMessage;
   breadcrumbRoute;
   error;
-  data;
+  parentList;
   result;
   headings = "headings.parentListHeading";
   schoolName ;
@@ -53,7 +53,7 @@ export class ParentListComponent implements OnInit{
  showConfig() {
   this.parentService.getParentList(this.schoolId )
       .subscribe(data => {
-        this.data = data.result;
+        this.parentList = data.result;
         data.result.forEach(element=>{
           if(element['callResponse'] == 'R7')
           {
