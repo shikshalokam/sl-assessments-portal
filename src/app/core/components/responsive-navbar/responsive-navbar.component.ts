@@ -7,7 +7,6 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./responsive-navbar.component.scss']
 })
 export class ResponsiveNavbarComponent implements OnInit {
-  @Input()link;
   currentUser: any;
 
   constructor(private authService: AuthService) {

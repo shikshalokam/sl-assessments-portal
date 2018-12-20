@@ -27,7 +27,7 @@
                     <ng-template #other>
                       <div class="textOverflow col-md-6 col-sm-12 col-xs-12 ">
                         <span *ngIf="key == 'gpsLocation';else noLocation">
-                            <a href="https://www.google.com/maps/search/{{submission[key]}}" matTooltip="Loaction On Map">
+                            <a href="https://www.google.com/maps/search/{{submission[key]}}" matTooltip="Loaction On Map" target="_blank">
                                 {{submission[key]}}
                             </a>
                         </span>
