@@ -3,11 +3,11 @@
 <div *ngIf="!error">
   <app-parent-heading [genericHeading]="headings"></app-parent-heading>
 
-  <div *ngIf=" result > 0 ">
+  <div *ngIf=" result > 0 " class="bigTabel" >
     <mat-form-field [floatLabel]="'never'" class="contentMiddle _full-width">
       <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
     </mat-form-field>
-    <div class="example-container mat-elevation-z8">
+    <div class="example-container mat-elevation-z8 ">
       <div class="tableContainer">
         <table mat-table [dataSource]="dataSource" class="contentMiddle ">
           <ng-container matColumnDef="name">
@@ -46,7 +46,37 @@
       <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[100,50,500]" showFirstLastButtons></mat-paginator>
 
     </div>
+    
+
   </div>
+  <div *ngIf=" result > 0 " class="responsiveTabel col-sm-12 ">
+      <div *ngFor="let school of data" class="col-sm-12 col-xs-12 margin">
+          <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title class="textOverflow">
+                   Name : {{school.name}}
+                </mat-panel-title>
+                <mat-panel-description class="textOverflow">
+                 Exernal-Id  : {{school.externalId}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+               <div *ngFor="let key of objectKeys(school)">
+                 <div *ngIf="key == 'city' || key == 'state'">
+                 {{key | camelcase}} : {{school[key]}}
+                 </div>
+               </div>
+               <span class="flexRight">
+               <span class="active " *ngIf="!(school.isParentInterviewCompleted) ; else complete" [routerLink]="['/report/ecm-report' ,school.name,school._id ]">
+                {{'tableLabel.buttons.clickHere'| translate}}</span>
+                <ng-template #complete>
+                    <span  class="complete">
+                            {{'tableLabel.buttons.complete'| translate}}
+                    </span>
+                </ng-template>
+                </span>
+            </mat-expansion-panel>
+      </div>
+    </div>
   <div *ngIf="!result">
     <div class="middle">
         {{'message.noData' | translate}}

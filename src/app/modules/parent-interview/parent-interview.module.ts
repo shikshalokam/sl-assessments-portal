@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ParentService } from 'src/app/core/services/parent-service/parent.service';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatExpansionModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
@@ -51,6 +51,7 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
     MatCardModule,
     ParentInterviewRoutingModule,
     CoreModule,
+    MatExpansionModule,
     SharedModule,
     MatSelectModule,
     MatTableModule,

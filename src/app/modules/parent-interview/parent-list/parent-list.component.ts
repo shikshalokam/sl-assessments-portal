@@ -13,6 +13,7 @@ export class ParentListComponent implements OnInit{
   errorMessage;
   breadcrumbRoute;
   error;
+  data;
   result;
   headings = "headings.parentListHeading";
   schoolName ;
@@ -52,6 +53,7 @@ export class ParentListComponent implements OnInit{
  showConfig() {
   this.parentService.getParentList(this.schoolId )
       .subscribe(data => {
+        this.data = data.result;
         data.result.forEach(element=>{
           if(element['callResponse'] == 'R7')
           {
@@ -91,6 +93,9 @@ parentInterviewSubmit(flag :boolean){
 
   }
 
+}
+objectKeys(obj) {
+  return Object.keys(obj);
 }
 
 }

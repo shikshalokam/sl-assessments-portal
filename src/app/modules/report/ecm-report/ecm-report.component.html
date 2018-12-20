@@ -25,7 +25,15 @@
                     <div *ngIf=" key == 'endTime' || key == 'startTime' || key == 'submissionDate' ; else other" class="textOverflow  col-md-6 col-sm-12 col-xs-12">
                       {{submission[key]| date :'medium'}}</div>
                     <ng-template #other>
-                      <div class="textOverflow col-md-6 col-sm-12 col-xs-12 ">{{submission[key]}}</div>
+                      <div class="textOverflow col-md-6 col-sm-12 col-xs-12 ">
+                        <span *ngIf="key == 'gpsLocation';else noLocation">
+                            <a href="https://www.google.com/maps/search/{{submission[key]}}" matTooltip="Loaction On Map">
+                                {{submission[key]}}
+                            </a>
+                        </span>
+                        <ng-template #noLocation>{{submission[key]}}</ng-template>
+                        
+                      </div>
                     </ng-template>
                   </div>
                 </span>
@@ -37,8 +45,8 @@
                 <span *ngIf=" key == 'answers'">
                   <div *ngFor=" let answer of objectKeys(submission.answers); let j = index">
                     <span *ngIf="submission.answers[answer].responseType == 'matrix'">
-                      <div class="alingCenterLine "> {{questionNo+j}} .
-                        {{submission.answers[answer]['payload']['question'][0]}}</div>
+                      <div class="alingCenterLine "> 
+                          {{questionNo+j}} .{{submission.answers[answer]['payload']['question'][0]}}</div>
                       <div *ngFor=" let label of submission.answers[answer]['payload']['labels']">
                         <div *ngFor="let keys of label ; let i = index " class="instanceQuestion">
                           <div class="labels instanceLabel ">Instance - {{i+1}}</div>
