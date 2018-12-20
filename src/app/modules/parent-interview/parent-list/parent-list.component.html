@@ -1,8 +1,9 @@
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-clip-rotate"></ngx-spinner>
 
 <div *ngIf="!error">
-    <app-parent-heading [genericHeading]="headings" [atleastOneComplete]= "atleastOneComplete"  [schoolName]="schoolName" (sendMarkAsComplete)="parentInterviewSubmit($event)"></app-parent-heading>
-    <div *ngIf="result != 0 ">
+    <app-parent-heading [genericHeading]="headings" [atleastOneComplete]="atleastOneComplete" [schoolName]="schoolName"
+        (sendMarkAsComplete)="parentInterviewSubmit($event)"></app-parent-heading>
+    <div *ngIf="result != 0 " class="bigTabel">
         <mat-form-field [floatLabel]="'never'" class="contentMiddle _full-width">
             <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
         </mat-form-field>
@@ -28,8 +29,8 @@
                     <ng-container matColumnDef="gender">
                         <th mat-header-cell *matHeaderCellDef>{{'tableLabel.gender'| translate}}</th>
                         <td mat-cell *matCellDef="let element">
-                            <span *ngIf =" element.gender == 'M' ; else female">Male</span>
-                            <ng-template #female>Female</ng-template> 
+                            <span *ngIf=" element.gender == 'M' ; else female">Male</span>
+                            <ng-template #female>Female</ng-template>
                         </td>
                     </ng-container>
 
@@ -42,8 +43,8 @@
                         <th mat-header-cell *matHeaderCellDef>{{'tableLabel.grade'| translate}}</th>
                         <td mat-cell *matCellDef="let element">
                             <!-- <span class="spaceBetween"> -->
-                                <span class="capitalise">{{element.grade}}</span>
-                                <!-- <span class="spaceBetween">
+                            <span class="capitalise">{{element.grade}}</span>
+                            <!-- <span class="spaceBetween">
                                     <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
                                         {{'tableLabel.buttons.edit'| translate}}
                                     </span>
@@ -61,25 +62,25 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="programId">
-                            <th mat-header-cell *matHeaderCellDef></th>
-                            <td mat-cell *matCellDef="let element"> <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element"> <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
                                 {{'tableLabel.buttons.edit'| translate}}
 
                             </span></td>
                     </ng-container>
 
                     <ng-container matColumnDef="type">
-                            <th mat-header-cell *matHeaderCellDef></th>
-                            <td mat-cell *matCellDef="let element">
-                                    <span *ngIf=" !(element.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , element._id ]">
-                                        {{'tableLabel.buttons.startSurvey'| translate}}
-                                    </span>
-                                    <ng-template #complete>
-                                            <span  class="complete">
-                                                    {{'tableLabel.buttons.complete'| translate}}
-                                            </span>
-                                        </ng-template>
-                            </td>
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngIf=" !(element.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , element._id ]">
+                                {{'tableLabel.buttons.startSurvey'| translate}}
+                            </span>
+                            <ng-template #complete>
+                                <span class="complete">
+                                    {{'tableLabel.buttons.complete'| translate}}
+                                </span>
+                            </ng-template>
+                        </td>
                     </ng-container>
 
 
@@ -92,9 +93,43 @@
 
         </div>
     </div>
+    <div *ngIf=" result > 0  && parentList " class="_responsiveTabel col-sm-12 ">
+        <div *ngFor="let parent of parentList" class="col-sm-12 col-xs-12 margin">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="textOverflow">
+                        Name : {{parent.name}}
+                    </mat-panel-title>
+                    <mat-panel-description class="textOverflow">
+                        Student Name: {{parent.studentName}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div *ngFor="let key of objectKeys(parent)">
+                    <div *ngIf="key == 'phone1' || key == 'address' || key == 'grade'">
+                        {{key | camelcase}} : {{parent[key]}}
+                    </div>
+                </div>
+                <span class="flexRight">
+                        <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, parent._id ]">
+                            {{'tableLabel.buttons.edit'| translate}}
+                        </span>
+
+                    <span *ngIf=" !(parent.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , parent._id ]">
+                        {{'tableLabel.buttons.startSurvey'| translate}}
+                    </span>
+                    <ng-template #complete>
+                        <span class="complete">
+                            {{'tableLabel.buttons.complete'| translate}}
+                        </span>
+                    </ng-template>
+                </span>
+            </mat-expansion-panel>
+        </div>
+    </div>
+
     <div *ngIf="!result">
         <div class="middle">
-            {{'message.noData' | translate}} 
+            {{'message.noData' | translate}}
         </div>
     </div>
 </div>

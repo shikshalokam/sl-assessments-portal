@@ -58,9 +58,9 @@ export class QuestionnaireComponent implements OnInit {
         this.generalQuestions = successData['result'].assessments[0]['generalQuestions'];
 
         this.submissionId = successData['result'].assessments[0].submissionId;
-        this.utils.loaderHide();
 
         this.getPreviousResponses();
+
       }
     }, (error) => {
 
@@ -72,6 +72,7 @@ export class QuestionnaireComponent implements OnInit {
   getPreviousResponses(): void {
     this.parentService.getParentResponses(this.submissionId, this.parentId).subscribe(response => {
       this.currentParentType = this.parentInfoCmp.getParentInfo().type;
+
       console.log(this.currentParentType)
       if (response['result']) {
         const resp = response['result'].answers;
@@ -85,6 +86,8 @@ export class QuestionnaireComponent implements OnInit {
             this.parentInterviewCompleted = true;
           }
         } else {
+          this.utils.loaderHide();
+
           console.log("in elseeeeeee");
           this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
         }
@@ -93,11 +96,17 @@ export class QuestionnaireComponent implements OnInit {
         //console.log(this.currentCallStatus['type'] +"hihiii")
         //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
         this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
+        this.utils.loaderHide();
 
       }
 
       // //console.log(this.previousResponses)
-    })
+    },(error)=>{
+      this.utils.loaderHide();
+
+      this.snackBar.open(error['message'], "Ok", {duration: 9000});
+    }
+    )
   }
 
 
@@ -114,9 +123,12 @@ export class QuestionnaireComponent implements OnInit {
         }
       }
     }
-    console.log(JSON.stringify(this.generalQuestions[0]['instanceQuestions']))
+
+    // console.log(JSON.stringify(this.generalQuestions[0]['instanceQuestions']))
     //console.log(this.currentCallStatus['type'] +"hihiii")
     this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
+    this.utils.loaderHide();
+
   }
 
   setcallResponse(select: string) {
@@ -250,7 +262,7 @@ export class QuestionnaireComponent implements OnInit {
       this.currentCallStatus['type'] = this.generalQuestions[0]['instanceQuestions'][0].value;
     }
     // if(status === 'completed'){
-    this.currentCallStatus['callResponse'] = status === 'completed' ? "R7" : "R4";
+    this.currentCallStatus['callResponse'] = status === 'completed' ? "R7" : "";
     // }
     this.parentService.postParentData(this.parentId, this.currentCallStatus).
       subscribe(response => {

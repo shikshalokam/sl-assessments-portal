@@ -30,15 +30,112 @@
     .mat-content{
         display :inline !important;
     }
-  
+    .bigTabel{
+        display: none !important;
+    }
+    ._responsiveTabel{
+        display:inline !important;
+    }
+    
+    .mat-expansion-panel-header{
+        align-items: baseline !important;
+    }
+    .widthAdj {
+        width: 200px !important;
+        font-size: 10px;
+    }
+    .notResponsiveSurveyButton{
+        display: none !important;
+    }
+    .responsiveSurveyButton{
+        display: flex !important;
+        margin-bottom: 15px;
+    }
+    .responsiveNextButton{
+        position: absolute !important;
+        display: flex!important;
+    }
+    .responsiveQuestion{
+        font-size: 15px;
+    }
+    .checkBoxAdj {
+        margin: 10px 10px!important ;
+    }
+    .radio{
+        font-size: 10px !important;
+    }
+    .checkBox{
+        font-size: 10px !important;
+    }
+    .select{
+        font-size: 10px !important;
+    }
+    .questionFooter {
+        z-index: 0 !important;
+        height: 0!important;
+        position: relative !important;
+    }
+    .card{
+        padding: 0px;
+    }
+    .justifyContentflexStart{
+        justify-content: flex-start !important;
+    }
+        
+    
 }
 
 @media only screen and (min-width: 600px) {
    
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
+    .bigTabel{
+        display: none !important;
+    }
+    ._responsiveTabel{
+        display:inline !important;
+    }
     
+    .mat-expansion-panel-header{
+        align-items: baseline !important;
+    }
+    .widthAdj {
+        width: 200px !important;
+        font-size: 10px;
+    }
+    .notResponsiveSurveyButton{
+        display: none !important;
+    }
+    .responsiveSurveyButton{
+        display: flex !important;
+        margin-bottom: 15px;
+    }
+    .responsiveNextButton{
+        position: absolute !important;
+        display: flex!important;
+    }
+    .responsiveQuestion{
+        font-size: 15px;
+    }
+    .radio{
+        font-size: 10px !important;
+    }
+    .checkBox{
+        font-size: 10px !important;
+    }
+    .select{
+        font-size: 10px !important;
+    }
+    .questionFooter {
+        z-index: 0 !important;
+        height: 0!important;
+        position: relative !important;
+    }
+    .justifyContentflexStart{
+        justify-content: flex-start !important;
+    }
+   
 }
 
 @media only screen and (min-width: 992px) {

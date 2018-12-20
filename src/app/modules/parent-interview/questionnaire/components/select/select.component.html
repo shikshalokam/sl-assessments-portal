@@ -2,7 +2,7 @@
 <div class="_flex-direction-column _flex-box _justify-content-center">
     <mat-form-field class="widthAdj">
         <mat-select placeholder="Select"  [(ngModel)]="data.value" (selectionChange)="updated()">
-          <mat-option *ngFor="let option of data?.options" [value]="option.value">
+          <mat-option class="select col-xs-12" *ngFor="let option of data?.options" [value]="option.value">
             {{option.label}}
           </mat-option>
         </mat-select>

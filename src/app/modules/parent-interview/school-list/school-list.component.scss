@@ -44,4 +44,14 @@ table {
   .middle{
     padding: 30vh 0 0 40%;
  }
- 
+ .margin{
+     margin-bottom: 15px;
+ }
+ .flexRight{
+     display: flex;
+     justify-content: flex-end;
+ }
+ .textOverflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

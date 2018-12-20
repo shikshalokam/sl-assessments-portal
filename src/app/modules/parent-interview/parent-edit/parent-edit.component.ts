@@ -54,13 +54,13 @@ export class ParentEditComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.parentEditData = data.result;
-        this.parentEditData.forEach( element => {
-          if(element['field'] == "callResponse")
-            {
-              element.visible = false ;
-              console.log(element.visible);
-            }
-        });
+        // this.parentEditData.forEach( element => {
+        //   if(element['field'] == "callResponse")
+        //     {
+        //       element.visible = false ;
+        //       console.log(element.visible);
+        //     }
+        // });
         this.parentForm = this.utility.toGroup(data.result) ;
         console.log(this.parentForm);
         console.log(this.parentEditData);

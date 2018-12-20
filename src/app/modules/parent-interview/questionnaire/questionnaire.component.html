@@ -8,24 +8,35 @@
 </div> -->
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-clip-rotate"></ngx-spinner>
 
-<app-parent-heading [schoolName]="schoolName"  [genericHeading]="'headings.survey'"></app-parent-heading>
+<app-parent-heading [schoolName]="schoolName" [genericHeading]="'headings.survey'"></app-parent-heading>
 <div class="col-xs-12">
-    <app-parent-information [parentId]="parentId"  (callResponse)="updateCallStatus($event)"></app-parent-information>
+    <div class="_flex-box responsiveSurveyButton" style="justify-content: flex-end" *ngIf="!parentInterviewCompleted">
+        <button mat-raised-button class="btns " style="margin: 0 15px 0 0 " (click)="onCancelDialog('cancel')">{{
+            'buttons.cancelSurvey'| translate }}</button>
+        <button mat-raised-button class="btns _primary-btn " (click)="openConfirmDialog('save')">{{
+            'buttons.saveSurvey'| translate }}</button>
+    </div>
+    <app-parent-information [parentId]="parentId" (callResponse)="updateCallStatus($event)"></app-parent-information>
 
 </div>
-<div class="col-xs-12">
+<div class="col-xs-12 ">
     <mat-card class="question">
         <ng-container *ngIf="generalQuestions">
-            <div *ngFor="let question of generalQuestions[0]['instanceQuestions'] | slice:start:end" class="_flex-box _flex-direction-column _justify-content-center">
-                <h3 *ngFor="let title of question?.question" (click)="openCompleteModel('completed')">{{title}}</h3>
-                <div class="question-container">
+            <div *ngFor="let question of generalQuestions[0]['instanceQuestions'] | slice:start:end" class="_flex-box _flex-direction-column _justify-content-center ">
+                <h3 *ngFor="let title of question?.question" (click)="openCompleteModel('completed')" class="responsiveQuestion">{{title}}</h3>
+                <div class="question-container  ">
                     <app-multi-select [data]="question" (valueUpdated)="updateValues()" *ngIf="question?.responseType === 'multiselect'"></app-multi-select>
                     <app-radio [data]="question" (valueUpdated)="updateValues()" *ngIf="question?.responseType === 'radio' && question?.options.length < 5"></app-radio>
                     <app-select [data]="question" (valueUpdated)="updateValues()" *ngIf="question?.responseType === 'radio' && question?.options.length >=5"></app-select>
                 </div>
             </div>
-            <div class="_flex-box _justify-content-space-between questionFooter">
-                <div class="_flex-box" style="justify-content: flex-end" *ngIf="!parentInterviewCompleted">
+            <div class=" _flex-box responsiveNextButton   " style="justify-content: flex-end">
+                <button mat-raised-button class="btns _primary-btn " [disabled]="!start" (click)="previousQeustion()">
+                    {{'buttons.back'| translate }}</button>
+                <button mat-raised-button class="btns _primary-btn  next" (click)="nextQuestion()">
+                    {{'buttons.next'|translate}}</button></div>
+            <div class="_flex-box _justify-content-space-between questionFooter col-xs-12">
+                <div class="_flex-box notResponsiveSurveyButton" style="justify-content: flex-end" *ngIf="!parentInterviewCompleted">
                     <button mat-raised-button class="btns " style="margin: 0 15px" (click)="onCancelDialog('cancel')">{{
                         'buttons.cancelSurvey'| translate }}</button>
                     <button mat-raised-button class="btns _primary-btn " (click)="openConfirmDialog('save')">{{
@@ -33,7 +44,7 @@
                 </div>
                 <div *ngIf="parentInterviewCompleted" class="completedsurvey">Completed Survey</div>
                 <div>
-                    <div class="_flex-box" style="justify-content: flex-start">
+                    <div class="_flex-box notResponsiveSurveyButton " style="justify-content: flex-start">
                         <button mat-raised-button class="btns _primary-btn " [disabled]="!start" (click)="previousQeustion()">{{
                             'buttons.back'| translate }}</button>
                         <button mat-raised-button class="btns _primary-btn " (click)="nextQuestion()">{{
@@ -41,6 +52,7 @@
                             translate
                             }}</button></div>
                 </div>
+                
 
                 <!-- *ngIf="end < generalQuestions[0]['instanceQuestions']?.length" -->
                 <!-- <button mat-raised-button class="_green-btn btns" *ngIf="(end === (generalQuestions[0]['instanceQuestions']?.length) )&& allQuestionsAnswered"
@@ -48,6 +60,7 @@
                 <!-- <button mat-raised-button class="_primary-btn btns" *ngIf="(end === (generalQuestions[0]['instanceQuestions']?.length)) && !allQuestionsAnswered"
                             (click)="checkForCompletionOfQuestionsAndInterview()">{{ 'buttons.save'| translate }}</button> -->
             </div>
+            
         </ng-container>
 
     </mat-card>
