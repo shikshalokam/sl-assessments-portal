@@ -24,11 +24,11 @@ export class ParentInformationComponent implements OnInit {
   }
 
   showConfig() {
-    this.utility.loaderShow();
+    // this.utility.loaderShow();
     this.parentService.getParentInfo(this.parentId)
       .subscribe(data => {
         console.log(data.result);
-        this.utility.loaderHide();
+        // this.utility.loaderHide();
         console.log("result");
 
         this.data = data.result
