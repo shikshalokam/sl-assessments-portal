@@ -84,6 +84,9 @@
     .justifyContentflexStart{
         justify-content: flex-start !important;
     }
+    ._halfWidth{
+        width: 100%;
+    }
         
     
 }
@@ -138,9 +141,11 @@
     .justifyContentflexStart{
         justify-content: flex-start !important;
     }
-    ._fullWidth{
-        width: 100% !important;
+    ._halfWidth{
+        width: 100%;
     }
+        
+   
 }
 
 @media only screen and (min-width: 992px) {
