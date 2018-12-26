@@ -12,6 +12,7 @@ export class ReportService {
   constructor(private http: HttpClient) { }
 
   downloadReport(evedinceId){
+    console.log("service"+evedinceId);
     return this.http.get(environment.apibaseurl + ReportConfig.downloadReport + evedinceId);
   }
 

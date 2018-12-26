@@ -9,15 +9,21 @@ import { ReportService } from 'src/app/core';
 export class DownloadReportComponent implements OnInit {
   evedinceArray = ['BL','CO'];
   heading= 'headings.downloadReport'
+  evedince;
   constructor(private reportService : ReportService) { }
 
   ngOnInit() {
   }
   sendEvedinceId(evedinceID){
-    console.log(evedinceID);
-    this.reportService.downloadReport(evedinceID).subscribe(
+    console.log(evedinceID + "is this");
+    this.evedince = evedinceID;
+    
+  }
+  downloadEvedinceReport(){
+    this.reportService.downloadReport(this.evedince).subscribe(
       data =>{
         console.log("file download")
+        console.log(data);
       },(error)=>{
 
       }

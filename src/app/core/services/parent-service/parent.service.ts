@@ -28,6 +28,9 @@ export class ParentService {
     getSchoolList() {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.schoolListFind);
     }
+    getSchoolList1() {
+        return this.http.get<Config>("../../../../assets/schoolDemoList.json");
+    }
 
     getAssessmentQuestions(schoolId) {
         return this.http.get(environment.apibaseurl + ParentConfig.getSurveyQuestions + schoolId + '?oncall=1');

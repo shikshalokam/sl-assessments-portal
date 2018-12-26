@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'parent', component: ParentInterviewComponent,
     data: {},
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       {
         path: 'school-list',
