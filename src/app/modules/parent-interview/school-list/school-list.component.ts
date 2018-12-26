@@ -27,7 +27,7 @@ export class SchoolListComponent implements OnInit {
     this.showConfig();
   }
   showConfig() {
-    this.parentService.getSchoolList1()
+    this.parentService.getSchoolList()
       .subscribe(data => {
         this.schoolList = data.result;
         this.result = data.result.length;
