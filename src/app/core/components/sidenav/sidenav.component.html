@@ -2,8 +2,11 @@
     {{ link?.linkHeading | translate }}
 
   </div> -->
-    <div routerLink = "{{option.anchorLink}}" routerLinkActive="active"*ngFor="let option of link?.options"  class="subHeading">
-        <span class="sideNavSubheading">
+    
+    <!-- <div routerLink = "{{option.anchorLink}}"  [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active"*ngFor="let option of link?.options"  class="subHeading"> -->
+      <div routerLink = "{{option.anchorLink}}"  [routerLinkActiveOptions]="{ exact : false }" routerLinkActive="active" *ngFor="let option of link?.options"  class="subHeading">
+
+      <span class="sideNavSubheading"> 
           {{ option.value | translate }}
 
         </span>

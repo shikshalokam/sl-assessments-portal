@@ -6,10 +6,12 @@ import { ParentListComponent } from './parent-list/parent-list.component';
 import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { ParentInformationComponent } from './parent-information/parent-information.component';
+import {AuthGuard} from './../../core/auth-gaurd/auth.gaurd'
 const routes: Routes = [
   {
     path: 'parent', component: ParentInterviewComponent,
     data: {},
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'school-list',

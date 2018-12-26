@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/auth-gaurd/auth.gaurd';
 
 const routes: Routes = [
   {
     path: 'parent-interview',
+    // canActivate: [AuthGuard],
     loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
    // load private module only if logged in
   },
