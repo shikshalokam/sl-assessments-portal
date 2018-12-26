@@ -53,11 +53,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-<<<<<<< HEAD
       providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService]
-=======
-      providers: [TranslateService, AuthService,AuthGuard ,UtilityService,ParentService,ApiInterceptor,AuthGuard]
->>>>>>> b1c28d891893545eb94a7148b680fe75a0bebbbc
     };
   }
 }
