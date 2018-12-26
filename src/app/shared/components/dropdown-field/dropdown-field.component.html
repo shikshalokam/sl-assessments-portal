@@ -1,5 +1,5 @@
-<div [formGroup]="genericForm"  >
-  <mat-form-field class=" col-sm-6 fixSize _fullWidth">
+<div [formGroup]="genericForm" >
+  <mat-form-field class=" col-sm-6 fixSize _halfWidth">
     <mat-select placeholder="{{genericData.label}}" formControlName="{{genericData.field}}" required>
       <span *ngFor="let opt of genericData.options">
         <mat-option  [value]="opt.value" >
