@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ParentService, UtilityService } from 'src/app/core';
+import { ParentService, UtilityService, ReportService } from 'src/app/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ImageModalComponent } from '../ecm-report/image-modal/image-modal.component';
 export interface DialogData {
@@ -26,7 +26,7 @@ export class EcmReportComponent implements OnInit {
   questionNo = 1;
   imageArray = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGTVf63Vm3XgOncMVSOy0-jSxdMT8KVJIc8WiWaevuWiPGe0Pm'];
   headings = 'headings.ecmReportsHeading';
-  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private parentService: ParentService, private utility: UtilityService,
+  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private reportService: ReportService, private utility: UtilityService,
     public dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.schoolId = params["id"];
@@ -38,12 +38,12 @@ export class EcmReportComponent implements OnInit {
     this.utility.loaderShow();
   }
   fetchApi() {
-    this.parentService.getEcmReportGetSubmissionId(this.schoolId).subscribe(
+    this.reportService.getEcmReportGetSubmissionId(this.schoolId).subscribe(
       data => {
         this.ecmData = data['result']['assessments'][0].evidences;
         this.submissionId = data['result']['assessments'][0].submissionId
         console.log(this.submissionId);
-        this.parentService.getSubmission(this.submissionId).subscribe(
+        this.reportService.getSubmission(this.submissionId).subscribe(
           data => {
             this.data = data['result'].evidences;
             this.submissionData = this.data[Object.keys(this.data)[0]].submissions;
