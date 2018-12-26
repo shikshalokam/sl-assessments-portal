@@ -2,6 +2,9 @@
     .sideDiv {
         display: none !important;
     }
+    .colon{
+        display: none;
+    }
     .routingDiv {
         // position: relative;
         // height: calc(100vh - 52px);
@@ -81,6 +84,9 @@
     .justifyContentflexStart{
         justify-content: flex-start !important;
     }
+    ._halfWidth{
+        width: 100%;
+    }
         
     
 }
@@ -135,6 +141,10 @@
     .justifyContentflexStart{
         justify-content: flex-start !important;
     }
+    ._halfWidth{
+        width: 100%;
+    }
+        
    
 }
 

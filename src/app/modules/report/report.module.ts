@@ -14,17 +14,21 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ImageModalComponent } from './ecm-report/image-modal/image-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DownloadReportComponent } from './download-report/download-report.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
     ReportComponent,
     SchoolListComponent,
     EcmReportComponent,
-    ImageModalComponent
+    ImageModalComponent,
+    DownloadReportComponent
   ],
   imports: [
     CommonModule,
     MatDividerModule,
+    MatSelectModule,
     MatCardModule,
     MatTabsModule,
     NgxSpinnerModule,

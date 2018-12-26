@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ParentConfig } from '../../../modules/parent-interview/parent-config';
 import { environment } from 'src/environments/environment';
-import { throwError } from 'rxjs';
-import { ReportConfig } from 'src/app/modules/report/report-config';
 
 export interface Config {
     message: string;
@@ -50,22 +48,5 @@ export class ParentService {
         return this.http.get(environment.apibaseurl + ParentConfig.getPreviousParentResponse + submissionId +'?parentId='+parentId )
 
     }
-    getEcmReportGetSubmissionId(schoolId) {
-        return this.http.get(environment.apibaseurl + ReportConfig.ecmReportGetSubmissionId+schoolId )
-    }
-    getSubmission(submissionId) {
-        return this.http.get(environment.apibaseurl + ReportConfig.GetSubmission+submissionId )
-    }
-
-    private handleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-            console.error('An error occurred:', error.error.message);
-        } else {
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
-        }
-        return throwError(
-            'Something bad happened; please try again later.');
-    };
+   
 }
