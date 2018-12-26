@@ -22,11 +22,10 @@ export class AppComponent {
                         value : "headings.parentInterview",
                         anchorLink : "/parent"
                       },
-                      // {
-                      //   value :"headings.reports",
-                      //   anchorLink : "/report"
-                      // }
-                      
+                      {
+                        value :"headings.reports",
+                        anchorLink : "/report"
+                      }
                     ]  
             }
         ] ;
