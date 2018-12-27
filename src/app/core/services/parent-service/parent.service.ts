@@ -28,6 +28,7 @@ export class ParentService {
     getSchoolList() {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.schoolListFind);
     }
+    
 
     getAssessmentQuestions(schoolId) {
         return this.http.get(environment.apibaseurl + ParentConfig.getSurveyQuestions + schoolId + '?oncall=1');

@@ -32,18 +32,18 @@ export class EcmReportComponent implements OnInit {
       this.schoolId = params["id"];
       this.schoolName = params["name"];
     });
-    this.fetchApi();
+    this.getEvedinceReport();
   }
   ngOnInit() {
     this.utility.loaderShow();
   }
-  fetchApi() {
+  getEvedinceReport() {
     this.reportService.getEcmReportGetSubmissionId(this.schoolId).subscribe(
       data => {
         this.ecmData = data['result']['assessments'][0].evidences;
         this.submissionId = data['result']['assessments'][0].submissionId
         console.log(this.submissionId);
-        this.reportService.getSubmission(this.submissionId).subscribe(
+        this.reportService.getSubmissionReport(this.submissionId).subscribe(
           data => {
             this.data = data['result'].evidences;
             this.submissionData = this.data[Object.keys(this.data)[0]].submissions;

@@ -4,11 +4,16 @@ import * as jwt_decode from "jwt-decode";
 
 declare var Keycloak: any;
 
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class AuthService {
-
+  isLoggedIn =false;
+  redirectUrl:string;
+  userName : string;
   constructor() { }
 
+  
   private keycloakAuth: any;
 
   init(): Promise<any> {
@@ -35,11 +40,14 @@ export class AuthService {
 
   getCurrentUserDetails() {
     console.log(jwt_decode(this.keycloakAuth.token).name)
+    this.userName = jwt_decode(this.keycloakAuth.token).name;
     return jwt_decode(this.keycloakAuth.token);
   }
 
   getLogout(){
    return this.keycloakAuth.logout();
   }
+
+
 
 }

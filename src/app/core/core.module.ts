@@ -17,7 +17,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ParentInterviewRoutingModule } from '../modules/parent-interview/parent-interview-routing.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ResponsiveNavbarComponent } from './components/responsive-navbar/responsive-navbar.component';
-
+import { AuthGuard } from '../core/auth-gaurd/auth.gaurd'
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -53,7 +53,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [TranslateService, AuthService,UtilityService,ParentService,ApiInterceptor,ReportService]
+      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService]
     };
   }
 }
