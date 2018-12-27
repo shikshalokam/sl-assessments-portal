@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
-import { Observable , of} from 'rxjs';
-import { delay,tap } from 'rxjs/operators';
 
 declare var Keycloak: any;
 
@@ -50,16 +48,6 @@ export class AuthService {
    return this.keycloakAuth.logout();
   }
 
-  login() :Observable<boolean>{
-    return of(true).pipe(
-      delay(1000),
-      tap(val => this.isLoggedIn = true)
-    );
-  }
-
-  logout():void{
-    this.isLoggedIn = false;
-  }
 
 
 }

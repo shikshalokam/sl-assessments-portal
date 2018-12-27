@@ -1,12 +1,22 @@
 <app-parent-heading [genericHeading]="heading"></app-parent-heading>
-<mat-form-field>
-  <mat-select placeholder="{{'downloadReport' | translate}}">
-    <mat-option *ngFor="let evedince of evedinceArray" [value]="evedince" (click) = "sendEvedinceId(evedince)"  >
-      {{evedince}}
-    </mat-option>
-  </mat-select>
+<div class="noDataFound">
+  <mat-form-field>
+    <mat-select placeholder="{{'downloadReport' | translate}}">
+      <mat-option *ngFor="let evedince of evedinces" [value]="evedince.value" (click)="sendEvedinceId(evedince.value)">
+        {{evedince.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button  class="LoadingButton"(click)="downloadEvedinceReport()" [disabled]="showLoader || !activeButton">
+    <div class="_flex-box">
+        <span >{{'buttons.download'| translate}}</span>
+        <div *ngIf="showLoader" class="loader" ></div>
 
-</mat-form-field>
-<button mat-button (click) = "downloadEvedinceReport()" >{{'buttons.download'| translate}}</button>
+    </div>
+    
+  </button>
+  <!-- <mat-spinner-button class="LoadingButton"(click)="downloadEvedinceReport()" [options]="btnOpts"></mat-spinner-button> -->
+</div>
+
 
 <!-- <a href="https://dev.shikshalokam.org/assessment/api/v1/reports/programsSubmissionStatus/DCPCR?evidenceId=CO">download</a> -->

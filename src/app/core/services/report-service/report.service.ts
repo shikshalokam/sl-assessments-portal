@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ParentConfig } from '../../../modules/parent-interview/parent-config';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ReportConfig } from 'src/app/modules/report/report-config';
-
+import {  Headers,Http } from '@angular/http';
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
-  constructor(private http: HttpClient) { }
-
-  downloadReport(evedinceId){
-    console.log("service"+evedinceId);
-    return this.http.get(environment.apibaseurl + ReportConfig.downloadReport + evedinceId);
+  constructor(private https: Http,private http:HttpClient) { }
+  createAuthorizationHeader(headers: Headers) {
+    headers.append(environment.downloadReportHeaderLabel,environment.downloadReportHeaderValue); 
+  }
+  downloadReport(evedinceId) {
+    console.log("service" + evedinceId);
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    return this.https.get(environment.apibaseurl + ReportConfig.downloadReport + evedinceId,{
+      headers:headers
+    });
+    // return this.https.get(environment.apibaseurl + ReportConfig.downloadReport + evedinceId);
   }
 
   getEcmReportGetSubmissionId(schoolId) {
-    return this.http.get(environment.apibaseurl + ReportConfig.ecmReportGetSubmissionId+schoolId )
-}
-getSubmission(submissionId) {
-    return this.http.get(environment.apibaseurl + ReportConfig.GetSubmission+submissionId )
-}
+    return this.http.get(environment.apibaseurl + ReportConfig.ecmReportGetSubmissionId + schoolId)
+  }
+  getSubmissionReport(submissionId) {
+    return this.http.get(environment.apibaseurl + ReportConfig.GetSubmission + submissionId)
+  }
 }

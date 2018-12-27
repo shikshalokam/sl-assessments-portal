@@ -44,21 +44,7 @@ export class AuthGuard implements CanActivate {
     }
 
   }
-  // checkLogin(url: string): boolean {
-  //   if (this.authService.isLoggedIn) {
-  //     console.log("authService Logged in ");
-
-
-  //     return true;
-  //   }
-
-  //   // Store the attempted URL for redirecting
-  //   this.authService.redirectUrl = url;
-
-  //   // Navigate to the login page with extras
-  //   this.router.navigate(['parent/school-list']);
-  //   return false;
-  // }
+  //
   // canActivateChild(
   //   route: ActivatedRouteSnapshot,
   //   state: RouterStateSnapshot): boolean {

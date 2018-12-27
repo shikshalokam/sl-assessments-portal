@@ -10,6 +10,7 @@ import { MatTableModule, MatButtonModule, MatInputModule, MatFormFieldModule, Ma
 import { EcmReportComponent } from './ecm-report/ecm-report.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ImageModalComponent } from './ecm-report/image-modal/image-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -31,6 +32,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatSelectModule,
     MatCardModule,
     MatTabsModule,
+    MatProgressButtonsModule,
     NgxSpinnerModule,
     MatExpansionModule,
     MatDialogModule,
