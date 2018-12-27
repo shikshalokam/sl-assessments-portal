@@ -7,16 +7,20 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-button  class="LoadingButton"(click)="downloadEvedinceReport()" [disabled]="showLoader || !activeButton">
-    <div class="_flex-box">
+  <button mat-raised-button class="btns _primary-btn LoadingButton"  [disabled]="showLoader || !activeButton" (click)="downloadEvedinceReport()">
+      <div class="_flex-box">
+          <span >{{'buttons.download'| translate}}</span>
+          <div *ngIf="showLoader" class="loader" ></div>
+  
+      </div>
+  </button>
+  <!-- <button mat-button  class="LoadingButton"(click)="downloadEvedinceReport()" [disabled]="showLoader || !activeButton"> -->
+    <!-- <div class="_flex-box">
         <span >{{'buttons.download'| translate}}</span>
         <div *ngIf="showLoader" class="loader" ></div>
 
     </div>
     
-  </button>
-  <!-- <mat-spinner-button class="LoadingButton"(click)="downloadEvedinceReport()" [options]="btnOpts"></mat-spinner-button> -->
+  </button> -->
 </div>
 
-
-<!-- <a href="https://dev.shikshalokam.org/assessment/api/v1/reports/programsSubmissionStatus/DCPCR?evidenceId=CO">download</a> -->
