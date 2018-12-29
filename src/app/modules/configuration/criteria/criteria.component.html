@@ -1,0 +1,27 @@
+<div class="_flex-box _justify-content-center wrapper">
+  <div class="_full-width">
+      <mat-card  class="col-xs-12 col-sm-5 col-md-5 col-lg-5 flexbox margin" (click)="openDialog()">
+          <div class="folderIcon">
+             <i class="material-icons">
+                 create_new_folder
+               </i>
+          </div> 
+          <div class="criteriaLabel">
+            Add Criteria.
+          </div>
+         </mat-card>
+    <mat-card *ngFor="let criteria of criterias" class="col-xs-12 col-sm-5 col-md-5 col-lg-5 flexbox margin">
+      <div>
+        <i class="material-icons folderIcon">
+          folder
+        </i>
+      </div>
+      <div class="criteriaLabel">
+        {{criteria.name}}
+      </div>
+
+    </mat-card>
+    
+
+  </div>
+</div>

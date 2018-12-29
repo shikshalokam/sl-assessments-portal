@@ -5,13 +5,15 @@ import { AuthGuard } from './core/auth-gaurd/auth.gaurd';
 const routes: Routes = [
   {
     path: 'parent-interview',
-    // canActivate: [AuthGuard],
     loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
-   // load private module only if logged in
   },
+  // {
+  //   path: 'parent-report',
+  //   loadChildren: './modules/report/report.module#ReportModule'
+  // },
   {
-    path: 'parent-report',
-    loadChildren: './modules/report/report.module#ReportModule'
+    path: 'parent-configuration',
+    loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
   },
   {
     path: '',

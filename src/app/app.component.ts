@@ -25,7 +25,12 @@ export class AppComponent {
                       {
                         value :"headings.reports",
                         anchorLink : "/report"
+                      },
+                      {
+                        value :"headings.configurations",
+                        anchorLink :"/configuration"
                       }
+                      
                     ]  
             }
         ] ;

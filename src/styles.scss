@@ -61,7 +61,7 @@ body {
 }
 
 ._flex-box {
-    display: flex;
+    display: flex !important;
     align-items: center
 }
 ._responsiveTabel{
