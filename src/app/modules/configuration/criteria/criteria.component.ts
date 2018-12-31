@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from 'src/app/core/services/configuration-service/configuration.service';
 import { MatDialog } from '@angular/material';
 import { AddCriteriaBoxComponent } from '../criteria/add-criteria-modal/add-criteria-modal.component';
+import { UtilityService } from 'src/app/core';
 
 @Component({
   selector: 'app-criteria',
@@ -10,16 +11,18 @@ import { AddCriteriaBoxComponent } from '../criteria/add-criteria-modal/add-crit
 })
 export class CriteriaComponent implements OnInit {
   criterias;
-  constructor(private configurationService : ConfigurationService,public dialog: MatDialog) {
+  constructor(private utility :UtilityService,private configurationService : ConfigurationService,public dialog: MatDialog) {
     this.getCriteria();
   } 
 
   ngOnInit() {
+    this.utility.loaderShow();
   }
   getCriteria(){
     this.configurationService.getCriteria().subscribe( data => {
       this.criterias = data['result']['criteria'];
       console.log(this.criterias);
+      this.utility.loaderHide();
     }
     )
   }
