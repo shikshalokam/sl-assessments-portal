@@ -8,7 +8,7 @@
         "noData" :"No data found",
         "addCriteria" : "Adding a new Criteria"
     },
-
+    
     
     "buttons": {
         "download" : "Download",
@@ -36,10 +36,16 @@
         "survey": "Survey",
         "reports" : "Reports",
         "downloadReport" : "Download Evedince Report",
-        "configurations" : "Configurations"
+        "configurations" : "Configurations",
+        "questionFrameWorkHeading":"Questionary",
+        "criteriaFrameWorkHeading":"Criterias"
     },
     "labels": {
 
+    },
+    "descriptions": {
+        "questionFrameWorkDescription":"list of questions.",
+        "criteriaFrameWorkDescription" : "criteria list and adding new criteria."
     },
     "sideNavLinks": {
         

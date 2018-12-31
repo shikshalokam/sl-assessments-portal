@@ -1,16 +1,13 @@
-<h1 mat-dialog-title>{{'message.addCriteria' | translate}}</h1>
-<!-- <div mat-dialog-content>
-  <p>{{'message.addCriteria' | translate}}</p>
-</div> -->
+<h1 mat-dialog-title>{{'message.addCriteria' }}</h1>
 <div mat-dialog-actions class="inlineBlock" *ngIf="criteriaGroup" >
   <div class="col-xs-12">
   <app-dynamic-form [genericData]="criteriaArray" [genericForm]="criteriaGroup" ></app-dynamic-form>
 
   </div>
   <div class="submitButton col-xs-12">
-    <button mat-raised-button  class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
+    <button mat-raised-button  class="margin" (click)="onCancel()">{{'buttons.cancel'  }}</button>
     <button mat-raised-button  (click)="onSubmit()"  class="btns _primary-btn margin"  [disabled]="!criteriaGroup.valid">
-      {{'buttons.submit' | translate}}</button>
+      {{'buttons.submit' }}</button>
   </div>  
  
 </div>

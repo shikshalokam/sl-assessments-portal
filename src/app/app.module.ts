@@ -23,7 +23,7 @@ export function authFactory(authService: AuthService) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +34,7 @@ export function authFactory(authService: AuthService) {
     MatDividerModule,
     CoreModule.forRoot(),
     HttpClientModule,
-    ParentInterviewRoutingModule,
+    // ParentInterviewRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

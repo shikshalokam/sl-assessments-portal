@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from 'src/app/core';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -56,18 +55,7 @@ export class DownloadReportComponent implements OnInit {
   ngOnInit() {
   }
   
-  btnOpts: MatProgressButtonOptions = {
-    active: false,
-    text: 'Download',
-    spinnerSize: 19,
-    raised: false,
-    stroked: true,
-    buttonColor: 'accent',
-    spinnerColor: 'accent',
-    fullWidth: false,
-    disabled: false,
-    mode: 'indeterminate',
-  };
+ 
   sendEvedinceId(evedinceID) {
     this .activeButton = true;
     console.log(evedinceID + "is this");
@@ -76,7 +64,6 @@ export class DownloadReportComponent implements OnInit {
   }
   downloadEvedinceReport() {
   
-    this.btnOpts.active = true;
     this.showLoader = true;
     this.reportService.downloadReport(this.evedince).subscribe(
       data => {

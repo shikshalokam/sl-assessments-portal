@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigurationConfig } from 'src/app/modules/configuration/configuration.config';
+import { ConfigurationConfig } from 'src/app/modules/configuration/criteria/criteria-config';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

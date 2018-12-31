@@ -4,15 +4,15 @@ import { AuthGuard } from './core/auth-gaurd/auth.gaurd';
 
 const routes: Routes = [
   {
-    path: 'parent-interview',
+    path: 'interviewModule',
     loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
   },
   {
-    path: 'parent-report',
+    path: 'reportModule',
     loadChildren: './modules/report/report.module#ReportModule'
   },
   {
-    path: 'parent-configuration',
+    path: 'configurationModule',
     loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
   },
   {
