@@ -32,8 +32,7 @@ export class CriteriaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if (result)
-        console.log("DialogueOpened");
+      this.getCriteria();
     });
   }
 }

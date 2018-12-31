@@ -7,10 +7,10 @@ const routes: Routes = [
     path: 'parent-interview',
     loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
   },
-  // {
-  //   path: 'parent-report',
-  //   loadChildren: './modules/report/report.module#ReportModule'
-  // },
+  {
+    path: 'parent-report',
+    loadChildren: './modules/report/report.module#ReportModule'
+  },
   {
     path: 'parent-configuration',
     loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
