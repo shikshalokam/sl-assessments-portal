@@ -5,7 +5,8 @@
         "alertHeading" : "ALERT !!",
         "imageHeading" : "Images",
         "alertMessage" : "Mark as complete will be updated 'Are you sure to submit' ? ",
-        "noData" :"No data found"
+        "noData" :"No data found",
+        "addCriteria" : "Adding a new Criteria"
     },
 
     
@@ -34,7 +35,8 @@
         "features" : "Features",
         "survey": "Survey",
         "reports" : "Reports",
-        "downloadReport" : "Download Evedince Report"
+        "downloadReport" : "Download Evedince Report",
+        "configurations" : "Configurations"
     },
     "labels": {
 

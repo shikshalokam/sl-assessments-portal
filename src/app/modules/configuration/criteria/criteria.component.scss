@@ -1,0 +1,21 @@
+.wrapper{
+    padding: 10px;
+}
+.folderIcon{
+    color : grey
+}
+.flexbox{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.margin{
+    margin-left:10px;
+    margin-top:10px;
+}
+.criteriaLabel{
+    line-height: .9;
+    padding-left: 10px;
+}
