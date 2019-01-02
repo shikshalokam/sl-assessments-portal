@@ -3,18 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/auth-gaurd/auth.gaurd';
 import { ConfigurationComponent } from './configuration.component';
 import { CriteriaComponent } from './criteria/criteria.component'
-import { FrameworkComponent } from './framework/framework.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   {
-    path: 'configuration', 
+    path: '', 
     // component: ConfigurationComponent,
     // canActivate: [AuthGuard],
     data: {},
     children: [
       {
         path: 'framework',
-        component: FrameworkComponent
+        component: DashboardComponent
+        // loadChildren: './framework/framework.module#DashboardModule'
+
       },
       // {
       //   path:'dashboard',
@@ -42,7 +43,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class ConfigurationRoutingModule { }

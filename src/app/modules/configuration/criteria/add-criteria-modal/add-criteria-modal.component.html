@@ -5,9 +5,9 @@
 
   </div>
   <div class="submitButton col-xs-12">
-    <button mat-raised-button  class="margin" (click)="onCancel()">{{'buttons.cancel'  }}</button>
+    <button mat-raised-button  class="margin" (click)="onCancel()">{{'buttons.cancel' | translate  }}</button>
     <button mat-raised-button  (click)="onSubmit()"  class="btns _primary-btn margin"  [disabled]="!criteriaGroup.valid">
-      {{'buttons.submit' }}</button>
+      {{'buttons.submit' | translate }}</button>
   </div>  
  
 </div>

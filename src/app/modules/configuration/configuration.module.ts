@@ -8,17 +8,16 @@ import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { AddCriteriaBoxComponent } from 'src/app/modules/configuration/criteria/add-criteria-modal/add-criteria-modal.component';
 import { DynamicFormComponent } from 'src/app/shared/components/dynamic-form/dynamic-form.component';
-import { FrameworkComponent } from './framework/framework.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 @NgModule({
-  declarations: [ConfigurationComponent, FrameworkComponent,
-    // CriteriaComponent,
-    // DashboardComponent,
+  declarations: [ConfigurationComponent,
+    DashboardComponent,
   ],
   imports: [
-    CommonModule,
+    // CommonModule,
     // SharedModule,
     CoreModule,
+    MatCardModule,
     
     ConfigurationRoutingModule
   ],

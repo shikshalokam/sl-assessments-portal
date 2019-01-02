@@ -12,6 +12,10 @@
         // float: right;
         // overflow-y: auto;
     }
+    .criteriaCard{
+        margin : 10px  0px !important;
+        width:100% !important;
+    }
     .sideDiv{
         display :none !important;
     }
@@ -102,7 +106,10 @@
     ._responsiveTabel{
         display:inline !important;
     }
-    
+    .criteriaCard{
+        margin : 10px  0px !important;
+        width:100% !important;
+    }
     .mat-expansion-panel-header{
         align-items: baseline !important;
     }

@@ -6,22 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  frameWorkList =[ 
+  frameWorkList = [
     {
-      value : "headings.criteriaFrameWorkHeading",
-      description : "descriptions.criteriaFrameWorkDescription",
-      anchorLink : "/configuration/criteria/criteria-list"
+      value: "headings.criteriaFrameWorkHeading",
+      description: "descriptions.criteriaFrameWorkDescription",
+      anchorLink: "/configuration/criteria"
     },
     {
-      value :"headings.questionFrameWorkHeading",
-      description : "descriptions.questionFrameWorkDescription",
-      anchorLink : "/configuration/question"
-    }
-  ]  
-  constructor() { 
-
-  }
+      value: "headings.questionFrameWorkHeading",
+      description: "descriptions.questionFrameWorkDescription",
+      anchorLink: "/configuration/question"
+    },
+    
+  ]
+  constructor() { }
 
   ngOnInit() {
   }

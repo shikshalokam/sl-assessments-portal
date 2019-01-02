@@ -1,3 +1,4 @@
+@import '../../../../../assets/scss/varibles.scss';
 .wrapper{
     padding: 10px;
 }
@@ -11,11 +12,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.margin{
+.criteriaCard{
     margin-left:10px;
     margin-top:10px;
+    width:48%;
 }
 .criteriaLabel{
     line-height: .9;
     padding-left: 10px;
 }
+.addCriteria{
+    background-color: $primary-color;
+    position: fixed;
+    bottom:20px;
+    right: 20px;
+    z-index: 1;
+}  

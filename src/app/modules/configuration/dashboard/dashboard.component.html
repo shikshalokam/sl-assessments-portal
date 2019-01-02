@@ -1,15 +1,14 @@
 <div class="_flex-box _justify-content-center wrapper">
   <div class="_full-width">
-    <div *ngFor = "let frameWork of frameWorkList">
-      <div class ="frameWork" routerLink = "{{frameWork.anchorLink}}">
+    <div *ngFor = "let frameWork of frameWorkList" class="flex-box">
+      <mat-card  class ="frameWork"routerLink = "{{frameWork.anchorLink}}">
         <!-- <div class ="frameWork" [routerLink] = "['/parent']"> -->
-        <h2>{{frameWork.value|translate}}</h2>
-        <div>
+        <p class="heading">{{frameWork.value|translate}}</p>
+        <div class="description">
           {{frameWork.description|translate}}
         </div>
-      </div>
+      </mat-card >
 
     </div>
   </div>
 </div>
-<!-- <app-framework></app-framework> -->

@@ -7,7 +7,7 @@ import { ParentInterviewRoutingModule } from './parent-interview-routing.module'
 import { CoreModule } from 'src/app/core/core.module';
 import { SchoolListComponent } from './school-list/school-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { ParentListComponent } from './parent-list/parent-list.component';
@@ -20,6 +20,7 @@ import { SelectComponent } from './questionnaire/components/select/select.compon
 import { MultiSelectComponent } from './questionnaire/components/multi-select/multi-select.component';
 import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/confirm-modal.component';
 import { RemarksComponent } from './questionnaire/components/remarks/remarks.component';
+import { ApiInterceptor } from 'src/app/core';
 @NgModule({
   declarations: [
     ParentInterviewComponent,
@@ -46,7 +47,7 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
@@ -57,6 +58,11 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
   ],
   providers: [
     ParentService,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ApiInterceptor,
+    //   multi: true
+    // },
   ],
   entryComponents: [ConfirmModalComponent]
 })

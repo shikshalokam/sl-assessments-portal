@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ParentService } from '../../../core/services/parent-service/parent.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
+import { ReportService } from 'src/app/core';
 
 elementData: {
 
@@ -20,17 +21,17 @@ export class SchoolListComponent implements OnInit {
   headings = 'headings.schoolListHeading';
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private parentService: ParentService, private utility: UtilityService) {
+  constructor(private reportService: ReportService, private utility: UtilityService) {
     this.showConfig();
   }
   showConfig() {
-    this.parentService.getSchoolList()
+    this.reportService.getSchoolList()
       .subscribe(data => {
-        this.schoolList = data.result;
-        this.result = data.result.length;
+        this.schoolList = data['result'];
+        this.result = data['result']['length'];
         console.log(this.schoolList);
-        this.dataSource = new MatTableDataSource(data.result);
-        console.log(data.result);
+        this.dataSource = new MatTableDataSource(data['result']);
+        console.log(data['result']);
         setTimeout(() => this.dataSource.paginator = this.paginator);
         this.utility.loaderHide()
       },

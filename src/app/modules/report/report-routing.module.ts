@@ -8,7 +8,7 @@ import { AuthGuard } from 'src/app/core/auth-gaurd/auth.gaurd';
 
 const routes: Routes = [
   {
-    path: 'report', component: ReportComponent,
+    path: '', component: ReportComponent,
     // canActivate: [AuthGuard],
     data: {},
     children: [

@@ -18,7 +18,7 @@ import { DownloadReportComponent } from './download-report/download-report.compo
     DownloadReportComponent
   ],
   imports: [
-    CommonModule,
+    // CommonModule,
     MatDividerModule,
     MatSelectModule,
     MatCardModule,

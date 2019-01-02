@@ -6,7 +6,7 @@ import { CriteriaListComponent } from './criteria-list/criteria-list.component';
 
 const routes: Routes = [
     {
-        path: 'criteria', 
+        path: '', 
         data: {},
         children: [
             {
@@ -14,7 +14,7 @@ const routes: Routes = [
                 component: CriteriaListComponent
             },
             {
-                path: '**',
+                path: '',
                 redirectTo: 'criteria-list'
             }
         ]
