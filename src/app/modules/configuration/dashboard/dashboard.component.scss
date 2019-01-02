@@ -22,4 +22,50 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    width: 110px;
+    text-align: center;
+}
+.criteriaIcon{
+    background-image: linear-gradient(to top,#e8eced 10%,white 90%);
+    height: 140px;
+    // background-color:#e8eced;
+
+    // color: $grey-color;
+    width: 140px;
+    border: 1px solid $grey-color;
+    border-radius: 15px;
+    padding: 10px;
+    display:  flex;
+    align-items: center;
+    justify-content: center;
+}
+.active{
+    // margin-top:10px;
+    // border-radius: 12px; 
+    // border:1px solid  #46a9ff; 
+    // padding:5px 10px; 
+    // background-color: #e5f2fe;
+    color:$grey-color; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.dashBoardIcon{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    // border :1px solid #bababa;
+    border-radius: 20px;
+    margin : 0px 20px;
+}
+.margin-top{
+margin-top:20px;
+}
+.folderIcon{
+    font-size: 70px;
+    color:$primary-color;
 }

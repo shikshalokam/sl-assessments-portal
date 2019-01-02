@@ -17,6 +17,26 @@ export class DashboardComponent implements OnInit {
       description: "descriptions.questionFrameWorkDescription",
       anchorLink: "/configuration/question"
     },
+    {
+      value: "headings.questionFrameWorkHeading",
+      description: "descriptions.questionFrameWorkDescription",
+      anchorLink: "/configuration/question"
+    },
+    {
+      value: "headings.questionFrameWorkHeading",
+      description: "descriptions.questionFrameWorkDescription",
+      anchorLink: "/configuration/question"
+    },
+    {
+      value: "headings.questionFrameWorkHeading",
+      description: "descriptions.questionFrameWorkDescription",
+      anchorLink: "/configuration/question"
+    },
+    {
+      value: "headings.questionFrameWorkHeading",
+      description: "descriptions.questionFrameWorkDescription",
+      anchorLink: "/configuration/question"
+    },
     
   ]
   constructor() { }

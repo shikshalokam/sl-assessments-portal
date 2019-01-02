@@ -12,7 +12,7 @@ const routes: Routes = [
     data: {},
     children: [
       {
-        path: 'framework',
+        path: 'dashboard',
         component: DashboardComponent
         // loadChildren: './framework/framework.module#DashboardModule'
 
@@ -30,7 +30,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full' ,
-        redirectTo: 'framework'
+        redirectTo: 'dashboard'
       }
     ]
   },
