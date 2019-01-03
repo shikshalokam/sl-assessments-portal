@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService } from './services';
 import { TranslatePipe } from './pipes';
 import { CamelCasePipe } from './pipes'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';

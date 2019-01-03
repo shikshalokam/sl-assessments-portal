@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -30,7 +29,7 @@ export function authFactory(authService: AuthService) {
     MatDividerModule,
     CoreModule.forRoot(),
     HttpClientModule,
-    BrowserModule,
+    // BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
