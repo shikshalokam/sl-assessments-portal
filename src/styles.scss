@@ -75,6 +75,10 @@ body {
 ._justify-content-center {
     justify-content: center;
 }
+.mat-snack-bar-container {
+    max-width: 100% !important;
+}
+
 
 ._justify-content-space-between {
     justify-content: space-between;

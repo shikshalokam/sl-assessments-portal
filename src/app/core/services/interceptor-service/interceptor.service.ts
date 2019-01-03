@@ -6,6 +6,7 @@ import {
   HttpInterceptor,
 } from "@angular/common/http";
 import { AuthService } from "../auth/auth.service";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -14,9 +15,13 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = this.auth.getToken();
-    console.log(authToken);
-    const authReq = req.clone({ setHeaders: { "X-authenticated-user-token": authToken } });
+    const authReq = req
+    .clone({ setHeaders: { "X-authenticated-user-token": authToken } })
+    .clone({setHeaders:{"internal-access-token" :  environment.downloadReportHeaderValue}})
+    // .clone({setHeaders:{"responseType":'text'}})
+    ;
 
+    // debugger;
     console.log(authReq)
     return next.handle(authReq);
 

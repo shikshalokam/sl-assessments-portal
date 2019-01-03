@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
   },
   {
-    path: '',
+    path: '**',
     redirectTo: 'parent',
     pathMatch: 'full'
   }

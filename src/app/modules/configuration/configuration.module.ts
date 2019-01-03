@@ -15,7 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   imports: [
     // CommonModule,
-    // SharedModule,
+     SharedModule,
     CoreModule,
     MatCardModule,
     

@@ -38,7 +38,9 @@
         "downloadReport" : "Download Evedince Report",
         "configurations" : "Configurations",
         "questionFrameWorkHeading":"Questionary",
-        "criteriaFrameWorkHeading":"Criterias"
+        "criteriaFrameWorkHeading":"Criterias",
+        "criteriaList" : "Criteria List",
+        "dashBoard" : "Configuration Dashboard"
     },
     "labels": {
 

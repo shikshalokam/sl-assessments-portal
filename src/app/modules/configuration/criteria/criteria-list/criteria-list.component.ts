@@ -11,6 +11,7 @@ import { UtilityService } from 'src/app/core';
 })
 export class CriteriaListComponent implements OnInit {
   criterias;
+  headings ='headings.criteriaList';
   constructor(private utility :UtilityService,private configurationService : ConfigurationService,public dialog: MatDialog) {
     this.getCriteria();
   } 

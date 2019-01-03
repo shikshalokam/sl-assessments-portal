@@ -1,21 +1,9 @@
 @import '../../../../assets/scss/varibles.scss';
-.frameWork{
-    min-height : 90px;
-    max-width: 150px;
-    margin: 14px;
-    padding: 10px;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-.heading{
-    font-size: 25px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    font-weight: 500;
-}
 .flex-box{
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .description{
     color:$grey-color;
@@ -24,31 +12,6 @@
     overflow: hidden;
     width: 110px;
     text-align: center;
-}
-.criteriaIcon{
-    background-image: linear-gradient(to top,#e8eced 10%,white 90%);
-    height: 140px;
-    // background-color:#e8eced;
-
-    // color: $grey-color;
-    width: 140px;
-    border: 1px solid $grey-color;
-    border-radius: 15px;
-    padding: 10px;
-    display:  flex;
-    align-items: center;
-    justify-content: center;
-}
-.active{
-    // margin-top:10px;
-    // border-radius: 12px; 
-    // border:1px solid  #46a9ff; 
-    // padding:5px 10px; 
-    // background-color: #e5f2fe;
-    color:$grey-color; 
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 .dashBoardIcon{
     width: 200px;
@@ -68,4 +31,23 @@ margin-top:20px;
 .folderIcon{
     font-size: 70px;
     color:$primary-color;
+    display: flex;
+    align-items: center;
+}
+.wrapper{
+    padding:0px 20px;
+}
+.box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.iconBox{
+    width: 100%;
+    background-image: linear-gradient(to top,#e8eced 10%,white 90%);
+    height: 120px;
+    width: 120px;
+    border: 1px solid $grey-color;
+    border-radius: 15px;
+
 }
