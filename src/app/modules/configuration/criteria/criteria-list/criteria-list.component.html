@@ -4,7 +4,7 @@
   <div class="_full-width">
 
     <div *ngFor="let criteria of criterias">
-      <mat-card class="col-xs-12 col-sm-12 col-md-6 col-lg-6 flexbox criteriaCard">
+      <mat-card class="col-xs-12 col-sm-12 col-md-6 col-lg-6 flexbox criteriaCard" matTooltip="{{criteria.name}}">
         <div>
           <i class="material-icons folderIcon">
             folder
