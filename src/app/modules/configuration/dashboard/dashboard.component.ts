@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   headings = 'headings.dashBoard';
-  frameWorkList = [
+  dashBoardList = [
     {
       value: "headings.criteriaFrameWorkHeading",
       description: "descriptions.criteriaFrameWorkDescription",

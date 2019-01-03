@@ -3,20 +3,7 @@
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4  " *ngFor="let res of data ">
       <span *ngIf="res.input == 'radio' ; else other">
         <span *ngIf="res.field === 'callResponse' ; else otherLabel">
-          <!-- <span class="bold"> {{res.label}} : </span> -->
-          <!-- <mat-form-field class="form" >
-              <mat-select [(value)]="selected" >
-                  <mat-option value="">Select call response</mat-option>
-                  <mat-option *ngFor="let opt of res.options" [value]="opt.value" (click)="sendcallResponse(opt)">
-                    {{opt.label}}
-                  </mat-option>
-                </mat-select>
-            <span *ngFor="let opt of res.options">
-          
-              <span *ngIf="res.value == opt.value">
-              </span>
-            </span>
-          </mat-form-field> -->
+         
         </span>
         <ng-template #otherLabel class=" col-xs-12 col-md-4 col-sm-12 col-lg-4 alingParentInfo">
             <div class="bold spaceBetween col-md-6 col-xs-12">

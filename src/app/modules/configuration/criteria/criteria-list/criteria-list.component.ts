@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from 'src/app/core/services/configuration-service/configuration.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { AddCriteriaBoxComponent } from '../add-criteria-modal/add-criteria-modal.component';
 import { UtilityService } from 'src/app/core';
 
@@ -12,7 +12,7 @@ import { UtilityService } from 'src/app/core';
 export class CriteriaListComponent implements OnInit {
   criterias;
   headings ='headings.criteriaList';
-  constructor(private utility :UtilityService,private configurationService : ConfigurationService,public dialog: MatDialog) {
+  constructor(private snackBar :MatSnackBar,private utility :UtilityService,private configurationService : ConfigurationService,public dialog: MatDialog) {
     this.getCriteria();
   } 
 
@@ -24,6 +24,9 @@ export class CriteriaListComponent implements OnInit {
       this.criterias = data['result']['criteria'];
       console.log(this.criterias);
       this.utility.loaderHide();
+    },(error)=>{
+      this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+
     }
     )
   }

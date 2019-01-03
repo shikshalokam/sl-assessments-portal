@@ -7,7 +7,6 @@ import { CriteriaRoutingModule } from './criteria-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core';
 import { MatCardModule, MatDialogModule, MatButtonModule } from '@angular/material';
-import { DynamicFormComponent } from 'src/app/shared/components/dynamic-form/dynamic-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [
     CommonModule,
     CoreModule,
-    // NgModule,
     CriteriaRoutingModule,
     SharedModule,
     MatCardModule,
@@ -24,6 +22,5 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
   ],
   entryComponents: [AddCriteriaBoxComponent],
-  providers: [DynamicFormComponent]
 })
 export class CriteriaModule { }

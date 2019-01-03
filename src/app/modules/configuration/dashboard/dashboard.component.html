@@ -4,8 +4,8 @@
   <div class="_full-width ">
       <app-parent-heading [genericHeading]="headings" [schoolNameDivider]= "false"></app-parent-heading>
 
-    <div *ngFor="let frameWork of frameWorkList" >
-      <div class=" col-lg-3 col-md-4 col-sm-6 col-xs-12 margin-top _justify-content-center flex-box" routerLink="{{frameWork.anchorLink}}" title="{{frameWork.value|translate}}">
+    <div *ngFor="let dashBoard of dashBoardList" >
+      <div class=" col-lg-3 col-md-4 col-sm-6 col-xs-12 margin-top _justify-content-center flex-box" routerLink="{{dashBoard.anchorLink}}" title="{{dashBoard.value|translate}}">
         <div class=" box iconBox">
           <i class="material-icons folderIcon">
             reorder
@@ -13,7 +13,7 @@
         </div>
         <div class=" box ">
           <div class="description">
-              {{frameWork.value|translate}}
+              {{dashBoard.value|translate}}
           </div>
           
         </div>
