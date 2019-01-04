@@ -7,7 +7,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core';
 import { MatSelectModule,MatTooltipModule,MatTableModule,MatDialogModule,MatExpansionModule,MatTabsModule,MatCardModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatPaginatorModule, MatDividerModule } from '@angular/material';
 import { EcmReportComponent } from './ecm-report/ecm-report.component';
-import { MatProgressButtonsModule } from 'mat-progress-buttons';
 import { ImageModalComponent } from './ecm-report/image-modal/image-modal.component';
 import { DownloadReportComponent } from './download-report/download-report.component';
 @NgModule({
@@ -19,12 +18,11 @@ import { DownloadReportComponent } from './download-report/download-report.compo
     DownloadReportComponent
   ],
   imports: [
-    CommonModule,
+    // CommonModule,
     MatDividerModule,
     MatSelectModule,
     MatCardModule,
     MatTabsModule,
-    MatProgressButtonsModule,
     MatExpansionModule,
     MatDialogModule,
     MatTableModule,

@@ -4,20 +4,20 @@ import { AuthGuard } from './core/auth-gaurd/auth.gaurd';
 
 const routes: Routes = [
   {
-    path: 'parent-interview',
+    path: 'parent',
     loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
   },
   {
-    path: 'parent-report',
+    path: 'report',
     loadChildren: './modules/report/report.module#ReportModule'
   },
   {
-    path: 'parent-configuration',
+    path: 'configuration',
     loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
   },
   {
-    path: '',
-    redirectTo: 'parent/school-list',
+    path: '**',
+    redirectTo: 'parent',
     pathMatch: 'full'
   }
 ];

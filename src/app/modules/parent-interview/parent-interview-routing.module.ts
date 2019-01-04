@@ -9,7 +9,8 @@ import { ParentInformationComponent } from './parent-information/parent-informat
 import {AuthGuard} from './../../core/auth-gaurd/auth.gaurd'
 const routes: Routes = [
   {
-    path: 'parent', component: ParentInterviewComponent,
+    path: '', 
+     component: ParentInterviewComponent,
     data: {},
     // canActivate: [AuthGuard],
     children: [
@@ -51,7 +52,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class ParentInterviewRoutingModule { }

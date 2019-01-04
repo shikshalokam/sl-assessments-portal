@@ -6,7 +6,6 @@ import { ParentInterviewComponent } from './parent-interview.component';
 import { ParentInterviewRoutingModule } from './parent-interview-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { SchoolListComponent } from './school-list/school-list.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { ParentService } from 'src/app/core/services/parent-service/parent.service';
@@ -46,7 +45,6 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
@@ -57,6 +55,7 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
   ],
   providers: [
     ParentService,
+   
   ],
   entryComponents: [ConfirmModalComponent]
 })

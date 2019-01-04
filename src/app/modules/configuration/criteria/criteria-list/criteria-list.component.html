@@ -1,0 +1,28 @@
+<app-loader></app-loader>
+<div class="_flex-box _justify-content-center wrapper">
+  <div class="_full-width">
+    <app-parent-heading [genericHeading]="headings" [schoolNameDivider]=false></app-parent-heading>
+
+
+    <div *ngFor="let criteria of criterias">
+      <mat-card class="col-xs-12 col-sm-12 col-md-6 col-lg-6 flexbox criteriaCard" matTooltip="{{criteria.name}}">
+        <div>
+          <i class="material-icons folderIcon">
+            folder
+          </i>
+        </div>
+        <div class="criteriaLabel">
+          {{criteria.name}}
+        </div>
+
+      </mat-card>
+
+    </div>
+    <button class="addCriteria" mat-fab (click)="openDialog()" matTooltip="Add New Criteria">
+      <i class="material-icons">
+        add
+      </i>
+    </button>
+
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { AuthGuard } from 'src/app/core/auth-gaurd/auth.gaurd';
 
 const routes: Routes = [
   {
-    path: 'report', component: ReportComponent,
+    path: '', component: ReportComponent,
     // canActivate: [AuthGuard],
     data: {},
     children: [
@@ -41,7 +41,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class ReportRoutingModule { }
