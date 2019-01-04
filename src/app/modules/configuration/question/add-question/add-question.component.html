@@ -1,0 +1,50 @@
+<!-- <div class="example-container"
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="todo"
+    [cdkDropListConnectedTo]="[doneList]"
+    [cdkDropListEnterPredicate]="noReturnPredicate"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Done</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="evenPredicate">
+    <div class="example-box" *ngFor="let item of done; let i = index" cdkDrag>
+      <div *ngIf="i == 1">
+      <div >
+
+          {{item}}
+      </div>
+     
+    </div>
+  </div>
+</div> -->
+<div class="wrapper">
+  <div class="editQuestion" >
+      <app-edit-question *ngIf="newQuestion" [newQuestion]="newQuestion"></app-edit-question>
+  </div>
+    <div class="questionGroup">
+        <div *ngFor="let question of questionType" >
+          <div (click)="openQuestion(question)" class="questionButton">
+            {{question}}
+          </div>
+          <hr>
+        </div>
+        </div>
+        
+</div>
