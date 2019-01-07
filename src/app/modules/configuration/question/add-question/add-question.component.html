@@ -1,0 +1,149 @@
+<!-- <div class="example-container"
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="todo"
+    [cdkDropListConnectedTo]="[doneList]"
+    [cdkDropListEnterPredicate]="noReturnPredicate"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Done</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="done"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="evenPredicate">
+    <div class="example-box" *ngFor="let item of done; let i = index" cdkDrag>
+      <div *ngIf="i == 1">
+      <div >
+
+          {{item}}
+      </div>
+     
+    </div>
+  </div>
+</div> -->
+<div class="wrapper bigScreenAddQuestion">
+  <div class="editQuestion" *ngIf="sendQuestion ; else selectQuestion ">
+    <app-question-workspace [newQuestion]="newQuestion"  ></app-question-workspace>
+    
+  </div>
+  
+  <ng-template   #selectQuestion>
+      <div class="editQuestion placeCenter">
+          Select a type to add a question .
+      </div>
+    </ng-template>
+  <div class="questionGroup">
+    <div *ngFor="let question of questionType">
+      <div (click)="openQuestion(question)" class="questionButton">
+        <div [ngSwitch]="question">
+          <div *ngSwitchCase="'Radio'">
+            <i class="material-icons">
+              radio_button_checked
+            </i>
+          </div>
+          <div *ngSwitchCase="'Text'">
+            <i class="material-icons">
+              title
+            </i>
+          </div>
+          <div *ngSwitchCase="'Select'">
+            <i class="material-icons">
+              check_box
+            </i>
+          </div>
+          <div *ngSwitchCase="'Number'">
+            <i class="material-icons">
+              looks_3
+            </i>
+          </div>
+          <div *ngSwitchCase="'Textarea'">
+            <i class="material-icons">
+              short_text
+            </i>
+          </div>
+        </div>
+        <div class="labelQuestion">
+          {{question}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<mat-drawer-container class="responsive-container responsiveAddQuestion" autosize>
+  <mat-drawer #drawer class="responsive-sidenav" mode="push">
+    <p>Question Type</p>
+    <div *ngFor="let question of questionType">
+      <div (click)="openQuestion(question)" class="questionButton">
+        <div [ngSwitch]="question">
+          <div *ngSwitchCase="'Radio'">
+            <i class="material-icons">
+              radio_button_checked
+            </i>
+          </div>
+          <div *ngSwitchCase="'Text'">
+            <i class="material-icons">
+              title
+            </i>
+          </div>
+          <div *ngSwitchCase="'Select'">
+            <i class="material-icons">
+              check_box
+            </i>
+          </div>
+          <div *ngSwitchCase="'Number'">
+            <i class="material-icons">
+              looks_3
+            </i>
+          </div>
+          <div *ngSwitchCase="'Textarea'">
+            <i class="material-icons">
+              short_text
+            </i>
+          </div>
+        </div>
+        <div class="labelQuestion">
+          {{question}}
+        </div>
+      </div>
+    </div>
+    
+  </mat-drawer>
+
+  <div class="responsive-sidenav-content">
+  
+    <button type="button" mat-button (click)="drawer.toggle()">
+        <i class="material-icons">
+            menu
+            </i>
+    </button>
+
+
+    <div *ngIf="sendQuestion ; else selectResponsiveQuestion ">
+        <app-question-workspace [newQuestion]="newQuestion"  ></app-question-workspace>
+        
+      </div>
+      
+      <ng-template   #selectResponsiveQuestion>
+          <div class=" placeCenter ">
+              Select a type to add a question .
+          </div>
+      </ng-template>
+  </div>
+
+</mat-drawer-container>
