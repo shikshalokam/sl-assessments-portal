@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
@@ -8,6 +8,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem} from '@a
 })
 export class AddQuestionComponent implements OnInit {
   flag = true;
+  sendQuestion =false;
   newQuestion ={
     _id: "5be8e8582d325f5b71da4e08",
     question: [
@@ -26,7 +27,7 @@ export class AddQuestionComponent implements OnInit {
     externalId: "AS/TL/04a",
     visibleIf: "",
     file: "",
-    responseType: "number",
+    responseType: "",
     validation: {
         required: true,
         isNumber: true,
@@ -96,14 +97,34 @@ export class AddQuestionComponent implements OnInit {
   // }
   currentQuestion:string;
   questionType=[
-    'radio',
-    'text',
-    'number',
-    'textarea',
-    'select',
+    'Radio',
+    'Text',
+    'Number',
+    'Textarea',
+    'Select',
   ]
   openQuestion(question:string){
-    this.currentQuestion = question ;
-  }
+    console.log("radio");
+  
+    this.newQuestion.responseType = question;
+    if (question == 'Radio' || question == 'Select') {
+      this.newQuestion['options'] = [
+        {
+          value: "option1",
+          label: "option1"
+        },
+        {
+          value: "option2",
+          label: "option2"
+        }
+      ]
 
+      console.log("pushed")
+    }
+    console.log(this.newQuestion.options)
+    this.currentQuestion = question ;
+    this.sendQuestion =true;
+
+  }
+  
 }

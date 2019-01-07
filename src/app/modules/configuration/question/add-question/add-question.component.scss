@@ -70,11 +70,19 @@
     height: calc(100vh - 95px);
     border-right: 1px solid #bababa;
     // height:100%;
+    padding: 20px;
 }
+
 .questionButton{
     padding:10px;
     cursor: pointer;
+    display: flex;
+    align-items: inherit;
     margin : 10px 10px ;
+    border-bottom: 1px solid #bababa;
+}
+.labelQuestion{
+    margin: 0px 10px;
 }
 .wrapper{
     display: flex;
@@ -83,3 +91,31 @@
     border-radius: 10px;
     border: 1px solid#bababa;
 }
+.placeCenter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.responsiveAddQuestion{
+    display: none;
+}
+
+.example-container {
+    // width: 500px;
+    // min-height: 400px;
+    height:  -webkit-fill-available;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: auto;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+  

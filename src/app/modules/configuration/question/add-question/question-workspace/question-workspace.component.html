@@ -1,0 +1,42 @@
+<div class="editBox">
+  <div class="editHeader">
+    <i class="material-icons headerItem">
+      border_color
+    </i>
+    <div class="headerItem">
+      Type : {{newQuestion.responseType}} Question
+    </div>
+  </div>
+  <div class="question">
+    <mat-form-field>
+      <input matInput value="{{newQuestion.responseType}} Question">
+    </mat-form-field>
+    <div *ngIf="newQuestion.responseType == 'Radio'">
+      <div *ngFor="let option of newQuestion.options ">
+        <mat-radio-button value="{{option.value}}">{{option.label}}</mat-radio-button>
+      </div>
+      <div class="paddingTop" (click)="addNewOption()">
+        <i class="material-icons">
+          add
+        </i>
+      </div>
+    </div>
+    <div *ngIf="newQuestion.responseType == 'Select'">
+      <div *ngFor="let option of newQuestion.options ">
+        <mat-checkbox value="{{option.value}}">{{option.label}}</mat-checkbox>
+      </div>
+
+      <div class="paddingTop" (click)="addNewOption()">
+        <i class="material-icons">
+          add
+        </i>
+      </div>
+    </div>
+    <div *ngIf="newQuestion.responseType == 'Text'">
+      <input matInput value="{{newQuestion.responseType}} answer">
+    </div>
+    <div *ngIf="newQuestion.responseType == 'Textarea'">
+      <input matInput value="{{newQuestion.responseType}} answer">
+    </div>
+  </div>
+</div>

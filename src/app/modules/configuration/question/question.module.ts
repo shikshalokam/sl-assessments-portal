@@ -4,13 +4,13 @@ import { QuestionComponent } from './question.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionRoutingModule } from './question-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatRadioModule, MatInputModule, MatButtonModule, MatSelectModule } from '@angular/material';
+import { MatRadioModule, MatInputModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatCheckboxModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { EditQuestionComponent } from './add-question/edit-question/edit-question.component';
 import { CoreModule } from 'keycloak-angular';
+import { QuestionWorkspace } from './add-question/question-workspace/question-workspace.component';
 
 @NgModule({
-  declarations: [QuestionComponent, AddQuestionComponent, EditQuestionComponent],
+  declarations: [QuestionComponent, QuestionWorkspace,AddQuestionComponent],
   imports: [
     CommonModule,
     CoreModule,
@@ -20,8 +20,9 @@ import { CoreModule } from 'keycloak-angular';
     MatButtonModule,
     QuestionRoutingModule,
     MatInputModule,
-    MatSelectModule
-  
+    MatSelectModule,
+    MatSidenavModule,
+    MatCheckboxModule
 
 
   ]
