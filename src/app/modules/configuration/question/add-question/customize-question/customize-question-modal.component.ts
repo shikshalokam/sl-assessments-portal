@@ -13,14 +13,9 @@ export class CustomizeQuestionComponent implements OnInit {
  
   constructor(private utility : UtilityService , private configurationService : ConfigurationService,
     public dialogRef: MatDialogRef<CustomizeQuestionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data ,@Inject(MAT_DIALOG_DATA) public index) { 
+    @Inject(MAT_DIALOG_DATA) public data ) { 
       console.log(data);
-      console.log(index);
-      // this.questionGroup=this.utility.toGroup(data);
-      // console.log(this.questionGroup)
     }
-
-
   ngOnInit() {
    
   }

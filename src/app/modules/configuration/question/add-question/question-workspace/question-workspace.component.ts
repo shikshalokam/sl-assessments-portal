@@ -10,7 +10,6 @@ import { CustomizeQuestionComponent } from '../customize-question/customize-ques
 export class QuestionWorkspace implements OnInit {
   @Input() newQuestionArray: any;
   @Input() optionCount :number;
-  @Output() removeNewQuestion = new EventEmitter<boolean>();
   showIcon : number;  
   index : number;
   constructor(public dialog: MatDialog) {
@@ -23,7 +22,6 @@ export class QuestionWorkspace implements OnInit {
   }
   removeQuestion(index){
     this.newQuestionArray.splice(index, 1);
-    this.removeNewQuestion.emit(true);
 
   }
   

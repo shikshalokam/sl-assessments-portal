@@ -1,70 +1,24 @@
-<!-- <div class="example-container"
-  <h2>To do</h2>
-
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
-    [cdkDropListEnterPredicate]="noReturnPredicate"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-  </div>
-</div>
-
-<div class="example-container">
-  <h2>Done</h2>
-
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)"
-    [cdkDropListEnterPredicate]="evenPredicate">
-    <div class="example-box" *ngFor="let item of done; let i = index" cdkDrag>
-      <div *ngIf="i == 1">
-      <div >
-
-          {{item}}
-      </div>
-     
-    </div>
-  </div>
-</div> -->
 <app-parent-heading [genericHeading]="headings" [schoolNameDivider]=false></app-parent-heading>
-
 <div class="wrapper bigScreenAddQuestion">
   <div class="editQuestion">
-    <app-question-workspace [newQuestionArray]="newQuestionArray"   (removeNewQuestion)="removeQuestion($event)"></app-question-workspace>
+    <app-question-workspace [newQuestionArray]="newQuestionArray"></app-question-workspace>
   </div>
-
-
   <div class="questionGroup">
     <app-question-type-list (sendQuestionObject)="catchQuestionObject($event)"></app-question-type-list>
   </div>
 </div>
-
-
-
 <mat-drawer-container class="responsive-container responsiveAddQuestion" autosize>
   <mat-drawer #drawer class="responsive-sidenav" mode="push">
-      <app-question-type-list (sendQuestionObject)="catchQuestionObject($event)"></app-question-type-list>
+    <app-question-type-list (sendQuestionObject)="catchQuestionObject($event)"></app-question-type-list>
   </mat-drawer>
-  
-  <div  class="responsive-sidenav-content">
-
+  <div class="responsive-sidenav-content">
     <button class="addQuestionType" type="button" mat-button (click)="drawer.toggle()">
       <i class="material-icons">
         menu
       </i>
     </button>
     <div class="placeCenter">
-    <app-question-workspace [newQuestionArray]="newQuestionArray" (removeNewQuestion)="removeQuestion($event)" ></app-question-workspace>
+      <app-question-workspace [newQuestionArray]="newQuestionArray"></app-question-workspace>
     </div>
-
   </div>
-
 </mat-drawer-container>
