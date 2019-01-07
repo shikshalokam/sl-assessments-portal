@@ -6,8 +6,8 @@ import { QuestionRoutingModule } from './question-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatRadioModule, MatInputModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatCheckboxModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { CoreModule } from 'keycloak-angular';
 import { QuestionWorkspace } from './add-question/question-workspace/question-workspace.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [QuestionComponent, QuestionWorkspace,AddQuestionComponent],
