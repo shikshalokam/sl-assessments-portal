@@ -85,8 +85,8 @@
 
 
 
-<mat-drawer-container class="example-container responsiveAddQuestion" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="push">
+<mat-drawer-container class="responsive-container responsiveAddQuestion" autosize>
+  <mat-drawer #drawer class="responsive-sidenav" mode="push">
     <p>Question Type</p>
     <div *ngFor="let question of questionType">
       <div (click)="openQuestion(question)" class="questionButton">
@@ -125,7 +125,7 @@
     
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="responsive-sidenav-content">
   
     <button type="button" mat-button (click)="drawer.toggle()">
         <i class="material-icons">

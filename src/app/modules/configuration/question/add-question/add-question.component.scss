@@ -100,14 +100,11 @@
     display: none;
 }
 
-.example-container {
-    // width: 500px;
-    // min-height: 400px;
+.responsive-container {
     height:  -webkit-fill-available;
-    border: 1px solid rgba(0, 0, 0, 0.5);
   }
   
-  .example-sidenav-content {
+  .responsive-sidenav-content {
     display: flex;
     height: auto;
     height: 100%;
@@ -115,7 +112,7 @@
     justify-content: center;
   }
   
-  .example-sidenav {
+  .responsive-sidenav {
     padding: 20px;
   }
   
