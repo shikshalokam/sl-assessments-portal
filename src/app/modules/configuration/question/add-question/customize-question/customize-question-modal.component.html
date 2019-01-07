@@ -1,0 +1,24 @@
+<div class="criteriaModal">
+
+  <h1 mat-dialog-title class="spaceBetween">
+    <div class="heading">
+      {{'message.customizeQuestion' |translate }}
+    </div>
+    <i class="material-icons crossIcon" (click)="onCancel()">
+      close
+    </i>
+  </h1>
+  <div mat-dialog-actions class="inlineBlock" >
+    
+    <div class="buttonFooter">
+      <div class="submitButton">
+        {{data.responseType}}
+        <button mat-raised-button class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
+        <button mat-raised-button (click)="onUpdate()" class="btns _primary-btn margin" >
+          {{'buttons.update' | translate }}</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

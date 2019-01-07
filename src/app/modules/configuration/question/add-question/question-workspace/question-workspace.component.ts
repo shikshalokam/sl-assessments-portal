@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CustomizeQuestionComponent } from '../customize-question/customize-question-modal.component';
 
 @Component({
   selector: 'app-question-workspace',
@@ -6,21 +8,35 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./question-workspace.component.scss']
 })
 export class QuestionWorkspace implements OnInit {
-  @Input() newQuestion: any;
-  optionCount = 3;
-  constructor() {
-
+  @Input() newQuestionArray: any;
+  @Input() optionCount :number;
+  @Output() removeNewQuestion = new EventEmitter<boolean>();
+  showIcon : number;  
+  index : number;
+  constructor(public dialog: MatDialog) {
   }
   ngOnInit() {
+  }
+  
+  showEditOption(index){
+    this.showIcon = index;
+  }
+  removeQuestion(index){
+    this.newQuestionArray.splice(index, 1);
+    this.removeNewQuestion.emit(true);
 
   }
-  addNewOption() {
-    this.newQuestion.options.push(
-      {
-        value: "option"+this.optionCount,
-        label: "option"+this.optionCount
-      }
-    );
-    this.optionCount++;
+  
+  openDialog(index): void {
+    const dialogRef = this.dialog.open(CustomizeQuestionComponent, {
+      width: '950px',
+      height:'600px',
+      data : { questionObject : JSON.parse(JSON.stringify(this.newQuestionArray[index])), questionIndex : index },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

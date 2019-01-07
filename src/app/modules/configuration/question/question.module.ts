@@ -8,9 +8,12 @@ import { MatRadioModule, MatInputModule, MatButtonModule, MatSelectModule, MatSi
 import { FormsModule } from '@angular/forms';
 import { QuestionWorkspace } from './add-question/question-workspace/question-workspace.component';
 import { CoreModule } from 'src/app/core/core.module';
+import { QuestionTypeListComponent } from './question-type-list/question-type-list.component';
+import { CustomizeQuestionComponent } from './add-question/customize-question/customize-question-modal.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [QuestionComponent, QuestionWorkspace,AddQuestionComponent],
+  declarations: [QuestionComponent, QuestionWorkspace,AddQuestionComponent, QuestionTypeListComponent,CustomizeQuestionComponent],
   imports: [
     CommonModule,
     CoreModule,
@@ -22,9 +25,12 @@ import { CoreModule } from 'src/app/core/core.module';
     MatInputModule,
     MatSelectModule,
     MatSidenavModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    SharedModule
 
 
-  ]
+  ],
+  entryComponents: [CustomizeQuestionComponent],
+
 })
 export class QuestionModule { }

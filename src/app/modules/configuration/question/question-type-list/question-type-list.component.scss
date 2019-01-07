@@ -1,0 +1,20 @@
+.questionButton{
+    padding:10px;
+    cursor: pointer;
+    display: flex;
+    align-items:  center;
+    justify-content: flex-start;
+}
+button{
+    min-width: 180px;
+    margin: 10px 0px;
+}
+.labelQuestion{
+    margin: 0px 10px;
+    text-transform: capitalize;
+}
+.centerIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
