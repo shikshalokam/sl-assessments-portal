@@ -4,7 +4,7 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
 import { TextFieldComponent } from './components/text-field/text-field.component';
 import { DropdownFieldComponent } from './components/dropdown-field/dropdown-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatRadioModule, MatDividerModule } from '@angular/material';
+import { MatInputModule, MatRadioModule, MatDividerModule, MatCheckboxModule } from '@angular/material';
 import { NumberFieldComponent } from './components/number-field/number-field.component';
 import { TextareaFieldComponent } from './components/textarea-field/textarea-field.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -20,11 +20,13 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ImageCardComponent } from './components/image-card/image-card.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderComponent } from './components/loader/loader.component';
+import { SelectFieldComponent } from './components/select-field/select-field.component';
 @NgModule({
-  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent, LoaderComponent ],
+  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent, LoaderComponent, SelectFieldComponent ],
   imports: [
     CommonModule,
     FormsModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     MatInputModule,
     MatProgressSpinnerModule,
