@@ -1,12 +1,5 @@
 <div [formGroup]="genericForm" >
     <div class=" col-sm-6 fixSize _halfWidth">
-      <!-- <mat-select placeholder="{{genericData.label}}" formControlName="{{genericData.field}}" required>
-        <span *ngFor="let opt of genericData.options">
-          <mat-option  [value]="opt.value" >
-            {{opt.label}}
-          </mat-option>
-        </span>
-      </mat-select> -->
       <mat-checkbox formControlName ="{{genericData.field}}" value="{{genericData.value}}" required>{{genericData.label}}</mat-checkbox>
     </div>
   </div>

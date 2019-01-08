@@ -32,7 +32,6 @@ export class ParentListComponent implements OnInit{
   isProdEnvironment:string;
   atleastOneComplete : boolean;
   displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade','typeLabel','programId','type'];
-  // displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade','programId','type'];
 
  
   ngOnInit() {
