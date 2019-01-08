@@ -1,4 +1,5 @@
-<div class="criteriaModal">
+
+<div class="criteriaModal" *ngIf="choicesSettingObjectArray">
   <h1 mat-dialog-title class="spaceBetween">
     <div class="heading">
       {{'message.customizeQuestion' |translate }}
@@ -7,7 +8,40 @@
       close
     </i>
   </h1>
+
+  {{choicesSettingObjectArray?.valid}}
+  {{generalSettingObjectArray?.valid}}
   <div mat-dialog-actions class="inlineBlock" >
+    <div class="customizeQuestion">
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  General
+                </mat-panel-title>
+                <mat-panel-description>
+                  Click on panel to edit
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+      
+                <app-dynamic-form [genericData]="generalObjectArray" [genericForm]="generalSettingObjectArray"></app-dynamic-form>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Choices
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Click on panel to edit
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+        
+                  <app-dynamic-form [genericData]="choicesObjectArray" [genericForm]="choicesSettingObjectArray"></app-dynamic-form>
+  
+              </mat-expansion-panel>
+      </mat-accordion>
+    </div>
     <div class="buttonFooter">
       <div class="submitButton">
         {{data.responseType}}

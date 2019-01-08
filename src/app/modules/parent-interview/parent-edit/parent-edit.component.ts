@@ -61,6 +61,7 @@ export class ParentEditComponent implements OnInit {
         //       console.log(element.visible);
         //     }
         // });
+        console.log(data.result);
         this.parentForm = this.utility.toGroup(data.result) ;
         console.log(this.parentForm);
         console.log(this.parentEditData);

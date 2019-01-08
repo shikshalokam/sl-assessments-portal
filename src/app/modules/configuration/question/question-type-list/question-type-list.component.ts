@@ -11,17 +11,26 @@ export class QuestionTypeListComponent implements OnInit {
   newQuestion = {
     _id: "5be8e8582d325f5b71da4e08",
     question: [
-      "Question",
-      ""
+      { english: "Question" },
+
     ],
     options: [],
     children: [],
     questionGroup: [
-      "A1"
+      { A1: "All (A1)" },
+      { A2: "A2 (All if applicable)" },
+      { A3: "A3 (All Govt)" },
+      { A4: "A4 (All Private)" },
+      { A5: "A5 (All 6th- 12th)" },
+      { A6: "A6 (All Nursery - 5th)" },
+      { A7: "A7 (Govt.DOE 6th - 12th)" },
+      { A8: "A8 (Private Nursery - 5th)" },
+      { A9: "A9 (Private Nursery - 8th / 10th)" },
+      { A10:"A10 (All Aided)" }
     ],
     fileName: [],
     instanceQuestions: [],
-    deleted: false,
+    deleted: true,
     tip: "",
     externalId: "AS/TL/04a",
     visibleIf: "",
@@ -53,7 +62,7 @@ export class QuestionTypeListComponent implements OnInit {
     startTime: "",
     endTime: ""
   };
-  questionType=[
+  questionType = [
     'radio',
     'text',
     'number',
@@ -62,7 +71,7 @@ export class QuestionTypeListComponent implements OnInit {
   ]
   ngOnInit() {
   }
-  openQuestion(question){
+  openQuestion(question) {
     if (question == 'radio' || question == 'select') {
       this.newQuestion.options = [
         {
@@ -80,9 +89,9 @@ export class QuestionTypeListComponent implements OnInit {
     this.newQuestion.responseType = question;
     console.log(this.newQuestion)
     this.sendQuestionObject.emit(JSON.parse(JSON.stringify(this.newQuestion)));
-    this.newQuestion.options=[];
-    this.newQuestion.responseType = "";    
-    
+    this.newQuestion.options = [];
+    this.newQuestion.responseType = "";
+
   }
-  
+
 }
