@@ -214,8 +214,8 @@ export class CustomizeQuestionComponent implements OnInit {
       },
       {
         editable: true,
-        field: "isVisible",
-        input: "boolean",
+        field: "responseType",
+        input: "drop",
         label: "Is Visible",
         validation: { required: true },
         value: true,
