@@ -1,0 +1,54 @@
+
+<div class="questionModal" *ngIf="choicesSettingObjectArray">
+  <h1 mat-dialog-title class="spaceBetween">
+    <div class="heading">
+      {{'message.customizeQuestion' |translate }}
+    </div>
+    <i class="material-icons crossIcon" (click)="onCancel()">
+      close
+    </i>
+  </h1>
+
+  {{choicesSettingObjectArray?.valid}}
+  {{generalSettingObjectArray?.valid}}
+  <div mat-dialog-actions class="inlineBlock" >
+    <div class="customizeQuestion">
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  General
+                </mat-panel-title>
+                <mat-panel-description>
+                  Click on panel to edit
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+      
+                <app-dynamic-form [genericData]="generalObjectArray" [genericForm]="generalSettingObjectArray"></app-dynamic-form>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Choices
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Click on panel to edit
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+        
+                  <app-dynamic-form [genericData]="choicesObjectArray" [genericForm]="choicesSettingObjectArray"></app-dynamic-form>
+  
+              </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="buttonFooter">
+      <div class="submitButton">
+        {{data.responseType}}
+        <button mat-raised-button class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
+        <button mat-raised-button (click)="onUpdate()" class="btns _primary-btn margin" >
+          {{'buttons.update' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

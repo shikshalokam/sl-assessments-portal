@@ -1,0 +1,39 @@
+<h4 class="centerIcon">Question Type</h4>
+    <div *ngFor="let question of questionType">
+      <button mat-raised-button (click)="openQuestion(question)">
+        <div  class="questionButton">
+            <div [ngSwitch]="question">
+                <div *ngSwitchCase="'radio'" class="centerIcon">
+                  <i class="material-icons ">
+                    radio_button_checked
+                  </i>
+                </div>
+                <div *ngSwitchCase="'text'" class="centerIcon">
+                  <i class="material-icons marginIcon">
+                    title
+                  </i>
+                </div>
+                <div *ngSwitchCase="'select'" class="centerIcon">
+                  <i class="material-icons">
+                    check_box
+                  </i>
+                </div>
+                <div *ngSwitchCase="'number'" class="centerIcon">
+                  <i class="material-icons">
+                    looks_3
+                  </i>
+                </div>
+                <div *ngSwitchCase="'textarea'" class="centerIcon">
+                  <i class="material-icons">
+                    short_text
+                  </i>
+                </div>
+              </div>
+              <div class="labelQuestion">
+                 {{question}}
+              </div>
+        </div>
+        
+      </button>
+    </div>
+    
