@@ -25,15 +25,11 @@ export class DynamicFormComponent implements OnInit {
     console.log(this.genericData);
   }
 
-  toGroup(inputs) {
-    let group: any = {};
+  changeResponseType(event , index){
+    console.log(event, index);
+    this.genericData[index].value=event;
+    
+   console.log( this.genericData[index]);
 
-    inputs.forEach(inputs => {
-      group[inputs.field] = inputs.required ? new FormControl(inputs.value || '', Validators.required)
-                                              : new FormControl(inputs.value || '');
-    });
-
-    return new FormGroup(group);
   }
-  
 }

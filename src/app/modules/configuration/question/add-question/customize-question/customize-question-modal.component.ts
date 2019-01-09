@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UtilityService, ConfigurationService } from 'src/app/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-customize-question-modal',
   templateUrl: './customize-question-modal.component.html',
@@ -23,13 +23,14 @@ export class CustomizeQuestionComponent implements OnInit {
   // choicesObjectArray = [];
   // validationObjectArray = [];
   // choicesGroup;
-
-
-  questionArray = [];
+  choicesSecionInvalid= false;
+  questionChoicesGroup;
+  questionGeneralArray = [];
+  questionGeneralGroup: FormGroup;
+  questionChoicesArray = [];
   constructor(private utility: UtilityService, private configurationService: ConfigurationService,
     public dialogRef: MatDialogRef<CustomizeQuestionComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-    console.log(data);
 
   }
   ngOnInit() {
@@ -149,7 +150,7 @@ export class CustomizeQuestionComponent implements OnInit {
   //   // console.log(this.choicesSettingObjectArray);
   // }
   createDynamicFormArray() {
-    this.questionArray = [
+    this.questionGeneralArray = [
       {
         editable: true,
         field: "question",
@@ -174,29 +175,59 @@ export class CustomizeQuestionComponent implements OnInit {
       {
         editable: true,
         field: "questionGroup",
-        input: "muliSelect",
+        input: "multiselect",
         label: "Question Group",
         validation: { required: true },
         value: "",
         visible: true,
         options: [
-          { A1: "All (A1)" },
-          { A2: "A2 (All if applicable)" },
-          { A3: "A3 (All Govt)" },
-          { A4: "A4 (All Private)" },
-          { A5: "A5 (All 6th- 12th)" },
-          { A6: "A6 (All Nursery - 5th)" },
-          { A7: "A7 (Govt.DOE 6th - 12th)" },
-          { A8: "A8 (Private Nursery - 5th)" },
-          { A9: "A9 (Private Nursery - 8th / 10th)" },
-          { A10: "A10 (All Aided)" }
+          {
+            value: "A1",
+            label: "All (A1)"
+          },
+          {
+            value: "A2",
+            label: "A2 (All if applicable)"
+          },
+          {
+            value: "A3",
+            label: "A3 (All Govt)"
+          },
+          {
+            value: "A4",
+            label: "A4 (All Private)"
+          },
+          {
+            value: "A5",
+            label: "A5 (All 6th- 12th)"
+          },
+          {
+            value: "A6",
+            label: "A6 (All Nursery - 5th)"
+          },
+          {
+            value: "A7",
+            label: "A7 (Govt.DOE 6th - 12th)"
+          },
+          {
+            value: "A8",
+            label: "A8 (Private Nursery - 5th)"
+          },
+          {
+            value: "A9",
+            label: "A9 (Private Nursery - 8th / 10th)"
+          },
+          {
+            value: "A10",
+            label: "A10 (All Aided)"
+          }
         ]
       },
       {
         editable: true,
         field: "externalId",
         input: "text",
-        label: "Externa lId",
+        label: "Externa Id",
         validation: { required: true },
         value: "",
         visible: true,
@@ -215,8 +246,39 @@ export class CustomizeQuestionComponent implements OnInit {
       {
         editable: true,
         field: "responseType",
-        input: "drop",
-        label: "Is Visible",
+        input: "dropdown",
+        label: "responseType",
+        validation: { required: true },
+        value: this.data.questionObject['responseType'],
+        visible: true,
+        options: [
+          {
+            value: "radio",
+            label: "radio"
+          },
+          {
+            value: "text",
+            label: "text"
+          },
+          {
+            value: "select",
+            label: "select"
+          },
+          {
+            label: "number",
+            value: "number"
+          },
+          {
+            label: "textArea",
+            value: "textarea"
+          }
+        ]
+      },
+      {
+        editable: true,
+        field: "required",
+        input: "boolean",
+        label: "Required",
         validation: { required: true },
         value: true,
         visible: true,
@@ -224,14 +286,44 @@ export class CustomizeQuestionComponent implements OnInit {
       },
       {
         editable: true,
-        field: "isVisible",
+        field: "showRemark",
         input: "boolean",
-        label: "Is Visible",
+        label: "Show Remark",
         validation: { required: true },
         value: true,
         visible: true,
         array: []
       }
     ]
+    console.log(this.questionGeneralArray)
+    this.questionGeneralGroup = this.utility.toGroup(this.questionGeneralArray);
+    this.questionChoicesArray = [
+      {
+        label: "option",
+        value: "value"
+      },
+      {
+        label: "option",
+        value: "value"
+      }
+
+    ];
+
+  }
+  pushOptions() {
+    this.questionChoicesArray.push({
+      label: "option",
+      value: "value"
+    })
+  }
+  checkValidation(index){
+    const element = this.questionChoicesArray[index];
+   console.log(this.questionChoicesArray[index].value)
+    console.log(this.questionChoicesArray[index])
+      if(this.questionChoicesArray[index].value == "" ||this.questionChoicesArray[index].label == ""){
+        this.choicesSecionInvalid = true ;
+        return;
+      }
+    
   }
 }
