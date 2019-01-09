@@ -35,32 +35,23 @@
                     </ng-container>
 
                     <ng-container matColumnDef="address">
-                        <th mat-header-cell *matHeaderCellDef>{{'tableLabel.address'| translate}}</th>
-                        <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.address}} </span></td>
+                            <th mat-header-cell *matHeaderCellDef>{{'tableLabel.address'| translate}}</th>
+                            <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.address}} </span></td>
                     </ng-container>
 
                     <ng-container matColumnDef="grade">
                         <th mat-header-cell *matHeaderCellDef>{{'tableLabel.grade'| translate}}</th>
                         <td mat-cell *matCellDef="let element">
-                            <!-- <span class="spaceBetween"> -->
                             <span class="capitalise">{{element.grade}}</span>
-                            <!-- <span class="spaceBetween">
-                                    <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
-                                        {{'tableLabel.buttons.edit'| translate}}
-                                    </span>
-
-                                    <span *ngIf=" !(element.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolId , element._id ]">
-                                        {{'tableLabel.buttons.startSurvey'| translate}}
-                                    </span>
-                                    <ng-template #complete>
-                                            <span  class="complete">
-                                                    {{'tableLabel.buttons.complete'| translate}}
-                                            </span>
-                                        </ng-template>
-                                </span> -->
-                            <!-- </span> -->
                         </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="typeLabel">
+                            <th mat-header-cell *matHeaderCellDef>{{'tableLabel.typeLabel'| translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="capitalise">{{element.typeLabel}}</span>
+                            </td>
+                        </ng-container>
                     <ng-container matColumnDef="programId">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element"> <span class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
@@ -68,6 +59,8 @@
 
                             </span></td>
                     </ng-container>
+
+                    
 
                     <ng-container matColumnDef="type">
                         <th mat-header-cell *matHeaderCellDef></th>

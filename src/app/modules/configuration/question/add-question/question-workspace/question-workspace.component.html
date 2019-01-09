@@ -1,0 +1,58 @@
+<div *ngIf="newQuestionArray?.length; else selectQuestion ">
+  <div class="wrapper" *ngFor="let newQuestion of newQuestionArray;let i = index">
+    <div class="editBox" (click)="showEditOption(i)">
+      <div class="editHeader">
+        <button mat-icon-button (click)="openDialog(i)">
+          <i *ngIf="showIcon == i ||newQuestionArray.length == 1" class="material-icons headerItem">
+            border_color
+          </i>
+        </button>
+        <button mat-icon-button (click)="removeQuestion(i)">
+          <i *ngIf="showIcon == i ||newQuestionArray.length == 1" class="material-icons">
+            delete_forever
+          </i>
+        </button>
+        <div class="headerItem">
+          Type : {{newQuestion.responseType}}
+        </div>
+      </div>
+      <div class="question">
+        <div class="questionLabel" *ngFor="let question of newQuestion.question;let j =index">
+          <span *ngIf="j == 0">{{i+1}}. </span> {{question}}
+        </div>
+        <div *ngIf="newQuestion.responseType == 'radio'">
+          <div *ngFor="let option of newQuestion.options ">
+            <mat-radio-button value="{{option.value}}">{{option.label}}</mat-radio-button>
+          </div>
+        </div>
+        
+        <div *ngIf="newQuestion.responseType == 'select'">
+          <div *ngFor="let option of newQuestion.options ">
+            <mat-checkbox value="{{option.value}}">{{option.label}}</mat-checkbox>
+          </div>
+        </div>
+        <div *ngIf="newQuestion.responseType == 'text'">
+          <mat-form-field>
+            <input matInput value="{{newQuestion.responseType}} answer">
+          </mat-form-field>
+        </div>
+        <div *ngIf="newQuestion.responseType == 'number'">
+            <mat-form-field>
+              <input matInput type="number" value="{{newQuestion.responseType}} answer">
+            </mat-form-field>
+          </div>
+        <div *ngIf="newQuestion.responseType == 'textarea'">
+          <mat-form-field>
+            <textarea matInput value="{{newQuestion.responseType}} answer"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #selectQuestion>
+  <div class="editQuestion placeCenter">
+    Select a type to add a question .
+  </div>
+</ng-template>

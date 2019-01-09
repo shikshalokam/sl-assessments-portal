@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-parent-edit',
@@ -22,7 +23,7 @@ export class ParentEditComponent implements OnInit {
   error;
   schoolName;
   headings = 'headings.parentInfoHeading';
-  constructor(private location: Location,private route :ActivatedRoute,private utility : UtilityService ,private parentService :ParentService ,  private http :HttpClient) { 
+  constructor(private location: Location,private snackBar :MatSnackBar,private route :ActivatedRoute,private utility : UtilityService ,private parentService :ParentService ,  private http :HttpClient) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
       this.schoolName =params["name"];
@@ -61,6 +62,7 @@ export class ParentEditComponent implements OnInit {
         //       console.log(element.visible);
         //     }
         // });
+        console.log(data.result);
         this.parentForm = this.utility.toGroup(data.result) ;
         console.log(this.parentForm);
         console.log(this.parentEditData);
@@ -78,6 +80,12 @@ export class ParentEditComponent implements OnInit {
     this.parentService.postParentData(this.sendUrl,this.updateData).
     subscribe(data => {
       console.log(data);
+      this.snackBar.open(data['message'], "Ok", {duration: 9000});
+    
+   },
+   (error)=>{
+    this.snackBar.open(error['message'], "Ok", {duration: 9000});
+
    });
    this.isEdit=!this.isEdit;
   }

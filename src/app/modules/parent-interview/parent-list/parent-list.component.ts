@@ -31,7 +31,8 @@ export class ParentListComponent implements OnInit{
   submissionId:any;
   isProdEnvironment:string;
   atleastOneComplete : boolean;
-  displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade','programId','type'];
+  displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade','typeLabel','programId','type'];
+
  
   ngOnInit() {
     this.utility.loaderShow();
