@@ -1,0 +1,7 @@
+<div [formGroup]= "genericForm" *ngIf="genericForm">
+  <mat-form-field *ngFor="let arrayOption of genericData.array"  class="col-sm-6 fixSize _halfWidth">
+          <input matInput   type="text"  value ="{{arrayOption.value}}"placeholder="{{arrayOption.label}} " formControlName="{{arrayOption.field}}"  required>
+  </mat-form-field>
+</div>
+
+
