@@ -37,13 +37,12 @@
           </mat-expansion-panel-header>
           <div *ngFor="let option of questionChoicesArray;let i = index">
             <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Label" value="{{questionChoicesArray[i].label}}" (ngModelChange)="checkValidation(i)"
-                [(ngModel)]="questionChoicesArray[i].label">
+              <input matInput placeholder="Label" value="{{option.label}}" (ngModelChange)="checkValidation(i)"
+                [(ngModel)]="option.label">
             </mat-form-field>
 
             <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Value" value="{{questionChoicesArray[i].value}}" (ngModelChange)="checkValidation(i)"
-                [(ngModel)]="questionChoicesArray[i].value">
+              <input matInput placeholder="Value" value="{{option.value}}" (keypress)="checkValidation(i)"[(ngModel)]="option.value">
             </mat-form-field>
 
           </div>
@@ -52,11 +51,7 @@
                   add
                   </i>
           </button>
-          {{questionChoicesArray[0].value}}
-          {{questionChoicesArray[1].value}}
-          {{questionChoicesArray[0].label}}
-          {{questionChoicesArray[1].label}}
-          {{choicesSecionInvalid}}
+          
         </mat-expansion-panel>
       </mat-accordion>
     </div>
@@ -64,7 +59,7 @@
       <div class="submitButton">
         {{data.responseType}}
         <button mat-raised-button class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
-        <button mat-raised-button (click)="onUpdate()" [disabled]="choicesSecionInvalid" class="btns _primary-btn margin">
+        <button mat-raised-button (click)="onUpdate()" [disabled]="choicesSecionInvalid ||!(questionGeneralGroup.valid)" class="btns _primary-btn margin">
           {{'buttons.update' | translate }}</button>
       </div>
     </div>
