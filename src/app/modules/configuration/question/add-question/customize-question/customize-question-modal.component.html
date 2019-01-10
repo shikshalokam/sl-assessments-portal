@@ -11,7 +11,7 @@
   <div mat-dialog-actions class="inlineBlock">
     <div class="customizeQuestion">
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel class="_margin">
           <mat-expansion-panel-header>
             <mat-panel-title>
               General
@@ -22,11 +22,11 @@
 
           </mat-expansion-panel-header>
 
-          <app-dynamic-form [genericData]="questionGeneralArray" [genericForm]="questionGeneralGroup"></app-dynamic-form>
+          <app-dynamic-form (editnewquestion)="editQuestion($event)"[genericData]="questionGeneralArray" [genericForm]="questionGeneralGroup"></app-dynamic-form>
 
         </mat-expansion-panel>
        
-        <mat-expansion-panel *ngIf="questionGeneralArray[4].value == 'radio' ">
+        <mat-expansion-panel class="_margin" *ngIf="questionGeneralArray[4].value == 'radio' ">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Choices
@@ -35,21 +35,37 @@
               Click on panel to edit
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div *ngFor="let option of questionChoicesArray;let i = index">
+          <div class="col-sm-12 _full-width _flex-box _justify-content-center" *ngFor="let option of questionChoicesArray;let i = index">
             <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Label" value="{{option.label}}" (ngModelChange)="checkValidation1($event)"
+              <input matInput placeholder="Label {{i+1}}" value="{{option.label}}" (ngModelChange)="checkValidation1($event)"
                 [(ngModel)]="option.label">
             </mat-form-field>
 
-            <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Value" value="{{option.value}}" (change)="checkValidation(i)"[(ngModel)]="option.value">
+            <mat-form-field class=" col-sm-5 fixSize _halfWidth">
+              <input matInput placeholder="Value {{i+1}}" value="{{option.value}}" (change)="checkValidation(i)"[(ngModel)]="option.value">
             </mat-form-field>
-
+            <button *ngIf="optionCount > 1" mat-raised-button (click)="removeOptions(i)" color="warn" class="col-sm-1">
+                <i class="material-icons white">
+                    close
+                    </i>
+              </button>
           </div>
-          <button mat-icon-button (click)="pushOptions()">
-              <i class="material-icons">
-                  add
-                  </i>
+
+
+          <button mat-raised-button (click)="pushOptions()" class="_primary-btn btn-margin">
+              
+          {{'buttons.addNew'| translate}}
+          <i class="material-icons">
+              add
+              </i>
+        </button>
+
+        <button mat-raised-button *ngIf="optionCount > 1"(click)="resetAllOption()" color="warn" [disabled]=" optionCount<2" class="btn-margin">
+              
+            {{'buttons.removeAll'| translate}}
+            <i class="material-icons white">
+                delete_forever
+                </i>
           </button>
           
         </mat-expansion-panel>

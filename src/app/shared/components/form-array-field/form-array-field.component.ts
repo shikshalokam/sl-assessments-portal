@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-form-array-field',
@@ -10,11 +10,30 @@ export class FormArrayFieldComponent implements OnInit {
   @Input()genericData;
   @Input()genericForm:FormGroup;
   @Input()genericEdit:boolean;
-  
+  question : FormArray;
+  @Output() editquestion = new EventEmitter ();
+  questionCount;
+  ;
   constructor() { }
 
   ngOnInit() {
-    console.log(this.genericData)
+    console.log(this.genericData['array'].length )
+    this.questionCount = this.genericData['array'].length  || 1;
   }
+  
+  editQuestion(edit){
+    if(edit == 'add')
+    {
+      this.questionCount++;
+    }
+    else if(edit == 'reset'){
+      this.questionCount = 1;
+    }
+    else {
+      this.questionCount -= 1;
+    }
+    this.editquestion.emit(edit);
+  }
+
 
 }
