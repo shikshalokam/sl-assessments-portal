@@ -326,4 +326,7 @@ export class CustomizeQuestionComponent implements OnInit {
       }
     
   }
+  checkValidation1(event){
+    console.log(event);
+  }
 }

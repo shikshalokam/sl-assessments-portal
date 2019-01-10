@@ -37,12 +37,12 @@
           </mat-expansion-panel-header>
           <div *ngFor="let option of questionChoicesArray;let i = index">
             <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Label" value="{{option.label}}" (ngModelChange)="checkValidation(i)"
+              <input matInput placeholder="Label" value="{{option.label}}" (ngModelChange)="checkValidation1($event)"
                 [(ngModel)]="option.label">
             </mat-form-field>
 
             <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Value" value="{{option.value}}" (keypress)="checkValidation(i)"[(ngModel)]="option.value">
+              <input matInput placeholder="Value" value="{{option.value}}" (change)="checkValidation(i)"[(ngModel)]="option.value">
             </mat-form-field>
 
           </div>
