@@ -109,6 +109,15 @@ span:focus {
     outline: none;
     border: 0;
  }
+ ._contentMiddle{
+    padding : 5px !important;
+ }
+ ._text-overflow-ellipsis{
+     text-overflow: ellipsis !important;
+     overflow: hidden !important;
+     width:200px!important;
+     white-space: nowrap!important;
+ }
 ._margin{
     margin: 20px 20px !important;
 }

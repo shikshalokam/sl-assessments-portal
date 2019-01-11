@@ -8,24 +8,11 @@ import { FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./customize-question-modal.component.scss']
 })
 export class CustomizeQuestionComponent implements OnInit {
-  // generalSettingObjectArray :FormGroup ;
-  // choicesSettingObjectArray:FormGroup ;
-  // booleanArray = ['showRemarks', 'isCompleted', 'deleted'];
-  // arrayArray = ['question', 'options', 'questionGroup'];
-  // textArraay = ['externalId', 'responseType', "tip"];
-  // objectArray = ['validation'];
-
-  // generalArray = ['question', 'questionGroup', 'tip', 'validation', 'externalId', 'responseType', 'tip', 'showRemarks', 'isCompleted', 'deleted'];
-  // choicesArray = ['options'];
-  // validationArray = ['validation'];
-
-  // generalObjectArray = [];
-  // choicesObjectArray = [];
-  // validationObjectArray = [];
-  // choicesGroup;
+  questionArray = [];
   questionCount=0;
   optionCount = 1;
   choicesSecionInvalid= false;
+  questionSecionInvalid =false;
   questionChoicesGroup;
   questionGeneralArray = [];
   questionGeneralGroup: FormGroup;
@@ -37,16 +24,7 @@ export class CustomizeQuestionComponent implements OnInit {
   }
   ngOnInit() {
     this.createDynamicFormArray();
-    // this.createGenericData();
-    // this.createChoicesForm();
-    // console.log(this.choicesObjectArray);
-    // console.log(this.choicesSettingObjectArray);
-    // console.log(this.generalObjectArray);
-    // console.log(this.generalSettingObjectArray);
-    // console.log(this.generalSettingObjectArray.getRawValue());
-    // console.log(this.generalSettingObjectArray.valid);
-    // console.log(this.choicesSettingObjectArray.valid)
-  }
+     }
   onCancel(): void {
     this.dialogRef.close();
   }
@@ -151,28 +129,28 @@ export class CustomizeQuestionComponent implements OnInit {
   // }
   createDynamicFormArray() {
     this.questionGeneralArray = [
-      {
-        editable: true,
-        field: "question",
-        input: "array",
-        label: "Question",
-        validation: { required: true },
-        value: "question",
-        visible: true,
-        array: this.getQuestion(),
-        //  [
-        //   {
-        //     editable: true,
-        //     field: this.questionCount,
-        //     input: "text",
-        //     label: "english",
-        //     validation: { required: true },
-        //     value: "question",
-        //     visible: true,
-        //   },
+      // {
+      //   editable: true,
+      //   field: "question",
+      //   input: "array",
+      //   label: "Question",
+      //   validation: { required: true },
+      //   value: "question",
+      //   visible: true,
+      //   array: this.getQuestion(),
+      //   //  [
+      //   //   {
+      //   //     editable: true,
+      //   //     field: this.questionCount,
+      //   //     input: "text",
+      //   //     label: "english",
+      //   //     validation: { required: true },
+      //   //     value: "question",
+      //   //     visible: true,
+      //   //   },
 
-        // ]
-      },
+      //   // ]
+      // },
       {
         editable: true,
         field: "questionGroup",
@@ -298,19 +276,8 @@ export class CustomizeQuestionComponent implements OnInit {
     ]
     console.log(this.questionGeneralArray)
     this.questionGeneralGroup = this.utility.toGroup(this.questionGeneralArray);
-    // this.questionChoicesArray = [
-    //   {
-    //     label: "option",
-    //     value: "value"
-    //   },
-    //   {
-    //     label: "option",
-    //     value: "value"
-    //   }
-
-    // ];
     this.resetAllOption();
-    this.questionCount++;
+    this.resetAllQuestion();
   }
   pushOptions() {
     this.questionChoicesArray.push({
@@ -320,74 +287,94 @@ export class CustomizeQuestionComponent implements OnInit {
     this.optionCount++;
   }
   checkValidation(index){
-    const element = this.questionChoicesArray[index];
-   console.log(this.questionChoicesArray[index].value)
-    console.log(this.questionChoicesArray[index])
       if(this.questionChoicesArray[index].value == "" ||this.questionChoicesArray[index].label == ""){
         this.choicesSecionInvalid = true ;
         return;
       }
-    
+      else {
+        this.choicesSecionInvalid =false;
+        return;
+      } 
   }
-  editQuestion( edit ){
-    if(edit == 'add'){
-      this.questionGeneralArray[0].array.push(
-        {
-          editable: true,
-          field: this.questionCount,
-          input: "text",
-          label: "english",
-          validation: { required: true },
-          value: "question",
-          visible: true,
-        },
-      )
-      this.questionCount++;
-    }
-    else if (edit == 'reset')
-    {
-      this.questionCount = 0;
-      this.questionGeneralArray[0].array = [
-        {
-          editable: true,
-          field: this.questionCount,
-          input: "text",
-          label: "english",
-          validation: { required: true },
-          value: "question",
-          visible: true,
-        },
-      ]
+  resetAllQuestion(){
+    console.log(this.data.questionObject.question);
+    this.questionArray = JSON.parse(JSON.stringify(this.data.questionObject.question));
+    this.questionCount = this.data.questionObject.question.length;
+  }
+  addQuestionToArray(){
+    this.questionArray.push('Question');
+    this.questionCount++;
+  }
+  removeQuestionFromArray(index){
+    this.questionArray.splice(index, 1);
+    this.questionCount-= 1;
+  }
+  checkValidationQuestion(index){
+    if(this.questionArray[index] == ""){
+      this.questionSecionInvalid = true ;
+      return;
     }
     else {
-    this.questionGeneralArray[0].array .splice(edit, 1);
-    }
-  
-    this.questionGeneralGroup = this.utility.toGroup(this.questionGeneralArray);
-
-
+      this.questionSecionInvalid =false;
+      return;
+    } 
   }
+
+
+  // editQuestion( edit ){
+  //   if(edit == 'add'){
+  //     this.questionGeneralArray[0].array.push(
+  //       {
+  //         editable: true,
+  //         field: this.questionCount,
+  //         input: "text",
+  //         label: "english",
+  //         validation: { required: true },
+  //         value: "question",
+  //         visible: true,
+  //       },
+  //     )
+  //     this.questionCount++;
+  //   }
+  //   else if (edit == 'reset')
+  //   {
+  //     this.questionCount = 0;
+  //     this.questionGeneralArray[0].array = [
+  //       {
+  //         editable: true,
+  //         field: this.questionCount,
+  //         input: "text",
+  //         label: "english",
+  //         validation: { required: true },
+  //         value: "question",
+  //         visible: true,
+  //       },
+  //     ]
+  //   }
+  //   else {
+  //   this.questionGeneralArray[0].array .splice(edit, 1);
+  //   }
+  
+  //   this.questionGeneralGroup = this.utility.toGroup(this.questionGeneralArray);
+
+
+  // }
 
   removeOptions(index){
     this.optionCount--;
     this.questionChoicesArray.splice(index, 1);
   }
   resetAllOption(){
-    this.questionChoicesArray = [{
-      label: "option",
-      value: "value"
-    },
-    {
-      label: "option",
-      value: "value"
-    }];
-    this.optionCount = 1;
+    this.questionChoicesArray = this.data.questionObject.options;
+    this.optionCount = this.data.questionObject.options.length;
   }
+
+
   onUpdate(){
     console.log(this.questionGeneralGroup.getRawValue())
     this.data.questionObject.options =this.questionChoicesArray;
-   const storeChangedProperty = this.questionGeneralGroup.getRawValue();
-    this.data.questionObject.question = storeChangedProperty.question;
+    const storeChangedProperty = this.questionGeneralGroup.getRawValue();
+    this.data.questionObject.question = this.questionArray;
     this.data.questionObject.externalId = storeChangedProperty.externalId;
     this.data.questionObject.questionGroup = storeChangedProperty.questionGroup;
     this.data.questionObject.validation.required = storeChangedProperty.required;
@@ -401,26 +388,26 @@ export class CustomizeQuestionComponent implements OnInit {
 
 
 
-  getQuestion(){
-    const questionArray = [];
+//   getQuestion(){
+//     const questionArray = [];
     
-    console.log(this.data.questionObject['question']);
-    this.data.questionObject['question'].forEach(element =>{
-      console.log(element)
-      questionArray.push(
-    {
-      editable: true,
-      field: this.questionCount,
-      input: "text",
-      label: "english",
-      validation: { required: true },
-      value:element,
-      visible: true,
-    }
-      );
-      console.log(questionArray)
-    });
+//     console.log(this.data.questionObject['question']);
+//     this.data.questionObject['question'].forEach(element =>{
+//       console.log(element)
+//       questionArray.push(
+//     {
+//       editable: true,
+//       field: this.questionCount,
+//       input: "text",
+//       label: "english",
+//       validation: { required: true },
+//       value:element,
+//       visible: true,
+//     }
+//       );
+//       console.log(questionArray)
+//     });
    
-    return questionArray;
-  }
-}
+//     return questionArray;
+//   }
+ }
