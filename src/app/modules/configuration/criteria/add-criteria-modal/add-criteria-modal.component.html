@@ -1,26 +1,59 @@
-<div class="criteriaModal">
- 
-  <h1 mat-dialog-title class="spaceBetween">
-    <div class="heading">
-        {{'message.addCriteria' |translate }} 
-    </div>
-      <i class="material-icons crossIcon" (click)="onCancel()">
-          close
-          </i>
-</h1>
-  <div mat-dialog-actions class="inlineBlock" *ngIf="criteriaGroup">
-    <div class=" criteriaForm">
-      <app-dynamic-form [genericData]="criteriaArray" [genericForm]="criteriaGroup"></app-dynamic-form>
-
-    </div>
-    <div class="buttonFooter">
-      <div class="submitButton">
-        <button mat-raised-button class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
-        <button mat-raised-button (click)="onSubmit()" class="btns _primary-btn margin" [disabled]="!criteriaGroup.valid">
-          {{'buttons.submit' | translate }}</button>
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <div class="stepperOne">
+        <mat-form-field class="col-xs-12">
+          <input matInput placeholder="Criteria Id" formControlName="criteriaId" required>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12">
+          <input matInput placeholder="Criteria Name" formControlName="criteriaName" required>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12">
+          <input matInput placeholder="Description" formControlName="description" required>
+        </mat-form-field>
       </div>
+      <div class ="nextButton _flex-box flex-end">
+        <button mat-raised-button matStepperNext  class="btns _primary-btn margin" [disabled]=" !firstFormGroup.valid">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out your address</ng-template>
+      <mat-form-field class="col-xs-12">
+        <textarea matInput formControlName="level1" required placeholder="Level 1" required></textarea>
+      </mat-form-field>
+      <mat-form-field class="col-xs-12">
+        <textarea matInput formControlName="level2" required placeholder="Level 2" required></textarea>
+      </mat-form-field>
+      <mat-form-field class="col-xs-12">
+        <textarea matInput formControlName="level3" required placeholder="Level 3" required></textarea>
+      </mat-form-field>
+      <mat-form-field class="col-xs-12">
+        <textarea matInput formControlName="level4" required placeholder="Level 4" required></textarea>
+      </mat-form-field>
 
+      <div class ="nextButton _flex-box _justify-content-space-between">
+        <button mat-raised-button matStepperPrevious >Back</button>
+        <button mat-raised-button matStepperNext  class="btns _primary-btn margin" [disabled]="!secondFormGroup.valid" >Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel >Done</ng-template>
+    <div class="middle">
+        You are now done.
     </div>
-
-  </div>
-</div>
+    <div class=" bottomButton _flex-box _justify-content-space-between">
+        <button mat-raised-button matStepperPrevious >Back</button>
+        <button mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>
+        <button mat-raised-button (click)="submitNewCriteria()" [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" class="btns _primary-btn margin">
+            {{'buttons.submitNewCriteria' | translate }}</button>
+      </div>
+   
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from 'src/app/core/services/configuration-service/configuration.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { AddCriteriaBoxComponent } from '../add-criteria-modal/add-criteria-modal.component';
+import {  MatSnackBar } from '@angular/material';
 import { UtilityService } from 'src/app/core';
 
 @Component({
@@ -12,7 +11,7 @@ import { UtilityService } from 'src/app/core';
 export class CriteriaListComponent implements OnInit {
   criterias;
   headings ='headings.criteriaList';
-  constructor(private snackBar :MatSnackBar,private utility :UtilityService,private configurationService : ConfigurationService,public dialog: MatDialog) {
+  constructor(private snackBar :MatSnackBar,private utility :UtilityService,private configurationService : ConfigurationService) {
     this.getCriteria();
   } 
 
@@ -30,16 +29,5 @@ export class CriteriaListComponent implements OnInit {
     }
     )
   }
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AddCriteriaBoxComponent, {
-      width: '950px',
-      height:'600px',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getCriteria();
-    });
-  }
+  
 }

@@ -52,3 +52,30 @@
     display: flex;
     justify-content: space-between;
 }
+.stepperOne{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.middle{
+    padding: 30vh 0 0 40%;
+ }
+
+ .bottomButton{
+    position: fixed;
+    bottom:20px;
+    z-index: 1;
+    width: calc(100% - 300px);
+ }
+ 
+ .nextButton{
+    position: fixed;
+    bottom:20px;
+    z-index: 1;
+    width: calc(100% - 300px);
+ }
+
+.flex-end{
+    justify-content: flex-end;
+}
