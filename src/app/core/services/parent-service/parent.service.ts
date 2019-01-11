@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ParentConfig } from '../../../modules/parent-interview/parent-config';
 import { environment } from 'src/environments/environment';
-
 export interface Config {
     message: string;
     status: number;
@@ -21,6 +20,8 @@ export class ParentService {
 
     getParentList(schoolId: string) {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentListFind + schoolId);
+        //  return this.http.get("assets/parentList.json");
+        
     }
     getParentInfo(parentId: string) {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentEditFind + parentId);
