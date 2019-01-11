@@ -15,7 +15,6 @@ export class DropdownFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.genericData)
   }
   changeResponseType(responseType){
     console.log(responseType)

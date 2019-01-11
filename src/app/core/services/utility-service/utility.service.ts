@@ -18,6 +18,7 @@ export class UtilityService {
     this.spinner.hide();
   }
   toGroup(inputs) {
+
     let group: any = {};
    
     inputs.forEach(inputs => {
@@ -27,16 +28,17 @@ export class UtilityService {
         group[inputs.field] = this.createFormArray(inputs);
       }
       else{
-        group[inputs.field] = inputs.required ? new FormControl(inputs.value || '', Validators.required)
+        group[inputs.field] = inputs.validation.required ? new FormControl(inputs.value || '', Validators.required)
         : new FormControl(inputs.value || '');
       }
     });
     return new FormGroup(group);
   }
   createFormArray(inputs){
+
     let elements : any = [];
     inputs.array.forEach(element => {
-      elements[element['field']] = element.required ? new FormControl(element.value || '', Validators.required)
+      elements[element['field']] = element.validation.required ? new FormControl(element.value || '', Validators.required)
                                             : new FormControl(element.value || '');
     });
 

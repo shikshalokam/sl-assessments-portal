@@ -6,7 +6,7 @@ import { AddCriteriaBoxComponent } from './add-criteria-modal/add-criteria-modal
 import { CriteriaRoutingModule } from './criteria-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core';
-import { MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -24,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSelectModule
 
   ],
   entryComponents: [AddCriteriaBoxComponent],

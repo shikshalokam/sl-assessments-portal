@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { UtilityService, ConfigurationService } from 'src/app/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import {ViewChild, ElementRef} from '@angular/core';
+import { environment } from '../../../../../environments/environment'
+import { ResourceService } from 'src/app/shared/services';
 @Component({
   selector: 'app-add-criteria-modal',
   templateUrl: './add-criteria-modal.component.html',
@@ -9,6 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AddCriteriaBoxComponent implements OnInit {
   criteriaGroup :FormGroup;
+  @ViewChild('stepper') nameInputRef: ElementRef;
   updateData;
   updateCriteria = {
     externalId: "",
@@ -72,105 +76,133 @@ export class AddCriteriaBoxComponent implements OnInit {
     },
     evidences: []
   }
-
-  
-  // criteriaArray = [
-
-  //   {
-  //     editable: true,
-  //     field: "criteriaId",
-  //     input: "text",
-  //     label: "Criteria Id",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   },
-  //   {
-  //     editable: true,
-  //     field: "criteriaName",
-  //     input: "text",
-  //     label: "Criteria Name",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   },
-  //   {
-  //     editable: true,
-  //     field: "description",
-  //     input: "textarea",
-  //     label: "Desciption",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   },
-  //   {
-  //     editable: true,
-  //     field: "level1",
-  //     input: "textarea",
-  //     label: "level-1",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   },
-  //   {
-  //     editable: true,
-  //     field: "level2",
-  //     input: "textarea",
-  //     label: "level-2",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   },
-  //   {
-  //     editable: true,
-  //     field: "level3",
-  //     input: "textarea",
-  //     label: "level-3",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   }, {
-  //     editable: true,
-  //     field: "level4",
-  //     input: "textarea",
-  //     label: "level-4",
-  //     validation: { required: true },
-  //     value: "",
-  //     visible: true
-  //   }
-  // ];
-
+  levelCount= 4;
+  keyWordCount = 1;
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  language;
+  stepperPageLength ;
+  currentLoadedStepper = 0;
 
-  constructor( private snackBar : MatSnackBar,private utility :UtilityService,private _formBuilder: FormBuilder , private configurationService : ConfigurationService) {}
+  constructor( private sharedResource :ResourceService,private snackBar : MatSnackBar,private utility :UtilityService,private _formBuilder: FormBuilder , private configurationService : ConfigurationService) {
+  }
 
   ngOnInit() {
+    this.language = this.sharedResource.language;
+    this.stepperPageLength = 1;
     this.firstFormGroup = this._formBuilder.group({
       criteriaId: ['', Validators.required],
       criteriaName: ['', Validators.required],
       description: ['', Validators.required],
+      keywords : this.setKeyWords(),
+      language : ['',Validators.required],
+      remarks : [''],
+
 
     });
     this.secondFormGroup = this._formBuilder.group({
-      level1: ['', Validators.required],
-      level2: ['', Validators.required],
-      level3: ['', Validators.required],
-      level4: ['', Validators.required],
-    });
+    levels: this.setLevels()
+    })
   }
+  setLevels(){
+    let arr = new FormArray([])
+    this.updateCriteria.rubric.levels.forEach(level => {
+      arr.push(this._formBuilder.group({ 
+        level :['',Validators.required]
+      }))
+    })
+    return arr;
+  }
+  setKeyWords(){
+    let arr = new FormArray([])
+      this.updateCriteria.keywords.forEach( key =>{
+        arr.push(this._formBuilder.group({ 
+          keyword :['',Validators.required]
+        }))
+      })
+      return arr;
+  }
+  addNewLevel(control) {
+    control.push(
+      this._formBuilder.group({
+        level: ['',Validators.required]
+      }))
+      const level =this.levelCount+1;
+      this.updateCriteria.rubric.levels.push({
+        level: "L"+ level,
+        label: "Level " +level,
+        description: "",
+        expression: "",
+        expressionVariables: []
+      })
+      console.log(this.updateCriteria.rubric.levels)
+      this.levelCount++;
+  }
+  addNewKeyWord(control) {
+    control.push(
+      this._formBuilder.group({
+        keyword: ['',Validators.required]
+      }))
+      this.keyWordCount+=1;
+  }
+  removeAllKeyWord(){
+    console.log(this.firstFormGroup.controls.language)
+    this.firstFormGroup.controls.keywords = this.setKeyWords();
+    this.keyWordCount =1;
+  }
+  deleteKeyWord(control, index) {
+    control.removeAt(index)
+    this.keyWordCount-=1;
+  }
+  showObject(obj){
+    console.log(obj)
+  }
+
+  deleteLevel(control, index) {
+    console.log(control)
+    control.removeAt(index)
+    this.updateCriteria.rubric.levels.splice(this.levelCount-1,1);
+    console.log(this.updateCriteria.rubric.levels)
+
+    this.levelCount--;
+  }
+
+  removeAll(){
+    this.secondFormGroup = this._formBuilder.group({
+      levels: this.setLevels()
+      })
+      this.levelCount =4;
+  }
+
+
   submitNewCriteria(){
-    this.utility.loaderShow();
+    // this.utility.loaderShow();
+    console.log("submitting");
     const firstStepperData = this.firstFormGroup.getRawValue();
     const secondStepperData= this.secondFormGroup.getRawValue();
-    this.updateCriteria.externalId = firstStepperData.externalId;
+    console.log(firstStepperData);
+    console.log(secondStepperData);
+
+    this.updateCriteria.externalId = firstStepperData.criteriaId;
     this.updateCriteria.description = firstStepperData.description;
     this.updateCriteria.name = firstStepperData.criteriaName;
-    this.updateCriteria.rubric.levels[0] = secondStepperData.level1;
-    this.updateCriteria.rubric.levels[0] = secondStepperData.level2;
-    this.updateCriteria.rubric.levels[0] = secondStepperData.level3;
-    this.updateCriteria.rubric.levels[0] = secondStepperData.level4;
+    this.updateCriteria.remarks = firstStepperData.remarks;
+    this.updateCriteria.keywords = [];
+
+    firstStepperData.keywords.forEach(element => {
+      this.updateCriteria.keywords.push(element.keyword);
+
+    }) 
+    for( var i =0 ;i< this.levelCount ;i++ )
+    {
+    this.updateCriteria.rubric.levels[i].description = secondStepperData.levels[i].level;
+    }
+    console.log(this.updateCriteria)
+    // this.updateCriteria.rubric.levels[0].description = secondStepperData.level1;
+    // this.updateCriteria.rubric.levels[1].description= secondStepperData.level2;
+    // this.updateCriteria.rubric.levels[2].description = secondStepperData.level3;
+    // this.updateCriteria.rubric.levels[3].description = secondStepperData.level4;
     this.configurationService.addNewCriteria(this.updateCriteria).subscribe(
       data => {
       this.utility.loaderHide();
@@ -184,5 +216,27 @@ export class AddCriteriaBoxComponent implements OnInit {
     this.utility.onBack();
 
   }
+  next(){
+    console.log("nextcalled")
+    if(this.nameInputRef['selectedIndex'] < this.nameInputRef['_keyManager']._items.length  - 1)
+    {
+    this.nameInputRef['selectedIndex'] +=1 ;
+    this.currentLoadedStepper  = this.nameInputRef['selectedIndex'];
+    }
+  }
+
+  back(){
+  if(this.nameInputRef['selectedIndex'] > 0)
+  {
+  this.nameInputRef['selectedIndex'] -= 1 ;
+  this.currentLoadedStepper = this.nameInputRef['selectedIndex'];
+
+  }
+}
+stepChanged(event, stepper){
+  console.log(event);
+  console.log(stepper);
+
+}
 
 }

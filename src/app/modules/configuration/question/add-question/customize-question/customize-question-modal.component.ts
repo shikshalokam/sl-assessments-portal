@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UtilityService, ConfigurationService } from 'src/app/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-customize-question-modal',
   templateUrl: './customize-question-modal.component.html',
@@ -17,19 +17,31 @@ export class CustomizeQuestionComponent implements OnInit {
   questionGeneralArray = [];
   questionGeneralGroup: FormGroup;
   questionChoicesArray = [];
-  constructor(private utility: UtilityService, private configurationService: ConfigurationService,
+  questionForm;
+  constructor(private utility: UtilityService,private _formBuilder :FormBuilder, private configurationService: ConfigurationService,
     public dialogRef: MatDialogRef<CustomizeQuestionComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
       console.log(data)
   }
   ngOnInit() {
-    this.createDynamicFormArray();
+    this.createForm();
+    // this.createDynamicFormArray();
      }
   onCancel(): void {
     this.dialogRef.close();
   }
   
-
+  createForm(){
+    this.questionForm =this._formBuilder.group({
+      // question : this.setQuestion(),
+      questionGroup : [ this.data.questionObject.questionGroup ? this.data.questionObject.questionGroup :'',Validators.required],
+      externalId : ['',Validators.required],
+      tip : ['',Validators.required],
+      responseType : ['',Validators.required],
+      required : ['',Validators.required],
+      showRemark : ['',Validators.required]
+    })
+  }
   // createGenericData() {
   //   console.log("formcreate");
   //   Object.keys(this.data.questionObject).forEach(element => {
