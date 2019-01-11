@@ -4,12 +4,12 @@
     <app-parent-heading [genericHeading]="headings" [atleastOneComplete]="atleastOneComplete" [schoolName]="schoolName"
         (sendMarkAsComplete)="parentInterviewSubmit($event)"></app-parent-heading>
     <div *ngIf="result != 0 " class="bigTabel">
-        <mat-form-field [floatLabel]="'never'" class="contentMiddle _full-width">
+        <mat-form-field [floatLabel]="'never'" class="_contentMiddle _full-width">
             <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
         </mat-form-field>
         <div class="example-container mat-elevation-z8">
             <div class="tableContainer">
-                <table mat-table [dataSource]="dataSource" class="contentMiddle">
+                <table mat-table [dataSource]="dataSource" class="_contentMiddle">
 
                     <ng-container matColumnDef="studentName">
                         <th mat-header-cell *matHeaderCellDef> {{'tableLabel.studentName'| translate}}</th>
@@ -38,7 +38,7 @@
 
                     <!-- <ng-container matColumnDef="address">
                             <th mat-header-cell *matHeaderCellDef>{{'tableLabel.address'| translate}}</th>
-                            <td mat-cell *matCellDef="let element"><div class="capitalise"> {{element.address}} </div></td>
+                            <td mat-cell *matCellDef="let element"><div class="capitalise _text-overflow-ellipsis"> {{element.address}} </div></td>
                     </ng-container>
 
                     <ng-container matColumnDef="grade">
