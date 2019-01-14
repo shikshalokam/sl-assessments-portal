@@ -26,7 +26,8 @@
         "saveSurvey": "Save Survey",
         "cancelSurvey": "Cancel Survey",
         "addNew" : "Add New",
-        "removeAll":"Remove All"
+        "removeAll":"Remove All",
+        "submitNewCriteria" : "Submit Criteria"
     },
     "downloadReport":"Select a Evendince Method to Download",
     "search": "Search",

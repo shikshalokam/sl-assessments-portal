@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { UtilityService, ConfigurationService } from 'src/app/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-criteria-modal',
   templateUrl: './add-criteria-modal.component.html',
@@ -16,8 +16,8 @@ export class AddCriteriaBoxComponent implements OnInit {
     timesUsed: 12,
     weightage: 20,
     remarks: "",
-    name: "Dummy Name",
-    description: "Dummy Description",
+    name: "",
+    description: "",
     criteriaType: "auto",
     score: "",
     resourceType: [
@@ -64,7 +64,7 @@ export class AddCriteriaBoxComponent implements OnInit {
         {
           level: "L4",
           label: "Level 4",
-          description: "adadadasd",
+          description: "",
           expression: "",
           expressionVariables: []
         }
@@ -74,97 +74,115 @@ export class AddCriteriaBoxComponent implements OnInit {
   }
 
   
-  criteriaArray = [
+  // criteriaArray = [
 
-    {
-      editable: true,
-      field: "criteriaId",
-      input: "text",
-      label: "Criteria Id",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "criteriaName",
-      input: "text",
-      label: "Criteria Name",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "description",
-      input: "textarea",
-      label: "Desciption",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "level1",
-      input: "textarea",
-      label: "level-1",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "level2",
-      input: "textarea",
-      label: "level-2",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "level3",
-      input: "textarea",
-      label: "level-3",
-      validation: { required: true },
-      value: "",
-      visible: true
-    }, {
-      editable: true,
-      field: "level4",
-      input: "textarea",
-      label: "level-4",
-      validation: { required: true },
-      value: "",
-      visible: true
-    }
-  ];
+  //   {
+  //     editable: true,
+  //     field: "criteriaId",
+  //     input: "text",
+  //     label: "Criteria Id",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   },
+  //   {
+  //     editable: true,
+  //     field: "criteriaName",
+  //     input: "text",
+  //     label: "Criteria Name",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   },
+  //   {
+  //     editable: true,
+  //     field: "description",
+  //     input: "textarea",
+  //     label: "Desciption",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   },
+  //   {
+  //     editable: true,
+  //     field: "level1",
+  //     input: "textarea",
+  //     label: "level-1",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   },
+  //   {
+  //     editable: true,
+  //     field: "level2",
+  //     input: "textarea",
+  //     label: "level-2",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   },
+  //   {
+  //     editable: true,
+  //     field: "level3",
+  //     input: "textarea",
+  //     label: "level-3",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   }, {
+  //     editable: true,
+  //     field: "level4",
+  //     input: "textarea",
+  //     label: "level-4",
+  //     validation: { required: true },
+  //     value: "",
+  //     visible: true
+  //   }
+  // ];
 
-  constructor(private utility : UtilityService , private configurationService : ConfigurationService,
-    public dialogRef: MatDialogRef<AddCriteriaBoxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) { 
-      this.criteriaGroup = utility.toGroup(this.criteriaArray);
-    }
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+  constructor( private snackBar : MatSnackBar,private utility :UtilityService,private _formBuilder: FormBuilder , private configurationService : ConfigurationService) {}
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      criteriaId: ['', Validators.required],
+      criteriaName: ['', Validators.required],
+      description: ['', Validators.required],
+
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      level1: ['', Validators.required],
+      level2: ['', Validators.required],
+      level3: ['', Validators.required],
+      level4: ['', Validators.required],
+    });
   }
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-  onSubmit(){
-    this.updateData = this.criteriaGroup.getRawValue(); 
-    console.log(this.updateData);
-    this.updateCriteria.externalId = this.updateData.criteriaId;
-    this.updateCriteria.name = this.updateData.criteriaName ;
-    this.updateCriteria.description = this.updateData.description ;
-    this.updateCriteria.rubric.levels[0].description= this.updateData.level1;
-    this.updateCriteria.rubric.levels[1].description= this.updateData.level2;
-    this.updateCriteria.rubric.levels[2].description= this.updateData.level3;
-    this.updateCriteria.rubric.levels[3].description= this.updateData.level4;
-    this.configurationService.addNewCriteria(this.updateCriteria).subscribe(data => {
-      console.log(data);
-   });
-    this.dialogRef.close();
+  submitNewCriteria(){
+    this.utility.loaderShow();
+    const firstStepperData = this.firstFormGroup.getRawValue();
+    const secondStepperData= this.secondFormGroup.getRawValue();
+    this.updateCriteria.externalId = firstStepperData.externalId;
+    this.updateCriteria.description = firstStepperData.description;
+    this.updateCriteria.name = firstStepperData.criteriaName;
+    this.updateCriteria.rubric.levels[0] = secondStepperData.level1;
+    this.updateCriteria.rubric.levels[0] = secondStepperData.level2;
+    this.updateCriteria.rubric.levels[0] = secondStepperData.level3;
+    this.updateCriteria.rubric.levels[0] = secondStepperData.level4;
+    this.configurationService.addNewCriteria(this.updateCriteria).subscribe(
+      data => {
+      this.utility.loaderHide();
+      this.snackBar.open(data['message'], "Ok", { duration: 9000 });
+      },
+      error => {
+      this.utility.loaderHide();
+      this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+      }
+    )
+    this.utility.onBack();
+
   }
 
 }
