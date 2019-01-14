@@ -1,10 +1,10 @@
 <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
+<mat-horizontal-stepper [linear]="false" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Fill Criteria Details</ng-template>
       <div class="stepperOne">
         <mat-form-field class="col-xs-12">
           <input matInput placeholder="Criteria Id" formControlName="criteriaId" required>
@@ -15,16 +15,47 @@
         <mat-form-field class="col-xs-12">
           <input matInput placeholder="Description" formControlName="description" required>
         </mat-form-field>
+        <mat-form-field class="col-xs-12">
+            <input matInput placeholder="Remarks" formControlName="remarks" >
+          </mat-form-field>
+
+          <div formArrayName="language" >
+              <div  class="col-xs-12 _flexbox " *ngFor="let lang of firstFormGroup.get('language').controls ; let i = index">
+                <!-- <span (click)="showObject(level)">show</span> -->
+                <div [formGroup]="lang" class="col-xs-11 ">
+                  <mat-form-field class="col-xs-12">
+                    <input matInput placeholder="language {{i+1}}" formControlName="language" />
+                  </mat-form-field>
+                </div>
+                <button  class="col-xs-1" [disabled]="langaugeCount<2"  *ngIf="languageCount>1" (click)="deleteLevel( secondFormGroup.controls.levels,i)" mat-raised-button color="warn"> 
+                  <i class="material-icons">
+                      close
+                      </i>
+                </button>
+              </div>
+              <button   (click)="addNewLevel( secondFormGroup.controls.levels)" mat-raised-button class="_primary-btn buttonMargin"> 
+                  Add New
+                <i class="material-icons">
+                      add
+                      </i>
+              </button>
+              <button [disabled]="levelCount<5"  class="buttonMargin" *ngIf="levelCount>4" [disabled]="levelCount<5"   (click)="removeAll()" mat-raised-button color="warn"> 
+                Remove All
+                <i class="material-icons">
+                          delete_forever
+                          </i>
+                </button>
+            </div>
       </div>
-      <div class ="nextButton _flex-box flex-end">
-        <button mat-raised-button matStepperNext  class="btns _primary-btn margin" [disabled]=" !firstFormGroup.valid">Next</button>
-      </div>
+      <!-- <div class="nextButton _flex-box flex-end">
+        <button mat-raised-button matStepperNext class="btns _primary-btn margin" [disabled]=" !firstFormGroup.valid">Next</button>
+      </div> -->
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field class="col-xs-12">
+      <ng-template matStepLabel>Add Levels To Rubric</ng-template>
+      <!-- <mat-form-field class="col-xs-12">
         <textarea matInput formControlName="level1" required placeholder="Level 1" required></textarea>
       </mat-form-field>
       <mat-form-field class="col-xs-12">
@@ -35,25 +66,64 @@
       </mat-form-field>
       <mat-form-field class="col-xs-12">
         <textarea matInput formControlName="level4" required placeholder="Level 4" required></textarea>
-      </mat-form-field>
-
-      <div class ="nextButton _flex-box _justify-content-space-between">
-        <button mat-raised-button matStepperPrevious >Back</button>
-        <button mat-raised-button matStepperNext  class="btns _primary-btn margin" [disabled]="!secondFormGroup.valid" >Next</button>
+      </mat-form-field> -->
+      <div formArrayName="levels" >
+        <div  class="col-xs-12 _flexbox " *ngFor="let level of secondFormGroup.get('levels').controls ; let i = index">
+          <!-- <span (click)="showObject(level)">show</span> -->
+          <div [formGroup]="level" class="col-xs-11 ">
+            <mat-form-field class="col-xs-12">
+              <input matInput placeholder="level {{i+1}}" formControlName="level" />
+            </mat-form-field>
+          </div>
+          <button  class="col-xs-1" [disabled]="levelCount<5"  *ngIf="levelCount>4" (click)="deleteLevel( secondFormGroup.controls.levels,i)" mat-raised-button color="warn"> 
+            <i class="material-icons">
+                close
+                </i>
+          </button>
+        </div>
+        <button   (click)="addNewLevel( secondFormGroup.controls.levels)" mat-raised-button class="_primary-btn buttonMargin"> 
+            Add New
+          <i class="material-icons">
+                add
+                </i>
+        </button>
+        <button [disabled]="levelCount<5"  class="buttonMargin" *ngIf="levelCount>4" [disabled]="levelCount<5"   (click)="removeAll()" mat-raised-button color="warn"> 
+          Remove All
+          <i class="material-icons">
+                    delete_forever
+                    </i>
+          </button>
       </div>
+      <!-- <div class="nextButton _flex-box _justify-content-space-between">
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext class="btns _primary-btn margin" [disabled]="!secondFormGroup.valid">Next</button>
+      </div> -->
     </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel >Done</ng-template>
-    <div class="middle">
-        You are now done.
-    </div>
-    <div class=" bottomButton _flex-box _justify-content-space-between">
-        <button mat-raised-button matStepperPrevious >Back</button>
-        <button mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>
-        <button mat-raised-button (click)="submitNewCriteria()" [disabled]="!secondFormGroup.valid || !firstFormGroup.valid" class="btns _primary-btn margin">
-            {{'buttons.submitNewCriteria' | translate }}</button>
-      </div>
+  <!-- </mat-step> -->
+  <!-- <mat-step> -->
+    <!-- <ng-template matStepLabel>Done</ng-template> -->
+    <!-- <div class="middle">
+      You are now done.
+    </div> -->
    
+
   </mat-step>
+
 </mat-horizontal-stepper>
+<div class="nextButton _flex-box flex-end">
+    <button mat-raised-button  class="btns  margin" (click)="back()" >Back</button>
+
+    <button mat-raised-button  class="btns _primary-btn margin" (click)="next()" >Next</button>
+
+    <button mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>
+    <button mat-raised-button (click)="submitNewCriteria()" [disabled]="!secondFormGroup.valid || !firstFormGroup.valid"
+      class="btns _primary-btn margin">
+      {{'buttons.submitNewCriteria' | translate }}</button>
+  </div>
+<!-- <div class=" bottomButton _flex-box _justify-content-space-between">
+    <button mat-raised-button matStepperPrevious>Back</button>
+    <button mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>
+    <button mat-raised-button (click)="submitNewCriteria()" [disabled]="!secondFormGroup.valid || !firstFormGroup.valid"
+      class="btns _primary-btn margin">
+      {{'buttons.submitNewCriteria' | translate }}</button>
+  </div> -->
