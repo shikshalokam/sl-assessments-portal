@@ -31,7 +31,8 @@ export class ParentListComponent implements OnInit{
   submissionId:any;
   isProdEnvironment:string;
   atleastOneComplete : boolean;
-  displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade','typeLabel','programId','type'];
+  // displayedColumns: string[] = ['studentName','name', 'phone1','gender','address','grade','typeLabel' ,'programId','type'];
+  displayedColumns: string[] = ['studentName','name', 'phone1','gender','typeLabel' ,'programId','type'];
 
  
   ngOnInit() {
@@ -44,26 +45,23 @@ export class ParentListComponent implements OnInit{
       },
   ];
   this.showConfig();
-
-  
  }
  applyFilter(filterValue: string) {
   this.dataSource.filter = filterValue.trim().toLowerCase();
-  
 }
  showConfig() {
   this.parentService.getParentList(this.schoolId )
       .subscribe(data => {
-        this.parentList = data.result;
-        data.result.forEach(element=>{
+        this.parentList = data['result'];
+        data['result'].forEach(element=>{
           if(element['callResponse'] == 'R7')
           {
             this.atleastOneComplete = true;
           }
         })
-        this.result=data.result.length;
-        this.dataSource = new MatTableDataSource(data.result);
-        console.log(data.result);
+        this.result=data['result'].length;
+        this.dataSource = new MatTableDataSource(data['result']);
+        console.log(data['result']);
         setTimeout(() => this.dataSource.paginator = this.paginator);
         this.utility.loaderHide();
       },
@@ -74,19 +72,26 @@ export class ParentListComponent implements OnInit{
 }
 parentInterviewSubmit(flag :boolean){
   if(flag){
+    this.utility.loaderShow();
     this.parentService.getAssessmentQuestions(this.schoolId).subscribe(successData => {
       this.submissionId =  successData['result'].assessments[0]['submissionId'];
       console.log(this.submissionId);
       this.parentService.parentInterviewSubmission(this.submissionId)
       .subscribe(successData =>{
         console.log(successData);
+        this.utility.loaderHide();
         this.snackBar.open(successData['message'], "Ok", {duration: 9000});
+
         this.utility.onBack();
       },
       (error)=>{
+        this.utility.loaderHide();
+
         this.snackBar.open(error['message'], "Ok", {duration: 9000});
+
       });
     },(error)=>{
+      this.utility.loaderHide();
       this.snackBar.open(error['message'], "Ok", {duration: 9000});
       this.error = error;
     }

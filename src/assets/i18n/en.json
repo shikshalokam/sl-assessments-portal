@@ -71,6 +71,7 @@
         "city":"City",
         "state":"State",
         "externalId":"External-Id",
+        "callResponse" : "Call Response",
         "buttons":{
             "clickHere" : "Click Here",
             "edit" : "Profile Edit",

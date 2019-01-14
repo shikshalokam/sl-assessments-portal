@@ -13,6 +13,9 @@ table {
     padding:2px 8px; 
     background-color: #e5f2fe; 
     cursor: pointer;
+    white-space: nowrap;
+    width: fit-content;
+    margin : 0 5px;
 }
 
 .margin{
@@ -34,6 +37,9 @@ table {
     padding:2px 8px; 
     background-color:green;
     color : white;
+    white-space: nowrap;
+    width: fit-content;
+    margin : 0 5px;
 }
 
 
@@ -42,6 +48,7 @@ table {
 }
 
 .capitalise{
+    padding:0px 10px;
     text-transform: capitalize;
 }
 .heading{
@@ -75,3 +82,8 @@ example-button-row button,
     position: sticky;
     z-index: 10;
   }
+.text-overflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
