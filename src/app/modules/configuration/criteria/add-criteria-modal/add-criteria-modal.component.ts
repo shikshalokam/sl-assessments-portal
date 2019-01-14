@@ -98,9 +98,13 @@ export class AddCriteriaBoxComponent implements OnInit {
       keywords : this.setKeyWords(),
       language : ['',Validators.required],
       remarks : [''],
-
-
     });
+    // this.secondFormGroup = this._formBuilder.group({
+    //   level1: ['', Validators.required],
+    //   level2: ['', Validators.required],
+    //   level3: ['', Validators.required],
+    //   level4: ['', Validators.required],
+    // });
     this.secondFormGroup = this._formBuilder.group({
     levels: this.setLevels()
     })
