@@ -61,7 +61,6 @@ export class ParentListComponent implements OnInit{
         })
         this.result=data['result'].length;
         this.dataSource = new MatTableDataSource(data['result']);
-        console.log(data['result']);
         setTimeout(() => this.dataSource.paginator = this.paginator);
         this.utility.loaderHide();
       },

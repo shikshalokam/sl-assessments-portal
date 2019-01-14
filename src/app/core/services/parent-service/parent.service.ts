@@ -20,8 +20,6 @@ export class ParentService {
 
     getParentList(schoolId: string) {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentListFind + schoolId);
-        //  return this.http.get("assets/parentList.json");
-        
     }
     getParentInfo(parentId: string) {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentEditFind + parentId);

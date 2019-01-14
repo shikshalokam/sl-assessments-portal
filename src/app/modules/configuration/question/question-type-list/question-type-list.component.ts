@@ -9,10 +9,9 @@ export class QuestionTypeListComponent implements OnInit {
   @Output() sendQuestionObject = new EventEmitter<any>();
   constructor() { }
   newQuestion = {
-    _id: "5be8e8582d325f5b71da4e08",
+    _id: "",
     question: [
-      { english: "Question" },
-
+      "Question",
     ],
     options: [],
     children: [],
@@ -32,7 +31,7 @@ export class QuestionTypeListComponent implements OnInit {
     instanceQuestions: [],
     deleted: true,
     tip: "",
-    externalId: "AS/TL/04a",
+    externalId: "",
     visibleIf: "",
     file: "",
     responseType: "",
@@ -50,14 +49,12 @@ export class QuestionTypeListComponent implements OnInit {
     modeOfCollection: "onfield",
     questionType: "auto",
     accessibility: "local",
-    updatedAt: "2018-11-12T02:41:28.851Z",
-    createdAt: "2018-11-12T02:41:28.851Z",
+    updatedAt: "",
+    createdAt: "",
     __v: 0,
-    evidenceMethod: "AC3",
+    evidenceMethod: "",
     payload: {
-      criteriaId: "5be180b05e852b0e920ad156",
-      responseType: "number",
-      evidenceMethod: "AC3"
+    
     },
     startTime: "",
     endTime: ""

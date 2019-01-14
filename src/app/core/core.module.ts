@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService } from './services';
-import { TranslatePipe } from './pipes';
+import { TranslatePipe, NoValuePipe } from './pipes';
 import { CamelCasePipe } from './pipes'
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +23,7 @@ import { HttpModule } from '@angular/http';
   declarations: [
     TranslatePipe,
     CamelCasePipe,
+    NoValuePipe,
     NavbarComponent,
     SidenavComponent,
     ResponsiveNavbarComponent
@@ -54,6 +55,7 @@ import { HttpModule } from '@angular/http';
     SidenavComponent,
     ResponsiveNavbarComponent,
     CamelCasePipe,
+    NoValuePipe
   ]
 })
 export class CoreModule {

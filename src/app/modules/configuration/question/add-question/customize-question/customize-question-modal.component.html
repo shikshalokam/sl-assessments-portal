@@ -11,7 +11,7 @@
   <div mat-dialog-actions class="inlineBlock">
     <div class="customizeQuestion">
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel class="_margin">
           <mat-expansion-panel-header>
             <mat-panel-title>
               General
@@ -21,12 +21,40 @@
             </mat-panel-description>
 
           </mat-expansion-panel-header>
+          <div class="col-sm-12 _full-width _flex-box _justify-content-center" *ngFor="let question of questionArray;let i = index">
+            <mat-form-field class=" col-sm-11">
+              <input matInput placeholder="Question" value="{{question}}" (change)="checkValidationQuestion(i)" 
+              [(ngModel)]="questionArray[i]">
+            </mat-form-field>
+            {{questionArray[i]}}
+            <button *ngIf="questionCount > 1" mat-raised-button (click)="removeQuestionFromArray(i)" color="warn" class="col-sm-1">
+              <i class="material-icons white">
+                  close
+                  </i>
+            </button>
+        </div>
 
-          <app-dynamic-form [genericData]="questionGeneralArray" [genericForm]="questionGeneralGroup"></app-dynamic-form>
+
+        <button mat-raised-button (click)="addQuestionToArray()" class="_primary-btn btn-margin">
+            
+        {{'buttons.addNew'| translate}}
+        <i class="material-icons">
+            add
+            </i>
+      </button>
+
+      <button mat-raised-button *ngIf="questionCount > 1"(click)="resetAllQuestion()" color="warn" [disabled]=" questionCount<1" class="btn-margin">
+            
+          {{'buttons.removeAll'| translate}}
+          <i class="material-icons white">
+              delete_forever
+              </i>
+        </button>
+          <app-dynamic-form (editnewquestion)="editQuestion($event)"[genericData]="questionGeneralArray" [genericForm]="questionGeneralGroup"></app-dynamic-form>
 
         </mat-expansion-panel>
        
-        <mat-expansion-panel *ngIf="questionGeneralArray[4].value == 'radio' ">
+        <mat-expansion-panel class="_margin" *ngIf="questionGeneralArray[3].value == 'radio' ">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Choices
@@ -35,21 +63,37 @@
               Click on panel to edit
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div *ngFor="let option of questionChoicesArray;let i = index">
+          <div class="col-sm-12 _full-width _flex-box _justify-content-center" *ngFor="let option of questionChoicesArray;let i = index">
             <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Label" value="{{option.label}}" (ngModelChange)="checkValidation1($event)"
+              <input matInput placeholder="Label {{i+1}}" value="{{option.label}}" (change)="checkValidation(i)"
                 [(ngModel)]="option.label">
             </mat-form-field>
 
-            <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Value" value="{{option.value}}" (change)="checkValidation(i)"[(ngModel)]="option.value">
+            <mat-form-field class=" col-sm-5 fixSize _halfWidth">
+              <input matInput placeholder="Value {{i+1}}" value="{{option.value}}" (change)="checkValidation(i)"[(ngModel)]="option.value">
             </mat-form-field>
-
+            <button *ngIf="optionCount > 1" mat-raised-button (click)="removeOptions(i)" color="warn" class="col-sm-1">
+                <i class="material-icons white">
+                    close
+                    </i>
+              </button>
           </div>
-          <button mat-icon-button (click)="pushOptions()">
-              <i class="material-icons">
-                  add
-                  </i>
+
+
+          <button mat-raised-button (click)="pushOptions()" class="_primary-btn btn-margin">
+              
+          {{'buttons.addNew'| translate}}
+          <i class="material-icons">
+              add
+              </i>
+        </button>
+
+        <button mat-raised-button *ngIf="optionCount > 1"(click)="resetAllOption()" color="warn" [disabled]=" optionCount<2" class="btn-margin">
+              
+            {{'buttons.removeAll'| translate}}
+            <i class="material-icons white">
+                delete_forever
+                </i>
           </button>
           
         </mat-expansion-panel>
@@ -59,7 +103,7 @@
       <div class="submitButton">
         {{data.responseType}}
         <button mat-raised-button class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
-        <button mat-raised-button (click)="onUpdate()" [disabled]="choicesSecionInvalid ||!(questionGeneralGroup.valid)" class="btns _primary-btn margin">
+        <button mat-raised-button (click)="onUpdate()" [disabled]=" questionSecionInvalid || choicesSecionInvalid ||!(questionGeneralGroup.valid)" class="btns _primary-btn margin">
           {{'buttons.update' | translate }}</button>
       </div>
     </div>

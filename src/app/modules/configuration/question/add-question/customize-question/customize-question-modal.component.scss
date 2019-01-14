@@ -2,7 +2,7 @@
 
 .btnColor{
     background-color: $primary-color;
-    color :white;
+    color :$white-color;
 }
 .inlineBlock{
     display: inline;
@@ -51,4 +51,10 @@
 .spaceBetween{
     display: flex;
     justify-content: space-between;
+}
+.white{
+    color:$white-color;
+}
+.btn-margin{
+ margin:0px 10px;
 }
