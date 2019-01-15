@@ -58,7 +58,7 @@ export class QuestionnaireComponent implements OnInit {
         this.generalQuestions = successData['result'].assessments[0]['generalQuestions'];
 
         this.submissionId = successData['result'].assessments[0].submissionId;
-
+        this.generalQuestions[0]['instanceQuestions'][0].value = [];
         this.getPreviousResponses();
 
       }
@@ -77,7 +77,6 @@ export class QuestionnaireComponent implements OnInit {
       if (response['result']) {
         const resp = response['result'].answers;
         if (resp) {
-
           for (const key of Object.keys(resp)) {
             this.previousResponses = resp[key].value;
           }
@@ -87,15 +86,12 @@ export class QuestionnaireComponent implements OnInit {
           }
         } else {
           this.utils.loaderHide();
-
-          console.log("in elseeeeeee");
-          this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
+          this.generalQuestions[0]['instanceQuestions'][0].value.push(this.currentParentType);
         }
-
       } else {
         //console.log(this.currentCallStatus['type'] +"hihiii")
         //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
-        this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
+        this.generalQuestions[0]['instanceQuestions'][0].value.push(this.currentParentType);
         this.utils.loaderHide();
 
       }
@@ -126,7 +122,12 @@ export class QuestionnaireComponent implements OnInit {
 
     // console.log(JSON.stringify(this.generalQuestions[0]['instanceQuestions']))
     //console.log(this.currentCallStatus['type'] +"hihiii")
-    this.generalQuestions[0]['instanceQuestions'][0].value = !this.generalQuestions[0]['instanceQuestions'][0].value ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
+    if(!this.generalQuestions[0]['instanceQuestions'][0].value.length) {
+      this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
+    } else {
+      this.generalQuestions[0]['instanceQuestions'][0].value = this.generalQuestions[0]['instanceQuestions'][0].value;
+    }
+    // this.generalQuestions[0]['instanceQuestions'][0].value.push(!this.generalQuestions[0]['instanceQuestions'][0].value.length ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value);
     this.utils.loaderHide();
 
   }
@@ -163,7 +164,12 @@ export class QuestionnaireComponent implements OnInit {
     //console.log(this.callstatusLabel)
     this.submitBtnDisable = this.currentCallStatus['callResponse'] === 'R7' && !this.allQuestionsAnswered ? true : false;
     if (this.generalQuestions && this.generalQuestions[0] && !this.generalQuestions[0]['instanceQuestions'][0].value) {
-      this.generalQuestions[0]['instanceQuestions'][0].value = (!this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
+      if(!this.generalQuestions[0]['instanceQuestions'][0].value.length) {
+        this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
+      } else {
+        this.generalQuestions[0]['instanceQuestions'][0].value = this.generalQuestions[0]['instanceQuestions'][0].value;
+      }
+      // this.generalQuestions[0]['instanceQuestions'][0].value = (!this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
     }
 
   }
@@ -279,13 +285,32 @@ export class QuestionnaireComponent implements OnInit {
       for (const condition of qst.visibleIf) {
         if (condition._id === question._id) {
           if (condition.operator === "||") {
-            if (!condition.value.includes(question.value)) {
-              return false
+            for (const value of condition.value) {
+              if(question.value.includes(value)) {
+                return true
+              } else {
+                display = false;
+              }
             }
+            return display
+            // if (!condition.value.includes(question.value)) {
+            //   return false
+            // }
           } else {
-            if ((!eval('"' + question.value + '"' + condition.operator + '"' + condition.value + '"'))) {
-              return false
+            for (const value of question.value) {
+              if ((eval('"' + value + '"' + condition.operator + '"' + condition.value + '"'))) {
+                return true
+              } else {
+                display = false;
+              }
             }
+            return display
+            // if ((!eval('"' + question.value + '"' + condition.operator + '"' + condition.value + '"'))) {
+            //   return false
+            // }
+            // if(question.value.includes(condition.value)) {
+
+            // }
           }
         }
 
