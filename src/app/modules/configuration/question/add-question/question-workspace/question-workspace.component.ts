@@ -46,5 +46,6 @@ export class QuestionWorkspace implements OnInit {
     const index = result.questionIndex;
     const questObj = result.questionObject;
     this.newQuestionArray[index] = questObj;
+    console.log(this.newQuestionArray)
   }
 }

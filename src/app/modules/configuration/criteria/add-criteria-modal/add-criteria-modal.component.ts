@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { UtilityService, ConfigurationService } from 'src/app/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import {ViewChild, ElementRef} from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment'
 import { ResourceService } from 'src/app/shared/services';
 @Component({
@@ -11,7 +11,7 @@ import { ResourceService } from 'src/app/shared/services';
   styleUrls: ['./add-criteria-modal.component.scss']
 })
 export class AddCriteriaBoxComponent implements OnInit {
-  criteriaGroup :FormGroup;
+  criteriaGroup: FormGroup;
   @ViewChild('stepper') nameInputRef: ElementRef;
   updateData;
   updateCriteria = {
@@ -34,7 +34,6 @@ export class AddCriteriaBoxComponent implements OnInit {
     ],
     keywords: [
       "Keyword 1",
-      "Keyword 2"
     ],
     concepts: [],
     flag: "",
@@ -76,16 +75,16 @@ export class AddCriteriaBoxComponent implements OnInit {
     },
     evidences: []
   }
-  levelCount= 4;
+  levelCount = 4;
   keyWordCount = 1;
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   language;
-  stepperPageLength ;
+  stepperPageLength;
   currentLoadedStepper = 0;
 
-  constructor( private sharedResource :ResourceService,private snackBar : MatSnackBar,private utility :UtilityService,private _formBuilder: FormBuilder , private configurationService : ConfigurationService) {
+  constructor(private sharedResource: ResourceService, private snackBar: MatSnackBar, private utility: UtilityService, private _formBuilder: FormBuilder, private configurationService: ConfigurationService) {
   }
 
   ngOnInit() {
@@ -95,99 +94,86 @@ export class AddCriteriaBoxComponent implements OnInit {
       criteriaId: ['', Validators.required],
       criteriaName: ['', Validators.required],
       description: ['', Validators.required],
-      keywords : this.setKeyWords(),
-      language : ['',Validators.required],
-      remarks : [''],
+      keywords: this.setKeyWords(),
+      language: ['', Validators.required],
+      remarks: [''],
     });
-    // this.secondFormGroup = this._formBuilder.group({
-    //   level1: ['', Validators.required],
-    //   level2: ['', Validators.required],
-    //   level3: ['', Validators.required],
-    //   level4: ['', Validators.required],
-    // });
     this.secondFormGroup = this._formBuilder.group({
-    levels: this.setLevels()
+      levels: this.setLevels()
     })
   }
-  setLevels(){
+  setLevels() {
     let arr = new FormArray([])
     this.updateCriteria.rubric.levels.forEach(level => {
-      arr.push(this._formBuilder.group({ 
-        level :['',Validators.required]
+      arr.push(this._formBuilder.group({
+        description: ['', Validators.required],
+        label: ['', Validators.required]
       }))
     })
     return arr;
   }
-  setKeyWords(){
+  setKeyWords() {
     let arr = new FormArray([])
-      this.updateCriteria.keywords.forEach( key =>{
-        arr.push(this._formBuilder.group({ 
-          keyword :['',Validators.required]
-        }))
-      })
-      return arr;
+    this.updateCriteria.keywords.forEach(key => {
+      arr.push(this._formBuilder.group({
+        keyword: [key, Validators.required]
+      }))
+    })
+    return arr;
   }
   addNewLevel(control) {
     control.push(
       this._formBuilder.group({
-        level: ['',Validators.required]
+        description: ['', Validators.required],
+        label: ['', Validators.required]
       }))
-      const level =this.levelCount+1;
-      this.updateCriteria.rubric.levels.push({
-        level: "L"+ level,
-        label: "Level " +level,
-        description: "",
-        expression: "",
-        expressionVariables: []
-      })
-      console.log(this.updateCriteria.rubric.levels)
-      this.levelCount++;
+    const level = this.levelCount + 1;
+    this.updateCriteria.rubric.levels.push({
+      level: "L" + level,
+      label: "",
+      description: "",
+      expression: "",
+      expressionVariables: []
+    })
+    console.log(this.updateCriteria.rubric.levels)
+    this.levelCount++;
   }
   addNewKeyWord(control) {
     control.push(
       this._formBuilder.group({
-        keyword: ['',Validators.required]
+        keyword: ['', Validators.required]
       }))
-      this.keyWordCount+=1;
+    this.keyWordCount += 1;
   }
-  removeAllKeyWord(){
+  removeAllKeyWord() {
     console.log(this.firstFormGroup.controls.language)
     this.firstFormGroup.controls.keywords = this.setKeyWords();
-    this.keyWordCount =1;
+    this.keyWordCount = 1;
   }
   deleteKeyWord(control, index) {
     control.removeAt(index)
-    this.keyWordCount-=1;
+    this.keyWordCount -= 1;
   }
-  showObject(obj){
-    console.log(obj)
+  showObject(obj) {
   }
 
   deleteLevel(control, index) {
-    console.log(control)
     control.removeAt(index)
-    this.updateCriteria.rubric.levels.splice(this.levelCount-1,1);
-    console.log(this.updateCriteria.rubric.levels)
-
+    this.updateCriteria.rubric.levels.splice(this.levelCount - 1, 1);
     this.levelCount--;
   }
 
-  removeAll(){
+  removeAll() {
     this.secondFormGroup = this._formBuilder.group({
       levels: this.setLevels()
-      })
-      this.levelCount =4;
+    })
+    this.levelCount = 4;
   }
 
 
-  submitNewCriteria(){
-    // this.utility.loaderShow();
-    console.log("submitting");
+  submitNewCriteria() {
     const firstStepperData = this.firstFormGroup.getRawValue();
-    const secondStepperData= this.secondFormGroup.getRawValue();
-    console.log(firstStepperData);
-    console.log(secondStepperData);
-
+    const secondStepperData = this.secondFormGroup.getRawValue();
     this.updateCriteria.externalId = firstStepperData.criteriaId;
     this.updateCriteria.description = firstStepperData.description;
     this.updateCriteria.name = firstStepperData.criteriaName;
@@ -197,50 +183,39 @@ export class AddCriteriaBoxComponent implements OnInit {
     firstStepperData.keywords.forEach(element => {
       this.updateCriteria.keywords.push(element.keyword);
 
-    }) 
-    for( var i =0 ;i< this.levelCount ;i++ )
-    {
-    this.updateCriteria.rubric.levels[i].description = secondStepperData.levels[i].level;
+    })
+    for (var i = 0; i < this.levelCount; i++) {
+      this.updateCriteria.rubric.levels[i].label = secondStepperData.levels[i].label;
+      this.updateCriteria.rubric.levels[i].description = secondStepperData.levels[i].description;
     }
-    console.log(this.updateCriteria)
-    // this.updateCriteria.rubric.levels[0].description = secondStepperData.level1;
-    // this.updateCriteria.rubric.levels[1].description= secondStepperData.level2;
-    // this.updateCriteria.rubric.levels[2].description = secondStepperData.level3;
-    // this.updateCriteria.rubric.levels[3].description = secondStepperData.level4;
     this.configurationService.addNewCriteria(this.updateCriteria).subscribe(
       data => {
-      this.utility.loaderHide();
-      this.snackBar.open(data['message'], "Ok", { duration: 9000 });
+        this.utility.loaderHide();
+        this.snackBar.open(data['message'], "Ok", { duration: 9000 });
       },
       error => {
-      this.utility.loaderHide();
-      this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+        this.utility.loaderHide();
+        this.snackBar.open(error['message'], "Ok", { duration: 9000 });
       }
     )
     this.utility.onBack();
 
   }
-  next(){
+  next() {
     console.log("nextcalled")
-    if(this.nameInputRef['selectedIndex'] < this.nameInputRef['_keyManager']._items.length  - 1)
-    {
-    this.nameInputRef['selectedIndex'] +=1 ;
-    this.currentLoadedStepper  = this.nameInputRef['selectedIndex'];
+    if (this.nameInputRef['selectedIndex'] < this.nameInputRef['_keyManager']._items.length - 1) {
+      this.nameInputRef['selectedIndex'] += 1;
+      this.currentLoadedStepper = this.nameInputRef['selectedIndex'];
     }
   }
 
-  back(){
-  if(this.nameInputRef['selectedIndex'] > 0)
-  {
-  this.nameInputRef['selectedIndex'] -= 1 ;
-  this.currentLoadedStepper = this.nameInputRef['selectedIndex'];
+  back() {
+    if (this.nameInputRef['selectedIndex'] > 0) {
+      this.nameInputRef['selectedIndex'] -= 1;
+      this.currentLoadedStepper = this.nameInputRef['selectedIndex'];
 
+    }
   }
-}
-stepChanged(event, stepper){
-  console.log(event);
-  console.log(stepper);
-
-}
+ 
 
 }
