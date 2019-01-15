@@ -1,4 +1,4 @@
-<div class="criteriaModal" *ngIf="questionGeneralGroup">
+<div class="criteriaModal">
   <h1 mat-dialog-title class="spaceBetween">
     <div class="heading">
       {{'message.customizeQuestion' |translate }}
@@ -7,7 +7,6 @@
       close
     </i>
   </h1>
-
   <div mat-dialog-actions class="inlineBlock">
     <div class="customizeQuestion">
       <mat-accordion>
@@ -19,42 +18,61 @@
             <mat-panel-description>
               Click on panel to edit
             </mat-panel-description>
-
           </mat-expansion-panel-header>
-          <div class="col-sm-12 _full-width _flex-box _justify-content-center" *ngFor="let question of questionArray;let i = index">
-            <mat-form-field class=" col-sm-11">
-              <input matInput placeholder="Question" value="{{question}}" (change)="checkValidationQuestion(i)" 
-              [(ngModel)]="questionArray[i]">
-            </mat-form-field>
-            {{questionArray[i]}}
-            <button *ngIf="questionCount > 1" mat-raised-button (click)="removeQuestionFromArray(i)" color="warn" class="col-sm-1">
-              <i class="material-icons white">
-                  close
+          <form [formGroup]="questionForm">
+            <div formArrayName="question">
+              <div class="col-xs-12 _flexbox " *ngFor="let quest of questionForm.get('question').controls ; let i = index">
+                <div [formGroup]="quest" class="col-xs-11 ">
+                  <mat-form-field class="col-xs-12">
+                    <input matInput placeholder="Question" formControlName="question" />
+                  </mat-form-field>
+                </div>
+                <button class="col-xs-1" [disabled]="questionCount<2" *ngIf="questionCount>1" (click)="deleteQuestion( questionForm.controls.question,i)"
+                  mat-raised-button color="warn">
+                  <i class="material-icons">
+                    close
                   </i>
-            </button>
-        </div>
-
-
-        <button mat-raised-button (click)="addQuestionToArray()" class="_primary-btn btn-margin">
-            
-        {{'buttons.addNew'| translate}}
-        <i class="material-icons">
-            add
-            </i>
-      </button>
-
-      <button mat-raised-button *ngIf="questionCount > 1"(click)="resetAllQuestion()" color="warn" [disabled]=" questionCount<1" class="btn-margin">
-            
-          {{'buttons.removeAll'| translate}}
-          <i class="material-icons white">
-              delete_forever
-              </i>
-        </button>
-          <app-dynamic-form (editnewquestion)="editQuestion($event)"[genericData]="questionGeneralArray" [genericForm]="questionGeneralGroup"></app-dynamic-form>
-
+                </button>
+              </div>
+              <button (click)="addNewQuestion(questionForm.controls.question)" mat-raised-button class="_primary-btn buttonMargin">
+                Add New
+                <i class="material-icons">
+                  add
+                </i>
+              </button>
+              <button class="buttonMargin" *ngIf="questionCount>1" (click)="removeAllQuestion()" mat-raised-button
+                color="warn">
+                Remove All
+                <i class="material-icons">
+                  delete_forever
+                </i>
+              </button>
+            </div>
+            <mat-form-field class="col-xs-12">
+              <mat-select placeholder="Question Group" formControlName="questionGroup" multiple>
+                <mat-option *ngFor="let option of questionGroupOption" [value]="option.value">
+                  {{option.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-xs-12">
+              <input matInput placeholder="External-Id" formControlName="externalId">
+            </mat-form-field>
+            <mat-form-field class="col-xs-12">
+              <input matInput placeholder="Tip" formControlName="tip">
+            </mat-form-field>
+            <mat-form-field class="col-xs-12">
+              <mat-select placeholder="Response Type" formControlName="responseType">
+                <mat-option *ngFor="let option of responseTypeOption" (click)="changeResponseType(option)" [value]="option.value">
+                  {{option.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-checkbox class="col-xs-6" formControlName="required">Required </mat-checkbox>
+            <mat-checkbox class="col-xs-6" formControlName="showRemarks">Show Remark</mat-checkbox>
+          </form>
         </mat-expansion-panel>
-       
-        <mat-expansion-panel class="_margin" *ngIf="questionGeneralArray[3].value == 'radio' ">
+        <mat-expansion-panel class="_margin" *ngIf="data.questionObject.responseType == 'radio' ||data.questionObject.responseType == 'select' ">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Choices
@@ -63,49 +81,46 @@
               Click on panel to edit
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div class="col-sm-12 _full-width _flex-box _justify-content-center" *ngFor="let option of questionChoicesArray;let i = index">
-            <mat-form-field class=" col-sm-6 fixSize _halfWidth">
-              <input matInput placeholder="Label {{i+1}}" value="{{option.label}}" (change)="checkValidation(i)"
-                [(ngModel)]="option.label">
-            </mat-form-field>
-
-            <mat-form-field class=" col-sm-5 fixSize _halfWidth">
-              <input matInput placeholder="Value {{i+1}}" value="{{option.value}}" (change)="checkValidation(i)"[(ngModel)]="option.value">
-            </mat-form-field>
-            <button *ngIf="optionCount > 1" mat-raised-button (click)="removeOptions(i)" color="warn" class="col-sm-1">
-                <i class="material-icons white">
+          <form [formGroup]="choiceForm">
+            <div formArrayName="options">
+              <div class="col-xs-12 _flexbox " *ngFor="let option of choiceForm.get('options').controls ; let i = index">
+                <div [formGroup]="option" class="col-xs-11 ">
+                  <mat-form-field class="col-xs-6">
+                    <input matInput placeholder="label" formControlName="label" />
+                  </mat-form-field>
+                  <mat-form-field class="col-xs-6">
+                    <input matInput placeholder="value" formControlName="value" />
+                  </mat-form-field>
+                </div>
+                <button class="col-xs-1" [disabled]="optionCount< 3" *ngIf="optionCount>2" (click)="deleteOption( choiceForm.controls.options,i)"
+                  mat-raised-button color="warn">
+                  <i class="material-icons">
                     close
-                    </i>
-              </button>
-          </div>
-
-
-          <button mat-raised-button (click)="pushOptions()" class="_primary-btn btn-margin">
-              
-          {{'buttons.addNew'| translate}}
-          <i class="material-icons">
-              add
-              </i>
-        </button>
-
-        <button mat-raised-button *ngIf="optionCount > 1"(click)="resetAllOption()" color="warn" [disabled]=" optionCount<2" class="btn-margin">
-              
-            {{'buttons.removeAll'| translate}}
-            <i class="material-icons white">
-                delete_forever
+                  </i>
+                </button>
+              </div>
+              <button (click)="addNewOption(choiceForm.controls.options)" mat-raised-button class="_primary-btn buttonMargin">
+                Add New
+                <i class="material-icons">
+                  add
                 </i>
-          </button>
-          
+              </button>
+              <button class="buttonMargin" *ngIf="optionCount>2" (click)="removeAllOption()" mat-raised-button color="warn">
+                Remove All
+                <i class="material-icons">
+                  delete_forever
+                </i>
+              </button>
+            </div>
+          </form>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
     <div class="buttonFooter">
       <div class="submitButton">
-        {{data.responseType}}
         <button mat-raised-button class="margin" (click)="onCancel()">{{'buttons.cancel' | translate }}</button>
-        <button mat-raised-button (click)="onUpdate()" [disabled]=" questionSecionInvalid || choicesSecionInvalid ||!(questionGeneralGroup.valid)" class="btns _primary-btn margin">
+        <button mat-raised-button (click)="onUpdate()" class="btns _primary-btn margin" [disabled]="!(choiceForm.valid && questionForm.valid)">
           {{'buttons.update' | translate }}</button>
       </div>
     </div>
   </div>
-</div>

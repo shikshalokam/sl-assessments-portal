@@ -20,19 +20,16 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.genericForm);
-    console.log(this.genericData);
+   
   }
 
   changeResponseType(event , index){
     console.log(event, index);
     this.genericData[index].value=event;
     
-   console.log( this.genericData[index]);
 
   }
   editquestion(edit){
-    console.log("question added in dynamic form ");
     this.editnewquestion.emit(edit);
   }
 }

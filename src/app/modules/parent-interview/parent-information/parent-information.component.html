@@ -7,12 +7,12 @@
         </span>
         <ng-template #otherLabel class=" col-xs-12 col-md-4 col-sm-12 col-lg-4 alingParentInfo">
             <div class="bold spaceBetween col-md-6 col-xs-12">
-              <span >{{res.label}}</span>
+              <span >{{res.label | blank}}</span>
               <span class="colon">:</span>  
             </div>
           <span *ngFor="let opt of res.options" >
             <div *ngIf="res.value === opt.value"  class=" col-md-6 col-xs-12">
-                {{opt.label}}
+                {{opt.label | blank}}
             </div>
           </span>
         </ng-template>
@@ -20,10 +20,10 @@
       <ng-template #other class="col-xs-12 col-md-4 col-sm-12 col-lg-4 alingParentInfo">
         <span >
           <span class="bold spaceBetween col-md-6 col-xs-12 " *ngIf=" res.label != 'School Name'">
-            <span>{{res.label}} </span>
+            <span>{{res.label | blank}} </span>
             <span class="colon">:</span>   
           </span>
-          <div class="col-md-6 col-xs-12"  *ngIf=" res.label != 'School Name'"> {{res.value}}</div> 
+          <div class="col-md-6 col-xs-12"  *ngIf=" res.label != 'School Name'"> {{res.value | blank}}</div> 
           </span>
     </ng-template>
   </div>
