@@ -16,7 +16,7 @@
     <mat-card class="question">
         <ng-container *ngIf="generalQuestions">
             <div *ngFor="let question of generalQuestions[0]['instanceQuestions'] | slice:start:end" class="_flex-box _flex-direction-column _justify-content-center ">
-                <h3 *ngFor="let title of question?.question" (click)="openCompleteModel('completed')" class="responsiveQuestion">{{title}}</h3>
+                <h3 *ngFor="let title of question?.question"  class="responsiveQuestion">{{title}}</h3>
                 <div class="question-container  ">
                     <app-multi-select [data]="question" (valueUpdated)="updateValues()" *ngIf="question?.responseType === 'multiselect'"></app-multi-select>
                     <app-radio [data]="question" (valueUpdated)="updateValues()" *ngIf="question?.responseType === 'radio' && question?.options.length < 5"></app-radio>
