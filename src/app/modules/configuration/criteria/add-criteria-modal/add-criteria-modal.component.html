@@ -1,5 +1,5 @@
 <div class="stepperDiv">
-  <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="stepChanged($event, stepper)">
+  <mat-horizontal-stepper [linear]="true" #stepper >
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Fill Criteria Details</ng-template>
@@ -24,7 +24,7 @@
             </mat-select>
           </mat-form-field>
           <div formArrayName="keywords" class="col-xs-12">
-            <div class="col-xs-12 _flexbox " *ngFor="let key of firstFormGroup.get('keywords').controls ; let i = index">
+            <div class="col-xs-12 _flexbox " *ngFor="let key of firstFormGroup.get('keywords')['controls'] ; let i = index">
               <div [formGroup]="key" class="col-xs-11">
                 <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Keyword {{i+1}}" formControlName="keyword" required />
@@ -59,7 +59,7 @@
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Add Levels To Rubric</ng-template>
         <div formArrayName="levels">
-          <div class="col-xs-12 _flexbox " *ngFor="let level of secondFormGroup.get('levels').controls ; let i = index">
+          <div class="col-xs-12 _flexbox " *ngFor="let level of secondFormGroup.get('levels')['controls'] ; let i = index">
             <div [formGroup]="level" class="col-xs-11 ">
               <mat-form-field class="col-sm-6 col-md-6">
                 <input matInput placeholder="Label {{i+1}}" formControlName="label" />

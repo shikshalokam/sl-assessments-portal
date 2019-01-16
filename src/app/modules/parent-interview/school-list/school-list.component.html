@@ -42,7 +42,13 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
-      <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[100,50,500]" showFirstLastButtons></mat-paginator>
+      <mat-paginator class="mat-paginator-sticky" 
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent = $event ; onPaginateChange($event)"
+      showFirstLastButtons ></mat-paginator>
     </div>
   </div>
   <div *ngIf=" result > 0  && schoolList " class="_responsiveTabel ">
