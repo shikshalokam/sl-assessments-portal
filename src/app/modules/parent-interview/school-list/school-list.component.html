@@ -4,7 +4,7 @@
 
   <div *ngIf=" result > 0 " class="bigTabel">
     <mat-form-field [floatLabel]="'never'" class="_contentMiddle _full-width">
-      <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
+      <input class="filterInput" matInput appSearch (sendSearchValue)="catchSearchValue($event)" [searchValue]="search" [(ngModel)]="search" id="search"   placeholder="{{'search'| translate}}">
     </mat-form-field>
     <div class="example-container mat-elevation-z8 ">
       <div class="tableContainer">

@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { ParentConfig } from '../parent-config';
 import { ParentService } from '../../../core/services/parent-service/parent.service';
 import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 elementData: {
 
@@ -25,13 +26,19 @@ export class SchoolListComponent implements OnInit {
   pageSize: number = 1;
   pageEvent: PageEvent;
   length : number = 100;
+  search = '';
   pageSizeOptions = [1,50,100];
   headings = 'headings.schoolListHeading';
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  
 
   constructor(private parentService: ParentService, private utility: UtilityService) {
-    this.callSchoolList();
+    // this.callSchoolList(this.pageIndex,this.pageSize,this.search);
+     this.callSchoolList();
+
   }
+  // callSchoolList(pageIndex , pageSize ,search) {
+  //   this.parentService.getSchoolList( pageIndex , pageSize ,search)
   callSchoolList() {
     this.parentService.getSchoolList()
       .subscribe(data => {
@@ -39,10 +46,6 @@ export class SchoolListComponent implements OnInit {
         this.result = data.result.length;
         this.dataSource = new MatTableDataSource(data.result);
         console.log(data.result);
-        // setTimeout(() =>{ 
-        //   this.dataSource.paginator = this.paginator;
-        // }
-        // );
         this.utility.loaderHide()
       },
         (error) => {
@@ -78,10 +81,13 @@ export class SchoolListComponent implements OnInit {
       {
         this.pageIndex = 0;
         console.log("firstpage");
+        // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
         return;
         
       }
       this.pageIndex -=1;
+      // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
+
 
     console.log(this.pageIndex ,"changed Manually")
 
@@ -93,11 +99,14 @@ export class SchoolListComponent implements OnInit {
       {
         this.pageIndex = event.pageIndex;
         console.log("lastPage");
+        // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
+
         return;
       }
       this.pageIndex +=1;
 
     console.log(this.pageIndex, "changed Manually")
+    // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
 
     }
 
@@ -105,6 +114,8 @@ export class SchoolListComponent implements OnInit {
     {
       this.pageSize = event.pageSize;
     console.log(this.pageSize , "changed Manually")
+    // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
+
 
     }
     // console.log(event)
@@ -112,4 +123,10 @@ export class SchoolListComponent implements OnInit {
     // this.pageSize = 0;
   }
 
+  catchSearchValue(searchString){
+    console.log(searchString);
+    
+    // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
+
+  }
 }
