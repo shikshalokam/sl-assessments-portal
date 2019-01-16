@@ -35,6 +35,17 @@ export class QuestionWorkspace implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if(result){
+      console.log(result)
+      this.updateQuestionArray(result);
+      }
     });
+
+  }
+  updateQuestionArray(result){
+    const index = result.questionIndex;
+    const questObj = result.questionObject;
+    this.newQuestionArray[index] = questObj;
+    console.log(this.newQuestionArray)
   }
 }

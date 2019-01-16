@@ -16,7 +16,6 @@ export class ApiInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const downloadReportUrl = 'programsSubmissionStatus/DCPCR?evidenceId='
     const authToken = this.auth.getToken();
-    console.log(req);
     if(req.url.includes(downloadReportUrl))
       {
         const authReq = req.clone({setHeaders:{"internal-access-token" :  environment.downloadReportHeaderValue}});

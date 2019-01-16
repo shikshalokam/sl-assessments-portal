@@ -24,7 +24,8 @@
         "save": "Save",
         "ok": "Ok",
         "saveSurvey": "Save Survey",
-        "cancelSurvey": "Cancel Survey"
+        "cancelSurvey": "Cancel Survey",
+        "submitNewCriteria" : "Submit Criteria"
     },
     "downloadReport":"Select a Evendince Method to Download",
     "search": "Search",
@@ -71,6 +72,7 @@
         "city":"City",
         "state":"State",
         "externalId":"External-Id",
+        "callResponse" : "Call Response",
         "buttons":{
             "clickHere" : "Click Here",
             "edit" : "Profile Edit",

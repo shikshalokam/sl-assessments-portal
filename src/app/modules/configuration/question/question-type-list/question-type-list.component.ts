@@ -9,30 +9,20 @@ export class QuestionTypeListComponent implements OnInit {
   @Output() sendQuestionObject = new EventEmitter<any>();
   constructor() { }
   newQuestion = {
-    _id: "5be8e8582d325f5b71da4e08",
+    _id: "Dummmy Id",
     question: [
-      { english: "Question" },
-
+      "Question",
     ],
     options: [],
     children: [],
     questionGroup: [
-      { A1: "All (A1)" },
-      { A2: "A2 (All if applicable)" },
-      { A3: "A3 (All Govt)" },
-      { A4: "A4 (All Private)" },
-      { A5: "A5 (All 6th- 12th)" },
-      { A6: "A6 (All Nursery - 5th)" },
-      { A7: "A7 (Govt.DOE 6th - 12th)" },
-      { A8: "A8 (Private Nursery - 5th)" },
-      { A9: "A9 (Private Nursery - 8th / 10th)" },
-      { A10:"A10 (All Aided)" }
+      'A1' , 'A2'
     ],
     fileName: [],
     instanceQuestions: [],
     deleted: true,
-    tip: "",
-    externalId: "AS/TL/04a",
+    tip: "Edit Tip",
+    externalId: "",
     visibleIf: "",
     file: "",
     responseType: "",
@@ -50,14 +40,12 @@ export class QuestionTypeListComponent implements OnInit {
     modeOfCollection: "onfield",
     questionType: "auto",
     accessibility: "local",
-    updatedAt: "2018-11-12T02:41:28.851Z",
-    createdAt: "2018-11-12T02:41:28.851Z",
+    updatedAt: "",
+    createdAt: "",
     __v: 0,
-    evidenceMethod: "AC3",
+    evidenceMethod: "",
     payload: {
-      criteriaId: "5be180b05e852b0e920ad156",
-      responseType: "number",
-      evidenceMethod: "AC3"
+    
     },
     startTime: "",
     endTime: ""

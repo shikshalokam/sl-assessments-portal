@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { EventEmitter } from 'events';
+import { Component, OnInit, Input, EventEmitter,Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 @Component({
 
   selector: 'app-dynamic-form',
@@ -12,7 +11,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() genericData : any ;
   @Input()genericForm :FormGroup;
   @Input()genericEdit:boolean;
-
+  @Output() editnewquestion = new EventEmitter();
   
 
   constructor() { 
@@ -21,19 +20,16 @@ export class DynamicFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.genericForm);
-    console.log(this.genericData);
+   
   }
 
-  toGroup(inputs) {
-    let group: any = {};
+  changeResponseType(event , index){
+    console.log(event, index);
+    this.genericData[index].value=event;
+    
 
-    inputs.forEach(inputs => {
-      group[inputs.field] = inputs.required ? new FormControl(inputs.value || '', Validators.required)
-                                              : new FormControl(inputs.value || '');
-    });
-
-    return new FormGroup(group);
   }
-  
+  editquestion(edit){
+    this.editnewquestion.emit(edit);
+  }
 }

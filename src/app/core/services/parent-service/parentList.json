@@ -1,0 +1,23 @@
+{
+    "message": "Parent information fetched successfully.",
+    "status": 200,
+    "result": [
+        {
+            "deleted": false,
+            "_id": "5c1207db92a14246a1158ef7",
+            "phone1": "9718185711",
+            "programId": "5b98d7b6d4f87f317ff615ee",
+            "schoolId": "5c0bbab781bdbe330655d15f",
+            "__v": 0,
+            "address": "177 SHIVA KHAND VISWAKARMA NAGAR",
+            "createdAt": "2018-12-13T07:18:50.951Z",
+            "name": "YOGESH KUMAR",
+            "schoolName": "Govt. Sarvodaya Kanya Vidyalaya, C-Block, Vivek Vihar, Delhi",
+            "type": "P5",
+            "typeLabel": "Parent Only",
+            "updatedAt": "2018-12-21T08:52:17.975Z",
+            "callResponse": "R7"
+        }
+       
+    ]
+}

@@ -1,14 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { UtilityService, ConfigurationService } from 'src/app/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { ViewChild, ElementRef } from '@angular/core';
+import { environment } from '../../../../../environments/environment'
+import { ResourceService } from 'src/app/shared/services';
 @Component({
   selector: 'app-add-criteria-modal',
   templateUrl: './add-criteria-modal.component.html',
   styleUrls: ['./add-criteria-modal.component.scss']
 })
 export class AddCriteriaBoxComponent implements OnInit {
-  criteriaGroup :FormGroup;
+  criteriaGroup: FormGroup;
+  @ViewChild('stepper') nameInputRef: ElementRef;
   updateData;
   updateCriteria = {
     externalId: "",
@@ -16,8 +20,8 @@ export class AddCriteriaBoxComponent implements OnInit {
     timesUsed: 12,
     weightage: 20,
     remarks: "",
-    name: "Dummy Name",
-    description: "Dummy Description",
+    name: "",
+    description: "",
     criteriaType: "auto",
     score: "",
     resourceType: [
@@ -30,7 +34,6 @@ export class AddCriteriaBoxComponent implements OnInit {
     ],
     keywords: [
       "Keyword 1",
-      "Keyword 2"
     ],
     concepts: [],
     flag: "",
@@ -64,7 +67,7 @@ export class AddCriteriaBoxComponent implements OnInit {
         {
           level: "L4",
           label: "Level 4",
-          description: "adadadasd",
+          description: "",
           expression: "",
           expressionVariables: []
         }
@@ -72,99 +75,147 @@ export class AddCriteriaBoxComponent implements OnInit {
     },
     evidences: []
   }
+  levelCount = 4;
+  keyWordCount = 1;
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  language;
+  stepperPageLength;
+  currentLoadedStepper = 0;
 
-  
-  criteriaArray = [
-
-    {
-      editable: true,
-      field: "criteriaId",
-      input: "text",
-      label: "Criteria Id",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "criteriaName",
-      input: "text",
-      label: "Criteria Name",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "description",
-      input: "textarea",
-      label: "Desciption",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "level1",
-      input: "textarea",
-      label: "level-1",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "level2",
-      input: "textarea",
-      label: "level-2",
-      validation: { required: true },
-      value: "",
-      visible: true
-    },
-    {
-      editable: true,
-      field: "level3",
-      input: "textarea",
-      label: "level-3",
-      validation: { required: true },
-      value: "",
-      visible: true
-    }, {
-      editable: true,
-      field: "level4",
-      input: "textarea",
-      label: "level-4",
-      validation: { required: true },
-      value: "",
-      visible: true
-    }
-  ];
-
-  constructor(private utility : UtilityService , private configurationService : ConfigurationService,
-    public dialogRef: MatDialogRef<AddCriteriaBoxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) { 
-      this.criteriaGroup = utility.toGroup(this.criteriaArray);
-    }
+  constructor(private sharedResource: ResourceService, private snackBar: MatSnackBar, private utility: UtilityService, private _formBuilder: FormBuilder, private configurationService: ConfigurationService) {
+  }
 
   ngOnInit() {
+    this.language = this.sharedResource.language;
+    this.stepperPageLength = 1;
+    this.firstFormGroup = this._formBuilder.group({
+      criteriaId: ['', Validators.required],
+      criteriaName: ['', Validators.required],
+      description: ['', Validators.required],
+      keywords: this.setKeyWords(),
+      language: ['', Validators.required],
+      remarks: [''],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      levels: this.setLevels()
+    })
   }
-  onCancel(): void {
-    this.dialogRef.close();
+  setLevels() {
+    let arr = new FormArray([])
+    this.updateCriteria.rubric.levels.forEach(level => {
+      arr.push(this._formBuilder.group({
+        description: ['', Validators.required],
+        label: ['', Validators.required]
+      }))
+    })
+    return arr;
   }
-  onSubmit(){
-    this.updateData = this.criteriaGroup.getRawValue(); 
-    console.log(this.updateData);
-    this.updateCriteria.externalId = this.updateData.criteriaId;
-    this.updateCriteria.name = this.updateData.criteriaName ;
-    this.updateCriteria.description = this.updateData.description ;
-    this.updateCriteria.rubric.levels[0].description= this.updateData.level1;
-    this.updateCriteria.rubric.levels[1].description= this.updateData.level2;
-    this.updateCriteria.rubric.levels[2].description= this.updateData.level3;
-    this.updateCriteria.rubric.levels[3].description= this.updateData.level4;
-    this.configurationService.addNewCriteria(this.updateCriteria).subscribe(data => {
-      console.log(data);
-   });
-    this.dialogRef.close();
+  setKeyWords() {
+    let arr = new FormArray([])
+    this.updateCriteria.keywords.forEach(key => {
+      arr.push(this._formBuilder.group({
+        keyword: [key, Validators.required]
+      }))
+    })
+    return arr;
   }
+  addNewLevel(control) {
+    control.push(
+      this._formBuilder.group({
+        description: ['', Validators.required],
+        label: ['', Validators.required]
+      }))
+    const level = this.levelCount + 1;
+    this.updateCriteria.rubric.levels.push({
+      level: "L" + level,
+      label: "",
+      description: "",
+      expression: "",
+      expressionVariables: []
+    })
+    console.log(this.updateCriteria.rubric.levels)
+    this.levelCount++;
+  }
+  addNewKeyWord(control) {
+    control.push(
+      this._formBuilder.group({
+        keyword: ['', Validators.required]
+      }))
+    this.keyWordCount += 1;
+  }
+  removeAllKeyWord() {
+    console.log(this.firstFormGroup.controls.language)
+    this.firstFormGroup.controls.keywords = this.setKeyWords();
+    this.keyWordCount = 1;
+  }
+  deleteKeyWord(control, index) {
+    control.removeAt(index)
+    this.keyWordCount -= 1;
+  }
+  showObject(obj) {
+  }
+
+  deleteLevel(control, index) {
+    control.removeAt(index)
+    this.updateCriteria.rubric.levels.splice(this.levelCount - 1, 1);
+    this.levelCount--;
+  }
+
+  removeAll() {
+    this.secondFormGroup = this._formBuilder.group({
+      levels: this.setLevels()
+    })
+    this.levelCount = 4;
+  }
+
+
+  submitNewCriteria() {
+    const firstStepperData = this.firstFormGroup.getRawValue();
+    const secondStepperData = this.secondFormGroup.getRawValue();
+    this.updateCriteria.externalId = firstStepperData.criteriaId;
+    this.updateCriteria.description = firstStepperData.description;
+    this.updateCriteria.name = firstStepperData.criteriaName;
+    this.updateCriteria.remarks = firstStepperData.remarks;
+    this.updateCriteria.keywords = [];
+
+    firstStepperData.keywords.forEach(element => {
+      this.updateCriteria.keywords.push(element.keyword);
+
+    })
+    for (var i = 0; i < this.levelCount; i++) {
+      this.updateCriteria.rubric.levels[i].label = secondStepperData.levels[i].label;
+      this.updateCriteria.rubric.levels[i].description = secondStepperData.levels[i].description;
+    }
+    this.configurationService.addNewCriteria(this.updateCriteria).subscribe(
+      data => {
+        this.utility.loaderHide();
+        this.snackBar.open(data['message'], "Ok", { duration: 9000 });
+      },
+      error => {
+        this.utility.loaderHide();
+        this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+      }
+    )
+    this.utility.onBack();
+
+  }
+  next() {
+    console.log("nextcalled")
+    if (this.nameInputRef['selectedIndex'] < this.nameInputRef['_keyManager']._items.length - 1) {
+      this.nameInputRef['selectedIndex'] += 1;
+      this.currentLoadedStepper = this.nameInputRef['selectedIndex'];
+    }
+  }
+
+  back() {
+    if (this.nameInputRef['selectedIndex'] > 0) {
+      this.nameInputRef['selectedIndex'] -= 1;
+      this.currentLoadedStepper = this.nameInputRef['selectedIndex'];
+
+    }
+  }
+ 
 
 }

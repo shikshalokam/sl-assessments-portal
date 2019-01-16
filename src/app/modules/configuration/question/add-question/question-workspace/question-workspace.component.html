@@ -17,8 +17,12 @@
         </div>
       </div>
       <div class="question">
-        <div class="questionLabel" *ngFor="let question of newQuestion.question;let j =index">
-          <span *ngIf="j == 0">{{i+1}}. </span> {{question}}
+        <div class="questionLabel" *ngFor="let questions of newQuestion.question;let j =index">
+          <span *ngIf="j == 0">{{i+1}}. </span>
+          {{questions}}
+          <!-- <div *ngFor="let questionOption of questions.question">
+              {{questionOption}}
+          </div> -->
         </div>
         <div *ngIf="newQuestion.responseType == 'radio'">
           <div *ngFor="let option of newQuestion.options ">

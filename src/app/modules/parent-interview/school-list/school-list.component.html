@@ -3,38 +3,38 @@
   <app-parent-heading [genericHeading]="headings"></app-parent-heading>
 
   <div *ngIf=" result > 0 " class="bigTabel">
-    <mat-form-field [floatLabel]="'never'" class="contentMiddle _full-width">
+    <mat-form-field [floatLabel]="'never'" class="_contentMiddle _full-width">
       <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
     </mat-form-field>
     <div class="example-container mat-elevation-z8 ">
       <div class="tableContainer">
-        <table mat-table [dataSource]="dataSource" class="contentMiddle ">
+        <table mat-table [dataSource]="dataSource" class="_contentMiddle ">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> {{'tableLabel.name'| translate}} </th>
-            <td mat-cell *matCellDef="let element"><span class="capitalise"> {{element.name}} </span></td>
+            <td mat-cell *matCellDef="let element"><div class="capitalise"> {{element.name | blank}} </div></td>
           </ng-container>
           <ng-container matColumnDef="city">
             <th mat-header-cell *matHeaderCellDef> {{'tableLabel.city'| translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+            <td mat-cell *matCellDef="let element"><div class="capitalise">  {{element.city | blank}}</div> </td>
           </ng-container>
           <ng-container matColumnDef="state">
             <th mat-header-cell *matHeaderCellDef> {{'tableLabel.state'| translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+            <td mat-cell *matCellDef="let element"><div class="capitalise">  {{element.state | blank}}</div> </td>
           </ng-container>
           <ng-container matColumnDef="externalId">
             <th mat-header-cell *matHeaderCellDef> {{'tableLabel.externalId'| translate}}</th>
-            <td mat-cell *matCellDef="let element">{{element.externalId}}</td>
+            <td mat-cell *matCellDef="let element"><div class="capitalise"> {{element.externalId | blank}}</div></td>
           </ng-container>
 
           <ng-container matColumnDef="isParentInterviewCompleted">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-              <span class="active" *ngIf="!(element.isParentInterviewCompleted) ; else complete" [routerLink]="['/parent/parent-list' ,element.name,element._id ]">
-                {{'tableLabel.buttons.clickHere'| translate}}</span>
+              <div class="active" *ngIf="!(element.isParentInterviewCompleted) ; else complete" [routerLink]="['/parent/parent-list' ,element.name,element._id ]">
+                {{'tableLabel.buttons.clickHere'| translate}}</div>
               <ng-template #complete>
-                <span class="complete">
+                <div class="complete">
                   {{'tableLabel.buttons.complete'| translate}}
-                </span>
+                </div>
               </ng-template>
             </td>
           </ng-container>
@@ -61,15 +61,15 @@
             {{key | camelcase}} : {{school[key]}}
           </div>
         </div>
-        <span class="flexRight">
-          <span class="active " *ngIf="!(school.isParentInterviewCompleted) ; else complete" [routerLink]="['/parent/parent-list' ,school.name,school._id ]">
-            {{'tableLabel.buttons.clickHere'| translate}}</span>
+        <div class="flexRight">
+          <div class="active " *ngIf="!(school.isParentInterviewCompleted) ; else complete" [routerLink]="['/parent/parent-list' ,school.name,school._id ]">
+            {{'tableLabel.buttons.clickHere'| translate}}</div>
           <ng-template #complete>
-            <span class="complete">
+            <div class="complete">
               {{'tableLabel.buttons.complete'| translate}}
-            </span>
+            </div>
           </ng-template>
-        </span>
+        </div>
       </mat-expansion-panel>
     </div>
   </div>

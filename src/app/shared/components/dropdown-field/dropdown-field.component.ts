@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { generate } from 'rxjs';
 
@@ -11,10 +11,13 @@ export class DropdownFieldComponent implements OnInit {
 @Input()genericData;
 @Input()genericForm:FormGroup;
 @Input()genericEdit:boolean;
-
+@Output() emitResponseType = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
   }
-
+  changeResponseType(responseType){
+    console.log(responseType)
+    this.emitResponseType.emit(responseType);
+  }
 }
