@@ -3,12 +3,7 @@ import { ParentConfig } from '../parent-config';
 import { ParentService } from '../../../core/services/parent-service/parent.service';
 import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 
-elementData: {
-
-}
 @Component({
   selector: 'app-school-list',
   templateUrl: './school-list.component.html',
@@ -17,35 +12,23 @@ elementData: {
 export class SchoolListComponent implements OnInit {
   displayedColumns: string[] = ['externalId', 'name', 'city', 'state', 'isParentInterviewCompleted'];
   dataSource;
-  result;
   schoolList;
+  result;
   error: any;
-  flag ;
-  hidePageSize: boolean =true;
-  pageIndex: number = 0;
-  pageSize: number = 1;
-  pageEvent: PageEvent;
-  length : number = 100;
-  search = '';
-  pageSizeOptions = [1,50,100];
+  smallScreen = false;
   headings = 'headings.schoolListHeading';
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
 
   constructor(private parentService: ParentService, private utility: UtilityService) {
-    // this.callSchoolList(this.pageIndex,this.pageSize,this.search);
-     this.callSchoolList();
-
+    this.showConfig();
   }
-  // callSchoolList(pageIndex , pageSize ,search) {
-  //   this.parentService.getSchoolList( pageIndex , pageSize ,search)
-  callSchoolList() {
+  showConfig() {
     this.parentService.getSchoolList()
       .subscribe(data => {
-        this.schoolList = data.result;
-        this.result = data.result.length;
-        this.dataSource = new MatTableDataSource(data.result);
-        console.log(data.result);
+        this.schoolList = data['result'];
+        this.result = data['result']['length'];
+        this.dataSource = new MatTableDataSource(data['result']);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
         this.utility.loaderHide()
       },
         (error) => {
@@ -56,77 +39,28 @@ export class SchoolListComponent implements OnInit {
       );
   }
   applyFilter(filterValue: string) {
+    console.log(filterValue)
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   ngOnInit() {
     this.utility.loaderShow();
-    
-  }
- 
-  seePaginatio(event){
-   
+    if (window.screen.width < 760) { // 768px portrait
+      this.smallScreen = true;
+      console.log(this.smallScreen)
+    }
   }
 
   objectKeys(obj) {
     return Object.keys(obj);
   }
-
-  onPaginateChange(event)
+  onResize(event)
   {
-    console.log(event)
-    if((event.previousPageIndex > event.pageIndex) && !(event.pageIndex != 0))
+    console.log(event);
+    if(event.target.innerWidth > 760)
     {
-      if( (event.previousPageIndex - event.pageIndex) > 1 )
-      {
-        this.pageIndex = 0;
-        console.log("firstpage");
-        // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
-        return;
-        
-      }
-      this.pageIndex -=1;
-      // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
-
-
-    console.log(this.pageIndex ,"changed Manually")
-
+      console.log(true)
+      this.smallScreen = true;
     }
-    if ( (event.previousPageIndex < event.pageIndex)  && (event.pageIndex != (event.length/event.pageSize)) )
-    {
-
-      if( (event.pageIndex - event.previousPageIndex) > 1 )
-      {
-        this.pageIndex = event.pageIndex;
-        console.log("lastPage");
-        // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
-
-        return;
-      }
-      this.pageIndex +=1;
-
-    console.log(this.pageIndex, "changed Manually")
-    // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
-
-    }
-
-    if (event.pageSize != this.pageSize)
-    {
-      this.pageSize = event.pageSize;
-    console.log(this.pageSize , "changed Manually")
-    // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
-
-
-    }
-    // console.log(event)
-    // this.pageIndex = 0;
-    // this.pageSize = 0;
   }
 
-  catchSearchValue(searchString){
-    console.log(searchString);
-    
-    // this.callSchoolList(this.pageIndex , this.pageSize ,this.search)
-
-  }
 }
