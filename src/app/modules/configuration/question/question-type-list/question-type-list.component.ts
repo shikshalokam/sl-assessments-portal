@@ -57,6 +57,7 @@ export class QuestionTypeListComponent implements OnInit {
     'number',
     'textarea',
     'select',
+    'datePicker'
   ]
   ngOnInit() {
   }

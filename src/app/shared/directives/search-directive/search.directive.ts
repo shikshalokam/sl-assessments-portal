@@ -18,7 +18,6 @@ export class SearchDirective implements OnInit {
     const debouncedInput = example.pipe(debounceTime(1000));
     const subscribe = debouncedInput.subscribe(val => {
       this.sendSearchValue.emit(this.searchValue);
-      // console.log(val)
     });
   }
 }

@@ -64,7 +64,7 @@
             <mat-form-field class="col-xs-12">
               <mat-select placeholder="Response Type" formControlName="responseType">
                 <mat-option *ngFor="let option of responseTypeOption" (click)="changeResponseType(option)" [value]="option.value">
-                  {{option.label}}
+                  {{option.label | camelcase}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

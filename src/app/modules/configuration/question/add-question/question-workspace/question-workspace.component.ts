@@ -12,9 +12,11 @@ export class QuestionWorkspace implements OnInit {
   @Input() optionCount :number;
   showIcon : number;  
   index : number;
+  date = new Date();
   constructor(public dialog: MatDialog) {
   }
   ngOnInit() {
+    console.log(this.date)
   }
   
   showEditOption(index){

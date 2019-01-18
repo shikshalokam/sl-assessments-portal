@@ -17,7 +17,6 @@ export class CustomizeQuestionComponent implements OnInit {
   constructor(private utility: UtilityService,private _formBuilder :FormBuilder, private configurationService: ConfigurationService,
     public dialogRef: MatDialogRef<CustomizeQuestionComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-      console.log(data)
   }
   ngOnInit() {
     this.createForm();
@@ -61,6 +60,10 @@ export class CustomizeQuestionComponent implements OnInit {
     {
       label: "textArea",
       value: "textarea"
+    },
+    {
+      label : "datePicker",
+      value : "datePicker"
     }
   ];
 
@@ -118,7 +121,6 @@ export class CustomizeQuestionComponent implements OnInit {
     return arr;
   }
   setOption(){
-    console.log(this.data.questionObject.options)
     let arr = new FormArray([])
     this.optionCount = this.data.questionObject.options.length;
     this.data.questionObject.options.forEach(level => {
@@ -179,7 +181,6 @@ export class CustomizeQuestionComponent implements OnInit {
     this.data.questionObject.options.splice(this.data.questionObject.options.length - 1 , 1);
     control.removeAt(index)
     this.optionCount -= 1;
-    console.log(this.data.questionObject.options);
   }
   onUpdate(){
     const questionArray = this.questionForm.getRawValue().question;
@@ -191,10 +192,8 @@ export class CustomizeQuestionComponent implements OnInit {
   }
   changeResponseType(responseType){
     this.data.questionObject.responseType = responseType.value;
-    console.log(responseType);
     if ( responseType.value == 'radio' || responseType.value == 'select')
     {
-      console.log("radio")
       this.data.questionObject.options.push (
         {
           label : "option1",

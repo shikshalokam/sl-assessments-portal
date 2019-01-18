@@ -28,9 +28,15 @@
                     short_text
                   </i>
                 </div>
+
+                <div *ngSwitchCase="'datePicker'" class="centerIcon">
+                  <i class="material-icons">
+                    date_range
+                  </i>
+                </div>
               </div>
               <div class="labelQuestion">
-                 {{question}}
+                 {{question | camelcase}}
               </div>
         </div>
         

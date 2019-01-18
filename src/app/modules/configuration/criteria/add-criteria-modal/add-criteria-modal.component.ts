@@ -135,7 +135,6 @@ export class AddCriteriaBoxComponent implements OnInit {
       expression: "",
       expressionVariables: []
     })
-    console.log(this.updateCriteria.rubric.levels)
     this.levelCount++;
   }
   addNewKeyWord(control) {
@@ -146,7 +145,6 @@ export class AddCriteriaBoxComponent implements OnInit {
     this.keyWordCount += 1;
   }
   removeAllKeyWord() {
-    console.log(this.firstFormGroup.controls.language)
     this.firstFormGroup.controls.keywords = this.setKeyWords();
     this.keyWordCount = 1;
   }
@@ -202,7 +200,6 @@ export class AddCriteriaBoxComponent implements OnInit {
 
   }
   next() {
-    console.log("nextcalled")
     if (this.nameInputRef['selectedIndex'] < this.nameInputRef['_keyManager']._items.length - 1) {
       this.nameInputRef['selectedIndex'] += 1;
       this.currentLoadedStepper = this.nameInputRef['selectedIndex'];

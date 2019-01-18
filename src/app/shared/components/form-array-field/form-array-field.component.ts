@@ -17,7 +17,6 @@ export class FormArrayFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.genericData['array'].length )
     this.questionCount = this.genericData['array'].length  || 1;
   }
   
