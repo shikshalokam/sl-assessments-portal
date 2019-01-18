@@ -10,6 +10,10 @@
 .margin {
     margin: 15px 0px 0px 10px;
 }
+.flex-1{
+    display: flex;
+    flex: 1;
+}
 .stepperDiv{
     padding: 0px 0px 100px 0px;
     max-height: calc(100vh - 120px);
@@ -65,6 +69,9 @@
     padding: 30vh 0 0 40%;
  }
 
+ .right{
+     float: right;
+ }
  .bottomButton{
     position: fixed;
     bottom:20px;
