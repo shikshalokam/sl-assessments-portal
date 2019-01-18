@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class QuestionTypeListComponent implements OnInit {
   @Output() sendQuestionObject = new EventEmitter<any>();
+  
   constructor() { }
   newQuestion = {
     _id: "Dummmy Id",

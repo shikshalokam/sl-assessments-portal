@@ -22,8 +22,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderComponent } from './components/loader/loader.component';
 import { SelectFieldComponent } from './components/select-field/select-field.component';
 import { FormArrayFieldComponent } from './components/form-array-field/form-array-field.component';
+import { SearchDirective } from './directives';
 @NgModule({
-  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent, LoaderComponent, SelectFieldComponent, FormArrayFieldComponent ],
+  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent, LoaderComponent, SelectFieldComponent, FormArrayFieldComponent, SearchDirective ],
   imports: [
     CommonModule,
     FormsModule,
@@ -42,7 +43,7 @@ import { FormArrayFieldComponent } from './components/form-array-field/form-arra
     NgxSpinnerModule
   ],
   entryComponents: [DialogBoxComponent],
-  exports : [DynamicFormComponent,NgxSpinnerModule,BreadcrumbComponent,ParentHeadingComponent, MatSnackBarModule,ImageCardComponent,LoaderComponent]
+  exports : [DynamicFormComponent,NgxSpinnerModule,BreadcrumbComponent,ParentHeadingComponent, MatSnackBarModule,ImageCardComponent,LoaderComponent,SearchDirective]
 
 })
 export class SharedModule { }
