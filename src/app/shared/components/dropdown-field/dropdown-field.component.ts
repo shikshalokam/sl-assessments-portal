@@ -17,7 +17,6 @@ export class DropdownFieldComponent implements OnInit {
   ngOnInit() {
   }
   changeResponseType(responseType){
-    console.log(responseType)
     this.emitResponseType.emit(responseType);
   }
 }

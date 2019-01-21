@@ -28,7 +28,6 @@ export class ParentService {
     //     return this.http.get<Config>(environment.apibaseurl + ParentConfig.schoolListFind+'?pageIndex='+pageIndex+'&pageSize='+pageSize+'&search='+search);
     // }
     getSchoolList() {
-        console.log("apicalled")
         // return this.http.get<Config>("./assets/school-list.json");
 
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.schoolListFind);

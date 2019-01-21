@@ -24,7 +24,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   changeResponseType(event , index){
-    console.log(event, index);
     this.genericData[index].value=event;
     
 

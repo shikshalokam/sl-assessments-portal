@@ -15,7 +15,7 @@
               </i>
             </button>
             <div class="headerItem">
-              Type : {{newQuestion.responseType}}
+              Type : {{newQuestion.responseType | camelcase}}
             </div>
           </div>
           <div class="question">
@@ -50,6 +50,14 @@
             <div *ngIf="newQuestion.responseType == 'textarea'">
               <mat-form-field>
                 <textarea matInput value="{{newQuestion.responseType}} answer"></textarea>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="newQuestion.responseType == 'datePicker'">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
           </div>

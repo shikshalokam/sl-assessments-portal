@@ -42,21 +42,17 @@ export class SchoolListComponent implements OnInit {
       );
   }
   applyFilter(filterValue: string) {
-    console.log(filterValue)
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() {
     this.utility.loaderShow();
     if (window.screen.width < 760) { // 768px portrait
       this.smallScreen = true;
-      console.log(this.smallScreen)
     }
   }
   // afterViewChecked(){
   //   if (window.screen.width < 760) { // 768px portrait
   //     this.smallScreen = true;
-  //     console.log(this.smallScreen)
-  //   }
   // }
 
   objectKeys(obj) {

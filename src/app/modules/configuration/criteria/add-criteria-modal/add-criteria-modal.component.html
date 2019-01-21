@@ -25,18 +25,19 @@
           </mat-form-field>
           <div formArrayName="keywords" class="col-xs-12">
             <div class="col-xs-12 _flexbox " *ngFor="let key of firstFormGroup.get('keywords')['controls'] ; let i = index">
-              <div [formGroup]="key" class="col-xs-11">
+              <div [formGroup]="key" class="flex-1">
                 <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Keyword {{i+1}}" formControlName="keyword" required />
                 </mat-form-field>
               </div>
               <button class="col-xs-1" *ngIf="keyWordCount > 1" [disabled]="langaugeCount<2" (click)="deleteKeyWord( firstFormGroup.controls.keywords,i)"
-                mat-raised-button color="warn">
+                mat-icon-button color="warn">
                 <i class="material-icons">
                   close
                 </i>
               </button>
             </div>
+            <div class="right" >
             <button (click)="addNewKeyWord( firstFormGroup.controls.keywords)" mat-raised-button class="_primary-btn buttonMargin">
               Add New
               <i class="material-icons">
@@ -50,6 +51,7 @@
                 delete_forever
               </i>
             </button>
+            </div>
           </div>
         </div>
 
@@ -70,7 +72,7 @@
               </mat-form-field>
             </div>
             <button class="col-xs-1" [disabled]="levelCount<5" *ngIf="levelCount>4" (click)="deleteLevel( secondFormGroup.controls.levels,i)"
-              mat-raised-button color="warn">
+              mat-icon-button color="warn">
               <i class="material-icons">
                 close
               </i>
@@ -95,10 +97,10 @@
     </mat-step>
   </mat-horizontal-stepper>
 </div>
-<div class="nextButton _flex-box _justify-content-space-between">
+<div class="nextButton _flex-box  _flex-end">
   <button *ngIf="currentLoadedStepper != 0" mat-raised-button class="btns  margin" (click)="back()">Back</button>
 
-  <button mat-raised-button class="btns _primary-btn margin" *ngIf="currentLoadedStepper != stepperPageLength" (click)="next()">Next</button>
+  <button mat-raised-button class="btns _primary-btn margin" *ngIf="currentLoadedStepper != stepperPageLength" [disabled]="firstFormGroup" (click)="next()">Next</button>
 
   <button mat-raised-button *ngIf="currentLoadedStepper == stepperPageLength" (click)="submitNewCriteria()" [disabled]="!secondFormGroup.valid || !firstFormGroup.valid"
     class="btns _primary-btn margin">

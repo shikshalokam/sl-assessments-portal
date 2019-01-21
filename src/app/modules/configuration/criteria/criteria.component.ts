@@ -8,12 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class CriteriaComponent implements OnInit {
 
   constructor() { 
-    console.log("criteria is called")
 
   }
 
   ngOnInit() {
-    console.log("criteria is called")
   }
 
 }
