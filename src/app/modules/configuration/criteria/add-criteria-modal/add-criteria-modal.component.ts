@@ -42,36 +42,7 @@ export class AddCriteriaBoxComponent implements OnInit {
       "0125748495625912324"
     ],
     rubric: {
-      levels: [
-        {
-          level: "L1",
-          label: "Level 1",
-          description: "",
-          expression: "",
-          expressionVariables: []
-        },
-        {
-          level: "L2",
-          label: "Level 2",
-          description: "",
-          expression: "",
-          expressionVariables: []
-        },
-        {
-          level: "L3",
-          label: "Level 3",
-          description: "",
-          expression: "",
-          expressionVariables: []
-        },
-        {
-          level: "L4",
-          label: "Level 4",
-          description: "",
-          expression: "",
-          expressionVariables: []
-        }
-      ]
+      levels: this.setRubricLevel()
     },
     evidences: []
   }
@@ -121,6 +92,38 @@ export class AddCriteriaBoxComponent implements OnInit {
     })
     return arr;
   }
+  setRubricLevel(){
+    return [
+      {
+        level: "L1",
+        label: "Level 1",
+        description: "",
+        expression: "",
+        expressionVariables: []
+      },
+      {
+        level: "L2",
+        label: "Level 2",
+        description: "",
+        expression: "",
+        expressionVariables: []
+      },
+      {
+        level: "L3",
+        label: "Level 3",
+        description: "",
+        expression: "",
+        expressionVariables: []
+      },
+      {
+        level: "L4",
+        label: "Level 4",
+        description: "",
+        expression: "",
+        expressionVariables: []
+      }
+    ] ;
+  }
   addNewLevel(control) {
     control.push(
       this._formBuilder.group({
@@ -145,6 +148,7 @@ export class AddCriteriaBoxComponent implements OnInit {
     this.keyWordCount += 1;
   }
   removeAllKeyWord() {
+
     this.firstFormGroup.controls.keywords = this.setKeyWords();
     this.keyWordCount = 1;
   }
@@ -162,6 +166,7 @@ export class AddCriteriaBoxComponent implements OnInit {
   }
 
   removeAll() {
+    this.updateCriteria.rubric.levels = this.setRubricLevel();
     this.secondFormGroup = this._formBuilder.group({
       levels: this.setLevels()
     })

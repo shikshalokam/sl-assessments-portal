@@ -1,4 +1,4 @@
-<div *ngIf="newQuestionArray?.length; else selectQuestion ">
+<div *ngIf="newQuestionArray?.length; else selectQuestion " class="questionSection">
   <mat-tab-group>
     <div class="wrapper" *ngFor="let newQuestion of newQuestionArray;let i = index">
       <mat-tab label="Question {{i+1}}">
@@ -15,7 +15,7 @@
               </i>
             </button>
             <div class="headerItem">
-              Type : {{newQuestion.responseType | camelcase}}
+              {{'headings.type' | translate}} : {{newQuestion.responseType | camelcase}}
             </div>
           </div>
           <div class="question">
@@ -72,7 +72,7 @@
     Select a type to add a question .
   </div>
 </ng-template>
-<div class="col-xs-12 buttonFooter">
+<!-- <div class="col-xs-12 buttonFooter">
   <button mat-raised-button class="_primary-btn" [disabled]=" !(newQuestionArray.length >= 1)">{{ 'buttons.submit' |
     translate}}</button>
-</div>
+</div> -->

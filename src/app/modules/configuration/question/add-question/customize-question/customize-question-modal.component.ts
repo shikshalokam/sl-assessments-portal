@@ -17,6 +17,7 @@ export class CustomizeQuestionComponent implements OnInit {
   constructor(private utility: UtilityService,private _formBuilder :FormBuilder, private configurationService: ConfigurationService,
     public dialogRef: MatDialogRef<CustomizeQuestionComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
+      console.log(data)
   }
   ngOnInit() {
     this.createForm();
@@ -141,7 +142,8 @@ export class CustomizeQuestionComponent implements OnInit {
   }
   removeAllQuestion(){
     this.questionForm.controls.question = this.setQuestion();
-    this.questionCount =this.data.questionObject.options.length;
+    this.data.questionObject.question = ['question']
+    this.questionCount =this.data.questionObject.question.length;
   }
   deleteQuestion(control, index) {
     control.removeAt(index)
@@ -174,8 +176,8 @@ export class CustomizeQuestionComponent implements OnInit {
         value :"option2"
       }
     ]
-    this.questionForm.controls.question = this.setQuestion();
-    this.questionCount = 2;
+    this.choiceForm.controls.options = this.setOption();
+    this.optionCount = 2;
   }
   deleteOption(control, index) {
     this.data.questionObject.options.splice(this.data.questionObject.options.length - 1 , 1);
