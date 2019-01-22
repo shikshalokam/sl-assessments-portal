@@ -15,7 +15,6 @@
     flex: 1;
 }
 .stepperDiv{
-    padding: 0px 0px 100px 0px;
     max-height: calc(100vh - 120px);
     overflow: auto;
 }
@@ -96,4 +95,18 @@
 }
 .buttonMargin{
     margin: 0px 10px;
+}
+.noPadding{
+    padding: 0;
+
+}
+.noRightPadding{
+    padding-right: 0;
+}
+
+.noLeftPadding{
+    padding-left: 0;
+}
+.marginRight{
+    margin-right: 30px; 
 }

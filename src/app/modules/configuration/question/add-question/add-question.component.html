@@ -2,23 +2,36 @@
 <div class="wrapper bigScreenAddQuestion">
   <div class="editQuestion">
     <app-question-workspace [newQuestionArray]="newQuestionArray"></app-question-workspace>
+    <div class=" buttonFooter" *ngIf="newQuestionArray?.length">
+      <button mat-raised-button class="_primary-btn" [disabled]=" !(newQuestionArray.length >= 1)">{{ 'buttons.submit' |
+        translate}}</button>
+    </div>
   </div>
   <div class="questionGroup">
     <app-question-type-list (sendQuestionObject)="catchQuestionObject($event)"></app-question-type-list>
   </div>
 </div>
-<mat-drawer-container class="responsive-container responsiveAddQuestion" autosize>
+<mat-drawer-container  style="width:100% !important;" id="container"class="responsive-container responsiveAddQuestion"  >
   <mat-drawer #drawer class="responsive-sidenav" mode="push">
     <app-question-type-list (sendQuestionObject)="catchQuestionObject($event)"></app-question-type-list>
   </mat-drawer>
+<mat-drawer-content class="fullWidth">
   <div class="responsive-sidenav-content">
-    <button class="addQuestionType" type="button" mat-button (click)="drawer.toggle()">
-      <i class="material-icons">
-        menu
-      </i>
-    </button>
-    <div class="placeCenter">
+    <div class="fixDrawerButton">
+        <button  type="button" mat-button (click)="drawer.toggle()">
+            <i class="material-icons">
+              menu
+            </i>
+          </button>
+    </div>
+
+    <div class="placeCenter col-xs-12">
       <app-question-workspace [newQuestionArray]="newQuestionArray"></app-question-workspace>
+      <div class="responsiveButtonFooter" *ngIf="newQuestionArray?.length">
+          <button mat-raised-button class="_primary-btn" [disabled]=" !(newQuestionArray.length >= 1)">{{ 'buttons.submit' |
+            translate}}</button>
+        </div>
     </div>
   </div>
+  </mat-drawer-content>
 </mat-drawer-container>

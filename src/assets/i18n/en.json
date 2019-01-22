@@ -25,7 +25,8 @@
         "ok": "Ok",
         "saveSurvey": "Save Survey",
         "cancelSurvey": "Cancel Survey",
-        "submitNewCriteria" : "Submit Criteria"
+        "addNew" : "Add New",
+        "removeAll" : "Remove All"
     },
     "downloadReport":"Select a Evendince Method to Download",
     "search": "Search",
@@ -44,7 +45,13 @@
         "questionFrameWorkHeading":"Questionary",
         "criteriaFrameWorkHeading":"Criterias",
         "criteriaList" : "Criteria List",
-        "dashBoard" : "Configuration Dashboard"
+        "dashBoard" : "Configuration Dashboard",
+        "addRubric":"Add Levels To Rubric",
+        "fillCriteriaDetails":"Fill Criteria Details",
+        "panelEditHeading" : "Click on panel to Edit",
+        "general" : "General",
+        "choices" : "Choices",
+        "type" : "Type"
     },
     "labels": {
 

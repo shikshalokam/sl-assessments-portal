@@ -13,40 +13,50 @@
         <mat-expansion-panel class="_margin">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              General
+              {{'headings.general' | translate}}
             </mat-panel-title>
             <mat-panel-description>
-              Click on panel to edit
+              {{'headings.panelEditHeading' | translate}}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <form [formGroup]="questionForm">
             <div formArrayName="question">
-              <div class="col-xs-12 _flexbox " *ngFor="let quest of questionForm.get('question').controls ; let i = index">
-                <div [formGroup]="quest" class="col-xs-11 ">
-                  <mat-form-field class="col-xs-12">
+              <div class="col-xs-12 _flexbox noPadding" *ngFor="let quest of questionForm.get('question').controls ; let i = index">
+                <div [formGroup]="quest" class="col-xs-11 noRightPadding">
+                  <mat-form-field class="col-xs-12 noPadding">
                     <input matInput placeholder="Question" formControlName="question" />
                   </mat-form-field>
                 </div>
                 <button class="col-xs-1" [disabled]="questionCount<2" *ngIf="questionCount>1" (click)="deleteQuestion( questionForm.controls.question,i)"
-                  mat-raised-button color="warn">
-                  <i class="material-icons">
-                    close
-                  </i>
+                  mat-icon-button color="warn">
+                <i class="material-icons">
+                  close
+                </i>
                 </button>
               </div>
-              <button (click)="addNewQuestion(questionForm.controls.question)" mat-raised-button class="_primary-btn buttonMargin">
-                Add New
-                <i class="material-icons">
-                  add
-                </i>
+              <div class="right" >
+                <button (click)="addNewQuestion(questionForm.controls.question)" mat-raised-button class="_primary-btn buttonMargin">
+                <div class="_flex-box">
+                  <i class="material-icons">
+                    add
+                  </i>
+                  <div>
+                    {{'buttons.addNew'|translate}}
+                  </div>
+                </div>
               </button>
               <button class="buttonMargin" *ngIf="questionCount>1" (click)="removeAllQuestion()" mat-raised-button
                 color="warn">
-                Remove All
-                <i class="material-icons">
-                  delete_forever
-                </i>
+                <div class="_flex-box">
+                  <i class="material-icons">
+                    delete_forever
+                  </i>
+                  <div>
+                    {{'buttons.removeAll'|translate}}
+                  </div>
+                </div>
               </button>
+              </div>
             </div>
             <mat-form-field class="col-xs-12">
               <mat-select placeholder="Question Group" formControlName="questionGroup" multiple>
@@ -75,42 +85,53 @@
         <mat-expansion-panel class="_margin" *ngIf="data.questionObject.responseType == 'radio' ||data.questionObject.responseType == 'select' ">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Choices
+              {{'headings.choices' | translate}}
             </mat-panel-title>
             <mat-panel-description>
-              Click on panel to edit
+             {{'headings.panelEditHeading' | translate}}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <form [formGroup]="choiceForm">
             <div formArrayName="options">
-              <div class="col-xs-12 _flexbox " *ngFor="let option of choiceForm.get('options').controls ; let i = index">
-                <div [formGroup]="option" class="col-xs-11 ">
-                  <mat-form-field class="col-xs-6">
+              <div class="col-xs-12 _flexbox onPadding " *ngFor="let option of choiceForm.get('options').controls ; let i = index">
+                <div [formGroup]="option" class="col-xs-11 onPadding">
+                  <mat-form-field class="col-xs-6 noLeftPadding">
                     <input matInput placeholder="label" formControlName="label" />
                   </mat-form-field>
-                  <mat-form-field class="col-xs-6">
+                  <mat-form-field class="col-xs-6 noRightPadding">
                     <input matInput placeholder="value" formControlName="value" />
                   </mat-form-field>
                 </div>
                 <button class="col-xs-1" [disabled]="optionCount< 3" *ngIf="optionCount>2" (click)="deleteOption( choiceForm.controls.options,i)"
-                  mat-raised-button color="warn">
-                  <i class="material-icons">
-                    close
-                  </i>
+                  mat-icon-button color="warn">
+                <i class="material-icons">
+                  close
+                </i>
                 </button>
               </div>
+            <div class="right" >
+              
               <button (click)="addNewOption(choiceForm.controls.options)" mat-raised-button class="_primary-btn buttonMargin">
-                Add New
-                <i class="material-icons">
-                  add
-                </i>
+                <div class="_flex-box">
+                  <i class="material-icons">
+                    add
+                  </i>
+                  <div>
+                    {{'buttons.addNew'|translate}}
+                  </div>
+                </div>
               </button>
               <button class="buttonMargin" *ngIf="optionCount>2" (click)="removeAllOption()" mat-raised-button color="warn">
-                Remove All
-                <i class="material-icons">
-                  delete_forever
-                </i>
+                <div class="_flex-box">
+                  <i class="material-icons">
+                    delete_forever
+                  </i>
+                  <div>
+                    {{'buttons.removeAll'|translate}}
+                  </div>
+                </div>
               </button>
+              </div>
             </div>
           </form>
         </mat-expansion-panel>
