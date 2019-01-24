@@ -12,7 +12,20 @@ export class AppComponent implements OnInit {
   links = [  
     { 
       linkHeading : "headings.features",
-      options:[ ]
+      options:[
+        {
+          value : "headings.parentInterview",
+          anchorLink : "/parent"
+        },
+        // {
+        //   value :"headings.reports",
+        //   anchorLink : "/report"
+        // },
+        // {
+        //   value :"headings.configurations",
+        //   anchorLink :"/configuration"
+        // }
+      ]
       }
   ] ;
 
@@ -22,30 +35,30 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit(){
-    if (!(environment.production)){
-      this.links[0].options = [
-        {
-          value : "headings.parentInterview",
-          anchorLink : "/parent"
-        },
-        {
-          value :"headings.reports",
-          anchorLink : "/report"
-        },
-        {
-          value :"headings.configurations",
-          anchorLink :"/configuration"
-        }
-      ];
-    }
-    else{
-      this.links[0].options = [
-        {
-          value : "headings.parentInterview",
-          anchorLink : "/parent"
-        },
-      ];
-    }
+    // if (!(environment.production)){
+    //   this.links[0].options = [
+    //     {
+    //       value : "headings.parentInterview",
+    //       anchorLink : "/parent"
+    //     },
+    //     {
+    //       value :"headings.reports",
+    //       anchorLink : "/report"
+    //     },
+    //     {
+    //       value :"headings.configurations",
+    //       anchorLink :"/configuration"
+    //     }
+    //   ];
+    // }
+    // else{
+    //   this.links[0].options = [
+    //     {
+    //       value : "headings.parentInterview",
+    //       anchorLink : "/parent"
+    //     },
+    //   ];
+    // }
   }
  
       
