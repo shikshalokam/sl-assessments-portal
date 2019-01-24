@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MatRadioModule,MatCheckboxModule ,MatDialogModule,MatSelectModule, MatButtonModule,MatCardModule, MatPaginatorModule,MatTableModule, MatFormFieldModule, MatInputModule, MatExpansionModule} from '@angular/material';
+import {MatRadioModule,MatCheckboxModule ,MatDialogModule,MatSelectModule, MatButtonModule,MatCardModule, MatPaginatorModule,MatTableModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatChipsModule} from '@angular/material';
 import { ParentInterviewComponent } from './parent-interview.component';
 import { ParentInterviewRoutingModule } from './parent-interview-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
@@ -51,7 +51,9 @@ import { RemarksComponent } from './questionnaire/components/remarks/remarks.com
     MatRadioModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule
+
   ],
   providers: [
     ParentService,

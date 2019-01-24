@@ -79,7 +79,7 @@
         "city":"City",
         "state":"State",
         "externalId":"External-Id",
-        "callResponse" : "Call Response",
+        "callResponse" : "Status",
         "buttons":{
             "clickHere" : "Click Here",
             "edit" : "Profile Edit",

@@ -6,7 +6,21 @@ table {
 .font{
     font-style: $regular-font;
 }
-
+.chipSize{
+    font-size: 10px;
+    width: fit-content;
+    padding: 2px 10px;
+    border-radius: 10px;
+    background-color: $light-grey-color;
+    margin: 2px;
+}
+.noWrap{
+    white-space: nowrap;
+}
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}
 .active{
     border-radius: 12px; 
     border:1px solid $primary-color; 
