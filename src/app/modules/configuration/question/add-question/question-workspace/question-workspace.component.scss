@@ -22,16 +22,23 @@
 }
 .editBox:hover{
     border:1px solid $grey-color;
-    border-radius: 10px;
+    border-radius: 5px;
    
+}
+.questionSection{
+    height: auto;
+    position: relative;
 }
 .editBox{
     background-color: $background-color ;
     border:1px solid $background-color;
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 10px;
     margin: 10px 0px;
    
+}
+.wrapper{
+    width : 100%;
 }
 .placeCenter{
     display: flex;
@@ -42,4 +49,10 @@
 .questionLabel{
     padding:5px 0px;
     font-weight: 500;
+}
+
+.buttonFooter{
+    position: absolute;
+   display: flex;
+   justify-content: flex-end;
 }

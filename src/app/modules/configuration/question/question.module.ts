@@ -4,7 +4,7 @@ import { QuestionComponent } from './question.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { QuestionRoutingModule } from './question-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatRadioModule, MatInputModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatCheckboxModule, MatExpansionModule, MatFormField } from '@angular/material';
+import { MatRadioModule, MatInputModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatCheckboxModule, MatExpansionModule, MatFormField, MatTabsModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionWorkspace } from './add-question/question-workspace/question-workspace.component';
 import { CoreModule } from 'src/app/core/core.module';
@@ -26,14 +26,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatSelectModule,
     MatSidenavModule,
     MatCheckboxModule,
-    // MatFormField,
     SharedModule,
     MatExpansionModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
 
 
   ],
   entryComponents: [CustomizeQuestionComponent],
-
+  providers:[MatDatepickerModule,]
 })
 export class QuestionModule { }

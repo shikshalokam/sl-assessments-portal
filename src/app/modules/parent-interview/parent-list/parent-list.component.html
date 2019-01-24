@@ -3,7 +3,7 @@
 <div *ngIf="!error">
     <app-parent-heading [genericHeading]="headings" [atleastOneComplete]="atleastOneComplete" [schoolName]="schoolName"
         (sendMarkAsComplete)="parentInterviewSubmit($event)"></app-parent-heading>
-    <div *ngIf="result != 0 " class="bigTabel">
+    <div *ngIf="result != 0 && !smallScreen" class="bigTabel">
         <mat-form-field [floatLabel]="'never'" class="_contentMiddle _full-width">
             <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
         </mat-form-field>
@@ -12,22 +12,22 @@
                 <table mat-table [dataSource]="dataSource" class="_contentMiddle">
 
                     <ng-container matColumnDef="studentName">
-                        <th mat-header-cell *matHeaderCellDef> {{'tableLabel.studentName'| translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef><div class="capitalise"> {{'tableLabel.studentName'| translate}}</div></th>
                         <td mat-cell *matCellDef="let element"><div class="capitalise "> {{element.studentName | blank}} </div></td>
                     </ng-container>
 
                     <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef>{{'tableLabel.name'| translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef><div class="capitalise">{{'tableLabel.name'| translate}}</div></th>
                         <td mat-cell *matCellDef="let element"><div class="capitalise"> {{element.name | blank}} </div></td>
                     </ng-container>
 
                     <ng-container matColumnDef="phone1">
-                        <th mat-header-cell *matHeaderCellDef>{{'tableLabel.phone'| translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef><div class="capitalise">{{'tableLabel.phone'| translate}}</div></th>
                         <td mat-cell *matCellDef="let element"> <div class="capitalise">{{element.phone1 | blank}}</div>  </td>
                     </ng-container>
 
                     <ng-container matColumnDef="gender">
-                        <th mat-header-cell *matHeaderCellDef>{{'tableLabel.gender'| translate}}</th>
+                        <th mat-header-cell *matHeaderCellDef><div class="capitalise">{{'tableLabel.gender'| translate}}</div></th>
                         <td mat-cell *matCellDef="let element">
                             <div  class="capitalise" *ngIf=" element.gender == 'M'">Male</div >
                             <div   class="capitalise" *ngIf=" element.gender == 'F'">Female</div >
@@ -49,15 +49,22 @@
                     </ng-container> -->
 
                     <ng-container matColumnDef="typeLabel">
-                            <th mat-header-cell *matHeaderCellDef>{{'tableLabel.typeLabel'| translate}}</th>
+                            <th mat-header-cell *matHeaderCellDef><div class="capitalise">{{'tableLabel.typeLabel'| translate}}</div></th>
                             <td mat-cell *matCellDef="let element">
-                                <div class="capitalise">{{element.typeLabel | blank}}</div>
+                                        <span class="flex-wrap">
+                                                <span *ngFor="let type of element.type" class="chipSize">
+                                                        <span class=" noWrap">{{type}}</span>   
+                                                    </span>
+                                        </span>
+                                     
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="callResponse">
-                            <th mat-header-cell *matHeaderCellDef>{{'tableLabel.callResponse'| translate}}</th>
+                            <th mat-header-cell *matHeaderCellDef><div class="capitalise">{{'tableLabel.callResponse'| translate}}</div></th>
                             <td mat-cell *matCellDef="let element">
-                                <div class="capitalise">{{element.callResponse | blank}}</div>
+                                <div class="capitalise">
+                                    {{element.callResponse | blank}}
+                                    </div>
                             </td>
                         </ng-container>
                     <ng-container matColumnDef="programId">
@@ -73,7 +80,7 @@
                     <ng-container matColumnDef="type">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element">
-                            <div *ngIf=" !(element.callResponse == 'R7') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , element._id ]">
+                            <div *ngIf=" !(element.callResponse == 'Completed') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , element._id ]">
                                 {{'tableLabel.buttons.startSurvey'| translate}}
                             </div>
                             <ng-template #complete>
@@ -94,7 +101,7 @@
 
         </div>
     </div>
-    <div *ngIf=" result > 0  && parentList " class="_responsiveTabel ">
+    <div *ngIf=" result > 0  && parentList && smallScreen " class="_responsiveTabel ">
         <div *ngFor="let parent of parentList" class=" margin">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>

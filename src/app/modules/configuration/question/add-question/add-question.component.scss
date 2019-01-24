@@ -2,32 +2,43 @@
 .questionGroup{
     width:220px;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 3px;
     height:100%;
     overflow-y: auto;
 
 }
+.buttonFooter{
+    position: absolute;
+   display: flex;
+   justify-content: flex-end;
+    width: 100%;
+    padding-left: 40px;
+    bottom: 10px;
+}
 .editQuestion{
-    width: calc(100% - 200px);
+    width: calc(100% - 220px);
     border-right: 1px solid $grey-color ;
     padding: 20px;
-    overflow:auto;
+    position: relative;
 }
 
+.responsiveButtonFooter{
+    width:100%;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
 
 .wrapper{
     display: flex;
-  height: calc(100vh - 145px);
-
-    margin: 20px;
-    border-radius: 10px;
+    height: calc(100vh - 125px);
+    margin: 10px;
+    border-radius: 3px;
     border: 1px solid $grey-color;
 }
 .placeCenter{
-    display: flex;
     width: 100%;
-    align-items: center;
-    justify-content: center;
 }
 .responsiveAddQuestion{
     display: none;
@@ -36,26 +47,29 @@
 .responsive-container {
     height:  -webkit-fill-available;
     overflow: auto;
-    width: 100%;
+    width: 100% !important;
   }
   
+  .container{
+      width:100% !important;
+  }
   .responsive-sidenav-content {
     height: 100%;
-    width: 100%;
     overflow: auto;
   }
   
   .responsive-sidenav {
     padding: 20px;
   }
-  .addQuestionType{
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    margin: 20px;
-    z-index: 1;
-  }
   
-
- 
-  
+//   .mat-drawer-content {
+//     position: relative;
+//     z-index: 1;
+//     display: block;
+//     height: 100%;
+//     overflow: auto;
+//     width: 100%;
+// }
+.fullWidth{
+    width: 100% !important;
+}

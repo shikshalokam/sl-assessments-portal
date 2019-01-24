@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-responsive-navbar',
@@ -8,7 +9,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class ResponsiveNavbarComponent implements OnInit {
   currentUser: any;
-
+  prodFlag = environment.production;
   constructor(private authService: AuthService) {
   }
   ngOnInit() {

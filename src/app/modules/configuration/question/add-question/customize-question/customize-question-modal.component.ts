@@ -61,6 +61,10 @@ export class CustomizeQuestionComponent implements OnInit {
     {
       label: "textArea",
       value: "textarea"
+    },
+    {
+      label : "datePicker",
+      value : "datePicker"
     }
   ];
 
@@ -118,7 +122,6 @@ export class CustomizeQuestionComponent implements OnInit {
     return arr;
   }
   setOption(){
-    console.log(this.data.questionObject.options)
     let arr = new FormArray([])
     this.optionCount = this.data.questionObject.options.length;
     this.data.questionObject.options.forEach(level => {
@@ -139,7 +142,8 @@ export class CustomizeQuestionComponent implements OnInit {
   }
   removeAllQuestion(){
     this.questionForm.controls.question = this.setQuestion();
-    this.questionCount =this.data.questionObject.options.length;
+    this.data.questionObject.question = ['question']
+    this.questionCount =this.data.questionObject.question.length;
   }
   deleteQuestion(control, index) {
     control.removeAt(index)
@@ -172,14 +176,13 @@ export class CustomizeQuestionComponent implements OnInit {
         value :"option2"
       }
     ]
-    this.questionForm.controls.question = this.setQuestion();
-    this.questionCount = 2;
+    this.choiceForm.controls.options = this.setOption();
+    this.optionCount = 2;
   }
   deleteOption(control, index) {
     this.data.questionObject.options.splice(this.data.questionObject.options.length - 1 , 1);
     control.removeAt(index)
     this.optionCount -= 1;
-    console.log(this.data.questionObject.options);
   }
   onUpdate(){
     const questionArray = this.questionForm.getRawValue().question;
@@ -191,10 +194,8 @@ export class CustomizeQuestionComponent implements OnInit {
   }
   changeResponseType(responseType){
     this.data.questionObject.responseType = responseType.value;
-    console.log(responseType);
     if ( responseType.value == 'radio' || responseType.value == 'select')
     {
-      console.log("radio")
       this.data.questionObject.options.push (
         {
           label : "option1",

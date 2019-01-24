@@ -21,7 +21,6 @@ export class CriteriaListComponent implements OnInit {
   getCriteria(){
     this.configurationService.getCriteria().subscribe( data => {
       this.criterias = data['result']['criteria'];
-      console.log(this.criterias);
       this.utility.loaderHide();
     },(error)=>{
       this.snackBar.open(error['message'], "Ok", { duration: 9000 });

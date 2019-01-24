@@ -24,9 +24,15 @@ export class ParentService {
     getParentInfo(parentId: string) {
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.parentEditFind + parentId);
     }
+    // getSchoolList(pageIndex , pageSize ,search) {
+    //     return this.http.get<Config>(environment.apibaseurl + ParentConfig.schoolListFind+'?pageIndex='+pageIndex+'&pageSize='+pageSize+'&search='+search);
+    // }
     getSchoolList() {
+        // return this.http.get<Config>("./assets/school-list.json");
+
         return this.http.get<Config>(environment.apibaseurl + ParentConfig.schoolListFind);
     }
+    
     
 
     getAssessmentQuestions(schoolId) {

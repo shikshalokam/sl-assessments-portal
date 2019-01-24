@@ -24,6 +24,7 @@
     "@angular/pwa": "^0.11.3",
     "@angular/router": "~7.0.0",
     "@angular/service-worker": "~7.0.0",
+    "bit-bin": "^13.0.4",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
@@ -35,7 +36,7 @@
     "material-design-icons": "^3.0.1",
     "ngx-spinner": "^6.1.2",
     "node-sass": "^4.10.0",
-    "rxjs": "~6.3.3",
+    "rxjs": "^6.3.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

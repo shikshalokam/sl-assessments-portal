@@ -86,12 +86,12 @@ export class QuestionnaireComponent implements OnInit {
           }
         } else {
           this.utils.loaderHide();
-          this.generalQuestions[0]['instanceQuestions'][0].value.push(this.currentParentType);
+          this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
         }
       } else {
         //console.log(this.currentCallStatus['type'] +"hihiii")
         //console.log(this.generalQuestions[0]['instanceQuestions'][0].value)
-        this.generalQuestions[0]['instanceQuestions'][0].value.push(this.currentParentType);
+        this.generalQuestions[0]['instanceQuestions'][0].value = this.currentParentType;
         this.utils.loaderHide();
 
       }
@@ -122,11 +122,13 @@ export class QuestionnaireComponent implements OnInit {
 
     // console.log(JSON.stringify(this.generalQuestions[0]['instanceQuestions']))
     //console.log(this.currentCallStatus['type'] +"hihiii")
-    if(!this.generalQuestions[0]['instanceQuestions'][0].value.length) {
-      this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
-    } else {
-      this.generalQuestions[0]['instanceQuestions'][0].value = this.generalQuestions[0]['instanceQuestions'][0].value;
-    }
+    this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
+
+    // if(!this.generalQuestions[0]['instanceQuestions'][0].value.length) {
+    //   this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
+    // } else {
+    //   this.generalQuestions[0]['instanceQuestions'][0].value = this.generalQuestions[0]['instanceQuestions'][0].value;
+    // }
     // this.generalQuestions[0]['instanceQuestions'][0].value.push(!this.generalQuestions[0]['instanceQuestions'][0].value.length ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value);
     this.utils.loaderHide();
 
@@ -164,11 +166,13 @@ export class QuestionnaireComponent implements OnInit {
     //console.log(this.callstatusLabel)
     this.submitBtnDisable = this.currentCallStatus['callResponse'] === 'R7' && !this.allQuestionsAnswered ? true : false;
     if (this.generalQuestions && this.generalQuestions[0] && !this.generalQuestions[0]['instanceQuestions'][0].value) {
-      if(!this.generalQuestions[0]['instanceQuestions'][0].value.length) {
-        this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
-      } else {
-        this.generalQuestions[0]['instanceQuestions'][0].value = this.generalQuestions[0]['instanceQuestions'][0].value;
-      }
+      this.generalQuestions[0]['instanceQuestions'][0].value =  this.currentCallStatus['type'];
+
+      // if(!this.generalQuestions[0]['instanceQuestions'][0].value.length) {
+      //   this.generalQuestions[0]['instanceQuestions'][0].value.push( this.currentCallStatus['type']);
+      // } else {
+        // this.generalQuestions[0]['instanceQuestions'][0].value = this.generalQuestions[0]['instanceQuestions'][0].value;
+      // }
       // this.generalQuestions[0]['instanceQuestions'][0].value = (!this.generalQuestions[0]['instanceQuestions'][0].value) ? this.currentCallStatus['type'] : this.generalQuestions[0]['instanceQuestions'][0].value;
     }
 
@@ -264,9 +268,9 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   submitCallStatus(status) {
-    if (this.currentCallStatus['type'] !== this.generalQuestions[0]['instanceQuestions'][0].value) {
+    // if (this.currentCallStatus['type'] !== this.generalQuestions[0]['instanceQuestions'][0].value) {
       this.currentCallStatus['type'] = this.generalQuestions[0]['instanceQuestions'][0].value;
-    }
+    // }
     // if(status === 'completed'){
     this.currentCallStatus['callResponse'] = status === 'completed' ? "R7" : "";
     // }

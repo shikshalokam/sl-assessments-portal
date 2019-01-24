@@ -19,6 +19,7 @@ export class SchoolListComponent implements OnInit {
   result;
   error: any;
   headings = 'headings.schoolListHeading';
+  smallScreen = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private reportService: ReportService, private utility: UtilityService) {
@@ -27,12 +28,10 @@ export class SchoolListComponent implements OnInit {
   showConfig() {
     this.reportService.getSchoolList()
       .subscribe(data => {
-        this.schoolList = data['result'];
         this.result = data['result']['length'];
-        console.log(this.schoolList);
         this.dataSource = new MatTableDataSource(data['result']);
-        console.log(data['result']);
         setTimeout(() => this.dataSource.paginator = this.paginator);
+        this.schoolList = data['result'];
         this.utility.loaderHide()
       },
         (error) => {
@@ -47,8 +46,14 @@ export class SchoolListComponent implements OnInit {
   }
   ngOnInit() {
     this.utility.loaderShow();
-
+    if (window.screen.width < 760) { // 768px portrait
+      this.smallScreen = true;
+    }
   }
+  // afterViewChecked(){
+  //   if (window.screen.width < 760) { // 768px portrait
+  //     this.smallScreen = true;
+  // }
 
   objectKeys(obj) {
     return Object.keys(obj);

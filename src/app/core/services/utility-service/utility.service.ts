@@ -24,7 +24,6 @@ export class UtilityService {
     inputs.forEach(inputs => {
       if(inputs.input == "array")
       {
-        console.log(this.createFormArray(inputs))
         group[inputs.field] = this.createFormArray(inputs);
       }
       else{

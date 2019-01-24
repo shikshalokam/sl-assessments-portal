@@ -17,7 +17,6 @@ export class AddQuestionComponent implements OnInit {
   currentQuestion: string;
   headings = 'headings.addQuestions';
   catchQuestionObject(newObject) {
-    console.log(newObject)
     this.newQuestionArray.push(newObject);
   }
   
