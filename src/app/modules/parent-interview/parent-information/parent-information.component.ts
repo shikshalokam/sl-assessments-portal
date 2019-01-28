@@ -25,7 +25,7 @@ export class ParentInformationComponent implements OnInit {
   showConfig() {
     this.parentService.getParentInfo(this.parentId)
       .subscribe(data => {
-        // this.data = data.result
+        this.data = data.result
         // for (let i = 0; i < data.result.length; i++) {
           // if (data.result[i]['field'] == "callResponse") {
           //   this.selected = data.result[i]['value'];
