@@ -25,18 +25,33 @@ export class ParentInformationComponent implements OnInit {
   showConfig() {
     this.parentService.getParentInfo(this.parentId)
       .subscribe(data => {
-        this.data = data.result
-        for (let i = 0; i < data.result.length; i++) {
-          if (data.result[i]['field'] == "callResponse") {
-            this.selected = data.result[i]['value'];
-            for (const option of data.result[i]['options']) {
-              if(option.value === data.result[i]['value']){
-                // this.sendcallResponse({value:data.result[i]['value'], label: option.label });
+        // this.data = data.result
+        // for (let i = 0; i < data.result.length; i++) {
+          // if (data.result[i]['field'] == "callResponse") {
+          //   this.selected = data.result[i]['value'];
+          //   for (const option of data.result[i]['options']) {
+          //     if(option.value === data.result[i]['value']){
+          //       // this.sendcallResponse({value:data.result[i]['value'], label: option.label });
 
+          //     }
+          //   }
+          // }
+          // if(data.result[i]['field'] == "type") {
+          //   const
+          // }
+        // }
+        for (const field of data.result) {
+          if(field['field'] === 'type') {
+            const newValue = []
+            for (const option of field['options']) {
+              if(field['value'].includes(option.value)) {
+                newValue.push(option.label)
               }
             }
+            field['newLabel'] = newValue
           }
         }
+        this.selected = data.result;
       });
   }
 
