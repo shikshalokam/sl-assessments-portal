@@ -182,10 +182,10 @@ export class QuestionnaireComponent implements OnInit {
     this.checkForCompletionOfQuestion();
     //console.log(this.end + " " + this.generalQuestions[0]['instanceQuestions'].length)
     if (this.end < this.generalQuestions[0]['instanceQuestions'].length) {
-      this.generalQuestions[0]['instanceQuestions'][this.start].endTime = Date.now()
+      this.generalQuestions[0]['instanceQuestions'][this.start].endTime = Date.now();
       this.start++;
       this.end++;
-      this.generalQuestions[0]['instanceQuestions'][this.start].startTime = Date.now()
+      this.generalQuestions[0]['instanceQuestions'][this.start].startTime = Date.now();
       if (this.generalQuestions[0]['instanceQuestions'][this.start].visibleIf && !this.checkForDependentVisibility(this.generalQuestions[0]['instanceQuestions'][this.start])) {
         // //console.log("visibility: " + this.checkForDependentVisibility(this.generalQuestions[0]['instanceQuestions'][this.start]));
         this.generalQuestions[0]['instanceQuestions'][this.start].validation.required = false;
@@ -194,7 +194,12 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       this.checkForCompletionOfInterview();
       if (this.allQuestionsAnswered && !this.parentInterviewCompleted) {
+        if(!this.checkForDependentVisibility(this.generalQuestions[0]['instanceQuestions'][this.start])) {
+          this.previousQeustion();
+        }
         this.openCompleteModel("completed")
+      } else {
+        this.previousQeustion();
       }
       // if(this.allQuestionsAnswered){
       //   this.snackBar.open("All questions Answered. Please Change the call status to completed and save.","Ok" ,{duration: 10000})
@@ -301,13 +306,19 @@ export class QuestionnaireComponent implements OnInit {
             //   return false
             // }
           } else {
-            for (const value of question.value) {
-              if ((eval('"' + value + '"' + condition.operator + '"' + condition.value + '"'))) {
-                return true
-              } else {
-                display = false;
-              }
-            }
+            // if(question.value.includes(condition.value)) {
+            //   return true
+            // }
+            // console.log(question.value);
+            // console.log(question.value + " "  +condition.operator +" " + condition.value + question.value.includes(condition.value))
+            return question.value.includes(condition.value)
+            // for (const value of question.value) {
+            //   if ((eval('"' + value + '"' + condition.operator + '"' + condition.value + '"'))) {
+            //     return true
+            //   } else {
+            //     display = false;
+            //   }
+            // }
             return display
             // if ((!eval('"' + question.value + '"' + condition.operator + '"' + condition.value + '"'))) {
             //   return false
@@ -356,7 +367,7 @@ export class QuestionnaireComponent implements OnInit {
       if (result.status === 'completed') {
         this.generalQuestions[0].remarks = result.remarks;
         this.submitSurvey("completed");
-      }
+      } 
     });
   }
 
