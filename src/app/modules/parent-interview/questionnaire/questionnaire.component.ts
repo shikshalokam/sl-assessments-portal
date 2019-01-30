@@ -33,6 +33,7 @@ export class QuestionnaireComponent implements OnInit {
   remarksObj = { remarks: "" };
   schoolName: string;
   currentParentType: any;
+  disableNext: boolean = false;
 
 
 
@@ -142,6 +143,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   previousQeustion(): void {
+    this.disableNext = false;
     this.checkForCompletionOfQuestion();
     if (this.start) {
       this.generalQuestions[0]['instanceQuestions'][this.start].endTime = Date.now()
@@ -199,7 +201,12 @@ export class QuestionnaireComponent implements OnInit {
         }
         this.openCompleteModel("completed")
       } else {
-        this.previousQeustion();
+        console.log("in")
+        // this.previousQeustion();
+        if(!this.checkForDependentVisibility(this.generalQuestions[0]['instanceQuestions'][this.start])) {
+          this.previousQeustion();
+        }
+        this.disableNext = true;
       }
       // if(this.allQuestionsAnswered){
       //   this.snackBar.open("All questions Answered. Please Change the call status to completed and save.","Ok" ,{duration: 10000})
