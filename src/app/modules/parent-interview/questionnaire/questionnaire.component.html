@@ -40,7 +40,7 @@
                     <div class="_flex-box notResponsiveSurveyButton " style="justify-content: flex-start">
                         <button mat-raised-button class="btns _primary-btn " [disabled]="!start" (click)="previousQeustion()">{{
                             'buttons.back'| translate }}</button>
-                        <button mat-raised-button class="btns _primary-btn " (click)="nextQuestion()">{{
+                        <button mat-raised-button class="btns _primary-btn " [disabled]="disableNext" (click)="nextQuestion()">{{
                             'buttons.next'|
                             translate
                             }}</button></div>
