@@ -59,7 +59,7 @@ export class ParentListComponent implements OnInit {
       .subscribe(data => {
         this.parentList = data['result'];
         data['result'].forEach(element => {
-          if (element['callResponse'] == 'R7') {
+          if (element['callResponse'] == 'Completed') {
             this.atleastOneComplete = true;
           }
         })
