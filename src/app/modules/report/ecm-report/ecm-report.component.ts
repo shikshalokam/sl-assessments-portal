@@ -40,14 +40,22 @@ export class EcmReportComponent implements OnInit {
   getEvedinceReport() {
     this.reportService.getEcmReportGetSubmissionId(this.schoolId).subscribe(
       data => {
+        console.log(data)
         this.ecmData = data['result']['assessments'][0].evidences;
+        console.log(this.ecmData)
         this.submissionId = data['result']['assessments'][0].submissionId
         console.log(this.submissionId);
         this.reportService.getSubmissionReport(this.submissionId).subscribe(
           data => {
             this.data = data['result'].evidences;
+            console.log(Object.keys(this.data));
+            const evidencesArray = Object.keys(this.data);
+
+            // this.submissionData = this.data[Object.keys(this.data)[0]].submissions;
             this.submissionData = this.data[Object.keys(this.data)[0]].submissions;
+
             console.log(this.submissionData);
+            console.log(this.data)
             this.utility.loaderHide();
 
           },

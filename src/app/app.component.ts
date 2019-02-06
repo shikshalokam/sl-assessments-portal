@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from './core/services/translate-service/translate.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,25 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent implements OnInit {
 
-  links = [  
-    { 
-      linkHeading : "headings.features",
-      options:[
-        {
-          value : "headings.parentInterview",
-          anchorLink : "/parent"
-        },
-        // {
-        //   value :"headings.reports",
-        //   anchorLink : "/report"
-        // },
-        // {
-        //   value :"headings.configurations",
-        //   anchorLink :"/configuration"
-        // }
-      ]
-      }
-  ] ;
+ 
 
   constructor(private translate: TranslateService) {
     translate.use('en').then(() => {
