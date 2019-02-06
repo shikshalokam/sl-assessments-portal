@@ -11,21 +11,21 @@ export class AssessmentDashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-  links = [  
+   links = [  
     { 
       linkHeading : "headings.features",
       options:[
         {
           value : "headings.parentInterview",
-          anchorLink : "/parent"
+          anchorLink : "/assessments/parent"
         },
         {
           value :"headings.reports",
-          anchorLink : "/report"
+          anchorLink : "/assessments/report"
         },
         {
           value :"headings.configurations",
-          anchorLink :"/configuration"
+          anchorLink :"/assessments/configuration"
         },
       ]
       }
