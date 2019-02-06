@@ -5,7 +5,8 @@ import { ProgramsDashboardComponent } from './programs-dashboard/programs-dashbo
 
 const routes: Routes = [
   {
-    path: 'assesments',
+    // path: 'assesments/:programId/:assesmentId',
+    path: 'assessments',
     loadChildren: './assessment-dashboard/assessment-dashboard.module#AssessmentDashboardModule'
   },
   {
