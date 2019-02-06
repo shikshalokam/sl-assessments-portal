@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row completeDiv">
+      <div class="headerDiv">
+          <app-navbar></app-navbar>
+          <app-responsive-navbar ></app-responsive-navbar>
+          <mat-divider class="noMarginPadding"></mat-divider>
+      </div>
+      <div class="bodyDiv">
+          <div class="sideDiv horizontalLine">
+              <div *ngFor= "let link of links" > 
+                  <app-program-sidenav [link] = "link" ></app-program-sidenav>
+              </div>
+          </div>
+          <div class="routingDiv padding">
+              <!-- <router-outlet></router-outlet> -->
+
+          </div>
+      </div>
+
+  </div>
+</div>
+
+
+
+

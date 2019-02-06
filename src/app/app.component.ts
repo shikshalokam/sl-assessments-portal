@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from './core/services/translate-service/translate.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +31,7 @@ export class AppComponent implements OnInit {
       ]
       }
   ] ;
+ 
 
   constructor(private translate: TranslateService) {
     translate.use('en').then(() => {

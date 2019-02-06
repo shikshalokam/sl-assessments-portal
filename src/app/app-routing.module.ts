@@ -1,27 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/auth-gaurd/auth.gaurd';
+import { ProgramsDashboardComponent } from './programs-dashboard/programs-dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'parent',
-    loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
+    path: 'assesments',
+    loadChildren: './assessment-dashboard/assessment-dashboard.module#AssessmentDashboardModule'
   },
   {
-    path: 'report',
-    loadChildren: './modules/report/report.module#ReportModule'
+    path: 'programs',
+    component : ProgramsDashboardComponent
   },
   {
-    path: 'configuration',
-    loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
-  },
-  {
-    path: 'operations',
-    loadChildren: './modules/operations/operations.module#OperationsModule'
-  },
-  {
-    path: '**',
-    redirectTo: 'parent',
+    path: '',
+    redirectTo: 'programs',
     pathMatch: 'full'
   }
 ];

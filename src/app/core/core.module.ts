@@ -18,6 +18,7 @@ import { ResponsiveNavbarComponent } from './components/responsive-navbar/respon
 import { AuthGuard } from '../core/auth-gaurd/auth.gaurd'
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { ProgramSidenavComponent } from './components/program-sidenav/program-sidenav.component';
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -25,7 +26,8 @@ import { HttpModule } from '@angular/http';
     NoValuePipe,
     NavbarComponent,
     SidenavComponent,
-    ResponsiveNavbarComponent
+    ResponsiveNavbarComponent,
+    ProgramSidenavComponent
   ],
   imports: [
     NgxSpinnerModule,
@@ -54,7 +56,9 @@ import { HttpModule } from '@angular/http';
     SidenavComponent,
     ResponsiveNavbarComponent,
     CamelCasePipe,
-    NoValuePipe
+    NoValuePipe,
+    ProgramSidenavComponent
+
   ]
 })
 export class CoreModule {
