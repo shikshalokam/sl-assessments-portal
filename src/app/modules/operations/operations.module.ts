@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { OperationsComponent } from './operations.component';
 import { OperationsRoutingModule } from './operations-routing.module';
 import { UploadingCsvComponent } from './uploading-csv/uploading-csv.component';
-import { MatInputModule,MatSelectModule } from '@angular/material';
+import { MatInputModule,MatSelectModule, MatButtonModule } from '@angular/material';
 import { CoreModule } from 'src/app/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ProgressBarModule} from "angular-progress-bar"
 
 @NgModule({
   declarations: [OperationsComponent, UploadingCsvComponent],
@@ -13,7 +15,14 @@ import { CoreModule } from 'src/app/core';
     OperationsRoutingModule,
     MatInputModule,
     MatSelectModule,
-    CoreModule
+    CoreModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ProgressBarModule,
+    MatButtonModule
+    // MatFileUploadModule
   ]
+,
+// providers:[MatFileUploadModule]
 })
 export class OperationsModule { }

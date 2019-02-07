@@ -1,6 +1,8 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { OperationsService } from 'src/app/core';
+import { MatSnackBar } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-uploading-csv',
@@ -8,67 +10,86 @@ import { OperationsService } from 'src/app/core';
   styleUrls: ['./uploading-csv.component.scss']
 })
 export class UploadingCsvComponent implements OnInit {
-
+  fileUpload = false;
+  CsvFileForm: FormGroup;
   uploadOprions = [
-    {value: 'schools', viewValue: 'Upload Schools'},
-    {value: 'assessors', viewValue: 'Upload Assessors'},
+    { value: 'schools', viewValue: 'Upload Schools' },
+    { value: 'assessors', viewValue: 'Upload Assessors' },
   ];
+  file = [];
+  uploadtype = '';
   percentDone: number;
   uploadSuccess: boolean;
-  ngOnInit(){
+  fileSelected = false;
+  uploadTypeSelected = false;
+  formData;
+  showStatus = false;
+  ngOnInit() {
 
   }
+
+
   constructor(
-    private operationService :OperationsService
-    ) { }
-    
+    private operationsService: OperationsService,
+    private snackBar: MatSnackBar,
+    fb: FormBuilder
+
+  ) {
+    this.CsvFileForm = fb.group({
+      name: [""],
+      fileName: [""]
+    });
+  }
+
   version = VERSION
-  
-  upload(files: File[]){
-    this.uploadAndProgress(files);
-  }
+  updateUploadType(uploadType) {
+    if (uploadType != '')
+      this.uploadTypeSelected = true;
+    this.uploadtype = uploadType;
 
-  basicUpload(files: File[]){
+  }
+  upload(files: File[]) {
+    this.file = files;
+    this.fileSelected = true;
+    this.uploadAndProgress();
+  }
+  deleteFile(index, files) {
+    files.value = null;
+    this.file = []
+  }
+  uploadAndProgress() {
     var formData = new FormData();
-    Array.from(files).forEach(f => formData.append('schools', f))
-    this.operationService.uploadSchools(formData).
-    subscribe( event=>{
-      console.log("successful")
-    },
-      error => {
+    if (this.uploadtype == 'schools') {
+      Array.from(this.file).forEach(f => {
+        formData.append('schools', f)
+      })
+    }
+    else if (this.uploadtype == 'assessors') {
+      Array.from(this.file).forEach(f => {
+        formData.append('assessors', f)
+      })
 
-      })
+    }
+    this.formData = formData;
+    this.showStatus = true;
   }
-  
-  basicUploadSingle(file: File){    
-    this.operationService.uploadSchools(file)
-      .subscribe(event => {  
-        console.log('done')
-      })
-  }
-  
-  uploadAndProgress(files: File[]){
-    console.log(files)
-    var formData = new FormData();
-    Array.from(files).forEach(f => formData.append('file',f))
-    this.operationService.uploadSchools(formData)
+  csvUpload() {
+    this.operationsService.uploadCsv(this.formData, this.uploadtype)
       .subscribe(event => {
+        this.fileUpload = true;
+
         if (event.type === HttpEventType.UploadProgress) {
+
           this.percentDone = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.uploadSuccess = true;
+          this.snackBar.open('Upload Sucessful', "Ok", { duration: 9000 });
         }
-    });
-  }
-  
-  uploadAndProgressSingle(file: File){    
-    this.operationService.uploadSchools(file)
-    .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.percentDone = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.uploadSuccess = true;
-        }
-    });
+      },
+        error => {
+          this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+        });
+    setTimeout(() => {
+      this.CsvFileForm.reset();
+      this.showStatus = false;
+    }, 3000);
   }
 }

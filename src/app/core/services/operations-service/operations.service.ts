@@ -7,11 +7,18 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class OperationsService {
+   Url;
+
   constructor(private http: HttpClient) { }
-  uploadSchools(csvFile ) {
-      return this.http.post(environment.apibaseurl + OperationConfig.uploadSchool, csvFile , {reportProgress: true, observe: 'events'});
-  }
-  uploadAssessors(csvFile) {
-      return this.http.post(environment.apibaseurl + OperationConfig.uploadAcessors , csvFile);
+  uploadCsv(csvFile,uploadType) {
+    if(uploadType == 'schools')
+    {
+      this.Url=OperationConfig.uploadSchool;
+    }
+    else if(uploadType =='assessors')
+    {
+      this.Url=OperationConfig.uploadAcessors;
+    }
+    return this.http.post(environment.apibaseurl + this.Url, csvFile , {reportProgress: true, observe: 'events'});
   }
 }
