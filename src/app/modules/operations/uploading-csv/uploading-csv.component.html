@@ -1,0 +1,16 @@
+<div class="_flex-box _justify-content-center _justify-content-space-beween">
+    <mat-form-field>
+        <mat-select placeholder="Favorite food">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input type="file" (change)="upload($event.target.files)" />
+</div>
+
+Upload Percent: {{percentDone}}% <br />
+      
+<ng-container *ngIf="uploadSuccess">
+  Upload Successful
+</ng-container> 

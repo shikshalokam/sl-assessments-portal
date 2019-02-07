@@ -42,6 +42,7 @@
         "reports" : "Reports",
         "downloadReport" : "Download Evedince Report",
         "configurations" : "WorkSpace",
+        "operations" : "Operations",
         "questionFrameWorkHeading":"Questionary",
         "criteriaFrameWorkHeading":"Criterias",
         "criteriaList" : "Criteria List",

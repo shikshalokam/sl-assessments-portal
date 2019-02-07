@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
   },
   {
+    path: 'operations',
+    loadChildren: './modules/operations/operations.module#OperationsModule'
+  },
+  {
     path: '**',
     redirectTo: 'parent',
     pathMatch: 'full'

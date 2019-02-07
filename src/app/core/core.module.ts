@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService } from './services';
+import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService,OperationsService } from './services';
 import { TranslatePipe, NoValuePipe } from './pipes';
 import { CamelCasePipe } from './pipes'
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,7 +17,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ResponsiveNavbarComponent } from './components/responsive-navbar/responsive-navbar.component';
 import { AuthGuard } from '../core/auth-gaurd/auth.gaurd'
 import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
@@ -62,7 +61,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService]
+      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService,OperationsService]
     };
   }
 }
