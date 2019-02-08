@@ -1,4 +1,5 @@
 export const OperationConfig = {
-   uploadSchool : 'schools/upload',
-   uploadAcessors : 'assessors/upload'
+   uploadSchool : 'schools/uploadForPortal?',
+   uploadAcessors : 'assessors/uploadForPortal?',
+   viewSchools: 'programs/schoolList?'
     }

@@ -10,7 +10,7 @@ export class OperationsService {
    Url;
 
   constructor(private http: HttpClient) { }
-  uploadCsv(csvFile,uploadType) {
+  uploadCsv(csvFile,uploadType,programId,componentId) {
     if(uploadType == 'schools')
     {
       this.Url=OperationConfig.uploadSchool;
@@ -19,6 +19,10 @@ export class OperationsService {
     {
       this.Url=OperationConfig.uploadAcessors;
     }
-    return this.http.post(environment.apibaseurl + this.Url, csvFile , {reportProgress: true, observe: 'events'});
+    return this.http.post(environment.apibaseurl + this.Url+"programId="+programId+"&componentId="+componentId, csvFile , {reportProgress: true, observe: 'events'});
   }
+  getSchools(programId,componentId){
+    return this.http.get(environment.apibaseurl + OperationConfig.viewSchools+"programId="+programId+"&componentId="+componentId);
+  }
+
 }

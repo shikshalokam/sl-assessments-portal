@@ -25,6 +25,8 @@ export class UploadingCsvComponent implements OnInit {
   uploadTypeSelected = false;
   formData;
   showStatus = false;
+  programId='5b98d7b6d4f87f317ff615ee';
+  componentId='5b98fa069f664f7e1ae7498c';
   ngOnInit() {
 
   }
@@ -76,7 +78,7 @@ export class UploadingCsvComponent implements OnInit {
     this.showStatus = true;
   }
   csvUpload() {
-    this.operationsService.uploadCsv(this.formData, this.uploadtype)
+    this.operationsService.uploadCsv(this.formData, this.uploadtype,this.programId,this.componentId)
       .subscribe(event => {
         this.fileUpload = true;
 
