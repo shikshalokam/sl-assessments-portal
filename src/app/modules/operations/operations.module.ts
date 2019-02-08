@@ -6,7 +6,8 @@ import { UploadingCsvComponent } from './uploading-csv/uploading-csv.component';
 import { MatInputModule,MatSelectModule, MatButtonModule } from '@angular/material';
 import { CoreModule } from 'src/app/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {ProgressBarModule} from "angular-progress-bar"
+import { ProgressBarModule} from "angular-progress-bar"
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [OperationsComponent, UploadingCsvComponent],
@@ -19,8 +20,8 @@ import {ProgressBarModule} from "angular-progress-bar"
     ReactiveFormsModule,
     FormsModule,
     ProgressBarModule,
-    MatButtonModule
-    // MatFileUploadModule
+    MatButtonModule,
+    SharedModule
   ]
 ,
 // providers:[MatFileUploadModule]

@@ -17,6 +17,7 @@ export class UploadingCsvComponent implements OnInit {
     { value: 'assessors', viewValue: 'Upload Assessors' },
   ];
   file = [];
+  headings='headings.uploadingCsv'
   uploadtype = '';
   percentDone: number;
   uploadSuccess: boolean;
@@ -55,6 +56,7 @@ export class UploadingCsvComponent implements OnInit {
   }
   deleteFile(index, files) {
     files.value = null;
+    this.showStatus = false;
     this.file = []
   }
   uploadAndProgress() {
@@ -90,6 +92,8 @@ export class UploadingCsvComponent implements OnInit {
     setTimeout(() => {
       this.CsvFileForm.reset();
       this.showStatus = false;
+      this.fileSelected = false;
+      this.uploadTypeSelected = false;
     }, 3000);
   }
 }

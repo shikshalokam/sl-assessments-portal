@@ -1,3 +1,5 @@
+<div class="wrapper">
+  <app-parent-heading [genericHeading]="headings"></app-parent-heading>
 <div class="wrapperCenter">
     <form [formGroup]="CsvFileForm">
 
@@ -9,8 +11,18 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <input [disabled]="!uploadTypeSelected" (change)="upload($event.target.files)"  type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" #files/>
-      <button mat-raised-button class="_primary-btn" [disabled]="!fileSelected" (click)="csvUpload(); files.value=null">{{'buttons.upload' | translate}}</button>
+      <label for="file-upload" class="custom-file-upload _flexbox ">
+        <div>
+          <i class="material-icons paddingContent">
+            cloud_upload
+            </i>
+        </div>
+        <div class="paddingContent">
+          {{'labels.uploadCsv'| translate}}
+        </div>
+    </label>
+      <input  id="file-upload" [disabled]="!uploadTypeSelected" (change)="upload($event.target.files)"  type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" #files/>
+      <button mat-raised-button class="_primary-btn" [disabled]="!(fileSelected && uploadTypeSelected)" (click)="csvUpload(); files.value=null">{{'buttons.upload' | translate}}</button>
 </div>
 </form>
 
@@ -32,4 +44,5 @@
 </div>
 <progress-bar *ngIf="fileUpload && showStatus " [progress]="percentDone" [color]="'#008000'">
 </progress-bar>
+</div>
 </div>

@@ -53,9 +53,11 @@
         "panelEditHeading" : "Click on panel to Edit",
         "general" : "General",
         "choices" : "Choices",
-        "type" : "Type"
+        "type" : "Type",
+        "uploadingCsv":"Uploading Csv"
     },
     "labels": {
+        "uploadCsv" : "Upload Csv"
 
     },
     "descriptions": {
