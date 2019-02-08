@@ -1,7 +1,11 @@
-<!-- <div *ngFor="let option of link?.options"  class="subHeading">
+    <div class="heading">
+        Programs
+    </div>
 
-    <span class="sideNavSubheading"> 
-        {{ option.value | translate }}
-
-      </span>
-    </div> -->
+<div class="subHeading" *ngFor= "let results of result; let i=index"  (click)="programSelect(results.assessments, i)">
+    <span class="sideNavSubheading" [ngClass]="{'active': currentProgramIndex === i}"> 
+            <div >
+            {{results.name}}
+            </div>
+    </span>
+</div>

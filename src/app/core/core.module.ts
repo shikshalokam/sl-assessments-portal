@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService } from './services';
+import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService, ProgramsDashboardService} from './services';
 import { TranslatePipe, NoValuePipe } from './pipes';
 import { CamelCasePipe } from './pipes'
 import { MatDividerModule } from '@angular/material/divider';
@@ -66,7 +66,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService]
+      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService, ProgramsDashboardService]
     };
   }
 }
