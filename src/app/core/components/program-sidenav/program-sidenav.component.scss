@@ -1,11 +1,14 @@
 @import '../../../../assets/scss/varibles.scss';
 
 .sideNavSubheading{
-    font-size: 15px;
-    padding: 10px 23px;
-    height: 40px;
-    display: flex;
+     font-size: 15px;
+     padding: 10px 23px;
+     min-height: 40px;
+     display: flex;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .subHeading{
     color:$grey-color;
@@ -19,3 +22,18 @@
     background-color:$primary-color;
     color: white;
 }
+
+.heading{
+    font-size:1.5em;
+    padding:10px 0px;
+    text-align: center;  
+}
+
+
+
+
+
+
+
+
+

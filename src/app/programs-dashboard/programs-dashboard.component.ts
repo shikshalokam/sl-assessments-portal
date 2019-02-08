@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProgramsDashboardService } from '../core/services/programs-dashboard-service/programs-dashboard.service';
 
 @Component({
   selector: 'app-programs-dashboard',
@@ -7,30 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProgramsDashboardComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-  links = [  
-    { 
-      linkHeading : "headings.features",
-      options:[
-        {
-          value : "headings.parentInterview",
-          anchorLink : "/parent"
-        },
-        {
-          value :"headings.reports",
-          anchorLink : "/report"
-        },
-        {
-          value :"headings.configurations",
-          anchorLink :"/configuration"
-        },
-      ]
-      }
-  ] ;
+   obj;
+   currentAssesssment:  any;
 
   
+  
+  constructor(private programService: ProgramsDashboardService ){
 
+  }
+
+  
+  ngOnInit() {
+    this.programService.getProgramList()
+    .subscribe(data=>{
+      this.obj =data['result'];
+      this.currentAssesssment = this.obj[0].assessments;
+    }, error => {
+    })
+  }
+
+  setCurrentAssessment(assessment) {
+    this.currentAssesssment = assessment;
+  }
+
+  getProgramList(){
+  }
+  
+
+ 
+
+  
 }
+
+
