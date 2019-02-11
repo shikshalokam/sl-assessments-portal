@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatDialogModule,MatRadioModule, MatButtonModule,MatCardModule} from '@angular/material';
+import { MatDialogModule, MatRadioModule, MatButtonModule, MatCardModule } from '@angular/material';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
@@ -14,7 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   imports: [
     CommonModule,
-     SharedModule,
+    SharedModule,
     CoreModule,
     MatRadioModule,
     MatCardModule,
