@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-report',
@@ -6,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
+  programId;
+  assessmentId;
+  constructor(private route : ActivatedRoute) { 
+   console.log(this.route.parent.snapshot['_urlSegment'].segments[1].path);
+   console.log(this.route.parent.snapshot.paramMap.get("programId"));
+    this.route.parent.params.subscribe(params => {
+      console.log(params)
+      this.programId = params["programId"];
+      this.assessmentId = params["assessmentId"];
+    });
 
-  constructor() { }
-
+    // this.route.data.subscribe(data=>{
+    //   console.log(data)
+    // })
+    // console.log(this.assessmentId)
+  }
   ngOnInit() {
   }
 

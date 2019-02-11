@@ -22,7 +22,7 @@
                   <div class="col">
                       <ul class="unorder-list" >
                           <li *ngFor="let assessment of currentAssesssment; let i=index" class="icons">
-                                <i class="material-icons" (click)="programClick(result?.assessments)">done</i>
+                                <i class="material-icons" (click)="programClick(assessment)">done</i>
                                 <div class="context">
                                     {{assessment?.name}}
                                 </div>

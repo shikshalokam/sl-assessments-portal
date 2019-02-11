@@ -11,7 +11,6 @@ export class ProgramsDashboardService {
   constructor( private http: HttpClient) { }
   
   getProgramList() {
-    debugger
     return this.http.get(environment.apibaseurl + ProgramsDashboardConfig.programList);
   }
 }

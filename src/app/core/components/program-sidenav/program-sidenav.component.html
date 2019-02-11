@@ -2,7 +2,7 @@
         Programs
     </div>
 
-<div class="subHeading" *ngFor= "let results of result; let i=index"  (click)="programSelect(results.assessments, i)">
+<div class="subHeading" *ngFor= "let results of result; let i=index"  (click)="programSelect(results, i)">
     <span class="sideNavSubheading" [ngClass]="{'active': currentProgramIndex === i}"> 
             <div >
             {{results.name}}

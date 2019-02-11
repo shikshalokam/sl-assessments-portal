@@ -19,10 +19,12 @@ export class ViewSchoolsComponent implements OnInit {
   programId = '5b98d7b6d4f87f317ff615ee';
   componenId= '5b98fa069f664f7e1ae7498c';
   headings = 'headings.schoolListHeading';
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private operationsService: OperationsService, private utility: UtilityService) {
     this.showConfig();
+
   }
   showConfig() {
     this.operationsService.getSchools(this.programId,this.componenId)
