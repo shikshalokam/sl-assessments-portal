@@ -29,7 +29,6 @@ export function authFactory(authService: AuthService) {
     MatDividerModule,
     CoreModule.forRoot(),
     HttpClientModule,
-    // BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

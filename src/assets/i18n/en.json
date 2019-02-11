@@ -26,7 +26,8 @@
         "saveSurvey": "Save Survey",
         "cancelSurvey": "Cancel Survey",
         "addNew" : "Add New",
-        "removeAll" : "Remove All"
+        "removeAll" : "Remove All",
+        "upload" : "Upload"
     },
     "downloadReport":"Select a Evendince Method to Download",
     "search": "Search",
@@ -42,6 +43,7 @@
         "reports" : "Reports",
         "downloadReport" : "Download Evedince Report",
         "configurations" : "WorkSpace",
+        "operations" : "Operations",
         "questionFrameWorkHeading":"Questionary",
         "criteriaFrameWorkHeading":"Criterias",
         "criteriaList" : "Criteria List",
@@ -51,9 +53,11 @@
         "panelEditHeading" : "Click on panel to Edit",
         "general" : "General",
         "choices" : "Choices",
-        "type" : "Type"
+        "type" : "Type",
+        "uploadingCsv":"Uploading Csv"
     },
     "labels": {
+        "uploadCsv" : "Upload Csv"
 
     },
     "descriptions": {
@@ -80,6 +84,7 @@
         "state":"State",
         "externalId":"External-Id",
         "callResponse" : "Status",
+        "_id":"Id",
         "buttons":{
             "clickHere" : "Click Here",
             "edit" : "Profile Edit",
