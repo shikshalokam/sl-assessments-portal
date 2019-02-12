@@ -3,14 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService,OperationsService } from './services';
+import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService, ProgramsDashboardService,OperationsService} from './services';
 import { TranslatePipe, NoValuePipe } from './pipes';
 import { CamelCasePipe } from './pipes'
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule,MatCardModule,MatButtonModule,MatMenuModule ,MatIconModule,MatTooltipModule } from '@angular/material';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -18,6 +14,7 @@ import { ResponsiveNavbarComponent } from './components/responsive-navbar/respon
 import { AuthGuard } from '../core/auth-gaurd/auth.gaurd'
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { ProgramSidenavComponent } from './components/program-sidenav/program-sidenav.component';
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -25,7 +22,8 @@ import { HttpModule } from '@angular/http';
     NoValuePipe,
     NavbarComponent,
     SidenavComponent,
-    ResponsiveNavbarComponent
+    ResponsiveNavbarComponent,
+    ProgramSidenavComponent
   ],
   imports: [
     NgxSpinnerModule,
@@ -39,6 +37,7 @@ import { HttpModule } from '@angular/http';
     MatCardModule,
     HttpClientModule,
     MatDividerModule,
+    MatTooltipModule
   ],
   providers: [
     {
@@ -54,14 +53,16 @@ import { HttpModule } from '@angular/http';
     SidenavComponent,
     ResponsiveNavbarComponent,
     CamelCasePipe,
-    NoValuePipe
+    NoValuePipe,
+    ProgramSidenavComponent
+
   ]
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService,OperationsService]
+      providers: [TranslateService, AuthService,AuthGuard,UtilityService,ParentService,ApiInterceptor,ReportService, ProgramsDashboardService,OperationsService]
     };
   }
 }

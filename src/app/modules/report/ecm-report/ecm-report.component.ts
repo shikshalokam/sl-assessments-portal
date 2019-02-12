@@ -42,14 +42,12 @@ export class EcmReportComponent implements OnInit {
       data => {
         this.ecmData = data['result']['assessments'][0].evidences;
         this.submissionId = data['result']['assessments'][0].submissionId
-        console.log(this.submissionId);
         this.reportService.getSubmissionReport(this.submissionId).subscribe(
           data => {
             this.data = data['result'].evidences;
+            const evidencesArray = Object.keys(this.data);
             this.submissionData = this.data[Object.keys(this.data)[0]].submissions;
-            console.log(this.submissionData);
             this.utility.loaderHide();
-
           },
           (error) => {
             this.error = error;
@@ -58,7 +56,6 @@ export class EcmReportComponent implements OnInit {
           }
         )
         this.utility.loaderHide();
-        console.log(this.ecmData)
       },
       (error) => {
         this.error = error;
@@ -71,17 +68,14 @@ export class EcmReportComponent implements OnInit {
     return Object.keys(obj);
   }
   getIndex(event) {
-    console.log(event.index);
     this.getSubmissionData(event.index);
   }
 
   getSubmissionData(index) {
     this.submissionData = this.data[this.ecmData[Object.keys(this.ecmData)[index]].externalId].submissions;
-    console.log(this.submissionData);
   }
   openDialog(imageFile): void {
     const dialogRef = this.dialog.open(ImageModalComponent, {
-      // imageArray = imageFile
       width: '650px',
       height: '600px',
       data: { fileName: imageFile },

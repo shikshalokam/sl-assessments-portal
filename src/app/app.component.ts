@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from './core/services/translate-service/translate.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +8,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent implements OnInit {
 
-  links = [  
-    { 
-      linkHeading : "headings.features",
-      options:[
-        {
-          value : "headings.parentInterview",
-          anchorLink : "/parent"
-        },
-        {
-          value :"headings.reports",
-          anchorLink : "/report"
-        },
-        {
-          value :"headings.configurations",
-          anchorLink :"/configuration"
-        },
-        {
-          value :"headings.operations",
-          anchorLink :"/operations"
-        }
-      ]
-      }
-  ] ;
+ 
+ 
 
   constructor(private translate: TranslateService) {
     translate.use('en').then(() => {
@@ -39,30 +17,7 @@ export class AppComponent implements OnInit {
     });
   }
   ngOnInit(){
-    // if (!(environment.production)){
-    //   this.links[0].options = [
-    //     {
-    //       value : "headings.parentInterview",
-    //       anchorLink : "/parent"
-    //     },
-    //     {
-    //       value :"headings.reports",
-    //       anchorLink : "/report"
-    //     },
-    //     {
-    //       value :"headings.configurations",
-    //       anchorLink :"/configuration"
-    //     }
-    //   ];
-    // }
-    // else{
-    //   this.links[0].options = [
-    //     {
-    //       value : "headings.parentInterview",
-    //       anchorLink : "/parent"
-    //     },
-    //   ];
-    // }
+  
   }
  
       
