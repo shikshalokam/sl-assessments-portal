@@ -13,17 +13,12 @@ export class ReportComponent implements OnInit {
    this.programId=this.route.parent.snapshot['_urlSegment'].segments[1].path;
    this.assessmentId=this.route.parent.snapshot['_urlSegment'].segments[2].path;
    
-   console.log(this.route.parent.snapshot.paramMap.get("programId"));
     this.route.parent.params.subscribe(params => {
-      console.log(params)
       this.programId = params["programId"];
       this.assessmentId = params["assessmentId"];
     });
 
-    // this.route.data.subscribe(data=>{
-    //   console.log(data)
-    // })
-    // console.log(this.assessmentId)
+   
   }
   ngOnInit() {
   }

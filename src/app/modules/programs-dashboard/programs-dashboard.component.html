@@ -8,14 +8,10 @@
       <div class="bodyDiv">
               
           <div class="sideDiv horizontalLine">
-              <!-- <div *ngFor= "let results of obj.result"> 
-                  <app-program-sidenav [result] = "obj" ></app-program-sidenav>
-              </div> -->
-              <div *ngIf="obj"> 
-                    <app-program-sidenav  [result] = "obj" (program)="setCurrentAssessment($event)"></app-program-sidenav>
+              <div *ngIf="programData"> 
+                    <app-program-sidenav  [result] = "programData" (program)="setCurrentAssessment($event)"></app-program-sidenav>
               </div>
           </div>
-          <!-- blocks -- ------------------------------->
           <div class="container">
                 <div class="ass-heading">Assessments</div>
               <div class="row">

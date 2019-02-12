@@ -6,11 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateService, AuthService,ParentService,UtilityService,ApiInterceptor, ReportService, ProgramsDashboardService,OperationsService} from './services';
 import { TranslatePipe, NoValuePipe } from './pipes';
 import { CamelCasePipe } from './pipes'
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule,MatCardModule,MatButtonModule,MatMenuModule ,MatIconModule,MatTooltipModule } from '@angular/material';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -19,7 +15,6 @@ import { AuthGuard } from '../core/auth-gaurd/auth.gaurd'
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { ProgramSidenavComponent } from './components/program-sidenav/program-sidenav.component';
-import { MatTooltipModule } from '@angular/material';
 @NgModule({
   declarations: [
     TranslatePipe,

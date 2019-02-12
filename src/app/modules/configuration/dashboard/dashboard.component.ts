@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   assessmentId;
   constructor(private route :ActivatedRoute) { 
     this.route.parent.queryParams.subscribe(params => {
-      console.log(params);
+      // console.log(params);
       this.programId = params['programId'];
       this.assessmentId = params['assessmentId']
     });

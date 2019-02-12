@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ProgramsDashboardComponent implements OnInit {
 
-  obj;
+  programData;
   currentAssesssment: any;
   currentAssessmentId;
   currentProgramId;
@@ -26,14 +26,12 @@ export class ProgramsDashboardComponent implements OnInit {
     this.utilityService.loaderShow();
     this.programService.getProgramList()
       .subscribe(data => {
-        this.obj = data['result'];
-        this.currentProgramId=this.obj[0]._id;
-        this.currentAssesssment = this.obj[0].assessments;
-        this.currentAssessmentId = this.currentAssesssment[0]._id;
+        this.programData = data['result'];
+        this.setCurrentAssessment(this.programData[0]);
         this.utilityService.loaderHide();
       }, error => {
+      this.utilityService.loaderHide();
       this.snackBar.open(error['message'], "Ok", {duration: 9000});
-
       })
   }
 
@@ -41,16 +39,8 @@ export class ProgramsDashboardComponent implements OnInit {
     this.currentProgramId= assessment._id;
     this.currentAssesssment = assessment.assessments;
   }
-
-  getProgramList() {
-
-  }
-
-
   programClick(assessment){
-    console.log(assessment)
     this.currentAssessmentId=assessment._id;
-    console.log(this.currentAssessmentId,this.currentProgramId)
     this.router.navigate(['/assessments'],
     {
       queryParams:{

@@ -17,20 +17,8 @@ export class AssessmentDashboardComponent implements OnInit {
   assessmentId;
   links ;
   constructor(private route : ActivatedRoute) {
-    // this.route.params.subscribe(params => {
-    //   this.programId = params["programId"];
-    //   this.assessmentId = params["assessmentId"];
-    //   console.log(params)
-      
-    //   // ComponentAssessmentId.assessmentId =this.assessmentId;
-    //   // ComponentAssessmentId.programId =this.programId;
-    //   // console.log(ComponentAssessmentId.programId )
-    // });
-    // route.snapshot.queryParamMap.get("programId")
-    //   console.log( route.snapshot.queryParamMap.get("programId"))
-    
+   
       this.route.queryParams.subscribe(params => {
-        console.log(params);
         this.programId= params['programId'];
         this.assessmentId = params['assessmentId']
         this.links = [  
@@ -47,8 +35,6 @@ export class AssessmentDashboardComponent implements OnInit {
                   programId:this.programId,
                   assessmentId :this.assessmentId,
                   anchorLink:"report"
-      
-                  // anchorLink: "/assessments/:programId/:assessmentId/report"
                 }
               },
               {
@@ -56,7 +42,6 @@ export class AssessmentDashboardComponent implements OnInit {
                 link :{
                   programId:this.programId,
                   assessmentId :this.assessmentId,
-                // anchorLink :"/assessments/:programId/:assessmentId/configuration"
                   anchorLink:"configuration"
                 }
               },
@@ -66,8 +51,6 @@ export class AssessmentDashboardComponent implements OnInit {
                   programId:this.programId,
                   assessmentId :this.assessmentId,
                 anchorLink:"operations"
-      
-                // anchorLink:"/assessments/:programId/:assessmentId/operations"
                 }
               }
             ]
