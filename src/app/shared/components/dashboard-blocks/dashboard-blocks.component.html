@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+      <div class="col">
+          <ul class="unorder-list">
+            <li *ngFor="let data of datas" class="icons">
+                <i class="material-icons">
+                    reorder
+                </i>
+                <div class="context">
+                  <div class="text-flow">
+                    {{data.tooltip | translate}}
+                  </div>
+                </div>
+            </li>
+          </ul>
+      </div>
+    </div>
+</div>

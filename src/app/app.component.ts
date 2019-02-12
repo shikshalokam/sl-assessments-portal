@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from './core/services/translate-service/translate.service';
-import { environment } from 'src/environments/environment';
-
+// import { environment} from '../environments/environment.prod'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
