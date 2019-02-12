@@ -6,7 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
   @Input() link: any;
-  constructor() { }
+  programId;
+  assessmentId;
+  constructor() { 
+  }
 
   ngOnInit() {
   }
