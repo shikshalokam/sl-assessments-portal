@@ -3,6 +3,7 @@ import { ParentService } from '../../../core/services/parent-service/parent.serv
 import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { OperationsService } from 'src/app/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-schools',
@@ -16,18 +17,27 @@ export class ViewSchoolsComponent implements OnInit {
   result;
   error: any;
   smallScreen = false;
-  programId = '5b98d7b6d4f87f317ff615ee';
-  componenId= '5b98fa069f664f7e1ae7498c';
+  programId ;
+  assessmentId ;
   headings = 'headings.schoolListHeading';
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private operationsService: OperationsService, private utility: UtilityService) {
+  constructor(private operationsService: OperationsService,
+     private utility: UtilityService,
+     private route :ActivatedRoute
+    
+    ) {
     this.showConfig();
+    this.route.parent.queryParams.subscribe(params => {
+      console.log(params);
+      this.programId = params['programId'];
+      this.assessmentId = params['assessmentId']
 
+    });
   }
   showConfig() {
-    this.operationsService.getSchools(this.programId,this.componenId)
+    this.operationsService.getSchools(this.programId,this.assessmentId)
       .subscribe(data => {
         this.schoolList = data['result'];
         this.result = data['result']['length'];

@@ -19,6 +19,7 @@ import { AuthGuard } from '../core/auth-gaurd/auth.gaurd'
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { ProgramSidenavComponent } from './components/program-sidenav/program-sidenav.component';
+import { MatTooltipModule } from '@angular/material';
 @NgModule({
   declarations: [
     TranslatePipe,
@@ -41,6 +42,7 @@ import { ProgramSidenavComponent } from './components/program-sidenav/program-si
     MatCardModule,
     HttpClientModule,
     MatDividerModule,
+    MatTooltipModule
   ],
   providers: [
     {

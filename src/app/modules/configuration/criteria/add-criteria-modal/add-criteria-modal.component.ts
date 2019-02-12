@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment'
 import { ResourceService } from 'src/app/shared/services';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-add-criteria-modal',
   templateUrl: './add-criteria-modal.component.html',
@@ -54,8 +55,16 @@ export class AddCriteriaBoxComponent implements OnInit {
   language;
   stepperPageLength;
   currentLoadedStepper = 0;
-
-  constructor(private sharedResource: ResourceService, private snackBar: MatSnackBar, private utility: UtilityService, private _formBuilder: FormBuilder, private configurationService: ConfigurationService) {
+  programId;
+  assessmentId;
+  constructor(private route: ActivatedRoute,private sharedResource: ResourceService, private snackBar: MatSnackBar, private utility: UtilityService, private _formBuilder: FormBuilder, private configurationService: ConfigurationService) {
+  
+    this.route.parent.queryParams.subscribe(params => {
+      console.log(params);
+      this.programId = params['programId'];
+      this.assessmentId = params['assessmentId']
+    });
+  
   }
 
   ngOnInit() {

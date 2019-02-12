@@ -10,7 +10,9 @@ export class ReportComponent implements OnInit {
   programId;
   assessmentId;
   constructor(private route : ActivatedRoute) { 
-   console.log(this.route.parent.snapshot['_urlSegment'].segments[1].path);
+   this.programId=this.route.parent.snapshot['_urlSegment'].segments[1].path;
+   this.assessmentId=this.route.parent.snapshot['_urlSegment'].segments[2].path;
+   
    console.log(this.route.parent.snapshot.paramMap.get("programId"));
     this.route.parent.params.subscribe(params => {
       console.log(params)

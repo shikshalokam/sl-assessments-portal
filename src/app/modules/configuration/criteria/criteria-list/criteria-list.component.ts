@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from 'src/app/core/services/configuration-service/configuration.service';
 import {  MatSnackBar } from '@angular/material';
 import { UtilityService } from 'src/app/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-criteria-list',
@@ -10,9 +11,19 @@ import { UtilityService } from 'src/app/core';
 })
 export class CriteriaListComponent implements OnInit {
   criterias;
+  programId;
+  assessmentId;
   headings ='headings.criteriaList';
-  constructor(private snackBar :MatSnackBar,private utility :UtilityService,private configurationService : ConfigurationService) {
+  constructor(private route :ActivatedRoute,private snackBar :MatSnackBar,private utility :UtilityService,private configurationService : ConfigurationService) {
     this.getCriteria();
+
+  
+    this.route.parent.queryParams.subscribe(params => {
+      console.log(params);
+      this.programId = params['programId'];
+      this.assessmentId = params['assessmentId']
+    });
+  
   } 
 
   ngOnInit() {

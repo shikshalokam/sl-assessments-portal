@@ -12,9 +12,8 @@ import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ProgramsDashboardComponent } from './programs-dashboard/programs-dashboard.component';
-import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-dashboard.component';
-import { AssessmentDashboardModule } from './assessment-dashboard/assessment-dashboard.module';
+import { ProgramsDashboardComponent } from './modules/programs-dashboard/programs-dashboard.component';
+import { AssessmentDashboardModule } from './modules/assessment-dashboard/assessment-dashboard.module';
 
 
 export function authFactory(authService: AuthService) {
@@ -25,7 +24,6 @@ export function authFactory(authService: AuthService) {
   declarations: [
     AppComponent,
     ProgramsDashboardComponent,
-    //AssessmentDashboardComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -34,8 +32,6 @@ export function authFactory(authService: AuthService) {
     MatDividerModule,
     CoreModule.forRoot(),
     HttpClientModule,
-    AssessmentDashboardModule,
-    // BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

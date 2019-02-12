@@ -3,6 +3,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { OperationsService } from 'src/app/core';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-uploading-csv',
@@ -25,8 +26,8 @@ export class UploadingCsvComponent implements OnInit {
   uploadTypeSelected = false;
   formData;
   showStatus = false;
-  programId='5b98d7b6d4f87f317ff615ee';
-  componentId='5b98fa069f664f7e1ae7498c';
+  programId;
+  assessmentId;
   ngOnInit() {
 
   }
@@ -35,13 +36,21 @@ export class UploadingCsvComponent implements OnInit {
   constructor(
     private operationsService: OperationsService,
     private snackBar: MatSnackBar,
-    fb: FormBuilder
+    fb: FormBuilder,
+    private route :ActivatedRoute
 
   ) {
     this.CsvFileForm = fb.group({
       name: [""],
       fileName: [""]
     });
+    this.route.parent.queryParams.subscribe(params => {
+      console.log(params);
+      this.programId = params['programId'];
+      this.assessmentId = params['assessmentId']
+
+    });
+
   }
 
   version = VERSION
@@ -78,7 +87,7 @@ export class UploadingCsvComponent implements OnInit {
     this.showStatus = true;
   }
   csvUpload() {
-    this.operationsService.uploadCsv(this.formData, this.uploadtype,this.programId,this.componentId)
+    this.operationsService.uploadCsv(this.formData, this.uploadtype,this.programId,this.assessmentId)
       .subscribe(event => {
         this.fileUpload = true;
 

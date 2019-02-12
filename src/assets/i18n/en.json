@@ -7,7 +7,8 @@
         "alertMessage" : "Mark as complete will be updated 'Are you sure to submit' ? ",
         "noData" :"No data found",
         "addCriteria" : "Adding a new Criteria",
-        "customizeQuestion":"Customize Question"
+        "customizeQuestion":"Customize Question",
+        "goToProgramDashboard":"Go To Program Dashboard"
 
     },
     
@@ -32,6 +33,7 @@
     "downloadReport":"Select a Evendince Method to Download",
     "search": "Search",
     "headings": {
+        "programs":"Programs",
         "addQuestions": "Add New Question",
         "parentInfoHeading" : "Parent Information",
         "parentListHeading" : "Parent List",

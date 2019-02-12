@@ -4,7 +4,7 @@ import { AssessmentDashboardComponent } from './assessment-dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'assessments/:programId/:assessmentId',
+    path: '',
     component: AssessmentDashboardComponent,
     children: [
       // {
@@ -15,16 +15,21 @@ const routes: Routes = [
         path: 'report',
         // data: { programId: progId, assessmentId: assId},
 
-        loadChildren: '../modules/report/report.module#ReportModule'
+        loadChildren: '../report/report.module#ReportModule'
       },
       {
         path: 'configuration',
-        loadChildren: '../modules/configuration/configuration.module#ConfigurationModule'
+        loadChildren: '../configuration/configuration.module#ConfigurationModule'
       },
       {
         path: 'operations',
-        loadChildren: '../modules/operations/operations.module#OperationsModule'
+        loadChildren: '../operations/operations.module#OperationsModule'
 
+      },
+      {
+        path: '',
+        redirectTo: 'report',
+        pathMatch: 'full'
       },
       {
         path: '**',
