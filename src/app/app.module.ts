@@ -13,7 +13,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ProgramsDashboardComponent } from './modules/programs-dashboard/programs-dashboard.component';
-import { AssessmentDashboardModule } from './modules/assessment-dashboard/assessment-dashboard.module';
 
 
 export function authFactory(authService: AuthService) {
