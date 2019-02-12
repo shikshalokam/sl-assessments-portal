@@ -20,15 +20,15 @@ const routes: Routes = [
         component:ViewSchoolsComponent
       },
      {
-        path:'opeartions-dashboard',
+        path:'operations-dashboard',
         component: OperationsDashboardComponent
       },
       {
         path:'',
-        redirectTo : 'upload-csv',
+        redirectTo : 'operations-dashboard',
         pathMatch: 'full'
         
-      },
+      }
     ]
 }
 ];

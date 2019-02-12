@@ -58,7 +58,7 @@
         "choices" : "Choices",
         "type" : "Type",
         "uploadingCsv":"Uploading Csv",
-        "operationDashboardUpload":"Upload Scv"
+        "operationDashboardUpload":"Upload Csv"
     },
     "labels": {
         "uploadCsv" : "Upload Csv"

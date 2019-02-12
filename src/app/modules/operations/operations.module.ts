@@ -27,7 +27,6 @@ import { OperationsDashboardComponent } from './operations-dashboard/operations-
     MatPaginatorModule,
     MatExpansionModule,
     MatTableModule
-
   ]
 ,
 // providers:[MatFileUploadModule]
