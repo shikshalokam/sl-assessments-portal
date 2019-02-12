@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { anchorDef } from '@angular/core/src/view';
 import { ActivatedRoute } from '@angular/router';
-import { _appIdRandomProviderFactory } from '@angular/core/src/application_tokens';
-import { map } from 'rxjs/operators';
-// export  var ComponentAssessmentId = {
-//   programId :'',
-//   assessmentId : ''
-//   }
+
 @Component({
   selector: 'app-assessment-dashboard',
   templateUrl: './assessment-dashboard.component.html',
