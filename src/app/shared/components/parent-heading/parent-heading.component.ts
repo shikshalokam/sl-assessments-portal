@@ -17,7 +17,6 @@ export class ParentHeadingComponent implements OnInit {
   @Input() schoolId;
   @Input() schoolNameDivider ;
   @Input() showControl;
-  // noBackButton = ['headings.schoolListHeading','headings.dashBoard','headings.uploadingCsv','headings.dashboards'];
   @Output() sendMarkAsComplete = new EventEmitter<boolean>();
   constructor( public dialog: MatDialog, private utilityService: UtilityService) { }
 
