@@ -28,7 +28,7 @@ const routes: Routes = [
         redirectTo : 'operations-dashboard',
         pathMatch: 'full'
         
-      }
+      },
     ]
 }
 ];
