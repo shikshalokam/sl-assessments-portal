@@ -17,7 +17,6 @@ export class DashboardBlocksComponent implements OnInit {
    })
   }
   @Input() list: any;
-  @Input() genericHeading;
 
    ngOnInit() {
    }
