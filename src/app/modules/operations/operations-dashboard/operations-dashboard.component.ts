@@ -9,11 +9,10 @@ export class OperationsDashboardComponent implements OnInit {
    headings= 'headings.dashboards'
    operation;
 
-  dashboards=[];
+   dashboards;
 
   constructor() { 
-    this.operation={
-      dashboards:[
+      this.dashboards=[
         {
           icons:"done",
           tooltip:"headings.operationDashboardUpload",
@@ -25,13 +24,11 @@ export class OperationsDashboardComponent implements OnInit {
           anchorLink: "/assessments/operations/view-schools"
         }
       ]
-    }
   }
 
  
 
   ngOnInit() {
-    this.dashboards= this.operation.dashboards;
   }
 
   
