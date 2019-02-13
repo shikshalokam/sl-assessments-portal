@@ -44,7 +44,6 @@ export class ApiInterceptor implements HttpInterceptor {
            
           },
           () => {
-            // console.log("completed successfully"); 
           }
         ));
   }
