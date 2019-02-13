@@ -16,11 +16,10 @@ export class DashboardBlocksComponent implements OnInit {
      this.assessmentId = params['assessmentId']
    })
   }
-  @Input() datas: any;
+  @Input() list: any;
   @Input() genericHeading;
 
    ngOnInit() {
-    console.log(this.datas,"data");
    }
 
 }

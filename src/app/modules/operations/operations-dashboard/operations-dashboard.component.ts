@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperationsDashboardComponent implements OnInit {
    headings= 'headings.dashboards'
-   obj;
+   operation;
 
   dashboards=[];
 
   constructor() { 
-    this.obj={
+    this.operation={
       dashboards:[
         {
           icons:"done",
@@ -31,8 +31,7 @@ export class OperationsDashboardComponent implements OnInit {
  
 
   ngOnInit() {
-    this.dashboards= this.obj.dashboards;
-    console.log(this.dashboards, "dashboard");
+    this.dashboards= this.operation.dashboards;
   }
 
   
