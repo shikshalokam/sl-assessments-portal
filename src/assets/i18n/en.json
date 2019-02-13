@@ -50,13 +50,15 @@
         "criteriaFrameWorkHeading":"Criterias",
         "criteriaList" : "Criteria List",
         "dashBoard" : "Configuration Dashboard",
+        "dashboards":"Operations Dashboard",
         "addRubric":"Add Levels To Rubric",
         "fillCriteriaDetails":"Fill Criteria Details",
         "panelEditHeading" : "Click on panel to Edit",
         "general" : "General",
         "choices" : "Choices",
         "type" : "Type",
-        "uploadingCsv":"Uploading Csv"
+        "uploadingCsv":"Uploading Csv",
+        "operationDashboardUpload":"Upload Csv"
     },
     "labels": {
         "uploadCsv" : "Upload Csv"

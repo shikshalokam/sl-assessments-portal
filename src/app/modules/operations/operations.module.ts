@@ -9,9 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressBarModule} from "angular-progress-bar"
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ViewSchoolsComponent } from './view-schools/view-schools.component';
+import { OperationsDashboardComponent } from './operations-dashboard/operations-dashboard.component';
 
 @NgModule({
-  declarations: [OperationsComponent, UploadingCsvComponent, ViewSchoolsComponent],
+  declarations: [OperationsComponent, UploadingCsvComponent, ViewSchoolsComponent, OperationsDashboardComponent],
   imports: [
     CommonModule,
     OperationsRoutingModule,
@@ -26,7 +27,6 @@ import { ViewSchoolsComponent } from './view-schools/view-schools.component';
     MatPaginatorModule,
     MatExpansionModule,
     MatTableModule
-
   ]
 ,
 // providers:[MatFileUploadModule]

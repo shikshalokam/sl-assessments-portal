@@ -45,7 +45,6 @@ export class UploadingCsvComponent implements OnInit {
       fileName: [""]
     });
     this.route.parent.queryParams.subscribe(params => {
-      // console.log(params);
       this.programId = params['programId'];
       this.assessmentId = params['assessmentId']
 
