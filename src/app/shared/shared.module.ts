@@ -23,8 +23,9 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { SelectFieldComponent } from './components/select-field/select-field.component';
 import { FormArrayFieldComponent } from './components/form-array-field/form-array-field.component';
 import { SearchDirective } from './directives';
+import { DashboardBlocksComponent } from './components/dashboard-blocks/dashboard-blocks.component';
 @NgModule({
-  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent, LoaderComponent, SelectFieldComponent, FormArrayFieldComponent, SearchDirective ],
+  declarations: [DynamicFormComponent,DialogBoxComponent, TextFieldComponent, DropdownFieldComponent, NumberFieldComponent, TextareaFieldComponent, BreadcrumbComponent,ParentHeadingComponent, ImageCardComponent, LoaderComponent, SelectFieldComponent, FormArrayFieldComponent, SearchDirective, DashboardBlocksComponent ],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,7 +44,7 @@ import { SearchDirective } from './directives';
     NgxSpinnerModule
   ],
   entryComponents: [DialogBoxComponent],
-  exports : [DynamicFormComponent,NgxSpinnerModule,BreadcrumbComponent,ParentHeadingComponent, MatSnackBarModule,ImageCardComponent,LoaderComponent,SearchDirective]
+  exports : [DynamicFormComponent,NgxSpinnerModule,BreadcrumbComponent,ParentHeadingComponent, MatSnackBarModule,ImageCardComponent,LoaderComponent,SearchDirective,DashboardBlocksComponent]
 
 })
 export class SharedModule { }
