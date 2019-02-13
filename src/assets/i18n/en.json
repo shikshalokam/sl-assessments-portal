@@ -8,8 +8,8 @@
         "noData" :"No data found",
         "addCriteria" : "Adding a new Criteria",
         "customizeQuestion":"Customize Question",
-        "goToProgramDashboard":"Go To Program Dashboard"
-
+        "goToProgramDashboard":"Go To Program Dashboard",
+        "sessionExpired" : "Session Expired, Login To Continue. "
     },
     
     

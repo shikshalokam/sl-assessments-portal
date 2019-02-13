@@ -78,11 +78,11 @@ export class ParentEditComponent implements OnInit {
     this.parentService.postParentData(this.sendUrl,this.updateData).
     subscribe(data => {
       console.log(data);
-      this.snackBar.open(data['message'], "Ok", {duration: 9000});
+      this.snackBar.open(data['message'], "Ok", {duration: 3000});
     
    },
    (error)=>{
-    this.snackBar.open(error['message'], "Ok", {duration: 9000});
+    this.snackBar.open(error['message'], "Ok", {duration: 3000});
 
    });
    this.isEdit=!this.isEdit;
