@@ -95,11 +95,11 @@ export class UploadingCsvComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
 
           this.percentDone = Math.round(100 * event.loaded / event.total);
-          this.snackBar.open('Upload Sucessful', "Ok", { duration: 9000 });
+          this.snackBar.open('Upload Sucessful', "Ok", { duration: 3000 });
         }
       },
         error => {
-          this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+          this.snackBar.open(error['message'], "Ok", { duration: 3000 });
         });
     setTimeout(() => {
       this.CsvFileForm.reset();

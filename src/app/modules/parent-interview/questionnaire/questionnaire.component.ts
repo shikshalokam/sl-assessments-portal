@@ -101,7 +101,7 @@ export class QuestionnaireComponent implements OnInit {
     },(error)=>{
       this.utils.loaderHide();
 
-      this.snackBar.open(error['message'], "Ok", {duration: 9000});
+      this.snackBar.open(error['message'], "Ok", {duration: 3000});
     }
     )
   }

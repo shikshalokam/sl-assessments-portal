@@ -10,12 +10,13 @@ export class SearchDirective implements OnInit {
 
   constructor() { }
   ngOnInit(){
+    console.log("directive")
     this.search();
   }
   search(){
     const input = document.getElementById('search');
     const example = fromEvent(input, 'keyup');
-    const debouncedInput = example.pipe(debounceTime(1000));
+    const debouncedInput = example.pipe(debounceTime(5000));
     const subscribe = debouncedInput.subscribe(val => {
       this.sendSearchValue.emit(this.searchValue);
     });
