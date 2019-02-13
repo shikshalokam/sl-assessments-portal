@@ -22,7 +22,7 @@ export class ViewSchoolsComponent implements OnInit {
   headings = 'headings.schoolListHeading';
   search='';
   pageIndex:number=0;
-  pageSize:number=1;
+  pageSize:number=50;
   length:number;
   searchValue='';
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,9 +38,10 @@ export class ViewSchoolsComponent implements OnInit {
       this.assessmentId = params['assessmentId']
 
     });
-    this.showConfig();
+    this.getViewSchool()
   }
-  showConfig() {
+  getViewSchool() {
+    this.utility.loaderShow();
     this.operationsService.getSchools(this.programId,this.assessmentId,this.search,this.pageIndex,this.pageSize)
       .subscribe(data => {
         this.schoolList = data['result']['schoolInformation'];
@@ -83,28 +84,17 @@ export class ViewSchoolsComponent implements OnInit {
     }
   }
   pageEvent(event){
-    console.log(this.pageIndex);
-    console.log(this.pageSize)
-    console.log(event)
-    // if( event.pageIndex - event.previousPageIndex === 1 )
-    // {
-    //   this.pageIndex++;
-    // }
-    // if( event.pageIndex - event.previousPageIndex > 1 )
-    // {
-    //   this.pageIndex = event.pageIndex ;
-    // }
+   
     if(this.pageSize !== event.pageSize)
     {
       this.pageSize = event.pageSize;
     }
     this.pageIndex = event.pageIndex;
-    this.showConfig();
+    this.getViewSchool();
   }
   searchInApi(event){
-    console.log(event);
     this.search=event;
     this.pageIndex = 0;
-    this.showConfig();
+    this.getViewSchool();
   }
 }

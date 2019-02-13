@@ -29,7 +29,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         </div>
-        <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[1,2,5]" showFirstLastButtons [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="length" (page)="pageEvent($event)"></mat-paginator>
+        <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[100,50,500]" showFirstLastButtons [pageIndex]="pageIndex" [pageSize]="pageSize" [length]="length" (page)="pageEvent($event)"></mat-paginator>
       </div>
     </div>
     <div *ngIf=" result > 0 && smallScreen" class="_responsiveTabel" (window:resize)="onResize($event)">
