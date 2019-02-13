@@ -108,6 +108,10 @@ body {
     background: $primary-color;
     color: $white-color;
 }
+*:focus {
+    outline: none !important;
+    border: 0 !important;
+ }
 span:focus {
     outline: none;
     border: 0;
