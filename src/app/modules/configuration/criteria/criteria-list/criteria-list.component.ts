@@ -20,10 +20,11 @@ export class CriteriaListComponent implements OnInit {
   
     this.route.parent.queryParams.subscribe(params => {
       // console.log(params);
+      
       this.programId = params['programId'];
       this.assessmentId = params['assessmentId']
     });
-  
+  console.log(this.route, "route")
   } 
 
   ngOnInit() {

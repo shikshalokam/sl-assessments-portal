@@ -2,8 +2,8 @@
     <div class="row">
       <div class="col">
           <ul class="unorder-list">
-            <li *ngFor="let data of datas" class="icons">
-                <i class="material-icons">
+            <li *ngFor="let data of datas" class="icons" routerLink="{{data.anchorLink}}" [queryParams]="{programId:programId, assessmentId : assessmentId}">
+              <i class="material-icons">
                     reorder
                 </i>
                 <div class="context">

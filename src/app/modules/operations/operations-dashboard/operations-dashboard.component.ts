@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperationsDashboardComponent implements OnInit {
    headings= 'headings.dashboards'
-  obj;
+   obj;
 
   dashboards=[];
 
@@ -17,19 +17,23 @@ export class OperationsDashboardComponent implements OnInit {
         {
           icons:"done",
           tooltip:"headings.operationDashboardUpload",
-          url:""
+          anchorLink:"/assessments/operations/upload-csv"
         },
         {
           icons:"done",
           tooltip:"headings.schoolListHeading",
-          url:""
+          anchorLink: "/assessments/operations/view-schools"
         }
       ]
     }
   }
 
+ 
+
   ngOnInit() {
     this.dashboards= this.obj.dashboards;
     console.log(this.dashboards, "dashboard");
   }
+
+  
 }

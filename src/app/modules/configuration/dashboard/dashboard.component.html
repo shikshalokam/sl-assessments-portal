@@ -2,7 +2,7 @@
 <div class="_flex-box _justify-content-center wrapper">
 
   <div class="_full-width ">
-      <app-parent-heading [genericHeading]="headings" [schoolNameDivider]= "false"></app-parent-heading>
+      <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading>
 
     <div *ngFor="let dashBoard of dashBoardList" >
       <div class=" col-lg-3 col-md-4 col-sm-6 col-xs-12 margin-top _justify-content-center flex-box" routerLink="{{dashBoard.anchorLink}}" [queryParams]="{programId : programId , assessmentId : assessmentId}" title="{{dashBoard.value|translate}}">

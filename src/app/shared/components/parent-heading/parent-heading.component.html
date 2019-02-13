@@ -11,7 +11,7 @@
   <!-- <span class="alingCenterline smallMargin"  *ngIf="!showControl"> -->
   <span class="alingCenterline smallMargin">
     <span *ngIf="!showControl">
-    <button class="noPadding" *ngIf="noBackButton.indexOf(genericHeading) && !(genericHeading == 'headings.dashBoard') && !(genericHeading == 'headings.uploadingCsv') && !(genericHeading == 'headings.dashboards')" mat-button (click)="onBack()"><i class="material-icons">
+    <button class="noPadding" mat-button (click)="onBack()"><i class="material-icons">
         keyboard_arrow_left
       </i>
       <span>Back</span>

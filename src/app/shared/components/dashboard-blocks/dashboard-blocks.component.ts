@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'dashboard-blocks',
@@ -6,9 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./dashboard-blocks.component.scss']
 })
 export class DashboardBlocksComponent implements OnInit {
- 
-  constructor() { 
-    
+ programId: string;
+ assessmentId: string;
+
+  constructor(private route : ActivatedRoute) { 
+    this.route.parent.queryParams.subscribe(params =>{
+     this.programId = params['programId'];
+     this.assessmentId = params['assessmentId']
+   })
   }
   @Input() datas: any;
   @Input() genericHeading;
