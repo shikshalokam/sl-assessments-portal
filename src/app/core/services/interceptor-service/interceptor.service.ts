@@ -26,7 +26,7 @@ export class ApiInterceptor implements HttpInterceptor {
         const authReq = req.clone({setHeaders:{"internal-access-token" :  environment.downloadReportHeaderValue}});
         return next.handle(authReq);
       }
-      const authReq = req.clone({ setHeaders: { "X-authenticsadated-user-token": authToken } })
+      const authReq = req.clone({ setHeaders: { "X-authenticated-user-token": authToken } })
         return next.handle(authReq)
         .pipe(tap(
           (response: HttpEvent<any>) => {
