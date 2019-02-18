@@ -54,7 +54,7 @@ export class ParentEditComponent implements OnInit {
   this.parentService.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
-        this.parentEditData = data.result;
+        this.parentEditData = data['result'];
         // this.parentEditData.forEach( element => {
         //   if(element['field'] == "callResponse")
         //     {
@@ -62,8 +62,8 @@ export class ParentEditComponent implements OnInit {
         //       console.log(element.visible);
         //     }
         // });
-        console.log(data.result);
-        this.parentForm = this.utility.toGroup(data.result) ;
+        console.log(data['result']);
+        this.parentForm = this.utility.toGroup(data['result']) ;
         console.log(this.parentForm);
         this.utility.loaderHide();
       },
