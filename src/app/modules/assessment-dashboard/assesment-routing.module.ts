@@ -7,10 +7,10 @@ const routes: Routes = [
     path: '',
     component: AssessmentDashboardComponent,
     children: [
-      // {
-      //   path: 'parent',
-      //   loadChildren: '../modules/parent-interview/parent-interview.module#ParentInterviewModule'
-      // },
+      {
+        path: 'parent',
+        loadChildren: '../parent-interview/parent-interview.module#ParentInterviewModule'
+      },
       {
         path: 'report',
         // data: { programId: progId, assessmentId: assId},

@@ -62,7 +62,7 @@ export class UploadingCsvComponent implements OnInit {
   upload(files: File[]) {
     this.file = files;
     this.fileSelected = true;
-    this.uploadAndProgress();
+    this.showStatus = true;
   }
   deleteFile(index, files) {
     files.value = null;
@@ -70,24 +70,9 @@ export class UploadingCsvComponent implements OnInit {
     this.showStatus = false;
     this.file = []
   }
-  uploadAndProgress() {
-    var formData = new FormData();
-    if (this.uploadtype == 'schools') {
-      Array.from(this.file).forEach(f => {
-        formData.append('schools', f)
-      })
-    }
-    else if (this.uploadtype == 'assessors') {
-      Array.from(this.file).forEach(f => {
-        formData.append('assessors', f)
-      })
-
-    }
-    this.formData = formData;
-    this.showStatus = true;
-  }
+  
   csvUpload() {
-    this.operationsService.uploadCsv(this.formData, this.uploadtype,this.programId,this.assessmentId)
+    this.operationsService.uploadCsv(this.file,this.uploadtype,this.programId,this.assessmentId)
       .subscribe(event => {
         this.fileUpload = true;
 

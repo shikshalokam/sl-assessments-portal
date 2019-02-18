@@ -25,7 +25,7 @@ export class ParentInformationComponent implements OnInit {
   showConfig() {
     this.parentService.getParentInfo(this.parentId)
       .subscribe(data => {
-        this.data = data.result
+        this.data = data['result']
         // for (let i = 0; i < data.result.length; i++) {
           // if (data.result[i]['field'] == "callResponse") {
           //   this.selected = data.result[i]['value'];
@@ -40,7 +40,7 @@ export class ParentInformationComponent implements OnInit {
           //   const
           // }
         // }
-        for (const field of data.result) {
+        for (const field of data['result']) {
           if(field['field'] === 'type') {
             const newValue = []
             for (const option of field['options']) {
@@ -51,7 +51,7 @@ export class ParentInformationComponent implements OnInit {
             field['newLabel'] = newValue
           }
         }
-        this.selected = data.result;
+        this.selected = data['result'];
       });
   }
 

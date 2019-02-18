@@ -288,7 +288,7 @@ export class QuestionnaireComponent implements OnInit {
     // }
     this.parentService.postParentData(this.parentId, this.currentCallStatus).
       subscribe(response => {
-        this.snackBar.open(response.message, "Ok", { duration: 3000 });
+        this.snackBar.open(response['message'], "Ok", { duration: 3000 });
         this.goBack();
       });
   }
