@@ -59,11 +59,6 @@ export class AddCriteriaBoxComponent implements OnInit {
   assessmentId;
   constructor(private route: ActivatedRoute,private sharedResource: ResourceService, private snackBar: MatSnackBar, private utility: UtilityService, private _formBuilder: FormBuilder, private configurationService: ConfigurationService) {
   
-    this.route.parent.queryParams.subscribe(params => {
-      // console.log(params);
-      this.programId = params['programId'];
-      this.assessmentId = params['assessmentId']
-    });
   
   }
 

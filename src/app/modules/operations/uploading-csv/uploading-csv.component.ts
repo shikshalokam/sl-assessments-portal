@@ -44,12 +44,6 @@ export class UploadingCsvComponent implements OnInit {
       name: [""],
       fileName: [""]
     });
-    this.route.parent.queryParams.subscribe(params => {
-      this.programId = params['programId'];
-      this.assessmentId = params['assessmentId']
-
-    });
-
   }
 
   version = VERSION

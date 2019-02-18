@@ -28,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'report',
+        redirectTo: 'configuration',
         pathMatch: 'full'
       },
       {

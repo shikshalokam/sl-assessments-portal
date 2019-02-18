@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProgramsDashboardComponent } from './modules/programs-dashboard/programs-dashboard.component';
-import { OperationsDashboardComponent } from './modules/operations/operations-dashboard/operations-dashboard.component';
    
 const routes: Routes = [
   {
@@ -11,13 +9,18 @@ const routes: Routes = [
     
     loadChildren: './modules/assessment-dashboard/assessment-dashboard.module#AssessmentDashboardModule'
   },
-  {
-    path: 'programs',
-    component : ProgramsDashboardComponent
-  },
+  // {
+  //   path: 'programs',
+  //   component : ProgramsDashboardComponent
+  // },
+  // {
+  //   path: '',
+  //   redirectTo: 'programs',
+  //   pathMatch: 'full'
+  // }
   {
     path: '',
-    redirectTo: 'programs',
+    redirectTo: 'assessments',
     pathMatch: 'full'
   }
 ];

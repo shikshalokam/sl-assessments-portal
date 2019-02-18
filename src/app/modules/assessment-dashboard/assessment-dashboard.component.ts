@@ -12,9 +12,7 @@ export class AssessmentDashboardComponent implements OnInit {
   links ;
   constructor(private route : ActivatedRoute) {
    
-      this.route.queryParams.subscribe(params => {
-        this.programId= params['programId'];
-        this.assessmentId = params['assessmentId']
+      
         this.links = [  
           { 
             linkHeading : "headings.features",
@@ -54,7 +52,6 @@ export class AssessmentDashboardComponent implements OnInit {
             ]
             }
         ] ;
-      })
     
    }
 
