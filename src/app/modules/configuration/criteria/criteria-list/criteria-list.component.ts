@@ -16,13 +16,6 @@ export class CriteriaListComponent implements OnInit {
   headings ='headings.criteriaList';
   constructor(private route :ActivatedRoute,private snackBar :MatSnackBar,private utility :UtilityService,private configurationService : ConfigurationService) {
     this.getCriteria();
-
-  
-    this.route.parent.queryParams.subscribe(params => {
-      
-      this.programId = params['programId'];
-      this.assessmentId = params['assessmentId']
-    });
   } 
 
   ngOnInit() {

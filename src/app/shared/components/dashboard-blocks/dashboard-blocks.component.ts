@@ -11,10 +11,6 @@ export class DashboardBlocksComponent implements OnInit {
  assessmentId: string;
 
   constructor(private route : ActivatedRoute) { 
-    this.route.parent.queryParams.subscribe(params =>{
-     this.programId = params['programId'];
-     this.assessmentId = params['assessmentId']
-   })
   }
   @Input() list: any;
 

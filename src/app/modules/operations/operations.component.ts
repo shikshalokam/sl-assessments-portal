@@ -7,13 +7,9 @@ import {  ActivatedRoute } from '@angular/router';
   styleUrls: ['./operations.component.scss']
 })
 export class OperationsComponent implements OnInit {
-  programId;
-  assessmentId;
+ 
   constructor(private route : ActivatedRoute) { 
-    this.route.params.subscribe(params => {
-      this.programId = params["programId"];
-      this.assessmentId = params["assessmentId"];
-    });
+  
   }
 
   ngOnInit() {

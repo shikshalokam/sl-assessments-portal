@@ -12,9 +12,7 @@ export class AssessmentDashboardComponent implements OnInit {
   links ;
   constructor(private route : ActivatedRoute) {
    
-      this.route.queryParams.subscribe(params => {
-        this.programId= params['programId'];
-        this.assessmentId = params['assessmentId']
+      
         this.links = [  
           { 
             linkHeading : "headings.features",
@@ -23,14 +21,14 @@ export class AssessmentDashboardComponent implements OnInit {
               //   value : "headings.parentInterview",
               //   anchorLink : "/assessments/parent"
               // },
-              {
-                value :"headings.reports",
-                link :{
-                  programId:this.programId,
-                  assessmentId :this.assessmentId,
-                  anchorLink:"report"
-                }
-              },
+              // {
+              //   value :"headings.reports",
+              //   link :{
+              //     programId:this.programId,
+              //     assessmentId :this.assessmentId,
+              //     anchorLink:"report"
+              //   }
+              // },
               {
                 value :"headings.configurations",
                 link :{
@@ -50,7 +48,6 @@ export class AssessmentDashboardComponent implements OnInit {
             ]
             }
         ] ;
-      })
     
    }
 

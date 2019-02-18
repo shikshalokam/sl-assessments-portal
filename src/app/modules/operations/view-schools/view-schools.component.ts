@@ -29,12 +29,6 @@ export class ViewSchoolsComponent implements OnInit {
     
     ) {
     this.showConfig();
-    this.route.parent.queryParams.subscribe(params => {
-      console.log(params);
-      this.programId = params['programId'];
-      this.assessmentId = params['assessmentId']
-
-    });
   }
   showConfig() {
     this.operationsService.getSchools(this.programId,this.assessmentId)

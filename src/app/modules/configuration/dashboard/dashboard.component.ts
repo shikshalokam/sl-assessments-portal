@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,15 +20,7 @@ export class DashboardComponent implements OnInit {
     },
     
   ]
-  programId;
-  assessmentId;
-  constructor(private route :ActivatedRoute) { 
-    this.route.parent.queryParams.subscribe(params => {
-      // console.log(params, "params");
-      this.programId = params['programId'];
-      this.assessmentId = params['assessmentId']
-    });
-  }
+ 
 
   ngOnInit() {
   }

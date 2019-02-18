@@ -12,7 +12,6 @@ import { AuthService } from './core/services/auth/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ProgramsDashboardComponent } from './modules/programs-dashboard/programs-dashboard.component';
 
 
 export function authFactory(authService: AuthService) {
@@ -22,7 +21,6 @@ export function authFactory(authService: AuthService) {
 @NgModule({
   declarations: [
     AppComponent,
-    ProgramsDashboardComponent,
   ],
   imports: [
     AppRoutingModule,

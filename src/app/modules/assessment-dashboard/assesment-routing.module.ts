@@ -11,12 +11,10 @@ const routes: Routes = [
       //   path: 'parent',
       //   loadChildren: '../modules/parent-interview/parent-interview.module#ParentInterviewModule'
       // },
-      {
-        path: 'report',
-        // data: { programId: progId, assessmentId: assId},
-
-        loadChildren: '../report/report.module#ReportModule'
-      },
+      // {
+      //   path: 'report',
+      //   loadChildren: '../report/report.module#ReportModule'
+      // },
       {
         path: 'configuration',
         loadChildren: '../configuration/configuration.module#ConfigurationModule'
@@ -28,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'report',
+        redirectTo: 'configuration',
         pathMatch: 'full'
       },
       {

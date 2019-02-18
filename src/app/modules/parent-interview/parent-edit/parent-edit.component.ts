@@ -24,12 +24,6 @@ export class ParentEditComponent implements OnInit {
   schoolName;
   headings = 'headings.parentInfoHeading';
   constructor(private location: Location,private snackBar :MatSnackBar,private route :ActivatedRoute,private utility : UtilityService ,private parentService :ParentService ,  private http :HttpClient) { 
-    this.route.params.subscribe(params => {
-      this.sendUrl = params["id"];
-      this.schoolName =params["name"];
-      console.log(this.sendUrl)
-  });
-
   this.showConfig(); 
   }
   ngOnInit() {
