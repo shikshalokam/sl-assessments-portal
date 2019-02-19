@@ -33,7 +33,7 @@ export class CriteriaListComponent implements OnInit {
       this.criterias = data['result']['criteria'];
       this.utility.loaderHide();
     },(error)=>{
-      this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+      this.snackBar.open(error['message'], "Ok", { duration: 3000 });
 
     }
     )

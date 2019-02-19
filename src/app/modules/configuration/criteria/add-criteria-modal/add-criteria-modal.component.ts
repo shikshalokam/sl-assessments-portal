@@ -203,11 +203,11 @@ export class AddCriteriaBoxComponent implements OnInit {
     this.configurationService.addNewCriteria(this.updateCriteria).subscribe(
       data => {
         this.utility.loaderHide();
-        this.snackBar.open(data['message'], "Ok", { duration: 9000 });
+        this.snackBar.open(data['message'], "Ok", { duration: 3000 });
       },
       error => {
         this.utility.loaderHide();
-        this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+        this.snackBar.open(error['message'], "Ok", { duration: 3000 });
       }
     )
     this.utility.onBack();

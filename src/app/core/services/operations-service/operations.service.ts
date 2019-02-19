@@ -20,8 +20,13 @@ export class OperationsService {
     }
     return this.apiService.upload( this.Url+"programId="+programId+"&componentId="+componentId,csvFile ,uploadType)
   }
-  getSchools(programId,componentId){
-    return this.apiService.get(OperationConfig.viewSchools+"programId="+programId+"&componentId="+componentId);
+  getSchools(programId,componentId,search,pageIndex,pageSize){
+    if(pageIndex === undefined){
+      pageIndex = 1;
+      pageSize = 4;
+    }
+    pageIndex++;
+    return this.apiService.get( OperationConfig.viewSchools+"programId="+programId+"&componentId="+componentId+"&search="+search+"&pageIndex="+pageIndex+"&pageSize="+pageSize);
   }
 
 }

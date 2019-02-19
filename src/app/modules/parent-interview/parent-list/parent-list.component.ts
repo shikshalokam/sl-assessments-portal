@@ -83,19 +83,19 @@ export class ParentListComponent implements OnInit {
           .subscribe(successData => {
             console.log(successData);
             this.utility.loaderHide();
-            this.snackBar.open(successData['message'], "Ok", { duration: 9000 });
+            this.snackBar.open(successData['message'], "Ok", { duration: 3000 });
 
             this.utility.onBack();
           },
             (error) => {
               this.utility.loaderHide();
 
-              this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+              this.snackBar.open(error['message'], "Ok", { duration: 3000 });
 
             });
       }, (error) => {
         this.utility.loaderHide();
-        this.snackBar.open(error['message'], "Ok", { duration: 9000 });
+        this.snackBar.open(error['message'], "Ok", { duration: 3000 });
         this.error = error;
       }
       );

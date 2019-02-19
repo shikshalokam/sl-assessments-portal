@@ -31,7 +31,7 @@ export class ProgramsDashboardComponent implements OnInit {
         this.utilityService.loaderHide();
       }, error => {
       this.utilityService.loaderHide();
-      this.snackBar.open(error['message'], "Ok", {duration: 9000});
+      this.snackBar.open(error['message'], "Ok", {duration: 3000});
       })
   }
 

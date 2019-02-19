@@ -19,13 +19,17 @@ export class ViewSchoolsComponent implements OnInit {
   programId ;
   assessmentId ;
   headings = 'headings.schoolListHeading';
-  
+  search='';
+  pageIndex:number=0;
+  pageSize:number=50;
+  length:number;
+  searchValue='';
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private operationsService: OperationsService,
      private utility: UtilityService,
      private route :ActivatedRoute
-    
+
     ) {
     this.route.parent.queryParams.subscribe(params => {
       console.log(params);
@@ -33,16 +37,17 @@ export class ViewSchoolsComponent implements OnInit {
       this.assessmentId = params['assessmentId']
 
     });
-    this.showConfig();
-
+    this.getViewSchool()
   }
-  showConfig() {
-    this.operationsService.getSchools(this.programId,this.assessmentId)
+  getViewSchool() {
+    this.utility.loaderShow();
+    this.operationsService.getSchools(this.programId,this.assessmentId,this.search,this.pageIndex,this.pageSize)
       .subscribe(data => {
         this.schoolList = data['result']['schoolInformation'];
-        this.result = data['result']['schoolInformation']['length'];
+        this.result = data['result']['schoolInformation'].length;
+        this.length = data['result']['totalCount'];
         this.dataSource = new MatTableDataSource(data['result']['schoolInformation']);
-        setTimeout(() => this.dataSource.paginator = this.paginator);
+        // setTimeout(() => this.dataSource.paginator = this.paginator);
         this.utility.loaderHide()
       },
         (error) => {
@@ -53,8 +58,9 @@ export class ViewSchoolsComponent implements OnInit {
       );
   }
   applyFilter(filterValue: string) {
-    console.log(filterValue)
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(filterValue.trim().toLowerCase())
+    this.searchValue = filterValue ;
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() {
     this.utility.loaderShow();
@@ -75,5 +81,19 @@ export class ViewSchoolsComponent implements OnInit {
       console.log(true)
       this.smallScreen = true;
     }
+  }
+  pageEvent(event){
+   
+    if(this.pageSize !== event.pageSize)
+    {
+      this.pageSize = event.pageSize;
+    }
+    this.pageIndex = event.pageIndex;
+    this.getViewSchool();
+  }
+  searchInApi(event){
+    this.search=event;
+    this.pageIndex = 0;
+    this.getViewSchool();
   }
 }
