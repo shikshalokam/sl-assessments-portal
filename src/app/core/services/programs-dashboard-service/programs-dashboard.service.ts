@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { ProgramsDashboardConfig } from 'src/app/modules/programs-dashboard/programs-dashboard-config';
+import { ApiService } from '../api-service/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgramsDashboardService {
 
-  constructor( private http: HttpClient) { }
+  constructor( private apiService :ApiService) { }
   
   getProgramList() {
-    return this.http.get(environment.apibaseurl + ProgramsDashboardConfig.programList);
+    return this.apiService.get(ProgramsDashboardConfig.programList);
   }
 }

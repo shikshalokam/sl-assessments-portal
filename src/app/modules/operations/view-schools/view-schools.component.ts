@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
-import { ParentService } from '../../../core/services/parent-service/parent.service';
-import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { OperationsService } from 'src/app/core';
 import { ActivatedRoute } from '@angular/router';
@@ -28,20 +27,21 @@ export class ViewSchoolsComponent implements OnInit {
      private route :ActivatedRoute
     
     ) {
-    this.showConfig();
     this.route.parent.queryParams.subscribe(params => {
       console.log(params);
       this.programId = params['programId'];
       this.assessmentId = params['assessmentId']
 
     });
+    this.showConfig();
+
   }
   showConfig() {
     this.operationsService.getSchools(this.programId,this.assessmentId)
       .subscribe(data => {
-        this.schoolList = data['result'];
-        this.result = data['result']['length'];
-        this.dataSource = new MatTableDataSource(data['result']);
+        this.schoolList = data['result']['schoolInformation'];
+        this.result = data['result']['schoolInformation']['length'];
+        this.dataSource = new MatTableDataSource(data['result']['schoolInformation']);
         setTimeout(() => this.dataSource.paginator = this.paginator);
         this.utility.loaderHide()
       },

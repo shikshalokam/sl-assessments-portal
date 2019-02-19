@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api-service/api.service';
 
 @Injectable()
 export class TranslateService {
 
   language: any = {};
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: ApiService) { }
 
   use(lang: string): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
       const langPath = `assets/i18n/${lang || 'en'}.json`;
-      // const langPath = `assets/i18n/od.json`;
 
-      this.http.get<{}>(langPath).subscribe(
+      this.apiService.getJSON(langPath).subscribe(
         translation => {
           this.language = Object.assign({}, translation || {});
           resolve(this.language);

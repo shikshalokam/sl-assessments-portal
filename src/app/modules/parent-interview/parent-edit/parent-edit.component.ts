@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
@@ -23,7 +22,7 @@ export class ParentEditComponent implements OnInit {
   error;
   schoolName;
   headings = 'headings.parentInfoHeading';
-  constructor(private location: Location,private snackBar :MatSnackBar,private route :ActivatedRoute,private utility : UtilityService ,private parentService :ParentService ,  private http :HttpClient) { 
+  constructor(private location: Location,private snackBar :MatSnackBar,private route :ActivatedRoute,private utility : UtilityService ,private parentService :ParentService , ) { 
     this.route.params.subscribe(params => {
       this.sendUrl = params["id"];
       this.schoolName =params["name"];
@@ -54,7 +53,7 @@ export class ParentEditComponent implements OnInit {
   this.parentService.getParentInfo(this.sendUrl)
       .subscribe(data => {
         console.log(data);
-        this.parentEditData = data.result;
+        this.parentEditData = data['result'];
         // this.parentEditData.forEach( element => {
         //   if(element['field'] == "callResponse")
         //     {
@@ -62,8 +61,8 @@ export class ParentEditComponent implements OnInit {
         //       console.log(element.visible);
         //     }
         // });
-        console.log(data.result);
-        this.parentForm = this.utility.toGroup(data.result) ;
+        console.log(data['result']);
+        this.parentForm = this.utility.toGroup(data['result']) ;
         console.log(this.parentForm);
         this.utility.loaderHide();
       },
