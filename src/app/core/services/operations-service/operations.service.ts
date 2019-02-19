@@ -26,11 +26,7 @@ export class OperationsService {
       pageSize = 4;
     }
     pageIndex++;
-<<<<<<< HEAD
     return this.apiService.get( OperationConfig.viewSchools+"programId="+programId+"&componentId="+componentId+"&search="+search+"&pageIndex="+pageIndex+"&pageSize="+pageSize);
-=======
-    return this.http.get(environment.apibaseurl + OperationConfig.viewSchools+"programId="+programId+"&componentId="+componentId+"&search="+search+"&pageIndex="+pageIndex+"&pageSize="+pageSize);
->>>>>>> 5edb52020051ff5993ba09f447339ef84a4e4001
   }
 
 }
