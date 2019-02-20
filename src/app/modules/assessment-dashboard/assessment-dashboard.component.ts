@@ -25,14 +25,14 @@ export class AssessmentDashboardComponent implements OnInit {
                   anchorLink : "parent"
                 }
               },
-              {
-                value :"headings.reports",
-                link :{
-                  programId:this.programId,
-                  assessmentId :this.assessmentId,
-                  anchorLink:"report"
-                }
-              },
+              // {
+              //   value :"headings.reports",
+              //   link :{
+              //     programId:this.programId,
+              //     assessmentId :this.assessmentId,
+              //     anchorLink:"report"
+              //   }
+              // },
               {
                 value :"headings.configurations",
                 link :{
