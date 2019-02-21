@@ -69,7 +69,7 @@
                         </ng-container>
                     <ng-container matColumnDef="programId">
                         <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let element"> <div class="active" [routerLink]="['/assessments/parent/parent-edit' ,schoolName, element._id ]">
+                        <td mat-cell *matCellDef="let element"> <div class="active" [routerLink]="['/parent/parent-edit' ,schoolName, element._id ]">
                                 {{'tableLabel.buttons.edit'| translate}}
 
                         </div></td>
@@ -78,7 +78,7 @@
                     <ng-container matColumnDef="type">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element">
-                            <div *ngIf=" !(element.callResponse == 'Completed') ; else complete" class="active" [routerLink]="['/assessments/parent/survey' , schoolName, schoolId , element._id ]">
+                            <div *ngIf=" !(element.callResponse == 'Completed') ; else complete" class="active" [routerLink]="['/parent/survey' , schoolName, schoolId , element._id ]">
                                 {{'tableLabel.buttons.startSurvey'| translate}}
                             </div>
                             <ng-template #complete>

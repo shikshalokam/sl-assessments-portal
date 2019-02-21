@@ -22,7 +22,11 @@ export class ParentListComponent implements OnInit {
   
 
   constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private parentService: ParentService, private utility: UtilityService) {
-    
+    this.route.params.subscribe(params=>{
+      this.schoolName = params['name'];
+      this.schoolId = params['id'];
+      console.log(params)
+    })
   }
   schoolId: any;
   submissionId: any;
