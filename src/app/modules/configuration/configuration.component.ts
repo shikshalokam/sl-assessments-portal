@@ -7,14 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
-  programId;
-  assessmentId;
-  constructor(private route : ActivatedRoute) { 
-    this.route.params.subscribe(params => {
-      this.programId = params["programId"];
-      this.assessmentId = params["assessmentId"];
-    });
-  }
+ 
   ngOnInit() {
   }
 

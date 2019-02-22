@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from './core/services/translate-service/translate.service';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from './core';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,41 @@ import { TranslateService } from './core/services/translate-service/translate.se
 })
 export class AppComponent implements OnInit {
 
- 
- 
+  links;
+  constructor(private translate: TranslateService, private route : ActivatedRoute) {
 
-  constructor(private translate: TranslateService) {
     translate.use('en').then(() => {
-      
+    
     });
+    
+    this.links = [  
+      { 
+        linkHeading : "headings.features",
+        options:[
+          {
+            value : "headings.parentInterview",
+            link :{
+              anchorLink : "parent"
+            }
+          },
+          {
+            value :"headings.reports",
+            link :{
+              anchorLink:"report"
+            }
+          },
+          {
+            value :"headings.configurations",
+            link :{
+              anchorLink:"configuration"
+            }
+          }
+        ]
+        }
+    ] 
+
   }
   ngOnInit(){
-  
   }
  
       
