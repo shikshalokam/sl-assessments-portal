@@ -33,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'report',
+        redirectTo: 'parent',
         pathMatch: 'full'
       },
       // {

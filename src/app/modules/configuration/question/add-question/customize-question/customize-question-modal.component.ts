@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { UtilityService, ConfigurationService } from 'src/app/core';
+import { UtilityService } from 'shikshalokamcoremodule';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { element } from '@angular/core/src/render3';
+import { ConfigurationService } from '../../../configuration-service/configuration.service';
 @Component({
   selector: 'app-customize-question-modal',
   templateUrl: './customize-question-modal.component.html',

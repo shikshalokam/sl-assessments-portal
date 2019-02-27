@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
-import { ParentConfig } from '../parent-config';
-import { ParentService } from '../../../core/services/parent-service/parent.service';
-import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
-import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
+import { Component, OnInit, ViewChild,  } from '@angular/core';
+import { MatTableDataSource, MatPaginator,  } from '@angular/material';
+import { UtilityService } from 'shikshalokamcoremodule';
+import { ParentService } from '../parent-service/parent.service';
 
 @Component({
   selector: 'app-school-list',
@@ -20,6 +19,10 @@ export class SchoolListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private parentService: ParentService, private utility: UtilityService) {
+    if (window.screen.width < 760) { // 768px portrait
+      this.smallScreen = true;
+      console.log(this.smallScreen)
+    }
     this.showConfig();
   }
   showConfig() {
@@ -44,10 +47,8 @@ export class SchoolListComponent implements OnInit {
   }
   ngOnInit() {
     this.utility.loaderShow();
-    if (window.screen.width < 760) { // 768px portrait
-      this.smallScreen = true;
-      console.log(this.smallScreen)
-    }
+
+    
   }
 
   objectKeys(obj) {

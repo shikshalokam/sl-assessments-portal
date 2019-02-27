@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { UtilityService, ConfigurationService } from 'src/app/core';
+import { UtilityService } from 'shikshalokamcoremodule';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
-import { environment } from '../../../../../environments/environment'
-import { ResourceService } from 'src/app/shared/services';
+import { ResourceService } from 'shikshalokamsharedmodule';
 import { ActivatedRoute } from '@angular/router';
+import { ConfigurationService } from '../../configuration-service/configuration.service';
 @Component({
   selector: 'app-add-criteria-modal',
   templateUrl: './add-criteria-modal.component.html',

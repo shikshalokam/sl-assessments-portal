@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ParentService } from 'src/app/core/services/parent-service/parent.service';
-import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
+import { UtilityService } from 'shikshalokamcoremodule';
+import { ParentService } from '../parent-service/parent.service';
 
 @Component({
   selector: 'app-parent-information',

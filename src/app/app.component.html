@@ -1,19 +1,31 @@
 <div class="container-fluid">
     <div class="row completeDiv">
-        <div class="headerDiv">
-            <app-navbar></app-navbar>
-            <app-responsive-navbar ></app-responsive-navbar>
-            <mat-divider class="noMarginPadding"></mat-divider>
-        </div>
-        <div class="bodyDiv">
-            <div class="sideDiv horizontalLine">
-                <div *ngFor= "let link of links" > 
-                    <app-sidenav [link] = "link" ></app-sidenav>
-                </div>
+        <mat-toolbar class="toolBar noMarginPadding">
+            <div class="col-xs-12 ">
+                  <app-navbar [currentUser]="currentUser" (Logout)="onLogout()" [logo]="logo" ></app-navbar>
+                  <app-responsive-navbar [currentUser]="currentUser" (Logout)="onLogout()" [logo]="logo" (openDrawer)="drawer.toggle()"></app-responsive-navbar>
             </div>
-            <div class="routingDiv padding">
+        </mat-toolbar>
+        <mat-divider class="noMarginPadding"></mat-divider>
+        <mat-drawer-container class="example-container bodyDiv" autosize>
+              
+          <mat-drawer  #drawer class="example-sidenav sideDiv" [(mode)]="pushMode" [(opened)]="opened" (window:resize)="onResize($event)"> 
+                      <div *ngFor= "let link of links" > 
+                              <app-sidenav [link] = "link" [programsShow]="false" ></app-sidenav>
+                      </div>
+              </mat-drawer>
+  
+             
+              <div class="example-sidenav-content ">
                 <router-outlet></router-outlet>
-            </div>
-        </div>
+              </div>
+            
+            </mat-drawer-container>
+  
     </div>
   </div>
+  
+  
+  
+  
+  

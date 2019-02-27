@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { FormGroup } from '@angular/forms';
-import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
+import { UtilityService } from 'shikshalokamcoremodule';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
+import { ParentService } from '../parent-service/parent.service';
 
 @Component({
   selector: 'app-parent-edit',
