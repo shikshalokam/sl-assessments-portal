@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
-import { ResourceService } from 'shikshalokamsharedmodule';
+import { ResourceService } from 'shikshalokam';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigurationService } from '../../configuration-service/configuration.service';
 @Component({

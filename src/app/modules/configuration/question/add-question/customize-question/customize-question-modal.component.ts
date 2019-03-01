@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { element } from '@angular/core/src/render3';
 import { ConfigurationService } from '../../../configuration-service/configuration.service';

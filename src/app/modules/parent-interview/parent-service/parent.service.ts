@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ParentConfig } from '../../parent-interview/parent-config';
-import { ApiService } from 'shikshalokamcoremodule';
+import { ApiService } from 'shikshalokam';
 import { environment } from 'src/environments/environment';
 @Injectable(
     {

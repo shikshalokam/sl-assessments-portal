@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 import { ParentService } from '../parent-service/parent.service';
 
 @Component({

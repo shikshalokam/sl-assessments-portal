@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { ParentService } from '../parent-service/parent.service';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 @Component({
   selector: 'app-parent-list',
   templateUrl: './parent-list.component.html',

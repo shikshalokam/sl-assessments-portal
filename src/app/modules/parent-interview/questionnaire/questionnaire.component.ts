@@ -6,7 +6,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
 import { MatSnackBar } from '@angular/material';
 import { ParentInformationComponent } from '../parent-information/parent-information.component';
 import { ParentService } from '../parent-service/parent.service';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 
 @Component({
   selector: 'app-questionnaire',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReportConfig } from 'src/app/modules/report/report-config';
-import { ApiService } from 'shikshalokamcoremodule';
+import { ApiService } from 'shikshalokam';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'

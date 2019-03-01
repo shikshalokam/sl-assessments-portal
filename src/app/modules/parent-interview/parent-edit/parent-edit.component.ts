@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material';
 import { ParentService } from '../parent-service/parent.service';

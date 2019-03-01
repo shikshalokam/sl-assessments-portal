@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,  } from '@angular/core';
 import { MatTableDataSource, MatPaginator,  } from '@angular/material';
-import { UtilityService } from 'shikshalokamcoremodule';
+import { UtilityService } from 'shikshalokam';
 import { ParentService } from '../parent-service/parent.service';
 
 @Component({
