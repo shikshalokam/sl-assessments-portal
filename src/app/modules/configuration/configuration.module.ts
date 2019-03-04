@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule, MatRadioModule, MatButtonModule, MatCardModule } from '@angular/material';
+import { MatRadioModule, MatCardModule } from '@angular/material';
 import { SharedModule ,DynamicFormComponent } from 'shikshalokam';
 import { CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';

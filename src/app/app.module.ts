@@ -4,9 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { CoreModule ,TranslateService} from 'shikshalokam';
-import { SharedModule } from 'shikshalokam';
+import { HttpClientModule} from '@angular/common/http';
+import { CoreModule ,TranslateService , SharedModule} from 'shikshalokam';
 import { AuthService } from './modules/private-modules/auth-service/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -28,7 +27,7 @@ export function authFactory(authService: AuthService) {
   imports: [
     AppRoutingModule,
     SharedModule,
-    CoreModule,
+    // CoreModule,
     MatDividerModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -53,6 +52,10 @@ export function authFactory(authService: AuthService) {
       multi: true,
       deps: [AuthService]
     },
+   
+    
+    
+
 
   ],
   bootstrap: [AppComponent]
