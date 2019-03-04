@@ -16,9 +16,7 @@ import { SelectComponent } from './questionnaire/components/select/select.compon
 import { MultiSelectComponent } from './questionnaire/components/multi-select/multi-select.component';
 import { ConfirmModalComponent } from './questionnaire/components/confirm-modal/confirm-modal.component';
 import { RemarksComponent } from './questionnaire/components/remarks/remarks.component';
-import { CoreModule } from 'shikshalokam';
-import { SharedModule } from 'shikshalokam';
-import { ParentService } from './parent-service/parent.service';
+import { SharedModule,CoreModule } from 'shikshalokam';
 @NgModule({
   declarations: [
     ParentInterviewComponent,
