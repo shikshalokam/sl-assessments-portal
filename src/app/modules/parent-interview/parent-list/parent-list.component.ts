@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
-import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
+import { ParentService } from '../parent-service/parent.service';
+import { UtilityService } from 'shikshalokam';
 @Component({
   selector: 'app-parent-list',
   templateUrl: './parent-list.component.html',
@@ -27,7 +27,12 @@ export class ParentListComponent implements OnInit {
       this.schoolId = params['id'];
       console.log(params)
     })
+    if (window.innerWidth < 760) { // 768px portrait
+      this.smallScreen = true;
+    }
+
   }
+  
   schoolId: any;
   submissionId: any;
   isProdEnvironment: string;

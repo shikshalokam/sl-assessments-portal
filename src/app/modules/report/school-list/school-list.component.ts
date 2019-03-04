@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ParentService } from '../../../core/services/parent-service/parent.service';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
-import { ReportService } from 'src/app/core';
+import { MatTableDataSource, MatPaginator ,MatSort } from '@angular/material';
+import { UtilityService } from 'shikshalokam';
 import { ActivatedRoute } from '@angular/router';
+import { ReportService } from '../report-service/report.service';
 
 elementData: {
 
@@ -24,7 +23,7 @@ export class SchoolListComponent implements OnInit {
   programId;
     assessmentId;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @ViewChild(MatSort) sort: MatSort;
   constructor(private route :ActivatedRoute,private reportService: ReportService, private utility: UtilityService) {
     this.showConfig();
   }
@@ -33,7 +32,13 @@ export class SchoolListComponent implements OnInit {
       .subscribe(data => {
         this.result = data['result']['length'];
         this.dataSource = new MatTableDataSource(data['result']);
-        setTimeout(() => this.dataSource.paginator = this.paginator);
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+        );
+        
+
         this.schoolList = data['result'];
         this.utility.loaderHide()
       },

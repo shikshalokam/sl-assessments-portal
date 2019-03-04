@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from 'src/app/core/services/configuration-service/configuration.service';
+import { ConfigurationService } from '../../configuration-service/configuration.service';
 import {  MatSnackBar } from '@angular/material';
-import { UtilityService } from 'src/app/core';
+import { UtilityService } from 'shikshalokam';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

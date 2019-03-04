@@ -1,9 +1,9 @@
 <app-loader></app-loader>
 
-<div *ngIf="!error">
+<div *ngIf="!error " >
     <app-parent-heading [genericHeading]="headings" [atleastOneComplete]="atleastOneComplete" [schoolName]="schoolName"
         (sendMarkAsComplete)="parentInterviewSubmit($event)"></app-parent-heading>
-    <div *ngIf="result != 0 && !smallScreen" class="bigTabel">
+    <div *ngIf="result != 0 && !smallScreen" class="bigTabel" (window:resize)="onResize($event)">
         <mat-form-field [floatLabel]="'never'" class="_contentMiddle _full-width">
             <input class="filterInput" matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'search'| translate}}">
         </mat-form-field>
@@ -99,7 +99,7 @@
 
         </div>
     </div>
-    <div *ngIf=" result > 0  && parentList && smallScreen " class="_responsiveTabel ">
+    <div *ngIf=" result > 0  && parentList && smallScreen " class="_responsiveTabel " (window:resize)="onResize($event)">
         <div *ngFor="let parent of parentList" class=" margin">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>

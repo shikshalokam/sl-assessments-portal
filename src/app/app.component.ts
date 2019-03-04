@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from './core';
+import { TranslateService } from 'shikshalokam';
+import { AuthService } from './modules/private-modules/auth-service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,43 +10,66 @@ import { TranslateService } from './core';
 })
 export class AppComponent implements OnInit {
 
-  links;
-  constructor(private translate: TranslateService, private route : ActivatedRoute) {
+ 
+ 
+  programId;
+  assessmentId;
+  // links ;
+  opened = true;
+  pushMode = 'side';
+  currentUser;
+  logo =" ./assets/shikshalokam.png";
+  links = [  
+    { 
+      linkHeading : "headings.features",
+      options:[
+        {
+          value : "headings.parentInterview",
+          
+            anchorLink : "parent"
+        },
+        {
+          value :"headings.reports",
+            anchorLink:"report"
+        },
+        {
+          value :"headings.configurations",
+            anchorLink:"configuration"
+        }
+      ]
+      }
+  ] 
 
+  constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService) {
     translate.use('en').then(() => {
     
     });
-    
-    this.links = [  
-      { 
-        linkHeading : "headings.features",
-        options:[
-          {
-            value : "headings.parentInterview",
-            link :{
-              anchorLink : "parent"
-            }
-          },
-          {
-            value :"headings.reports",
-            link :{
-              anchorLink:"report"
-            }
-          },
-          {
-            value :"headings.configurations",
-            link :{
-              anchorLink:"configuration"
-            }
-          }
-        ]
-        }
-    ] 
+    if (window.screen.width < 760) { // 768px portrait
+      this.opened = false;
+      this.pushMode = 'push';
+    }
+    this.currentUser = this.authService.getCurrentUserDetails();
+   }
+
+  ngOnInit() {
 
   }
-  ngOnInit(){
+   
+  onLogout(){
+    this.authService.getLogout();
   }
- 
-      
+  onResize(event)
+  {
+    if(event.target.innerWidth < 760)
+    {
+      this.opened = false;
+      this.pushMode = 'push';
+    }
+    else{
+      this.opened = true;
+      this.pushMode = 'side';
+
+    }
+  } 
 }
 

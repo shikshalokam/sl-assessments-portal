@@ -1,7 +1,7 @@
 @media only screen and (max-width: 600px){
-    .sideDiv {
-        display: none !important;
-    }
+    // .sideDiv {
+    //     display: none !important;
+    // }
     .nextButton{
         width: 100% !important;
     }
@@ -19,9 +19,9 @@
         margin : 10px  0px !important;
         width:100% !important;
     }
-    .sideDiv{
-        display :none !important;
-    }
+    // .sideDiv{
+    //     display :none !important;
+    // }
     .navbar{
         display : none !important;
     }
@@ -107,6 +107,12 @@
 }
 
 @media only screen and (max-width: 768px) {
+    .navbar{
+        display : none !important;
+    }
+    .responsiveNavbar{
+        display: flex !important;
+    }
     .bigTabel{
         display: none !important;
     }

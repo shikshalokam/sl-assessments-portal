@@ -4,15 +4,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { TranslateService } from './core/services/translate-service/translate.service';
-import { AuthService } from './core/services/auth/auth.service';
+import { HttpClientModule} from '@angular/common/http';
+import { CoreModule ,TranslateService , SharedModule} from 'shikshalokam';
+import { AuthService } from './modules/private-modules/auth-service/auth.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { JwtModule } from '@auth0/angular-jwt';
+import { MatToolbarModule, MatSidenavModule } from '@angular/material';
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 export function authFactory(authService: AuthService) {
   return () => authService.init();
@@ -25,12 +27,21 @@ export function authFactory(authService: AuthService) {
   imports: [
     AppRoutingModule,
     SharedModule,
-    CoreModule,
+    // CoreModule,
     MatDividerModule,
+    MatToolbarModule,
+    MatSidenavModule,
     CoreModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['example.com'],
+        blacklistedRoutes: ['example.com/examplebadroute/']
+      }
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
@@ -41,6 +52,10 @@ export function authFactory(authService: AuthService) {
       multi: true,
       deps: [AuthService]
     },
+   
+    
+    
+
 
   ],
   bootstrap: [AppComponent]

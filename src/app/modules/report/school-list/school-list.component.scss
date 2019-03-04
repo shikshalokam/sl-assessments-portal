@@ -2,7 +2,9 @@
 table {
     width: 100%;
   }
-
+  th.mat-sort-header-sorted {
+    color: $black-color;
+  }
 .capitalise{
     text-transform: capitalize;
     padding: 0px 10px  0px 0px;   

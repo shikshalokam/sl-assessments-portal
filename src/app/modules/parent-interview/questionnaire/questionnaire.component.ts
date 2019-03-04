@@ -1,12 +1,12 @@
 import { Component, OnInit , ViewChild, } from '@angular/core';
 import {Location} from '@angular/common';
-import { ParentService } from 'src/app/core/services/parent-service/parent.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog,   } from '@angular/material';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { MatSnackBar } from '@angular/material';
-import { UtilityService } from 'src/app/core/services/utility-service/utility.service';
 import { ParentInformationComponent } from '../parent-information/parent-information.component';
+import { ParentService } from '../parent-service/parent.service';
+import { UtilityService } from 'shikshalokam';
 
 @Component({
   selector: 'app-questionnaire',
