@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'shikshalokam';
 import { AuthService } from './modules/private-modules/auth-service/auth.service';
@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
    }
 
   ngOnInit() {
-
   }
    
   onLogout(){
