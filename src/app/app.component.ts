@@ -11,7 +11,6 @@ import { AuthService } from './modules/private-modules/auth-service/auth.service
 export class AppComponent implements OnInit {
 
  
-  footerLink
   programId;
   assessmentId;
   // links ;
@@ -25,16 +24,15 @@ export class AppComponent implements OnInit {
       options:[
         {
           value : "headings.parentInterview",
-          
-            anchorLink : "parent"
+          anchorLink : "parent"
         },
         {
           value :"headings.reports",
-            anchorLink:"report"
+          anchorLink:"report"
         },
         {
           value :"headings.configurations",
-            anchorLink:"configuration"
+          anchorLink:"configuration"
         }
       ]
       }
@@ -45,23 +43,6 @@ export class AppComponent implements OnInit {
 
   constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService) {
     translate.use('en').then(() => {
-    this.footerLink =[
-      {
-        name: "Copyright @2019 Shikshalokam",
-        line:"|"
-      },
-      {
-        name: "Terms of Service",
-        line:"|"
-      },
-      {
-        name: "Privacy Policy",
-        line:"|"
-      },
-      {
-        name: "Contact Us",
-      }
-   ];
   
     });
     if (window.screen.width < 760) { // 768px portrait
