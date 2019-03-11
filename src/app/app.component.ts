@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
  
  
-  programId;
+  isLoggedIn:boolean;
   assessmentId;
   // links ;
   opened = true;
@@ -24,16 +24,23 @@ export class AppComponent implements OnInit {
       linkHeading : "headings.features",
       options:[
         {
+          value : "headings.homes",
+            id:'home',
+            anchorLink : "home"
+        },
+        {
           value : "headings.parentInterview",
-          
+            id:'parent',
             anchorLink : "parent"
         },
         {
           value :"headings.reports",
+          id:'report',
             anchorLink:"report"
         },
         {
           value :"headings.configurations",
+          id:'configurations',
             anchorLink:"configuration"
         }
       ]
@@ -41,6 +48,7 @@ export class AppComponent implements OnInit {
   ] 
 
   constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService) {
+    localStorage.setItem('canAcess',JSON.stringify(['home','parent','report','configurations']));
     translate.use('en').then(() => {
     
     });
@@ -49,6 +57,12 @@ export class AppComponent implements OnInit {
       this.pushMode = 'push';
     }
     this.currentUser = this.authService.getCurrentUserDetails();
+    if(this.currentUser){
+      this.isLoggedIn=true;
+    }
+    else{
+      this.isLoggedIn=false;
+    }
    }
 
   ngOnInit() {

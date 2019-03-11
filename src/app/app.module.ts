@@ -12,6 +12,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MatToolbarModule, MatSidenavModule } from '@angular/material';
+import { HomeComponent } from './home/home.component';
+import { MatCardModule } from '@angular/material';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -23,6 +25,7 @@ export function authFactory(authService: AuthService) {
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -35,6 +38,7 @@ export function authFactory(authService: AuthService) {
     HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
+    MatCardModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
