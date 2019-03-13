@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'shikshalokam';
 import { AuthService } from './modules/private-modules/auth-service/auth.service';
@@ -9,10 +9,11 @@ import { AuthService } from './modules/private-modules/auth-service/auth.service
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
- 
  
   isLoggedIn:boolean;
+
+
+  programId;
   assessmentId;
   // links ;
   opened = true;
@@ -47,10 +48,13 @@ export class AppComponent implements OnInit {
       }
   ] 
 
+
+
+
   constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService) {
     localStorage.setItem('canAcess',JSON.stringify(['home','parent','report','configurations']));
     translate.use('en').then(() => {
-    
+  
     });
     if (window.screen.width < 760) { // 768px portrait
       this.opened = false;
@@ -66,7 +70,6 @@ export class AppComponent implements OnInit {
    }
 
   ngOnInit() {
-
   }
    
   onLogout(){
