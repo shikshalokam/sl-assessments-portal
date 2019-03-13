@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
- 
   isLoggedIn:boolean;
 
 
@@ -70,6 +69,7 @@ export class AppComponent implements OnInit {
     else{
       this.isLoggedIn=false;
     }
+    localStorage.setItem('portalName',"Assessments");
    }
 
   ngOnInit() {

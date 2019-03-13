@@ -59,8 +59,8 @@ $white-color: var(--white-color);
 $background-color :var(--background-color);
 $button-background-color: var(--button-background-color);
 $dark-blue:var(--dark-blue-color);
-$app-blue-color:#1cdffe;
-$app-darkBlue-color:#2462e9;
+$app-blue-color:var(--app-blue-color);
+$app-darkBlue-color:var(--app-darkBlue-color);
 
 :root{
 --primary-color:#46a9ff;
@@ -83,7 +83,6 @@ $app-darkBlue-color:#2462e9;
 
 }
 body {
-    // font-family: $regular-font !important;
     font-family: var(--regular-font) !important;
 
 }
