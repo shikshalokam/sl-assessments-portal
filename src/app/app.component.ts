@@ -11,6 +11,8 @@ import { AuthService } from './modules/private-modules/auth-service/auth.service
 export class AppComponent implements OnInit {
  
   isLoggedIn:boolean;
+
+
   programId;
   assessmentId;
   // links ;
