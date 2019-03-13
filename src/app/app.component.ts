@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from 'shikshalokam';
 import { AuthService } from './modules/private-modules/auth-service/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   pushMode = 'side';
   currentUser;
   logo =" ./assets/shikshalokam.png";
+  baseUrl;
   links = [  
     { 
       linkHeading : "headings.features",
@@ -61,6 +63,7 @@ export class AppComponent implements OnInit {
       this.pushMode = 'push';
     }
     this.currentUser = this.authService.getCurrentUserDetails();
+    this.baseUrl=environment.base_url;
     if(this.currentUser){
       this.isLoggedIn=true;
     }
