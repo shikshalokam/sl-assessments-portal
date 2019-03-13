@@ -10,80 +10,83 @@ import { AuthService } from './modules/private-modules/auth-service/auth.service
 })
 export class AppComponent implements OnInit {
 
- 
- 
-  isLoggedIn:boolean;
+
+
+  isLoggedIn: boolean;
   assessmentId;
   // links ;
   opened = true;
   pushMode = 'side';
   currentUser;
-  logo =" ./assets/shikshalokam.png";
-  links = [  
-    { 
-      linkHeading : "headings.features",
-      options:[
+  logo = " ./assets/shikshalokam.png";
+  links = [
+    {
+      linkHeading: "headings.features",
+      options: [
         {
-          value : "headings.homes",
-            id:'home',
-            anchorLink : "home"
+          value: "headings.homes",
+          id: 'home',
+          anchorLink: "home"
         },
         {
-          value : "headings.parentInterview",
-            id:'parent',
-            anchorLink : "parent"
+          value: "headings.parentInterview",
+          id: 'parent',
+          anchorLink: "parent"
         },
         {
-          value :"headings.reports",
-          id:'report',
-            anchorLink:"report"
+          value: "headings.reports",
+          id: 'report',
+          anchorLink: "report"
         },
         {
-          value :"headings.configurations",
-          id:'configurations',
-            anchorLink:"configuration"
+          value: "headings.configurations",
+          id: 'configurations',
+          anchorLink: "configuration"
+        },
+        {
+          value: "headings.design",
+          id: 'design',
+          anchorLink: "design"
         }
       ]
-      }
-  ] 
+    }
+  ]
 
-  constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService) {
-    localStorage.setItem('canAcess',JSON.stringify(['home','parent','report','configurations']));
+  constructor(private route: ActivatedRoute, private authService: AuthService, private translate: TranslateService) {
+    localStorage.setItem('canAcess', JSON.stringify(['home', 'parent', 'report', 'configurations', 'design']));
     translate.use('en').then(() => {
-    
+
     });
     if (window.screen.width < 760) { // 768px portrait
       this.opened = false;
       this.pushMode = 'push';
     }
     this.currentUser = this.authService.getCurrentUserDetails();
-    if(this.currentUser){
-      this.isLoggedIn=true;
+    if (this.currentUser) {
+      this.isLoggedIn = true;
     }
-    else{
-      this.isLoggedIn=false;
+    else {
+      this.isLoggedIn = false;
     }
-   }
+  }
 
   ngOnInit() {
 
   }
-   
-  onLogout(){
+
+  onLogout() {
     this.authService.getLogout();
   }
-  onResize(event)
-  {
-    if(event.target.innerWidth < 760)
-    {
+  onResize(event) {
+    if (event.target.innerWidth < 760) {
       this.opened = false;
       this.pushMode = 'push';
     }
-    else{
+    else {
       this.opened = true;
       this.pushMode = 'side';
 
     }
-  } 
+  }
 }
 

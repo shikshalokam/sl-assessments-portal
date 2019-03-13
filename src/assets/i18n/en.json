@@ -62,7 +62,8 @@
         "type" : "Type",
         "uploadingCsv":"Uploading Csv",
         "operationDashboardUpload":"Upload Csv",
-        "viewSchools": "View Schools"
+        "viewSchools": "View Schools",
+        "design": "Design"
     },
     "labels": {
         "uploadCsv" : "Upload Csv"
