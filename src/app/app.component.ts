@@ -9,13 +9,8 @@ import { AuthService } from './modules/private-modules/auth-service/auth.service
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
- 
-
-
  
   isLoggedIn:boolean;
-  footerLink;
   programId;
   assessmentId;
   // links ;
