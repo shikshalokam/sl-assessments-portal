@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="position: relative">
   <div class="row completeDiv">
     <mat-toolbar class="toolBar noMarginPadding">
       <div class="col-xs-12 ">
@@ -9,7 +9,7 @@
       </div>
     </mat-toolbar>
     <mat-divider class="noMarginPadding"></mat-divider>
-    <mat-drawer-container class="example-container bodyDiv" autosize>
+    <mat-drawer-container class="example-container bodyDiv" style="position: relative" autosize>
 
       <mat-drawer #drawer class="example-sidenav sideDiv" [(mode)]="pushMode" [(opened)]="opened"
         (window:resize)="onResize($event)">
@@ -19,7 +19,7 @@
       </mat-drawer>
 
 
-      <div class="example-sidenav-content ">
+      <div class="col-xs-12">
         <router-outlet></router-outlet>
       </div>
 

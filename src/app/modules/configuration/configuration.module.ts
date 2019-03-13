@@ -5,10 +5,12 @@ import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DesignerWorspaceComponent } from './designer-worspace/designer-worspace.component';
 
 @NgModule({
   declarations: [ConfigurationComponent,
     DashboardComponent,
+    DesignerWorspaceComponent,
   ],
   imports: [
     CommonModule,

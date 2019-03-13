@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DesignerWorspaceComponent } from './designer-worspace/designer-worspace.component';
+
 const routes: Routes = [
   {
     path: '', 
@@ -23,7 +25,12 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full' ,
         redirectTo: 'dashboard'
-      }
+      },
+      {
+        path: 'design-workspace',
+        component: DesignerWorspaceComponent
+
+      },
     ]
   },
  

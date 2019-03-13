@@ -42,18 +42,13 @@ export class AppComponent implements OnInit {
           value: "headings.configurations",
           id: 'configurations',
           anchorLink: "configuration"
-        },
-        {
-          value: "headings.design",
-          id: 'design',
-          anchorLink: "design"
         }
       ]
     }
   ]
 
   constructor(private route: ActivatedRoute, private authService: AuthService, private translate: TranslateService) {
-    localStorage.setItem('canAcess', JSON.stringify(['home', 'parent', 'report', 'configurations', 'design']));
+    localStorage.setItem('canAcess', JSON.stringify(['home', 'parent', 'report', 'configurations']));
     translate.use('en').then(() => {
 
     });
