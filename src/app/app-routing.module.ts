@@ -19,17 +19,21 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: '',
+    data : {breadcrumb : ''},
     children: [
       {
         path: 'parent',
+        data : {},
         loadChildren: './modules/parent-interview/parent-interview.module#ParentInterviewModule'
       },
       {
         path: 'report',
+        data : {},
         loadChildren: './modules/report/report.module#ReportModule'
       },
       {
         path: 'configuration',
+        data : {},
         loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
       },
       {
@@ -49,6 +53,7 @@ const routes: Routes = [
       // }
       {
         path:'home', component: HomeComponent,
+        data : {breadcrumb : 'Home'},
       }
     ]
   }
