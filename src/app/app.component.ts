@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
       this.pushMode = 'push';
     }
     this.currentUser = this.authService.getCurrentUserDetails();
+    
     if(this.currentUser){
       this.isLoggedIn=true;
     }

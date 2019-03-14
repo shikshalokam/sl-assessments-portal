@@ -18,7 +18,6 @@ export class CustomizeQuestionComponent implements OnInit {
   constructor(private utility: UtilityService,private _formBuilder :FormBuilder, private configurationService: ConfigurationService,
     public dialogRef: MatDialogRef<CustomizeQuestionComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-      console.log(data)
   }
   ngOnInit() {
     this.createForm();
