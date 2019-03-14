@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   currentUser;
   logo =" ./assets/shikshalokam.png";
   baseUrl;
+  portalName;
   links = [  
     { 
       linkHeading : "headings.features",
@@ -63,13 +64,15 @@ export class AppComponent implements OnInit {
     }
     this.currentUser = this.authService.getCurrentUserDetails();
     this.baseUrl=environment.base_url;
+    this.portalName = environment.portal_name;
+
+    
     if(this.currentUser){
       this.isLoggedIn=true;
     }
     else{
       this.isLoggedIn=false;
     }
-    localStorage.setItem('portalName',"Assessments");
    }
 
   ngOnInit() {
