@@ -74,10 +74,8 @@ export class QuestionTypeListComponent implements OnInit {
         }
       ]
 
-      console.log("pushed")
     }
     this.newQuestion.responseType = question;
-    console.log(this.newQuestion)
     this.sendQuestionObject.emit(JSON.parse(JSON.stringify(this.newQuestion)));
     this.newQuestion.options = [];
     this.newQuestion.responseType = "";
