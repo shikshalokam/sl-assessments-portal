@@ -49,6 +49,7 @@ export class AuthService {
     // return jwt_decode(this.keycloakAuth.token);
     this.userName = this.jwtHelper.decodeToken(this.getToken()).name;
     return this.jwtHelper.decodeToken(this.getToken());
+    
   }
 
   getLogout(){

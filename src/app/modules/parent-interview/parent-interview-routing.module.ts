@@ -10,31 +10,48 @@ const routes: Routes = [
   {
     path: '', 
      component: ParentInterviewComponent,
-    data: {},
+    data: {
+      breadcrumb : 'Parent Interview'
+    },
     // canActivate: [AuthGuard],
     children: [
       {
         path: 'school-list',
         component: SchoolListComponent,
+        data: {
+          breadcrumb : 'headings.schoolListHeading'
+        },
        
       },
       {
         path : 'parent-list/:name/:id',
         component : ParentListComponent,
+        data: {
+          breadcrumb : 'headings.parentListHeading'
+        },
        
       },
       {
         path : 'parent-edit/:name/:id',
         component : ParentEditComponent,
+        data: {
+          breadcrumb : 'headings.parentInfoHeading'
+        },
        
       },
       {
         path: 'survey/:schoolName/:schoolId/:parentId',
-        component: QuestionnaireComponent
+        component: QuestionnaireComponent,
+        data: {
+          breadcrumb : 'Parent Survey'
+        },
       },
       {
         path : 'parent-information/:id',
         component : ParentInformationComponent,
+        data: {
+          breadcrumb : 'Parent Information'
+        },
       },
       {
         path: '**',

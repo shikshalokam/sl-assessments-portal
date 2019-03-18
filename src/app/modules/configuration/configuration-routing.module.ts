@@ -4,19 +4,30 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: '', 
-    data: {},
+    data: {
+      breadcrumb:'Configuration'
+    },
     children: [
       {
         path: 'dashboard',
+        data: {
+          breadcrumb:''
+        },
         component: DashboardComponent
 
       },
       {
         path:'criteria',
+        data: {
+          breadcrumb:'Criteria'
+        },
         loadChildren: './criteria/criteria.module#CriteriaModule'
       },
       {
         path:'question',
+        data: {
+          breadcrumb:''
+        },
         loadChildren: './question/question.module#QuestionModule'
       },
       {

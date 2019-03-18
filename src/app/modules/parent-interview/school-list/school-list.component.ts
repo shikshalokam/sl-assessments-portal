@@ -21,7 +21,6 @@ export class SchoolListComponent implements OnInit {
   constructor(private parentService: ParentService, private utility: UtilityService) {
     if (window.screen.width < 760) { // 768px portrait
       this.smallScreen = true;
-      console.log(this.smallScreen)
     }
     this.showConfig();
   }
@@ -42,7 +41,6 @@ export class SchoolListComponent implements OnInit {
       );
   }
   applyFilter(filterValue: string) {
-    console.log(filterValue)
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() {
@@ -56,10 +54,8 @@ export class SchoolListComponent implements OnInit {
   }
   onResize(event)
   {
-    console.log(event);
     if(event.target.innerWidth > 760)
     {
-      console.log(true)
       this.smallScreen = true;
     }
   }
