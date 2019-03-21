@@ -15,7 +15,7 @@ constructor() {
   }
 
   ngOnInit() {
-    // this.main()
+    this.main()
 
   }
 
@@ -31,14 +31,16 @@ constructor() {
       var container = document.getElementById('sampleDiv');
       container.style.position = 'absolute';
       container.style.overflow = 'hidden';
-      container.style.left = '0px';
-      container.style.top = '0px';
+      container.style.left = '250px';
+      container.style.top = '51px';
       container.style.right = '0px';
       container.style.bottom = '0px';
+      container.style.zIndex = "2";
       var outline = document.getElementById('outlineContainer');
       mxEvent.disableContextMenu(container);
       if (mxClient.IS_QUIRKS) {
-        document.body.style.overflow = 'hidden';
+        // document.body.style.overflow = 'hidden';
+        // document.
         new mxDivResizer(container);
         new mxDivResizer(outline);
       }
@@ -81,7 +83,7 @@ constructor() {
 
       style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_MIDDLE;
       style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_LEFT;
-      style[mxConstants.STYLE_SPACING_LEFT] = 54;
+      style[mxConstants.STYLE_SPACING_LEFT] = 10;
 
       style[mxConstants.STYLE_GRADIENTCOLOR] = '#7d85df';
       style[mxConstants.STYLE_STROKECOLOR] = '#5d65df';
@@ -98,7 +100,7 @@ constructor() {
 
       style[mxConstants.STYLE_IMAGE] = 'assests/camera.png';
       style[mxConstants.STYLE_IMAGE_WIDTH] = '48';
-      style[mxConstants.STYLE_IMAGE_HEIGHT] = '48';
+      style[mxConstants.STYLE_IMAGE_HEIGHT] = '30';
       style[mxConstants.STYLE_SPACING] = 8;
       // Sets the default style for edges
       style = graph.getStylesheet().getDefaultEdgeStyle();
@@ -177,7 +179,7 @@ constructor() {
       try {
         var w = graph.container.offsetWidth;
         var v1 = graph.insertVertex(parent, 'treeRoot',
-          'Organization', w / 2 - 30, 20, 140, 60, 'image=assests/camera.png');
+          'Organization', w / 2 - 30, 20, 140, 60);
         graph.updateCellSize(v1);
         this.addOverlays(graph, v1, false);
       }
@@ -185,32 +187,40 @@ constructor() {
         // Updates the display
         graph.getModel().endUpdate();
       }
-      var content = document.createElement('div');
+      var content = document.getElementById("tools");
       content.style.padding = '4px';
+      // content.style.position = "absolute";
+      // content.style.top = "55px";
+      // content.style.left = "255px";
+      // content.style.zIndex = "3"
+      // content.style.border = '1px solid black';
       var tb = new mxToolbar(content);
-      tb.addItem('Zoom In', 'assets/zoom_in32.png', function (evt) {
+      tb.addItem('Zoom In', 'assets/images/zoom_in-24px.svg', function (evt) {
         graph.zoomIn();
       });
-      tb.addItem('Zoom Out', 'assets/zoom_out32.png', function (evt) {
+      tb.addItem('Zoom Out', 'assets/images/zoom_out-24px.svg', function (evt) {
         graph.zoomOut();
       });
 
-      tb.addItem('Actual Size', 'assets/view_1_132.png', function (evt) {
-        graph.zoomActual();
-      });
-      tb.addItem('Print', 'assets/print32.png', function (evt) {
-        var preview = new mxPrintPreview(graph, 1);
-        preview.open();
-      });
-      tb.addItem('Poster Print', 'assets/press32.png', function (evt) {
-        var pageCount = mxUtils.prompt('Enter maximum page count', '1');
-        if (pageCount != null) {
-          var scale = mxUtils.getScaleForPageCount(pageCount, graph);
-          var preview = new mxPrintPreview(graph, scale);
-          preview.open();
-        }
-      });
-      let wnd = new mxWindow('Tools', content, 0, 0, 200, 66, false);
+      // tb.addItem('Actual Size', 'assets/view_1_132.png', function (evt) {
+      //   graph.zoomActual();
+      // });
+      // tb.addItem('Print', 'assets/print32.png', function (evt) {
+      //   var preview = new mxPrintPreview(graph, 1);
+      //   preview.open();
+      // });
+      // tb.addItem('Poster Print', 'assets/press32.png', function (evt) {
+      //   var pageCount = mxUtils.prompt('Enter maximum page count', '1');
+      //   if (pageCount != null) {
+      //     var scale = mxUtils.getScaleForPageCount(pageCount, graph);
+      //     var preview = new mxPrintPreview(graph, scale);
+      //     preview.open();
+      //   }
+      // });
+      let wnd = new mxWindow('Tools', content, 255, 55, 70, 66, false, false);
+      console.log(wnd)
+      // wnd.content.style.position = "absolute";
+      // wnd.content.style.zIndex = "2";
       wnd.setMaximizable(false);
       wnd.setScrollable(false);
       wnd.setResizable(false);
@@ -259,7 +269,7 @@ constructor() {
   }
 
   addOverlays(graph, cell, addDeleteIcon) {
-    var overlay = new mxCellOverlay(new mxImage('assets/add.png', 24, 24), 'Add child');
+    var overlay = new mxCellOverlay(new mxImage('/assets/images/add.svg', 24, 24), 'Add children');
     overlay.cursor = 'hand';
     overlay.align = mxConstants.ALIGN_CENTER;
     overlay.addListener(mxEvent.CLICK, mxUtils.bind(this, function (sender, evt) {
@@ -268,7 +278,7 @@ constructor() {
 
     graph.addCellOverlay(cell, overlay);
     if (addDeleteIcon) {
-      overlay = new mxCellOverlay(new mxImage('assets/close.png', 30, 30), 'Delete');
+      overlay = new mxCellOverlay(new mxImage('/assets/images/close-browser.svg', 24, 24), 'Delete');
       overlay.cursor = 'hand';
       overlay.offset = new mxPoint(-10, 8);
       overlay.align = mxConstants.ALIGN_RIGHT;
