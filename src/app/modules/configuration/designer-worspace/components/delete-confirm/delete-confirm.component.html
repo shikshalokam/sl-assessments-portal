@@ -1,0 +1,14 @@
+<div>
+  <div mat-dialog-title>Confirm</div>
+  <div mat-dialog-content>
+    <p>Do you want to delete ?</p>
+  </div>
+  <!-- <div mat-dialog-actions class="col-xs-12"> -->
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="pull-right">Ok</button>
+    <button mat-button [mat-dialog-close] class="pull-right">No Thanks</button> -->
+    <mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]>{{'buttons.cancel'| translate }}</button>
+      <button mat-button class="_primary-btn"  [mat-dialog-close]="true">{{'buttons.ok'| translate }}</button>
+    </mat-dialog-actions>
+  <!-- </div> -->
+</div>

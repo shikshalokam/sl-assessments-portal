@@ -30,11 +30,14 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/scss/responsive.scss",
+              "node_modules/mxgraph/javascript/src/css/common.css",
+              "node_modules/mxgraph/javascript/src/css/explorer.css",
               "src/assets/scss/varibles.scss",
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/keycloak-js/dist/keycloak.min.js"
+              "./node_modules/keycloak-js/dist/keycloak.min.js",
+              "node_modules/mxgraph/javascript/mxClient.js"
             ]
           },
           "configurations": {

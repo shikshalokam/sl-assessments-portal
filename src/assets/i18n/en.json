@@ -47,7 +47,7 @@
         "survey": "Survey",
         "reports" : "Reports",
         "downloadReport" : "Download Evedince Report",
-        "configurations" : "WorkSpace",
+        "configurations" : "Workspace",
         "operations" : "Operations",
         "questionFrameWorkHeading":"Questionary",
         "criteriaFrameWorkHeading":"Criterias",
@@ -62,7 +62,8 @@
         "type" : "Type",
         "uploadingCsv":"Uploading Csv",
         "operationDashboardUpload":"Upload Csv",
-        "viewSchools": "View Schools"
+        "viewSchools": "View Schools",
+        "design": "Design"
     },
     "labels": {
         "uploadCsv" : "Upload Csv"

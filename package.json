@@ -37,6 +37,7 @@
     "keycloak-js": "^4.6.0",
     "mat-progress-buttons": "^7.0.10",
     "material-design-icons": "^3.0.1",
+    "mxgraph": "^3.9.12",
     "ngx-spinner": "^6.1.2",
     "node-sass": "^4.10.0",
     "rxjs": "^6.3.3",

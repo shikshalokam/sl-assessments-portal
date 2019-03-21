@@ -10,9 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn:boolean;
-
-
+  isLoggedIn: boolean;
   programId;
   assessmentId;
   // links ;
@@ -27,28 +25,28 @@ export class AppComponent implements OnInit {
       linkHeading : "headings.features",
       options:[
         {
-          value : "headings.homes",
-            id:'home',
-            anchorLink : "home"
+          value: "headings.homes",
+          id: 'home',
+          anchorLink: "home"
         },
         {
-          value : "headings.parentInterview",
-            id:'parent',
-            anchorLink : "parent"
+          value: "headings.parentInterview",
+          id: 'parent',
+          anchorLink: "parent"
         },
         {
-          value :"headings.reports",
-          id:'report',
-            anchorLink:"report"
+          value: "headings.reports",
+          id: 'report',
+          anchorLink: "report"
         },
         {
-          value :"headings.configurations",
-          id:'configurations',
-            anchorLink:"configuration"
+          value: "headings.configurations",
+          id: 'configurations',
+          anchorLink: "configuration"
         }
       ]
-      }
-  ] 
+    }
+  ]
 
 
 
@@ -70,29 +68,27 @@ export class AppComponent implements OnInit {
     if(this.currentUser){
       this.isLoggedIn=true;
     }
-    else{
-      this.isLoggedIn=false;
+    else {
+      this.isLoggedIn = false;
     }
-   }
+  }
 
   ngOnInit() {
   }
-   
-  onLogout(){
+
+  onLogout() {
     this.authService.getLogout();
   }
-  onResize(event)
-  {
-    if(event.target.innerWidth < 760)
-    {
+  onResize(event) {
+    if (event.target.innerWidth < 760) {
       this.opened = false;
       this.pushMode = 'push';
     }
-    else{
+    else {
       this.opened = true;
       this.pushMode = 'side';
 
     }
-  } 
+  }
 }
 

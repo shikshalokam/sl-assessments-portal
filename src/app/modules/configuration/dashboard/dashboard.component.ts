@@ -22,6 +22,13 @@ export class DashboardComponent implements OnInit {
       anchorLink: "/configuration/question"
 
     },
+    {
+      value: "headings.design",
+      description: "descriptions.questionFrameWorkDescription",
+      // anchorLink: "/assessments/configuration/question"
+      anchorLink: "/configuration/design-workspace"
+
+    },
     
   ]
  
