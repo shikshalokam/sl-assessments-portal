@@ -46,7 +46,7 @@ export function authFactory(authService: AuthService) {
         blacklistedRoutes: ['example.com/examplebadroute/']
       }
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     TranslateService,
