@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import { DeleteConfirmComponent } from './components/delete-confirm/delete-confirm.component';
 
 declare var mxClient, mxUtils, mxDivResizer, mxCellOverlay,
   mxConstants, mxEvent, mxGraph, mxOutline, mxEdgeStyle, mxPoint, mxImage,
@@ -9,14 +11,25 @@ declare var mxClient, mxUtils, mxDivResizer, mxCellOverlay,
   templateUrl: './designer-worspace.component.html',
   styleUrls: ['./designer-worspace.component.scss']
 })
-export class DesignerWorspaceComponent implements OnInit {
-constructor() {
+export class DesignerWorspaceComponent implements OnInit, OnDestroy {
+constructor(public dialog: MatDialog) {
     mxConstants.SHADOWCOLOR = '#C0C0C0';
   }
 
   ngOnInit() {
     this.main()
+  }
 
+  ngOnDestroy() {
+    console.log("Hiiii");
+    var outline = document.getElementById('outlineContainer');
+    outline.parentNode.removeChild(outline);
+    var content = document.getElementById("tools");
+    content.parentNode.removeChild(content);
+    var newContainer  = document.getElementsByClassName("mxWindow");
+    newContainer[0].parentNode.removeChild(newContainer[0]);
+    var container = document.getElementById('sampleDiv');
+    container.parentNode.removeChild(container);
   }
 
   main() {
@@ -82,37 +95,43 @@ constructor() {
       style[mxConstants.STYLE_SHAPE] = 'label';
 
       style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_MIDDLE;
-      style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_LEFT;
-      style[mxConstants.STYLE_SPACING_LEFT] = 10;
+      style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_CENTER;
+      // style[mxConstants.STYLE_SPACING_LEFT] = 10;
 
-      style[mxConstants.STYLE_GRADIENTCOLOR] = '#7d85df';
-      style[mxConstants.STYLE_STROKECOLOR] = '#5d65df';
-      style[mxConstants.STYLE_FILLCOLOR] = '#adc5ff';
+      style[mxConstants.STYLE_GRADIENTCOLOR] = '#ae4039';
+      style[mxConstants.STYLE_STROKECOLOR] = '#ae4039';
+      style[mxConstants.STYLE_FILLCOLOR] = '#ae4039';
 
-      style[mxConstants.STYLE_FONTCOLOR] = '#1d258f';
+      style[mxConstants.STYLE_FONTCOLOR] = '#ffffff';
       style[mxConstants.STYLE_FONTFAMILY] = 'Verdana';
       style[mxConstants.STYLE_FONTSIZE] = '12';
-      style[mxConstants.STYLE_FONTSTYLE] = '1';
+      style[mxConstants.STYLE_FONTSTYLE] = '8';
 
       style[mxConstants.STYLE_SHADOW] = '1';
       style[mxConstants.STYLE_ROUNDED] = '1';
-      style[mxConstants.STYLE_GLASS] = '1';
+      style[mxConstants.STYLE_GLASS] = '0';
 
       style[mxConstants.STYLE_IMAGE] = 'assests/camera.png';
       style[mxConstants.STYLE_IMAGE_WIDTH] = '48';
       style[mxConstants.STYLE_IMAGE_HEIGHT] = '30';
-      style[mxConstants.STYLE_SPACING] = 8;
+      style[mxConstants.STYLE_SPACING] = 10;
+      style[mxConstants.STYLE_RESIZABLE] = "0";
+      style[mxConstants.STYLE_EDITABLE] = "0";
       // Sets the default style for edges
       style = graph.getStylesheet().getDefaultEdgeStyle();
       style[mxConstants.STYLE_ROUNDED] = true;
-      style[mxConstants.STYLE_STROKEWIDTH] = 3;
+      style[mxConstants.STYLE_STROKEWIDTH] = 2;
       style[mxConstants.STYLE_EXIT_X] = 0.5; // center
       style[mxConstants.STYLE_EXIT_Y] = 1.0; // bottom
       style[mxConstants.STYLE_EXIT_PERIMETER] = 0; // disabled
       style[mxConstants.STYLE_ENTRY_X] = 0.5; // center
       style[mxConstants.STYLE_ENTRY_Y] = 0; // top
-      style[mxConstants.STYLE_ENTRY_PERIMETER] = 0; // disabled
+      style[mxConstants.STYLE_STROKECOLOR] = '#5CB848';
+      style[mxConstants.STYLE_RESIZABLE] = "0";
+      style[mxConstants.STYLE_EDITABLE] = "0";
 
+      style[mxConstants.STYLE_ENTRY_PERIMETER] = 0; // disabled
+      // style[mxConstants.STYLE_SWIMLANE_LINE] = 
       // Disable the following for straight lines
       style[mxConstants.STYLE_EDGE] = mxEdgeStyle.TopToBottom;
       // Stops editing on enter or escape keypress
@@ -179,7 +198,7 @@ constructor() {
       try {
         var w = graph.container.offsetWidth;
         var v1 = graph.insertVertex(parent, 'treeRoot',
-          'Organization', w / 2 - 30, 20, 140, 60);
+          'Framework', w / 2 - 30, 20, 140, 60);
         graph.updateCellSize(v1);
         this.addOverlays(graph, v1, false);
       }
@@ -242,7 +261,8 @@ constructor() {
       if (cell.id != 'treeRoot' &&
         model.isVertex(cell)) {
         menu.addItem('Delete', '/assests/delete.gif', function () {
-          this.deleteSubtree(graph, cell);
+          // this.deleteSubtree(graph, cell);
+          this.deleteSubtreeconfirm(graph, cell)
         });
       }
       menu.addSeparator();
@@ -269,7 +289,7 @@ constructor() {
   }
 
   addOverlays(graph, cell, addDeleteIcon) {
-    var overlay = new mxCellOverlay(new mxImage('/assets/images/add.svg', 24, 24), 'Add children');
+    var overlay = new mxCellOverlay(new mxImage('/assets/images/add.png', 24, 24), 'Add children');
     overlay.cursor = 'hand';
     overlay.align = mxConstants.ALIGN_CENTER;
     overlay.addListener(mxEvent.CLICK, mxUtils.bind(this, function (sender, evt) {
@@ -278,28 +298,29 @@ constructor() {
 
     graph.addCellOverlay(cell, overlay);
     if (addDeleteIcon) {
-      overlay = new mxCellOverlay(new mxImage('/assets/images/close-browser.svg', 24, 24), 'Delete');
+      overlay = new mxCellOverlay(new mxImage('/assets/images/close.png', 30, 30), 'Delete');
       overlay.cursor = 'hand';
-      overlay.offset = new mxPoint(-10, 8);
+      overlay.offset = new mxPoint(-0, 5);
       overlay.align = mxConstants.ALIGN_RIGHT;
       overlay.verticalAlign = mxConstants.ALIGN_TOP;
       overlay.addListener(mxEvent.CLICK, mxUtils.bind(this, function (sender, evt) {
-        this.deleteSubtree(graph, cell);
+        // this.deleteSubtree(graph, cell);
+        this.deleteSubtreeconfirm(graph, cell);
       }));
 
       graph.addCellOverlay(cell, overlay);
-      overlay = new mxCellOverlay(new mxImage('assets/copy.png', 30, 30, 'Camera'))
+      // overlay = new mxCellOverlay(new mxImage('assets/copy.png', 30, 30, 'Camera'))
 
-      overlay.offset = new mxPoint(10, 20);
-      overlay.cursor = 'hand';
-      overlay.align = mxConstants.ALIGN_RIGHT;
-      overlay.verticalAlign = mxConstants.ALIGN_TOP;
-      overlay.addListener(mxEvent.CLICK, mxUtils.bind(this, function (sender, evt) {
-        console.log(graph)
-        console.log(cell);
-        console.log("hiiiii")
-      }));
-      graph.addCellOverlay(cell, overlay);
+      // overlay.offset = new mxPoint(10, 20);
+      // overlay.cursor = 'hand';
+      // overlay.align = mxConstants.ALIGN_RIGHT;
+      // overlay.verticalAlign = mxConstants.ALIGN_TOP;
+      // overlay.addListener(mxEvent.CLICK, mxUtils.bind(this, function (sender, evt) {
+      //   console.log(graph)
+      //   console.log(cell);
+      //   console.log("hiiiii")
+      // }));
+      // graph.addCellOverlay(cell, overlay);
 
     }
   }
@@ -310,7 +331,7 @@ constructor() {
     var vertex;
     model.beginUpdate();
     try {
-      vertex = graph.insertVertex(parent, null, 'Double click to set name');
+      vertex = graph.insertVertex(parent, null, 'Key Domain');
       var geometry = model.getGeometry(vertex);
       // Updates the geometry of the vertex with the
       // preferred size computed in the graph
@@ -346,5 +367,22 @@ constructor() {
     });
     graph.removeCells(cells);
   }
+
+  deleteSubtreeconfirm(graph, cell) {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      width:'350px',
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.deleteSubtree(graph, cell)
+      }
+    });
+  }
+
+
+
+  // createPopupMenu() {
+
+  // }
 
 }
