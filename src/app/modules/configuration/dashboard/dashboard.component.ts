@@ -12,21 +12,24 @@ export class DashboardComponent implements OnInit {
       value: "headings.criteriaFrameWorkHeading",
       description: "descriptions.criteriaFrameWorkDescription",
       // anchorLink: "/assessments/configuration/criteria"
-      anchorLink: "/configuration/criteria"
+      anchorLink: "/configuration/criteria",
+      icon:"assignment"
 
     },
     {
       value: "headings.questionFrameWorkHeading",
       description: "descriptions.questionFrameWorkDescription",
       // anchorLink: "/assessments/configuration/question"
-      anchorLink: "/configuration/question"
+      anchorLink: "/configuration/question",
+      icon:"question_answer"
 
     },
     {
       value: "headings.design",
       description: "descriptions.questionFrameWorkDescription",
       // anchorLink: "/assessments/configuration/question"
-      anchorLink: "/configuration/design-workspace"
+      anchorLink: "/configuration/design-workspace",
+      icon:"toys"
 
     },
     

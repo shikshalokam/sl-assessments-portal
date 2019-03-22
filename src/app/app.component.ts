@@ -27,22 +27,26 @@ export class AppComponent implements OnInit {
         {
           value: "headings.homes",
           id: 'home',
-          anchorLink: "home"
+          anchorLink: "home",
+          icon:"home"
         },
         {
           value: "headings.parentInterview",
           id: 'parent',
-          anchorLink: "parent"
+          anchorLink: "parent",
+          icon:"supervisor_account"
         },
         {
           value: "headings.reports",
           id: 'report',
-          anchorLink: "report"
+          anchorLink: "report",
+          icon:"description"
         },
         {
           value: "headings.configurations",
           id: 'configurations',
-          anchorLink: "configuration"
+          anchorLink: "configuration",
+          icon:"comment"
         }
       ]
     }
