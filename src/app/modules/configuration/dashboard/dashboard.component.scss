@@ -22,7 +22,6 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    // border :1px solid #bababa;
     border-radius: 20px;
     margin : 0px 20px;
 }
@@ -31,7 +30,7 @@ margin-top:20px;
 }
 .folderIcon{
     font-size: 70px;
-    color:var(--primary-color);
+    color:$primary-color;
     display: flex;
     align-items: center;
 }
@@ -45,10 +44,9 @@ margin-top:20px;
 }
 .iconBox{
     width: 100%;
-    background-image: linear-gradient(to top, var(--light-grey) 10%, var(--white-color) 90%);
+    background-image: linear-gradient(to top, $light-grey 10%, $white-color 90%);
     height: 120px;
     width: 120px;
     border: 1px solid $grey-color;
     border-radius: 15px;
-
 }
