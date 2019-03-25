@@ -33,7 +33,9 @@
               "node_modules/mxgraph/javascript/src/css/common.css",
               "node_modules/mxgraph/javascript/src/css/explorer.css",
               "src/assets/scss/varibles.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/theme.scss"
+
             ],
             "scripts": [
               "./node_modules/keycloak-js/dist/keycloak.min.js",
