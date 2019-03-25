@@ -24,7 +24,7 @@ table {
     border-radius: 12px; 
     border:1px solid $primary-color; 
     padding:2px 8px; 
-    background-color: $button-background-color ; 
+    background-color:$button-background-color; 
     cursor: pointer;
     white-space: nowrap;
     width: fit-content;
@@ -37,10 +37,10 @@ table {
     justify-content: space-between;
 }
 .example-container {
-    height: calc(100vh - 215px) !important;
+    height: calc(100vh - 233px) !important;
   }
 .tableContainer{
-    height: calc(100vh - 263px) !important;
+    height: calc(100vh - 289px) !important;
     overflow: auto;
 }
 
