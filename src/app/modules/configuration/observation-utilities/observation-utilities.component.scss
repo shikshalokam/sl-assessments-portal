@@ -1,0 +1,31 @@
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    color: #333 !important;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 31px;
+    min-width: 219px;
+
+}
+
+.card-header {
+    margin-bottom: 10px !important;
+}
+.dropItem {
+    background:#fff;color:#333;width:200px;height:200px;border:1px solid #ccc
+}
+.pull-right {
+    float:right;
+}
+.pull-left {
+    float:left;
+}
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+  

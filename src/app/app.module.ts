@@ -40,6 +40,7 @@ export function authFactory(authService: AuthService) {
     CommonModule,
     MatCardModule,
     JwtModule.forRoot({
+      
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['example.com'],

@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DesignerWorspaceComponent } from './designer-worspace/designer-worspace.component';
 
+import {  ObservationUtilitiesComponent } from './observation-utilities/observation-utilities.component'
+
 const routes: Routes = [
   {
     path: '', 
@@ -17,6 +19,15 @@ const routes: Routes = [
         },
         component: DashboardComponent
 
+      },
+      {
+
+        path: 'observation-utilities',
+        data: {
+          breadcrumb:''
+        },
+        // component: DashboardComponent
+        component:ObservationUtilitiesComponent
       },
       {
         path:'criteria',

@@ -2,6 +2,11 @@
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "./assets/scss/varibles.scss";
+
+// @import "~bootstrap/scss/bootstrap.scss";
+// @import "~bootswatch/dist/pulse/_bootswatch.scss";
+@import "../node_modules/angular2-multiselect-dropdown/themes/default.theme.css";
+
 @font-face {
     font-family: 'SF-ui-text-regular';
     font-style: normal;
