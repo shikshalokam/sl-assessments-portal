@@ -34,6 +34,16 @@ export class AuthGuard implements CanActivate {
       }
       return true;
     }
+    // console.log("url",url);
+    //  if(url.includes('/configuration') ){
+    //   if(localStorage.getItem('currentProgram2') === null){
+    //     this.router.navigate(['/programs']);
+    //     return false;
+    //   }else{
+    //     return true;
+    //   }
+      
+    // }
 
     //   return true;
     // }

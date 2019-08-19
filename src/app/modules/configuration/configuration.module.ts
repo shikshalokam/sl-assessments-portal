@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatTableModule } from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
@@ -19,6 +19,7 @@ import { FormioModule } from 'angular-formio';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { ObservationReviewComponent } from './observation-review/observation-review.component';
 
 @NgModule({
   declarations: [ConfigurationComponent,
@@ -26,6 +27,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     DesignerWorspaceComponent,
     DeleteConfirmComponent,
     ObservationUtilitiesComponent,
+    ObservationReviewComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     MatDialogModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatTableModule,
     MatStepperModule,
     MatSelectModule,
     ConfigurationRoutingModule,

@@ -3,7 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DesignerWorspaceComponent } from './designer-worspace/designer-worspace.component';
 
-import {  ObservationUtilitiesComponent } from './observation-utilities/observation-utilities.component'
+import {  ObservationUtilitiesComponent } from './observation-utilities/observation-utilities.component';
+
+import { ObservationReviewComponent } from './observation-review/observation-review.component';
+
+// import { }
 
 const routes: Routes = [
   {
@@ -28,6 +32,16 @@ const routes: Routes = [
         },
         // component: DashboardComponent
         component:ObservationUtilitiesComponent
+      },
+      {
+
+        path: 'observation-review',
+      //  canActivate: [AuthGuard],
+        data: {
+          breadcrumb:''
+        },
+        // component: DashboardComponent
+        component:ObservationReviewComponent
       },
       {
         path:'criteria',

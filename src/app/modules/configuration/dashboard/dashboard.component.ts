@@ -16,8 +16,18 @@ export class DashboardComponent implements OnInit {
       // anchorLink: "/assessments/configuration/criteria"
       anchorLink: "/configuration/observation-utilities",
       icon:"assignment"
-
+     
     },
+    {
+      // value: "headings.criteriaFrameWorkHeading",
+
+      value: "Observations Review",
+      description: "descriptions.criteriaFrameWorkDescription",
+      // anchorLink: "/assessments/configuration/criteria"
+      anchorLink: "/configuration/observation-review",
+      icon:"assignment"
+     
+    }
     // {
     //   value: "headings.questionFrameWorkHeading",
     //   description: "descriptions.questionFrameWorkDescription",
