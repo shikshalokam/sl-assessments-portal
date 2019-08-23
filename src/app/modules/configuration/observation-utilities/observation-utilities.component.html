@@ -1,14 +1,98 @@
-<mat-tab-group>
+<mat-tab-group  [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)" class="mat-tab-group mat-primary">
+    <mat-tab label="Details">
+        <!-- <mat-tab-group style="padding: 15px;"> -->
+
+          
+            <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
+                <mat-card class="card-block">  
+              <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Solution Name" formControlName="name">
+                </mat-form-field>
+                <!-- <mat-form-field class="col-xs-12">
+                  <mat-select placeholder="Select Entity" formControlName="selectEntity" [(ngModel)]="selectedEntity">
+                    <mat-option *ngFor="let ele of entitys" [value]="ele">
+                      {{ele}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                
+                <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Description" formControlName="description">
+                </mat-form-field>
+
+                <!-- <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Status" formControlName="status">
+                </mat-form-field> -->
+          
+                <!-- <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Concepts" formControlName="concepts">
+                </mat-form-field> -->
+          
+                <!-- <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Keywords" formControlName="keywords">
+                </mat-form-field> -->
+
+                <div class="col-sm-12">
+                <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'"  [placeholder]="'Add Keywords'" formControlName="keywords"></tag-input>
+                </div>
+
+                <div class="col-sm-12 padd-15">Reusable ?</div> 
+                <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
+                  <mat-radio-button value="yes">Yes</mat-radio-button>
+                  <mat-radio-button value="no">No</mat-radio-button>
+                </mat-radio-group>
+             
+                <!-- <div class="col-sm-12">
+                <button style="float: right" (click)="nextStep()"> Next </button>
+             </div> -->
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+              </mat-card>
+              </form>
+            <!-- <mat-tab label="Solutions Details">
+                
+            </mat-tab> -->
+            <!-- <mat-tab label="View Solutions">
+                <div style="margin: 20px;">
+                <mat-card> 
+                  
+                    <h4>List of Solutions Available</h4>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>description</th>
+                          <th>status</th>
+                          <th>Re-usable</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let el of solutions">
+                          <td>{{ el.name }}</td>
+                          <td>{{ el.description }}</td>
+                          <td>{{ el.status }}</td>
+                          <td>{{ el.isReusable }}</td>
+                        </tr>
+                      </tbody>
+                    </table> 
+                  
+                </mat-card>
+              </div>
+            </mat-tab> -->
+        <!-- </mat-tab-group> -->
+    </mat-tab>
   <mat-tab label="Criteria">
     <div class="">
-        <mat-tab-group style="padding: 15px;">
+        <mat-tab-group class="padd-15" >
             <mat-tab label="Add Criteria">
-                        <form [formGroup]="myForm" class="col-xs-6" style="margin: 20px;" (ngSubmit)="onSubmit(myForm)">
-                            <mat-card>  
+                        <form [formGroup]="myForm" class="col-xs-12 card-content" (ngSubmit)="onSubmit(myForm)">
+                            <mat-card class="card-block">  
                           <mat-form-field class="col-xs-12">
                               <input matInput placeholder="Criteria Name" formControlName="criteriaName">
                             </mat-form-field>
                             <mat-form-field class="col-xs-12">
+                              <input matInput placeholder="Description" formControlName="description">
+                            </mat-form-field>
+                            <!-- <mat-form-field class="col-xs-12">
                               <input matInput placeholder="l1" formControlName="l1">
                             </mat-form-field>
                             <mat-form-field class="col-xs-12">
@@ -19,98 +103,54 @@
                             </mat-form-field>
                             <mat-form-field class="col-xs-12">
                               <input matInput placeholder="l4" formControlName="l4">
-                            </mat-form-field>
-                            <button class="btn btn-primary"> Submit </button>
+                            </mat-form-field> -->
+                           <div class="col-sm-12"> <button class="btn btn-primary"> Submit </button></div>
                           </mat-card>
                           </form>
                    </mat-tab>
-            <mat-tab label="View Criteria" style="padding: 15px;">
-                <div style="margin: 20px;">
-              <mat-card> 
+            <mat-tab class="padd-15" label="View Criteria" >
+                <div class="col-sm-12 card-content" >
+              <mat-card class="card-block"> 
                
-              <ul>
+              <!-- <ul>
                     <li *ngFor="let el of criteria">
                       {{ el.criteriaName }}
                     </li>
-                  </ul>
-                 
+                  </ul> -->
+   
+                        <h4>List of Criteria</h4>
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Criteria </th>
+                              <th>description</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let el of criteria">
+                              <td>{{ el.criteriaName }}</td>
+                              <td>{{ el.description }}</td>
+                            </tr>
+                          </tbody>
+                        </table> 
+                    
                 </mat-card>
               </div>
             </mat-tab>
+
+           
         </mat-tab-group>
+        <!-- <button (click)="previousStep()">
+            Previous
+          </button>
+        <button (click)="nextStep()">
+            Next
+          </button> -->
+
     </div>
   </mat-tab>
-  <mat-tab label="Solutions">
-      <mat-tab-group style="padding: 15px;">
-          <mat-tab label="Add Solutions">
-              <form [formGroup]="solutionForm"  style="margin: 20px;" class="col-xs-6" (ngSubmit)="solutionSubmit(solutionForm)">
-                  <mat-card>  
-                <mat-form-field class="col-xs-12">
-                    <input matInput placeholder="Name" formControlName="name">
-                  </mat-form-field>
-                  <mat-form-field class="col-xs-12">
-                    <mat-select placeholder="Select Entity" formControlName="selectEntity" [(ngModel)]="selectedEntity">
-                      <mat-option *ngFor="let ele of entitys" [value]="ele">
-                        {{ele}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            
-                  <mat-form-field class="col-xs-12">
-                    <input matInput placeholder="Description" formControlName="description">
-                  </mat-form-field>
-                  <mat-form-field class="col-xs-12">
-                    <input matInput placeholder="Status" formControlName="status">
-                  </mat-form-field>
-            
-                  <mat-form-field class="col-xs-12">
-                    <input matInput placeholder="Concepts" formControlName="concepts">
-                  </mat-form-field>
-            
-                  <mat-form-field class="col-xs-12">
-                    <input matInput placeholder="Keywords" formControlName="keywords">
-                  </mat-form-field>
-            
-                  <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
-                    <mat-radio-button value="yes">Yes</mat-radio-button>
-                    <mat-radio-button value="no">No</mat-radio-button>
-                  </mat-radio-group>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-               </mat-card>
-                </form>
-          </mat-tab>
-          <mat-tab label="View Solutions">
-              <div style="margin: 20px;">
-              <mat-card> 
-                
-                  <h4>List of Solutions Available</h4>
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>description</th>
-                        <th>status</th>
-                        <th>Re-usable</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let el of solutions">
-                        <td>{{ el.name }}</td>
-                        <td>{{ el.description }}</td>
-                        <td>{{ el.status }}</td>
-                        <td>{{ el.isReusable }}</td>
-                      </tr>
-                    </tbody>
-                  </table> 
-                
-              </mat-card>
-            </div>
-          </mat-tab>
-      </mat-tab-group>
 
-    
-  </mat-tab>
-  <mat-tab label="Entity">
+  <!-- <mat-tab label="Entity">
 
       <mat-tab-group style="padding: 15px;">
           <mat-tab label="Add Entity">
@@ -174,8 +214,12 @@
   </mat-tab-group>
 
     
-  </mat-tab>
+  </mat-tab> -->
   <mat-tab label="Questions"> 
+
+    <mat-card style="    float: left;
+    width: 100%;
+    margin: 15px;">
       <div class="form-group" class="col-sm-6">
           <label for="sel1">Select Criteria:</label>
           <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
@@ -183,12 +227,14 @@
           </select>
         </div>
         <div class="col-sm-12" style="padding:30px"><form-builder class="col-sm-12"  [form]="form" (change)="onChange($event)"></form-builder></div>
-        <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>  
-  </mat-tab>
-  <mat-tab label="Map"> 
-      <div class="col-sm-6" style="padding:20px">
-          <!-- <mat-card> -->
 
+      </mat-card>
+        <!-- <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>   -->
+
+
+  </mat-tab>
+  <!-- <mat-tab label="Map"> 
+      <div class="col-sm-6" style="padding:20px">
           <div class="form-group" class="col-sm-12" >
             <label for="sel1">Select solutions</label>
             <select class="form-control col-sm-10" id="sel1" [(ngModel)]="selectedSolution">
@@ -205,24 +251,29 @@
                 <c-item>
                   <ng-template let-item="item">
                     <label style="color: #333;min-width: 150px;">{{item.criteriaName}}</label>
-                    <!-- <img [src]="item.image" style="width: 30px; border: 1px solid #efefef;margin-right: 20px;" /> -->
-                    <!-- <label>Capital - {{item.capital}}</label> -->
                   </ng-template>
                 </c-item>
               </angular2-multiselect>
             </div>
           </div>
-        <!-- </mat-card> -->
         </div>
-
-  </mat-tab>
+  </mat-tab> -->
 </mat-tab-group>
 
-<div class="col-sm-12">
+<div class="col-sm-12 text-center">
 
-  <div class="btn btn-primary pull-right">Save</div>
-  <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div>
+  <!-- <div class="btn btn-primary pull-right">Save</div> -->
+  <!-- <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div> -->
+
+  <button class="btn btn-primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
+      Previous
+    </button>
+  <button class="btn btn-primary"  *ngIf="next" (click)="nextStep()">
+      {{ nextBtn }}
+    </button>
+
 </div>
+
 
 <div class="col-sm-12" *ngIf="showJsonInfo">
   <div class="well jsonviewer">

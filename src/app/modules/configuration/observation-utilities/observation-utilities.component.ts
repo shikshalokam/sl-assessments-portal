@@ -3,9 +3,23 @@ import { FormioModule } from 'ng2-formio';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-
+import { MatTabChangeEvent } from '@angular/material';
 // import * as $ from 'jquery';
 declare var $: any;
+
+import { TagInputModule } from 'ngx-chips';
+ 
+TagInputModule.withDefaults({
+    tagInput: {
+        placeholder: 'Add a Keyword',
+        // add here other default values for tag-input
+    },
+    dropdown: {
+        displayBy: 'my-display-value',
+        // add here other default values for tag-input-dropdown
+    }
+});
+
 
 @Component({
   selector: 'app-observation-utilities',
@@ -28,8 +42,13 @@ export class ObservationUtilitiesComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  keyWordItems = [];
 
   entitys = [];
+
+  previous =false;
+  next = true;
+  nextBtn = "Next";
 
   viewBlock = "";
 
@@ -38,6 +57,9 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   Data: any;
   dopElement = "";
+  selectedIndex: number = 0;
+  maxNumberOfTabs =3;
+
   @ViewChild('json') jsonElement?: ElementRef;
 
 
@@ -169,10 +191,11 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     this.myForm = new FormGroup({
       criteriaName: new FormControl(''),
-      l1: new FormControl(''),
-      l2: new FormControl(''),
-      l3: new FormControl(''),
-      l4: new FormControl('')
+      description:new FormControl(''),
+      // l1: new FormControl(''),
+      // l2: new FormControl(''),
+      // l3: new FormControl(''),
+      // l4: new FormControl('')
     });
 
     this.solutionForm = new FormGroup({
@@ -293,10 +316,11 @@ export class ObservationUtilitiesComponent implements OnInit {
         id: this.criteria.length + 1,
         itemName: form.value.criteriaName,
         criteriaName: form.value.criteriaName,
-        l1: form.value.l1,
-        l2: form.value.l2,
-        l3: form.value.l3,
-        l4: form.value.l4
+        description:form.value.description
+        // l1: form.value.l1,
+        // l2: form.value.l2,
+        // l3: form.value.l3,
+        // l4: form.value.l4
       }
       this.criteria.push(criteriaObj);
       // this.solutionObj =criteriaObj;
@@ -386,10 +410,50 @@ export class ObservationUtilitiesComponent implements OnInit {
     this.showQuestions = false;
     this.showMapping = false;
 
+
     // if (input == 'entitys') {
       this.viewBlock = input;
     // }else
 
+  }
+
+  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+
+    console.log("tabChangeEvent.index",tabChangeEvent.index);
+    this.selectedIndex = tabChangeEvent.index;
+
+    if(this.selectedIndex==0){
+      this.previous =false;
+    }else{
+      this.previous =true;
+    }
+
+    if(this.selectedIndex==2){
+      this.nextBtn = "Save"
+    }else{
+      this.nextBtn = "Next";
+    }
+
+    
+
+    // if(this.selectedIndex==3){
+    //   this.previous =false;
+    // }
+   
+}
+
+ nextStep() {
+    if (this.selectedIndex != this.maxNumberOfTabs) {
+      this.selectedIndex = this.selectedIndex + 1;
+    }
+    console.log(this.selectedIndex);
+  }
+
+  previousStep() {
+    if (this.selectedIndex != 0) {
+      this.selectedIndex = this.selectedIndex - 1;
+    }
+    console.log(this.selectedIndex);
   }
 
 

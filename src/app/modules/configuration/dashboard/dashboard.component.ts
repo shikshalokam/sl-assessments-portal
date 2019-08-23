@@ -15,13 +15,13 @@ export class DashboardComponent implements OnInit {
       description: "descriptions.criteriaFrameWorkDescription",
       // anchorLink: "/assessments/configuration/criteria"
       anchorLink: "/configuration/observation-utilities",
-      icon:"assignment"
+      icon:"question_answer"
      
     },
     {
       // value: "headings.criteriaFrameWorkHeading",
 
-      value: "Observations Review",
+      value: "Assment Solutions",
       description: "descriptions.criteriaFrameWorkDescription",
       // anchorLink: "/assessments/configuration/criteria"
       anchorLink: "/configuration/observation-review",

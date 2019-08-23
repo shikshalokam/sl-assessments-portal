@@ -46,7 +46,21 @@ export class AppComponent implements OnInit {
           value: "headings.configurations",
           id: 'configurations',
           anchorLink: "configuration",
-          icon:"comment"
+          icon:"comment",
+          submenu:[
+            {
+            value:"Create",
+            anchorLink:"configuration"
+          },
+          {
+            value:"Draft",
+            anchorLink:"configuration"
+          },
+          {
+            value:"Review",
+            anchorLink:"configuration"
+          }
+        ]
         }
       ]
     }
