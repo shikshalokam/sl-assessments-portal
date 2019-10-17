@@ -1,57 +1,110 @@
-<mat-tab-group  [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)" class="mat-tab-group mat-primary">
-    <mat-tab label="Details">
-        <!-- <mat-tab-group style="padding: 15px;"> -->
+<div class="_flex-box _justify-content-center wrapper">
 
-          
-            <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
-                <mat-card class="card-block">  
-              <mat-form-field class="col-xs-12">
-                  <input matInput placeholder="Solution Name" formControlName="name">
-                </mat-form-field>
-                <!-- <mat-form-field class="col-xs-12">
+  <div class="_full-width ">
+      <!-- <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading> -->
+
+<mat-card class="card-block" *ngIf="!showCreate" style="margin-top:15px;">  
+  <div class="row" style="margin-top: 5%">
+
+
+    <div class="col-sm-4 ">
+        <div class="col-sm-12">
+           
+              <h3 style=" margin-top: 0px;"> <i class="material-icons">create</i>Create Observations</h3>
+              <div class="col-sm-12 desc">
+    
+                Description goes here ....
+                </div>
+                <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div>
+              </div>
+
+    </div>
+    <div class="col-sm-4">
+        <div class="col-sm-12">
+              <h3 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Institutional</h3>
+              <div class="col-sm-12 desc" >
+    
+                Description goes here ....
+                </div>
+
+                <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div>
+              </div>
+
+    </div>
+    <div class="col-sm-4">
+        <div class="col-sm-12">
+              <h3 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Individual</h3>
+              <div class="col-sm-12 desc" >
+    
+                Description goes here ....
+                </div>
+
+                <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div>
+              </div>
+
+    </div>
+
+  </div>
+
+  </mat-card>
+
+  <div class="row" *ngIf="showCreate">
+<mat-tab-group  [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)"
+  class="mat-tab-group mat-primary">
+  <mat-tab label="Details">
+    <!-- <mat-tab-group style="padding: 15px;"> -->
+
+
+    <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
+      <mat-card class="card-block">
+        <mat-form-field class="col-xs-12">
+          <input matInput placeholder="Solution Name" formControlName="name">
+        </mat-form-field>
+        <!-- <mat-form-field class="col-xs-12">
                   <mat-select placeholder="Select Entity" formControlName="selectEntity" [(ngModel)]="selectedEntity">
                     <mat-option *ngFor="let ele of entitys" [value]="ele">
                       {{ele}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field> -->
-                
-                <mat-form-field class="col-xs-12">
-                  <input matInput placeholder="Description" formControlName="description">
-                </mat-form-field>
 
-                <!-- <mat-form-field class="col-xs-12">
+        <mat-form-field class="col-xs-12">
+          <input matInput placeholder="Description" formControlName="description">
+        </mat-form-field>
+
+        <!-- <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Status" formControlName="status">
                 </mat-form-field> -->
-          
-                <!-- <mat-form-field class="col-xs-12">
+
+        <!-- <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Concepts" formControlName="concepts">
                 </mat-form-field> -->
-          
-                <!-- <mat-form-field class="col-xs-12">
+
+        <!-- <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Keywords" formControlName="keywords">
                 </mat-form-field> -->
 
-                <div class="col-sm-12">
-                <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'"  [placeholder]="'Add Keywords'" formControlName="keywords"></tag-input>
-                </div>
+        <div class="col-sm-12">
+          <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'" [placeholder]="'Add Keywords'"
+            formControlName="keywords"></tag-input>
+        </div>
 
-                <div class="col-sm-12 padd-15">Reusable ?</div> 
-                <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
-                  <mat-radio-button value="yes">Yes</mat-radio-button>
-                  <mat-radio-button value="no">No</mat-radio-button>
-                </mat-radio-group>
-             
-                <!-- <div class="col-sm-12">
+        <div class="col-sm-12 padd-15">Reusable ?</div>
+        <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
+          <mat-radio-button value="yes">Yes</mat-radio-button>
+          <mat-radio-button value="no">No</mat-radio-button>
+        </mat-radio-group>
+
+        <!-- <div class="col-sm-12">
                 <button style="float: right" (click)="nextStep()"> Next </button>
              </div> -->
-                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-              </mat-card>
-              </form>
-            <!-- <mat-tab label="Solutions Details">
+        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+      </mat-card>
+    </form>
+    <!-- <mat-tab label="Solutions Details">
                 
             </mat-tab> -->
-            <!-- <mat-tab label="View Solutions">
+    <!-- <mat-tab label="View Solutions">
                 <div style="margin: 20px;">
                 <mat-card> 
                   
@@ -78,69 +131,114 @@
                 </mat-card>
               </div>
             </mat-tab> -->
-        <!-- </mat-tab-group> -->
-    </mat-tab>
+    <!-- </mat-tab-group> -->
+  </mat-tab>
   <mat-tab label="Criteria">
     <div class="">
-        <mat-tab-group class="padd-15" >
-            <mat-tab label="Add Criteria">
-                        <form [formGroup]="myForm" class="col-xs-12 card-content" (ngSubmit)="onSubmit(myForm)">
-                            <mat-card class="card-block">  
-                          <mat-form-field class="col-xs-12">
-                              <input matInput placeholder="Criteria Name" formControlName="criteriaName">
-                            </mat-form-field>
-                            <mat-form-field class="col-xs-12">
-                              <input matInput placeholder="Description" formControlName="description">
-                            </mat-form-field>
-                            <!-- <mat-form-field class="col-xs-12">
-                              <input matInput placeholder="l1" formControlName="l1">
-                            </mat-form-field>
-                            <mat-form-field class="col-xs-12">
-                              <input matInput placeholder="l2" formControlName="l2">
-                            </mat-form-field>
-                            <mat-form-field class="col-xs-12">
-                              <input matInput placeholder="l3" formControlName="l3">
-                            </mat-form-field>
-                            <mat-form-field class="col-xs-12">
-                              <input matInput placeholder="l4" formControlName="l4">
-                            </mat-form-field> -->
-                           <div class="col-sm-12"> <button class="btn btn-primary"> Submit </button></div>
-                          </mat-card>
-                          </form>
-                   </mat-tab>
+
+      <form [formGroup]="myForm" *ngIf="showAddCriteria" class="col-xs-12 card-content" (ngSubmit)="onSubmit(myForm)">
+        <mat-card class="card-block">
+          <mat-form-field class="col-xs-12">
+            <input matInput placeholder="Criteria Name" formControlName="criteriaName">
+          </mat-form-field>
+          <mat-form-field class="col-xs-12">
+            <input matInput placeholder="Description" formControlName="description">
+          </mat-form-field>
+          <!-- <mat-form-field class="col-xs-12">
+              <input matInput placeholder="l1" formControlName="l1">
+            </mat-form-field>
+            <mat-form-field class="col-xs-12">
+              <input matInput placeholder="l2" formControlName="l2">
+            </mat-form-field>
+            <mat-form-field class="col-xs-12">
+              <input matInput placeholder="l3" formControlName="l3">
+            </mat-form-field>
+            <mat-form-field class="col-xs-12">
+              <input matInput placeholder="l4" formControlName="l4">
+            </mat-form-field> -->
+          <div class="col-sm-12"> <button class="btn btn-primary"> Submit </button></div>
+        </mat-card>
+      </form>
+
+      <div class="col-xs-12 card-content">
+        <mat-card class="card-block">
+
+          <!-- <ul>
+          <li *ngFor="let el of criteria">
+            {{ el.criteriaName }}
+          </li>
+        </ul> -->
+
+          <div class="col-sm-2 add-criteria pull-right" (click)="AddCriteria()">
+            <i class="material-icons pull-right" >
+              add
+            </i>
+           <div class="col-sm-12 add-button"> Add Criteria</div>            
+          </div>
+
+
+          <h4>List of Criteria</h4>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Criteria </th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let el of criteria">
+                <td>{{ el.criteriaName }}</td>
+                <td>{{ el.description }}</td>
+                <td> <span class="pull-right"><i class="material-icons">edit</i><i class="material-icons">delete</i></span> </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <!-- <div class="table-responsive">
+              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      
+                 
+                  <ng-container matColumnDef="no">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                    <td mat-cell *matCellDef="let element;let i=index"> {{i+1}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="criteriaName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Criteria Name. </th>
+                      <td mat-cell *matCellDef="let element"> {{element.criteriaName}} </td>
+                    </ng-container>
+
+                      <ng-container matColumnDef="description">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                        </ng-container> 
+
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            
+            </div> -->
+
+        </mat-card>
+      </div>
+
+
+      <!-- <mat-tab-group class="padd-15" [selectedIndex]="0" >
+            <mat-tab label="Add Criteria" class="mat-tab-label mat-ripple ng-star-inserted mat-tab-label-active" >
+               
+            </mat-tab>
             <mat-tab class="padd-15" label="View Criteria" >
                 <div class="col-sm-12 card-content" >
-              <mat-card class="card-block"> 
-               
-              <!-- <ul>
-                    <li *ngFor="let el of criteria">
-                      {{ el.criteriaName }}
-                    </li>
-                  </ul> -->
-   
-                        <h4>List of Criteria</h4>
-                        <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th>Criteria </th>
-                              <th>description</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let el of criteria">
-                              <td>{{ el.criteriaName }}</td>
-                              <td>{{ el.description }}</td>
-                            </tr>
-                          </tbody>
-                        </table> 
-                    
-                </mat-card>
+           
               </div>
             </mat-tab>
 
            
-        </mat-tab-group>
-        <!-- <button (click)="previousStep()">
+        </mat-tab-group> -->
+      <!-- <button (click)="previousStep()">
             Previous
           </button>
         <button (click)="nextStep()">
@@ -215,21 +313,36 @@
 
     
   </mat-tab> -->
-  <mat-tab label="Questions"> 
+  <mat-tab label="Questions">
 
     <mat-card style="    float: left;
-    width: 100%;
+    width: 98%;
     margin: 15px;">
-      <div class="form-group" class="col-sm-6">
-          <label for="sel1">Select Criteria:</label>
-          <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
+      <div class="form-group" class="col-sm-6" style="padding: 36px;">
+        <!-- <label for="sel1">Select Criteria:</label> -->
+        <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
             <option *ngFor="let ele of criteria" value="{{ ele.criteriaName }}">{{ ele.criteriaName }}</option>
-          </select>
-        </div>
-        <div class="col-sm-12" style="padding:30px"><form-builder class="col-sm-12"  [form]="form" (change)="onChange($event)"></form-builder></div>
+          </select> -->
 
-      </mat-card>
-        <!-- <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>   -->
+        <mat-form-field>
+          <mat-label>Select Criteria</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let ele of criteria" [value]="ele.criteriaName">
+              {{ele.criteriaName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="col-sm-12" style="padding:30px">
+        <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
+        </form-builder>
+      </div>
+
+      <!-- <div id="fb-editor"></div> -->
+
+    </mat-card>
+    <!-- <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>   -->
 
 
   </mat-tab>
@@ -265,12 +378,15 @@
   <!-- <div class="btn btn-primary pull-right">Save</div> -->
   <!-- <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div> -->
 
+  <button class="btn btn-primary" *ngIf="saveBtn"  style="margin-right:10px;">
+    Save
+  </button>
   <button class="btn btn-primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
-      Previous
-    </button>
-  <button class="btn btn-primary"  *ngIf="next" (click)="nextStep()">
-      {{ nextBtn }}
-    </button>
+    Previous
+  </button>
+  <button class="btn btn-primary" *ngIf="next" (click)="nextStep()">
+    {{ nextBtn }}
+  </button>
 
 </div>
 
@@ -292,4 +408,6 @@
   <!-- <formio *ngIf="showQuestions" [form]="Data"></formio> -->
 
 </div>
-<router-outlet></router-outlet>
+</div>
+</div>
+</div>

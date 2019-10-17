@@ -6,27 +6,30 @@ import { DesignerWorspaceComponent } from './designer-worspace/designer-worspace
 import {  ObservationUtilitiesComponent } from './observation-utilities/observation-utilities.component';
 
 import { ObservationReviewComponent } from './observation-review/observation-review.component';
+import { DraftComponent } from './draft/draft.component';
 
 // import { }
 
 const routes: Routes = [
+ 
   {
     path: '', 
     data: {
-      breadcrumb:'Configuration'
+      breadcrumb:'workspace'
     },
+
     children: [
       {
-        path: 'dashboard',
+        path: '',
         data: {
           breadcrumb:''
         },
-        component: DashboardComponent
+        component:ObservationUtilitiesComponent
 
       },
       {
 
-        path: 'observation-utilities',
+        path: 'create',
         data: {
           breadcrumb:''
         },
@@ -35,7 +38,7 @@ const routes: Routes = [
       },
       {
 
-        path: 'observation-review',
+        path: 'review',
       //  canActivate: [AuthGuard],
         data: {
           breadcrumb:''
@@ -66,7 +69,10 @@ const routes: Routes = [
         path: 'design-workspace',
         component: DesignerWorspaceComponent
 
-      },
+      },{
+        path: 'draft',
+        component : DraftComponent
+      }
     ]
   },
  

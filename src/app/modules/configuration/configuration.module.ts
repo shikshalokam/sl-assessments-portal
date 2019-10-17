@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule } from '@angular/material';
+import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule} from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
@@ -21,6 +21,7 @@ import { DragAndDropModule } from 'angular-draggable-droppable';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { ObservationReviewComponent } from './observation-review/observation-review.component';
 import { TagInputModule } from 'ngx-chips';
+import { DraftComponent } from './draft/draft.component';
 
 @NgModule({
   declarations: [ConfigurationComponent,
@@ -29,6 +30,7 @@ import { TagInputModule } from 'ngx-chips';
     DeleteConfirmComponent,
     ObservationUtilitiesComponent,
     ObservationReviewComponent,
+    DraftComponent,
   ],
   imports: [
     CommonModule,

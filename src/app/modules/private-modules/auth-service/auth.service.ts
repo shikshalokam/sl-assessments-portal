@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as jwt_decode from "jwt-decode";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ApiService } from 'shikshalokam';
+
+// import { environment } from 'src/environments/environment';
 
 declare var Keycloak: any;
 
@@ -12,7 +15,7 @@ export class AuthService {
   isLoggedIn =false;
   redirectUrl:string;
   userName : string;
-  constructor( private jwtHelper :JwtHelperService) { }
+  constructor( private jwtHelper :JwtHelperService,private apiService:ApiService) { }
 
   
   private keycloakAuth: any;
@@ -55,6 +58,19 @@ export class AuthService {
   getLogout(){
     localStorage.clear();
    return this.keycloakAuth.logout();
+  }
+
+  getUserRoles(userId){
+
+    console.log("getCurrentUserDetails",this.getCurrentUserDetails());
+
+    return this.apiService.get(environment.getProfileDetails);
+
+
+    // return (this.getCurrentUserDetails());
+
+    
+
   }
 
 

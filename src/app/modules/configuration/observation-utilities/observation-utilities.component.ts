@@ -3,7 +3,8 @@ import { FormioModule } from 'ng2-formio';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { MatTabChangeEvent } from '@angular/material';
+import { MatTabChangeEvent,MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -29,6 +30,8 @@ TagInputModule.withDefaults({
 
 
 
+// var ELEMENT_DATA: Element[] = [];
+
 export class ObservationUtilitiesComponent implements OnInit {
   title = 'form-build';
   closeResult: string;
@@ -52,6 +55,24 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   viewBlock = "";
 
+  formioOptions = { builder: {
+    basic: false,
+    advanced: false,
+    data: false,
+    customBasic: {
+      title: 'Basic Components',
+      default: true,
+      weight: 0,
+      components: {
+        textfield: true,
+        textarea: true,
+        email: true,
+        phoneNumber: true
+      }
+    }
+  }
+};
+
   constructor(private elRef: ElementRef) { }
 
 
@@ -59,15 +80,56 @@ export class ObservationUtilitiesComponent implements OnInit {
   dopElement = "";
   selectedIndex: number = 0;
   maxNumberOfTabs =3;
+  showAddCriteria=false;
+  saveBtn =true;
+
+  displayedColumns: string[] = ['no','criteriaName','description'];
+  dataSource;  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
 
   @ViewChild('json') jsonElement?: ElementRef;
+  showCreate=false;
 
 
 
   // @ViewChild('dropArea') this.dopElement?: ElementRef;
   public form: Object = {
     "title": "My Test Form",
-    "components": [
+    builder:{
+      basic: false,
+      advanced: false,
+      data: false,
+      customBasic: {
+        title: 'Basic Components',
+        default: true,
+        weight: 0,
+        components: {
+          textfield: true,
+          textarea: true,
+          email: true,
+          phoneNumber: true
+        }
+      }
+    },
+    components: [],
+    "components11": [
+      {
+        "input": true,
+        "label": "Submit",
+        "tableView": false,
+        "key": "submit",
+        "size": "md",
+        "leftIcon": "",
+        "rightIcon": "",
+        "block": false,
+        "action": "submit",
+        "disableOnInvalid": true,
+        "theme": "primary",
+        "type": "button",
+        "hidden": true
+    }
      
     ],
     "components1": [
@@ -166,10 +228,38 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   addEntityBlock = false;
 
+  formData:any =[
+    {
+      type: "header",
+      subtype: "h1",
+      label: "formBuilder in Angular"
+    },
+    {
+      type: "paragraph",
+      label:
+        "This is a demonstration of formBuilder running in an AngularJS project."
+    }
+  ];
+  
 
   ngOnInit() {
 
+
+    this.showCreate =false;
+
+   
+   
+
     this.criteria = [];
+
+
+    this.dataSource = new MatTableDataSource<Element>(this.criteria);
+    // this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort; 
+
+    var formD  =this.form;
+    // $(  document.getElementById("fb-editor")).formBuilder({ formD });
+
     this.solutions = [];
 
     this.entitys = ['school', 'parent', 'teacher', 'student']
@@ -422,9 +512,13 @@ export class ObservationUtilitiesComponent implements OnInit {
     console.log("tabChangeEvent.index",tabChangeEvent.index);
     this.selectedIndex = tabChangeEvent.index;
 
+    this.saveBtn = false;
+
     if(this.selectedIndex==0){
+      this.saveBtn = true;
       this.previous =false;
     }else{
+      
       this.previous =true;
     }
 
@@ -456,5 +550,15 @@ export class ObservationUtilitiesComponent implements OnInit {
     console.log(this.selectedIndex);
   }
 
+  AddCriteria(){
+    this.showAddCriteria = this.showAddCriteria==true ?false:true;
+  }
+
+  create(){
+    this.showCreate =true;
+  }
+
 
 }
+
+

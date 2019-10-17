@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-   
+import { AuthGuard } from './modules/private-modules/auth-gaurd/auth.gaurd';
+
 // const routes: Routes = [
 //   {
 //     path: '',
@@ -32,8 +33,9 @@ const routes: Routes = [
         loadChildren: './modules/report/report.module#ReportModule'
       },
       {
-        path: 'configuration',
+        path: 'workspace',
         data : {},
+        canActivate:[AuthGuard],
         loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
       },
       {

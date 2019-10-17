@@ -1,3 +1,63 @@
+@import '../../../../assets/scss/varibles.scss';
+.flex-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.description{
+    color:$grey-color;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 110px;
+    text-align: center;
+}
+.dashBoardIcon{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 20px;
+    margin : 0px 20px;
+}
+.margin-top{
+margin-top:20px;
+}
+.folderIcon{
+    font-size: 70px;
+    color:$primary-color;
+    display: flex;
+    align-items: center;
+}
+.wrapper{
+    padding:0px 20px;
+}
+.box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.iconBox{
+    width: 100%;
+    background-image: linear-gradient(to top, $light-grey 10%, $white-color 90%);
+    height: 120px;
+    width: 120px;
+    border: 1px solid $grey-color;
+    border-radius: 15px;
+}
+
+.h3 {
+    margin-top: 0px ;
+}
+.desc {
+    border: 1px solid #ccc;padding:10px;height: 100px
+}
+
 .list-group-item {
     position: relative;
     display: block;
@@ -45,4 +105,16 @@
   .card-block {
     float: left;
     width:100%
+  }
+
+  .add-criteria {
+    font-size: 40px;
+    padding: 17px;
+    color: royalblue;
+  }
+  .add-button {
+    text-align: right;
+    padding: 0px;
+    color: royalblue;
+    font-size: 18px;
   }

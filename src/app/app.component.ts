@@ -1,8 +1,12 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from 'shikshalokam';
+import { TranslateService,ApiService } from 'shikshalokam';
 import { AuthService } from './modules/private-modules/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
+// import { ApiService } from 'shikshalokam';
+// import { environment } from 'src/environments/environment';
+
+
 
 @Component({
   selector: 'app-root',
@@ -20,56 +24,13 @@ export class AppComponent implements OnInit {
   logo =" ./assets/shikshalokam.png";
   baseUrl;
   portalName;
-  links = [  
-    { 
-      linkHeading : "headings.features",
-      options:[
-        {
-          value: "headings.homes",
-          id: 'home',
-          anchorLink: "home",
-          icon:"home"
-        },
-        {
-          value: "headings.parentInterview",
-          id: 'parent',
-          anchorLink: "parent",
-          icon:"supervisor_account"
-        },
-        {
-          value: "headings.reports",
-          id: 'report',
-          anchorLink: "report",
-          icon:"description"
-        },
-        {
-          value: "headings.configurations",
-          id: 'configurations',
-          anchorLink: "configuration",
-          icon:"comment",
-          submenu:[
-            {
-            value:"Create",
-            anchorLink:"configuration"
-          },
-          {
-            value:"Draft",
-            anchorLink:"configuration"
-          },
-          {
-            value:"Review",
-            anchorLink:"configuration"
-          }
-        ]
-        }
-      ]
-    }
-  ]
+  links = [  ];
 
 
 
 
-  constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService) {
+
+  constructor(private route : ActivatedRoute,private authService :AuthService ,private translate: TranslateService,private apiService:ApiService) {
     localStorage.setItem('canAcess',JSON.stringify(['home','parent','report','configurations']));
     translate.use('en').then(() => {
   
@@ -92,6 +53,86 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    let details = this.apiService.get(environment.getProfileDetails);
+
+   
+  //   this.configurationService.getCriteria().subscribe( data => {
+  //     this.criterias = data['result']['criteria'];
+  //     this.utility.loaderHide();
+  //   },(error)=>{
+  //     this.snackBar.open(error['message'], "Ok", { duration: 3000 });
+
+  //   }
+  //   )
+  // }
+
+
+
+
+    this. links = [ { 
+      linkHeading : "headings.features",
+      options:[
+        {
+          value: "headings.homes",
+          id: 'home',
+          anchorLink: "home",
+          icon:"home"
+        },
+        {
+          value: "headings.parentInterview",
+          id: 'parent',
+          anchorLink: "parent",
+          icon:"supervisor_account"
+        },
+        {
+          value: "headings.reports",
+          id: 'report',
+          anchorLink: "report",
+          icon:"description"
+        },
+        {
+          value: "WorkSpace",
+          // value: "headings.configurations",
+          id: 'configurations',
+          anchorLink: "/workspace/create",
+          icon:"comment",
+          iconName:"comment",
+          linkActive:false,
+          displayName:"WorkSpace",
+          children: [
+            {
+              value:"Create",
+              anchorLink:"/workspace/create",
+              route: '',
+              icon:"description",
+              
+            },
+            { 
+              value:"Drafts",
+            anchorLink:"/configuration/draft",
+            icon:"description"
+            },
+            {
+              value:"Sent For Review",
+              anchorLink:"/workspace/create",
+              icon:"description"
+            },
+            {
+              value:"Published",
+              anchorLink:"/workspace/create",
+              icon:"description"
+            },
+            {
+              value:"Up For Review",
+              anchorLink:"/workspace/create",
+              icon:"description"
+            }
+          ]
+        }
+      ]
+    }
+  ]
   }
 
   onLogout() {
