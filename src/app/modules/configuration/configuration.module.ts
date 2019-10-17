@@ -22,6 +22,9 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { ObservationReviewComponent } from './observation-review/observation-review.component';
 import { TagInputModule } from 'ngx-chips';
 import { DraftComponent } from './draft/draft.component';
+import { UnderReviewComponent } from './under-review/under-review.component';
+import { PublishComponent } from './publish/publish.component';
+import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 
 @NgModule({
   declarations: [ConfigurationComponent,
@@ -31,6 +34,9 @@ import { DraftComponent } from './draft/draft.component';
     ObservationUtilitiesComponent,
     ObservationReviewComponent,
     DraftComponent,
+    UnderReviewComponent,
+    PublishComponent,
+    UpForReviewComponent,
   ],
   imports: [
     CommonModule,

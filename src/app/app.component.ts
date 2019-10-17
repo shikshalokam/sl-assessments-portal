@@ -55,21 +55,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     let details = this.apiService.get(environment.getProfileDetails);
-
-   
-  //   this.configurationService.getCriteria().subscribe( data => {
-  //     this.criterias = data['result']['criteria'];
-  //     this.utility.loaderHide();
-  //   },(error)=>{
-  //     this.snackBar.open(error['message'], "Ok", { duration: 3000 });
-
-  //   }
-  //   )
-  // }
-
-
-
-
     this. links = [ { 
       linkHeading : "headings.features",
       options:[
@@ -79,23 +64,23 @@ export class AppComponent implements OnInit {
           anchorLink: "home",
           icon:"home"
         },
-        {
-          value: "headings.parentInterview",
-          id: 'parent',
-          anchorLink: "parent",
-          icon:"supervisor_account"
-        },
-        {
-          value: "headings.reports",
-          id: 'report',
-          anchorLink: "report",
-          icon:"description"
-        },
+        // {
+        //   value: "headings.parentInterview",
+        //   id: 'parent',
+        //   anchorLink: "parent",
+        //   icon:"supervisor_account"
+        // },
+        // {
+        //   value: "headings.reports",
+        //   id: 'report',
+        //   anchorLink: "report",
+        //   icon:"description"
+        // },
         {
           value: "WorkSpace",
           // value: "headings.configurations",
           id: 'configurations',
-          anchorLink: "/workspace/create",
+          anchorLink: "/workspace",
           icon:"comment",
           iconName:"comment",
           linkActive:false,
@@ -110,22 +95,22 @@ export class AppComponent implements OnInit {
             },
             { 
               value:"Drafts",
-            anchorLink:"/configuration/draft",
+            anchorLink:"/workspace/draft",
             icon:"description"
             },
             {
               value:"Sent For Review",
-              anchorLink:"/workspace/create",
-              icon:"description"
-            },
-            {
-              value:"Published",
-              anchorLink:"/workspace/create",
+              anchorLink:"/workspace/under-review",
               icon:"description"
             },
             {
               value:"Up For Review",
-              anchorLink:"/workspace/create",
+              anchorLink:"/workspace/up-for-review",
+              icon:"description"
+            },
+            {
+              value:"Published",
+              anchorLink:"/workspace/publish",
               icon:"description"
             }
           ]

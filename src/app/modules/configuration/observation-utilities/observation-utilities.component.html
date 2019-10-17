@@ -10,36 +10,39 @@
     <div class="col-sm-4 ">
         <div class="col-sm-12">
            
-              <h3 style=" margin-top: 0px;"> <i class="material-icons">create</i>Create Observations</h3>
+              <h4 style=" margin-top: 0px;"> <i class="material-icons">create</i>Create Observations</h4>
               <div class="col-sm-12 desc">
     
                 Description goes here ....
                 </div>
-                <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div>
+                <button class="m-top-10" mat-flat-button color="primary" (click)="create()" >Create</button>
+                <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div> -->
               </div>
 
     </div>
     <div class="col-sm-4">
         <div class="col-sm-12">
-              <h3 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Institutional</h3>
+              <h4 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Institutional Assessments</h4>
               <div class="col-sm-12 desc" >
     
                 Description goes here ....
                 </div>
 
-                <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div>
+                <button class="m-top-10" mat-flat-button color="primary">Create</button>
+                <!-- <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
               </div>
 
     </div>
     <div class="col-sm-4">
         <div class="col-sm-12">
-              <h3 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Individual</h3>
+              <h4 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Individual Assessments</h4>
               <div class="col-sm-12 desc" >
     
                 Description goes here ....
                 </div>
 
-                <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div>
+                <button class="m-top-10" mat-flat-button color="primary">Create</button>
+                <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
               </div>
 
     </div>
@@ -89,11 +92,34 @@
             formControlName="keywords"></tag-input>
         </div>
 
-        <div class="col-sm-12 padd-15">Reusable ?</div>
+        
+<mat-form-field class="col-xs-12 m-top-10">
+  <mat-label>Select Language</mat-label>
+  <select matNativeControl required>
+    <option value="Kannada">Kannada</option>
+    <option value="english">English</option>
+    <option value="hindi">Hindi</option>
+   
+  </select>
+</mat-form-field>
+
+
+<mat-form-field class="col-xs-12">
+  <mat-label>Entity Type</mat-label>
+  <select matNativeControl required>
+    <option value="School">School</option>
+    <option value="cluster">Cluster</option>
+    <option value="Block">Block</option>
+   
+  </select>
+</mat-form-field>
+
+
+        <!-- <div class="col-sm-12 padd-15">Reusable ?</div>
         <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
           <mat-radio-button value="yes">Yes</mat-radio-button>
           <mat-radio-button value="no">No</mat-radio-button>
-        </mat-radio-group>
+        </mat-radio-group> -->
 
         <!-- <div class="col-sm-12">
                 <button style="float: right" (click)="nextStep()"> Next </button>
@@ -173,7 +199,7 @@
             <i class="material-icons pull-right" >
               add
             </i>
-           <div class="col-sm-12 add-button"> Add Criteria</div>            
+           <span class="col-sm-12 add-button"> Add Criteria</span>            
           </div>
 
 
@@ -324,14 +350,14 @@
             <option *ngFor="let ele of criteria" value="{{ ele.criteriaName }}">{{ ele.criteriaName }}</option>
           </select> -->
 
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>Select Criteria</mat-label>
           <mat-select>
             <mat-option *ngFor="let ele of criteria" [value]="ele.criteriaName">
               {{ele.criteriaName }}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
 
       </div>
       <div class="col-sm-12" style="padding:30px">
@@ -378,13 +404,15 @@
   <!-- <div class="btn btn-primary pull-right">Save</div> -->
   <!-- <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div> -->
 
-  <button class="btn btn-primary" *ngIf="saveBtn"  style="margin-right:10px;">
+  
+   
+  <button mat-flat-button color="primary" *ngIf="saveBtn"  style="margin-right:10px;">
     Save
   </button>
-  <button class="btn btn-primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
+  <button mat-flat-button color="primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
     Previous
   </button>
-  <button class="btn btn-primary" *ngIf="next" (click)="nextStep()">
+  <button mat-flat-button color="primary" *ngIf="next" (click)="nextStep()">
     {{ nextBtn }}
   </button>
 

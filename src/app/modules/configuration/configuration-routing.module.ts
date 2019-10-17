@@ -7,6 +7,9 @@ import {  ObservationUtilitiesComponent } from './observation-utilities/observat
 
 import { ObservationReviewComponent } from './observation-review/observation-review.component';
 import { DraftComponent } from './draft/draft.component';
+import  { PublishComponent } from './publish/publish.component';
+import { UnderReviewComponent } from './under-review/under-review.component';
+import { UpForReviewComponent } from './up-for-review/up-for-review.component'
 
 // import { }
 
@@ -72,7 +75,20 @@ const routes: Routes = [
       },{
         path: 'draft',
         component : DraftComponent
+      },
+      {
+        path: 'publish',
+        component : PublishComponent
+      },
+      {
+        path: 'up-for-review',
+        component : UpForReviewComponent
+      },
+      {
+        path: 'under-review',
+        component : UnderReviewComponent
       }
+
     ]
   },
  

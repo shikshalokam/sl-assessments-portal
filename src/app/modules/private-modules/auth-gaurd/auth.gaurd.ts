@@ -49,21 +49,25 @@ export class AuthGuard implements CanActivate {
     };
 
     var curentRole = data['roles'][0];
-    console.log("curentRole", curentRole);
+    // console.log("curentRole", curentRole);
 
 
-    let role = "OBS_DESIGNER";
+    let role = "OBS_REVIEWERS";
     var allowedArray = [];
     switch (role) {
 
       case role = "OBS_DESIGNER":
         allowedArray.push("/workspace");
-        // allowedArray.push("/workspace/create");
+        allowedArray.push("/workspace/create");
         break;
 
       case role = "OBS_REVIEWERS":
         allowedArray.push("/workspace");
         allowedArray.push("/workspace/create");
+        allowedArray.push("/workspace/draft");
+        allowedArray.push("/workspace/publish");
+        allowedArray.push("/workspace/under-review");
+        allowedArray.push("/workspace/up-for-review");
         break;
 
     }
@@ -71,7 +75,7 @@ export class AuthGuard implements CanActivate {
     if (allowedArray.includes(this.url)) {
       return true;
     } else {
-      return true;
+      return false;
 
     }
     // },(error)=>{
