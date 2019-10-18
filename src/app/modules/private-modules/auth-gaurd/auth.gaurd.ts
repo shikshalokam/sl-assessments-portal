@@ -8,6 +8,10 @@ import {
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../auth-service/auth.service';
+import { async } from '@angular/core/testing';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { pureFunction1 } from '@angular/core/src/render3';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -16,84 +20,34 @@ import { AuthService } from '../auth-service/auth.service';
 // export class AuthGuard implements CanActivate, CanActivateChild {
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router) { }
+  authServe :any;
+
+  constructor(private _http: HttpClient,private authService: AuthService, private snackBar: MatSnackBar, private router: Router) { 
+    this.authServe = authService;
+  }
   url;
-  canActivate(
+   async canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot)  {
     let url: string = state.url;
     this.url = state.url;
+    let allowedArray = [];
 
-    console.log("route", this.url);
 
-    var roles = {
-
-      ds_creator: ['/workspace', '/workspace/create']
+    if(!localStorage.getItem("roleInfo")){
+      console.log("calling");
+      let res = await this.authServe.getUserRoles();
     }
-
-    // let data = this.authService.getUserRoles("ss");
-
-    // this.authService.getUserRoles("ss").subscribe( data => {
-    //   console.log("err",data);
-    let data = {
-      "_id": "5da6e08f436f9f3cd80b57b9",
-      "roles": [
-        "OBS_DESIGNER",
-        "OBS_REVIEWERS"
-      ],
-      "status": "active",
-      "updatedBy": "e97b5582-471c-4649-8401-3cc4249359bb",
-      "createdBy": "e97b5582-471c-4649-8401-3cc4249359bb",
-      "userId": "e97b5582-471c-4649-8401-3cc4249359bb",
-      "username": "a1",
-    };
-
-    var curentRole = data['roles'][0];
-    // console.log("curentRole", curentRole);
-
-
-    let role = "OBS_REVIEWERS";
-    var allowedArray = [];
-    switch (role) {
-
-      case role = "OBS_DESIGNER":
-        allowedArray.push("/workspace");
-        allowedArray.push("/workspace/create");
-        break;
-
-      case role = "OBS_REVIEWERS":
-        allowedArray.push("/workspace");
-        allowedArray.push("/workspace/create");
-        allowedArray.push("/workspace/draft");
-        allowedArray.push("/workspace/publish");
-        allowedArray.push("/workspace/under-review");
-        allowedArray.push("/workspace/up-for-review");
-        break;
-
-    }
-
+    allowedArray = this.authServe.getAllowedUrls();
+  
+    
     if (allowedArray.includes(this.url)) {
       return true;
     } else {
       return false;
-
+  
     }
-    // },(error)=>{
-    //   console.log("err",error);
-    // }
-    // )
 
-
-
-
-
-
-    // return this.checkProgarmId(url);
-
-    // if(){
-
-    // }
-    // return this.checkUser(url)
   }
   checkProgarmId(url) {
     if (url.includes('/assessments')) {
@@ -138,6 +92,57 @@ export class AuthGuard implements CanActivate {
 
   }
 
+
+  async getRoleInfo(){
+    // return new Promise(async function(resolve,reject){
+
+      console.log("first line");
+    this.authServe.getUserRoles("ss").then(function(data){
+
+    console.log("res",data);
+
+    console.log("result data",data);
+  // console.log(" data['result']['roles'][0]", data['result']['roles'][0]);
+  var curentRole = data['result']['roles'][0];
+  // console.log("curentRole", curentRole);
+
+
+  let role = curentRole;
+  var allowedArray = [];
+  switch (role) {
+
+    case role = "OBS_DESIGNER":
+      allowedArray.push("/workspace");
+      allowedArray.push("/workspace/create");
+      break;
+
+    case role = "OBS_REVIEWERS":
+   
+      break;
+
+  }
+
+
+  if (allowedArray.includes(this.url)) {
+    return true;
+  } else {
+    return false;
+
+  }
+
+   });
+   
+    // },(error)=>{
+
+    //   return false;
+    //   // console.log("err",error);
+    // }
+    // );
+    // console.log("last line");
+    // return false;
+  // });
+  }
+
   //
   // canActivateChild(
   //   route: ActivatedRouteSnapshot,
@@ -146,4 +151,7 @@ export class AuthGuard implements CanActivate {
   // }
 
   /* . . . */
+
+  
+
 }

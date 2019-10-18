@@ -527,6 +527,12 @@ export class ObservationUtilitiesComponent implements OnInit {
     }else{
       this.nextBtn = "Next";
     }
+    if(this.selectedIndex==3){
+      this.nextBtn = "Previous";
+      this.saveBtn = false;
+      this.next = false;
+
+    }
 
     
 

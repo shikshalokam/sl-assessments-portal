@@ -1,69 +1,69 @@
 <div class="_flex-box _justify-content-center wrapper">
 
   <div class="_full-width ">
-      <!-- <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading> -->
+    <!-- <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading> -->
 
-<mat-card class="card-block" *ngIf="!showCreate" style="margin-top:15px;">  
-  <div class="row" style="margin-top: 5%">
-
-
-    <div class="col-sm-4 ">
-        <div class="col-sm-12">
-           
-              <h4 style=" margin-top: 0px;"> <i class="material-icons">create</i>Create Observations</h4>
-              <div class="col-sm-12 desc">
-    
-                Description goes here ....
-                </div>
-                <button class="m-top-10" mat-flat-button color="primary" (click)="create()" >Create</button>
-                <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div> -->
-              </div>
-
-    </div>
-    <div class="col-sm-4">
-        <div class="col-sm-12">
-              <h4 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Institutional Assessments</h4>
-              <div class="col-sm-12 desc" >
-    
-                Description goes here ....
-                </div>
-
-                <button class="m-top-10" mat-flat-button color="primary">Create</button>
-                <!-- <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
-              </div>
-
-    </div>
-    <div class="col-sm-4">
-        <div class="col-sm-12">
-              <h4 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Individual Assessments</h4>
-              <div class="col-sm-12 desc" >
-    
-                Description goes here ....
-                </div>
-
-                <button class="m-top-10" mat-flat-button color="primary">Create</button>
-                <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
-              </div>
-
-    </div>
-
-  </div>
-
-  </mat-card>
-
-  <div class="row" *ngIf="showCreate">
-<mat-tab-group  [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)"
-  class="mat-tab-group mat-primary">
-  <mat-tab label="Details">
-    <!-- <mat-tab-group style="padding: 15px;"> -->
+    <mat-card class="card-block" *ngIf="!showCreate" style="margin-top:15px;">
+      <div class="row" style="margin-top: 5%">
 
 
-    <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
-      <mat-card class="card-block">
-        <mat-form-field class="col-xs-12">
-          <input matInput placeholder="Solution Name" formControlName="name">
-        </mat-form-field>
-        <!-- <mat-form-field class="col-xs-12">
+        <div class="col-sm-4 ">
+          <div class="col-sm-12">
+
+            <h4 style=" margin-top: 0px;"> <i class="material-icons">create</i>Create Observations</h4>
+            <div class="col-sm-12 desc">
+
+              Description goes here ....
+            </div>
+            <button class="m-top-10" mat-flat-button color="primary" (click)="create()">Create</button>
+            <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div> -->
+          </div>
+
+        </div>
+        <div class="col-sm-4">
+          <div class="col-sm-12">
+            <h4 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Institutional Assessments</h4>
+            <div class="col-sm-12 desc">
+
+              Description goes here ....
+            </div>
+
+            <button class="m-top-10" mat-flat-button color="primary">Create</button>
+            <!-- <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
+          </div>
+
+        </div>
+        <div class="col-sm-4">
+          <div class="col-sm-12">
+            <h4 style=" margin-top: 0px;"><i class="material-icons">create</i>Create Individual Assessments</h4>
+            <div class="col-sm-12 desc">
+
+              Description goes here ....
+            </div>
+
+            <button class="m-top-10" mat-flat-button color="primary">Create</button>
+            <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-card>
+
+    <div class="row" *ngIf="showCreate">
+      <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)"
+        class="mat-tab-group mat-primary">
+        <mat-tab label="Details">
+          <!-- <mat-tab-group style="padding: 15px;"> -->
+
+
+          <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
+            <mat-card class="card-block">
+              <mat-form-field class="col-xs-12">
+                <input matInput placeholder="Solution Name" formControlName="name">
+              </mat-form-field>
+              <!-- <mat-form-field class="col-xs-12">
                   <mat-select placeholder="Select Entity" formControlName="selectEntity" [(ngModel)]="selectedEntity">
                     <mat-option *ngFor="let ele of entitys" [value]="ele">
                       {{ele}}
@@ -71,66 +71,69 @@
                   </mat-select>
                 </mat-form-field> -->
 
-        <mat-form-field class="col-xs-12">
-          <input matInput placeholder="Description" formControlName="description">
-        </mat-form-field>
+              <mat-form-field class="col-xs-12">
+                <input matInput placeholder="Description" formControlName="description">
+              </mat-form-field>
 
-        <!-- <mat-form-field class="col-xs-12">
+              <!-- <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Status" formControlName="status">
                 </mat-form-field> -->
 
-        <!-- <mat-form-field class="col-xs-12">
+              <!-- <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Concepts" formControlName="concepts">
                 </mat-form-field> -->
 
-        <!-- <mat-form-field class="col-xs-12">
+              <!-- <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Keywords" formControlName="keywords">
                 </mat-form-field> -->
 
-        <div class="col-sm-12">
-          <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'" [placeholder]="'Add Keywords'"
-            formControlName="keywords"></tag-input>
-        </div>
+              <div class="col-sm-12" style="margin-bottom: 10px;;">
+                <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'"
+                  [placeholder]="'Add Keywords'" formControlName="keywords"></tag-input>
+              </div>
 
-        
-<mat-form-field class="col-xs-12 m-top-10">
-  <mat-label>Select Language</mat-label>
-  <select matNativeControl required>
-    <option value="Kannada">Kannada</option>
-    <option value="english">English</option>
-    <option value="hindi">Hindi</option>
-   
-  </select>
-</mat-form-field>
+              <div class="m-top-10">
+                <mat-form-field class="col-xs-12 ">
+                  <mat-label>Select Language</mat-label>
+                  <select matNativeControl required>
+                    <option value="Kannada">Kannada</option>
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi</option>
 
-
-<mat-form-field class="col-xs-12">
-  <mat-label>Entity Type</mat-label>
-  <select matNativeControl required>
-    <option value="School">School</option>
-    <option value="cluster">Cluster</option>
-    <option value="Block">Block</option>
-   
-  </select>
-</mat-form-field>
+                  </select>
+                </mat-form-field>
+              </div>
 
 
-        <!-- <div class="col-sm-12 padd-15">Reusable ?</div>
+              <div class="m-top-10">
+              <mat-form-field class="col-xs-12">
+                <mat-label>Entity Type</mat-label>
+                <select matNativeControl required>
+                  <option value="School">School</option>
+                  <option value="cluster">Cluster</option>
+                  <option value="Block">Block</option>
+
+                </select>
+              </mat-form-field>
+              </div>
+
+
+              <!-- <div class="col-sm-12 padd-15">Reusable ?</div>
         <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
           <mat-radio-button value="yes">Yes</mat-radio-button>
           <mat-radio-button value="no">No</mat-radio-button>
         </mat-radio-group> -->
 
-        <!-- <div class="col-sm-12">
+              <!-- <div class="col-sm-12">
                 <button style="float: right" (click)="nextStep()"> Next </button>
              </div> -->
-        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-      </mat-card>
-    </form>
-    <!-- <mat-tab label="Solutions Details">
+              <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+            </mat-card>
+          </form>
+          <!-- <mat-tab label="Solutions Details">
                 
             </mat-tab> -->
-    <!-- <mat-tab label="View Solutions">
+          <!-- <mat-tab label="View Solutions">
                 <div style="margin: 20px;">
                 <mat-card> 
                   
@@ -157,20 +160,21 @@
                 </mat-card>
               </div>
             </mat-tab> -->
-    <!-- </mat-tab-group> -->
-  </mat-tab>
-  <mat-tab label="Criteria">
-    <div class="">
+          <!-- </mat-tab-group> -->
+        </mat-tab>
+        <mat-tab label="Criteria">
+          <div class="">
 
-      <form [formGroup]="myForm" *ngIf="showAddCriteria" class="col-xs-12 card-content" (ngSubmit)="onSubmit(myForm)">
-        <mat-card class="card-block">
-          <mat-form-field class="col-xs-12">
-            <input matInput placeholder="Criteria Name" formControlName="criteriaName">
-          </mat-form-field>
-          <mat-form-field class="col-xs-12">
-            <input matInput placeholder="Description" formControlName="description">
-          </mat-form-field>
-          <!-- <mat-form-field class="col-xs-12">
+            <form [formGroup]="myForm" *ngIf="showAddCriteria" class="col-xs-12 card-content"
+              (ngSubmit)="onSubmit(myForm)">
+              <mat-card class="card-block">
+                <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Criteria Name" formControlName="criteriaName">
+                </mat-form-field>
+                <mat-form-field class="col-xs-12">
+                  <input matInput placeholder="Description" formControlName="description">
+                </mat-form-field>
+                <!-- <mat-form-field class="col-xs-12">
               <input matInput placeholder="l1" formControlName="l1">
             </mat-form-field>
             <mat-form-field class="col-xs-12">
@@ -182,47 +186,48 @@
             <mat-form-field class="col-xs-12">
               <input matInput placeholder="l4" formControlName="l4">
             </mat-form-field> -->
-          <div class="col-sm-12"> <button class="btn btn-primary"> Submit </button></div>
-        </mat-card>
-      </form>
+                <div class="col-sm-12"> <button class="btn btn-primary"> Submit </button></div>
+              </mat-card>
+            </form>
 
-      <div class="col-xs-12 card-content">
-        <mat-card class="card-block">
+            <div class="col-xs-12 card-content">
+              <mat-card class="card-block">
 
-          <!-- <ul>
+                <!-- <ul>
           <li *ngFor="let el of criteria">
             {{ el.criteriaName }}
           </li>
         </ul> -->
 
-          <div class="col-sm-2 add-criteria pull-right" (click)="AddCriteria()">
-            <i class="material-icons pull-right" >
-              add
-            </i>
-           <span class="col-sm-12 add-button"> Add Criteria</span>            
-          </div>
+                <div class="col-sm-2 add-criteria pull-right" (click)="AddCriteria()">
+                  <i class="material-icons pull-right">
+                    add
+                  </i>
+                  <span class="col-sm-12 add-button"> Add Criteria</span>
+                </div>
 
 
-          <h4>List of Criteria</h4>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Criteria </th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let el of criteria">
-                <td>{{ el.criteriaName }}</td>
-                <td>{{ el.description }}</td>
-                <td> <span class="pull-right"><i class="material-icons">edit</i><i class="material-icons">delete</i></span> </td>
-              </tr>
-            </tbody>
-          </table>
+                <h4>List of Criteria</h4>
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Criteria </th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let el of criteria">
+                      <td>{{ el.criteriaName }}</td>
+                      <td>{{ el.description }}</td>
+                      <td> <span class="pull-right"><i class="material-icons">edit</i><i
+                            class="material-icons">delete</i></span> </td>
+                    </tr>
+                  </tbody>
+                </table>
 
 
-          <!-- <div class="table-responsive">
+                <!-- <div class="table-responsive">
               <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       
                  
@@ -248,11 +253,11 @@
             
             </div> -->
 
-        </mat-card>
-      </div>
+              </mat-card>
+            </div>
 
 
-      <!-- <mat-tab-group class="padd-15" [selectedIndex]="0" >
+            <!-- <mat-tab-group class="padd-15" [selectedIndex]="0" >
             <mat-tab label="Add Criteria" class="mat-tab-label mat-ripple ng-star-inserted mat-tab-label-active" >
                
             </mat-tab>
@@ -264,17 +269,17 @@
 
            
         </mat-tab-group> -->
-      <!-- <button (click)="previousStep()">
+            <!-- <button (click)="previousStep()">
             Previous
           </button>
         <button (click)="nextStep()">
             Next
           </button> -->
 
-    </div>
-  </mat-tab>
+          </div>
+        </mat-tab>
 
-  <!-- <mat-tab label="Entity">
+        <!-- <mat-tab label="Entity">
 
       <mat-tab-group style="padding: 15px;">
           <mat-tab label="Add Entity">
@@ -339,18 +344,18 @@
 
     
   </mat-tab> -->
-  <mat-tab label="Questions">
+        <mat-tab label="Questions">
 
-    <mat-card style="    float: left;
+          <mat-card style="    float: left;
     width: 98%;
     margin: 15px;">
-      <div class="form-group" class="col-sm-6" style="padding: 36px;">
-        <!-- <label for="sel1">Select Criteria:</label> -->
-        <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
+            <div class="form-group" class="col-sm-6" style="padding: 36px;">
+              <!-- <label for="sel1">Select Criteria:</label> -->
+              <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
             <option *ngFor="let ele of criteria" value="{{ ele.criteriaName }}">{{ ele.criteriaName }}</option>
           </select> -->
 
-        <!-- <mat-form-field>
+              <!-- <mat-form-field>
           <mat-label>Select Criteria</mat-label>
           <mat-select>
             <mat-option *ngFor="let ele of criteria" [value]="ele.criteriaName">
@@ -359,20 +364,31 @@
           </mat-select>
         </mat-form-field> -->
 
-      </div>
-      <div class="col-sm-12" style="padding:30px">
-        <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
-        </form-builder>
-      </div>
+            </div>
+            <div class="col-sm-12" style="padding:30px">
+              <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
+              </form-builder>
+            </div>
 
-      <!-- <div id="fb-editor"></div> -->
+            <!-- <div id="fb-editor"></div> -->
 
-    </mat-card>
-    <!-- <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>   -->
+          </mat-card>
+          <!-- <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>   -->
 
 
-  </mat-tab>
-  <!-- <mat-tab label="Map"> 
+        </mat-tab>
+        <mat-tab label="Preview">
+
+            <mat-card style="    float: left;
+            width: 98%;
+            margin: 15px;height: 300px;">
+
+              Coming Soon ..
+            
+            </mat-card>
+
+        </mat-tab>
+        <!-- <mat-tab label="Map"> 
       <div class="col-sm-6" style="padding:20px">
           <div class="form-group" class="col-sm-12" >
             <label for="sel1">Select solutions</label>
@@ -397,45 +413,45 @@
           </div>
         </div>
   </mat-tab> -->
-</mat-tab-group>
+      </mat-tab-group>
 
-<div class="col-sm-12 text-center">
+      <div class="col-sm-12 text-center">
 
-  <!-- <div class="btn btn-primary pull-right">Save</div> -->
-  <!-- <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div> -->
-
-  
-   
-  <button mat-flat-button color="primary" *ngIf="saveBtn"  style="margin-right:10px;">
-    Save
-  </button>
-  <button mat-flat-button color="primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
-    Previous
-  </button>
-  <button mat-flat-button color="primary" *ngIf="next" (click)="nextStep()">
-    {{ nextBtn }}
-  </button>
-
-</div>
+        <!-- <div class="btn btn-primary pull-right">Save</div> -->
+        <!-- <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div> -->
 
 
-<div class="col-sm-12" *ngIf="showJsonInfo">
-  <div class="well jsonviewer">
-    <pre><code class="language-json" >{{ criteriaString }}</code> </pre>
-    <pre id="json"><code class="language-json"> {{ solutionString }}</code></pre>
-  </div>
-</div>
 
-<div class="well jsonviewer" *ngIf="showQuestions">
-  <pre id="json"><code class="language-json" #json></code></pre>
-</div>
+        <button mat-flat-button color="primary" *ngIf="saveBtn" style="margin-right:10px;">
+          Save
+        </button>
+        <button mat-flat-button color="primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
+          Previous
+        </button>
+        <button mat-flat-button color="primary" *ngIf="next" (click)="nextStep()">
+          {{ nextBtn }}
+        </button>
+
+      </div>
 
 
-<div style="width: 46%;
+      <div class="col-sm-12" *ngIf="showJsonInfo">
+        <div class="well jsonviewer">
+          <pre><code class="language-json" >{{ criteriaString }}</code> </pre>
+          <pre id="json"><code class="language-json"> {{ solutionString }}</code></pre>
+        </div>
+      </div>
+
+      <div class="well jsonviewer" *ngIf="showQuestions">
+        <pre id="json"><code class="language-json" #json></code></pre>
+      </div>
+
+
+      <div style="width: 46%;
   margin: auto;">
-  <!-- <formio *ngIf="showQuestions" [form]="Data"></formio> -->
+        <!-- <formio *ngIf="showQuestions" [form]="Data"></formio> -->
 
-</div>
-</div>
-</div>
+      </div>
+    </div>
+  </div>
 </div>

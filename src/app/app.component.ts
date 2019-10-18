@@ -52,9 +52,15 @@ export class AppComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    let details = this.apiService.get(environment.getProfileDetails);
+    // let details = this.apiService.get(environment.getProfileDetails);
+    let allowedArray = [];
+    let res = await this.authService.getUserRoles();
+
+   allowedArray = this.authService.getAllowedUrls();
+  
+
     this. links = [ { 
       linkHeading : "headings.features",
       options:[
