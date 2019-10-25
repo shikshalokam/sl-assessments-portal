@@ -4,11 +4,18 @@ import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatTabChangeEvent,MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { Router,ActivatedRoute, Params  } from '@angular/router';
+
+import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
+
+
+
 
 // import * as $ from 'jquery';
 declare var $: any;
 
 import { TagInputModule } from 'ngx-chips';
+import { from } from 'rxjs';
  
 TagInputModule.withDefaults({
     tagInput: {
@@ -73,7 +80,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 };
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef,private frameWorkServ:DraftFrameWorkServiceService,private route:Router,private activatedRoute:ActivatedRoute) { }
 
 
   Data: any;
@@ -226,6 +233,8 @@ export class ObservationUtilitiesComponent implements OnInit {
   selectedCriteriaOfqtn: string;
   // dropdownList:any;
 
+  frameWorkId:any;
+
   addEntityBlock = false;
 
   formData:any =[
@@ -247,7 +256,17 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     this.showCreate =false;
 
-   
+    this.activatedRoute.params.subscribe(params => {
+
+      console.log("params",params);
+       this.frameWorkId = params['id'];
+
+       console.log("this.frameWorkId ",this.frameWorkId );
+
+      if(this.frameWorkId){
+        this.showCreate =true;
+      }
+    });
    
 
     this.criteria = [];
@@ -289,13 +308,16 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
 
     this.solutionForm = new FormGroup({
-      name: new FormControl(''),
-      selectEntity:new FormControl(),
-      description: new FormControl(''),
-      status: new FormControl(''),
-      concepts: new FormControl(''),
-      keywords: new FormControl(''),
-      isReusable: new FormControl('')
+      solutionName: new FormControl(''),
+      // selectEntity:new FormControl(),
+      solutionDescription: new FormControl(''),
+      // status: new FormControl(''),
+      // concepts: new FormControl(''),
+      solutionKeywords: new FormControl(''),
+      // isReusable: new FormControl('')
+      solutionLanguage:new FormControl(''),
+      solutionEntityType: new FormControl('')
+
     });
 
     this.addEntityForm = new FormGroup({
@@ -347,18 +369,7 @@ export class ObservationUtilitiesComponent implements OnInit {
 
 
   }
-  // onAnyDrop(e: DropEvent) {
-
-  //   console.log(e.dragData);
-  //   // this.droppedItems.push(e.dragData);
-
-  //   // if (e.dragData.type === 'vegetable') {
-  //   //   this.removeItem(e.dragData, this.vegetables);
-  //   // } else {
-  //   //   this.removeItem(e.dragData, this.fruits);
-  //   // }
-  // }
-
+ 
   dragEnd(event, name) {
     console.log('Element was dragged', event);
 
@@ -561,7 +572,42 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   create(){
-    this.showCreate =true;
+    // creatingg Draft frameWork using below API
+    this.frameWorkServ.createDraftFrameWork().subscribe(
+      data => {
+        // console.log("data",data['result']._id);
+        this.route.navigateByUrl("/workspace/edit/"+data['result']._id);
+      },
+      error => {
+        console.log("data",error);
+      }
+    );
+  }
+  saveData(){
+
+    
+     // save frame work data 
+    if(this.selectedIndex==0){
+      // updateDraftFrameWork
+
+
+      // console.log("this.solutionForm",this.solutionForm.value);
+      let obj = {
+        name:this.solutionForm.value.solutionName,
+        keywords:this.solutionForm.value.solutionKeywords,
+        language:this.solutionForm.value.solutionLanguage,
+        description:this.solutionForm.value.solutionDescription,
+      }
+      this.frameWorkServ.updateDraftFrameWork(obj,this.frameWorkId).subscribe( data => {
+        console.log("data",data);
+      
+      },
+      error => {
+        console.log("data",error);
+      });
+
+
+    }
   }
 
 

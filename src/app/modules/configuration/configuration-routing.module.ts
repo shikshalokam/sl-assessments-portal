@@ -41,6 +41,15 @@ const routes: Routes = [
       },
       {
 
+        path: 'edit/:id',
+        data: {
+          breadcrumb:''
+        },
+        // component: DashboardComponent
+        component:ObservationUtilitiesComponent
+      },
+      {
+
         path: 'review',
       //  canActivate: [AuthGuard],
         data: {

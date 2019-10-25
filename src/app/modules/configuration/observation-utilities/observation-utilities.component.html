@@ -61,7 +61,7 @@
           <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
             <mat-card class="card-block">
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Solution Name" formControlName="name">
+                <input matInput placeholder="Solution Name" formControlName="solutionName">
               </mat-form-field>
               <!-- <mat-form-field class="col-xs-12">
                   <mat-select placeholder="Select Entity" formControlName="selectEntity" [(ngModel)]="selectedEntity">
@@ -72,7 +72,7 @@
                 </mat-form-field> -->
 
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Description" formControlName="description">
+                <input matInput placeholder="Description" formControlName="solutionDescription">
               </mat-form-field>
 
               <!-- <mat-form-field class="col-xs-12">
@@ -89,13 +89,13 @@
 
               <div class="col-sm-12" style="margin-bottom: 10px;;">
                 <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'"
-                  [placeholder]="'Add Keywords'" formControlName="keywords"></tag-input>
+                  [placeholder]="'Add Keywords'" formControlName="solutionKeywords"></tag-input>
               </div>
 
               <div class="m-top-10">
                 <mat-form-field class="col-xs-12 ">
                   <mat-label>Select Language</mat-label>
-                  <select matNativeControl required>
+                  <select matNativeControl required formControlName="solutionLanguage">
                     <option value="Kannada">Kannada</option>
                     <option value="english">English</option>
                     <option value="hindi">Hindi</option>
@@ -108,7 +108,7 @@
               <div class="m-top-10">
               <mat-form-field class="col-xs-12">
                 <mat-label>Entity Type</mat-label>
-                <select matNativeControl required>
+                <select matNativeControl required formControlName="solutionEntityType">
                   <option value="School">School</option>
                   <option value="cluster">Cluster</option>
                   <option value="Block">Block</option>
@@ -422,7 +422,7 @@
 
 
 
-        <button mat-flat-button color="primary" *ngIf="saveBtn" style="margin-right:10px;">
+        <button mat-flat-button color="primary" *ngIf="saveBtn" style="margin-right:10px;" (click)="saveData()">
           Save
         </button>
         <button mat-flat-button color="primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">

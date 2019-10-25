@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule} from '@angular/material';
+import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule,MatPaginatorModule} from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
@@ -25,6 +25,7 @@ import { DraftComponent } from './draft/draft.component';
 import { UnderReviewComponent } from './under-review/under-review.component';
 import { PublishComponent } from './publish/publish.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component';
+
 
 @NgModule({
   declarations: [ConfigurationComponent,
@@ -65,7 +66,8 @@ import { UpForReviewComponent } from './up-for-review/up-for-review.component';
     FormioModule,
     // NgDragDropModule.forRoot(),
     DragAndDropModule,
-    TagInputModule
+    TagInputModule,
+    MatPaginatorModule
   ],
 
   providers: [DynamicFormComponent],
