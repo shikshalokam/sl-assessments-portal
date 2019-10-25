@@ -27,7 +27,6 @@
     "@auth0/angular-jwt": "^2.1.0",
     "@types/jquery": "^2.0.47",
     "angular-draggable-droppable": "^4.3.2",
-    "angular-dynamic-form-builder": "file:../sl-shikshalokam-dynamic-forms/angular-dynamic-form-builder-0.0.0.tgz",
     "angular-font-awesome": "^3.1.2",
     "angular-formio": "^4.0.0-beta.9",
     "angular-google-charts": "^0.1.6",
