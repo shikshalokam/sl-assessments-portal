@@ -1,31 +1,12 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild,ChangeDetectorRef } from '@angular/core';
 
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
 
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
-
-
-
-const ELEMENT_DATA = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
+import {MatTableDataSource,MatDialog,PageEvent,MatPaginator, MatSort,Sort } from '@angular/material';
+// import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-draft',
@@ -33,41 +14,37 @@ const ELEMENT_DATA = [
   styleUrls: ['./draft.component.scss']
 })
 
+
+
 export class DraftComponent implements OnInit {
 
-  constructor(private frameWorkServ:DraftFrameWorkServiceService) { }
-
+  // dataSource:any;
+  showTable:boolean = true;
+  element = []
   dataSource:any;
-  displayedColumns:any;
+  displayedColumns : string[] = [ 'no','externalId', 'name', 'description','action'];
+  pageSize= 10;
+  totalFrameWorks:any;
 
+
+
+  constructor(private frameWorkServ:DraftFrameWorkServiceService,public dialog: MatDialog,private _snackBar: MatSnackBar, private route: Router,private cdr: ChangeDetectorRef) { 
+
+    this.getList();
+
+  }
+
+  // private paginator: MatPaginator;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-  }
-  ngOnInit() {
-
-    this.displayedColumns = [ 'externalId', 'name', 'description'];
-
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
-
-    // this.dataSource = ELEMENT_DATA;
-
+    // this.cdr.detectChanges();
     
-
-    this.frameWorkServ.listOfDraftFrameWork().subscribe(
-      data => {
-       console.log("data",data);
-
-       this.dataSource = data['result'].data;
-      },
-      error => {
-        console.log("data",error);
-      }
-    );
+  }
+  ngOnInit() {
 
   }
   applyFilter(filterValue: string) {
@@ -76,4 +53,79 @@ export class DraftComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  deleteDraftFW(id){
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      width:'350px',
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.frameWorkServ.deleteDraftFrameWork(id).subscribe(
+      data => {
+       console.log("data",data);
+
+       this.openSnackBar("Succesfully Deleted","Deleted");
+       this.getList();
+      //  this.dataSource = data['result'].data;
+      },
+      error => {
+        console.log("data",error);
+      }
+    );
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  getList(){
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize,1).subscribe(
+      data => {
+      
+        // new MatTableDataSource<Element>(ELEMENT_DATA)
+     
+
+        this.dataSource =new MatTableDataSource<Element>(data['result'].data);
+        this.dataSource.sort = this.sort;
+
+       this.dataSource.paginator = this.paginator;
+      
+
+       this.cdr.detectChanges();
+       this.totalFrameWorks = data['result'].count;
+     
+      },
+      error => {
+        console.log("data",error);
+      }
+    );
+  }
+
+  getNext(event: PageEvent) {
+    this.pageSize = event.pageSize;
+   let offset = event.pageSize * event.pageIndex;
+   this.frameWorkServ.listOfDraftFrameWork(this.pageSize,event.pageIndex + 1).subscribe(
+    data => {
+     this.dataSource = data['result'].data;
+
+     this.totalFrameWorks = data['result'].count;
+     this.cdr.detectChanges();
+    },
+    error => {
+      console.log("data",error);
+    }
+  );
+    // call your api function here with the offset
+  }
+  redirectToEditDraft(ele){
+
+    console.log("ele ======= ",ele);
+
+    this.route.navigateByUrl('/workspace/edit/'+ele._id);
+
+  }
 }
+

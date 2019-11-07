@@ -1,44 +1,35 @@
-import { Component, ElementRef, ViewChild, NgModule, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, NgModule, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormioModule } from 'ng2-formio';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { MatTabChangeEvent,MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
-import { Router,ActivatedRoute, Params  } from '@angular/router';
+import { MatTabChangeEvent, MatPaginator, MatTableDataSource, MatSort, MatSnackBar,MatDialog } from '@angular/material';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
-
-
-
-
-// import * as $ from 'jquery';
+import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
 declare var $: any;
 
 import { TagInputModule } from 'ngx-chips';
 import { from } from 'rxjs';
- 
+import { error } from 'util';
+import { IfStmt } from '@angular/compiler';
+
 TagInputModule.withDefaults({
-    tagInput: {
-        placeholder: 'Add a Keyword',
-        // add here other default values for tag-input
-    },
-    dropdown: {
-        displayBy: 'my-display-value',
-        // add here other default values for tag-input-dropdown
-    }
+  tagInput: {
+    placeholder: 'Add a Keyword',
+    // add here other default values for tag-input
+  },
+  dropdown: {
+    displayBy: 'my-display-value',
+    // add here other default values for tag-input-dropdown
+  }
 });
-
-
 @Component({
   selector: 'app-observation-utilities',
   templateUrl: './observation-utilities.component.html',
   styleUrls: ['./observation-utilities.component.scss']
 })
-
-
-
-// var ELEMENT_DATA: Element[] = [];
-
 export class ObservationUtilitiesComponent implements OnInit {
   title = 'form-build';
   closeResult: string;
@@ -56,55 +47,67 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   entitys = [];
 
-  previous =false;
+  previous = false;
   next = true;
   nextBtn = "Next";
 
   viewBlock = "";
 
-  formioOptions = { builder: {
-    basic: false,
-    advanced: false,
-    data: false,
-    customBasic: {
-      title: 'Basic Components',
-      default: true,
-      weight: 0,
-      components: {
-        textfield: true,
-        textarea: true,
-        email: true,
-        phoneNumber: true
+  formioOptions = {
+    builder: {
+      basic: false,
+      advanced: false,
+      data: false,
+      customBasic: {
+        title: 'Basic Components',
+        default: true,
+        weight: 0,
+        components: {
+          textfield: true,
+          textarea: true,
+          email: true,
+          phoneNumber: true
+        }
       }
     }
-  }
-};
-
-  constructor(private elRef: ElementRef,private frameWorkServ:DraftFrameWorkServiceService,private route:Router,private activatedRoute:ActivatedRoute) { }
-
-
+  };
   Data: any;
   dopElement = "";
   selectedIndex: number = 0;
-  maxNumberOfTabs =3;
-  showAddCriteria=false;
-  saveBtn =true;
+  maxNumberOfTabs = 3;
+  showAddCriteria = false;
+  saveBtn = true;
+  criteriaList = new MatTableDataSource<Element>();
+  displayedColumns: string[] = ['no','name', 'description', 'action'];
 
-  displayedColumns: string[] = ['no','criteriaName','description'];
-  dataSource;  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
   @ViewChild('json') jsonElement?: ElementRef;
-  showCreate=false;
+  showCreate = false;
+  criteriaListPageSize = 5;
+
+  nextCriteriaPage = 0;
+
+  criteriaNameupdate: any;
+  criteriaDescriptionUpdate: any;
+  criteriaAddorUpdate: string = "Add";
+  currentCriteriaId: any;
+
+  criteriaListCount:number;
+  tcriteriaList = new MatTableDataSource<Element>();
+
+  solFormSubmitted = false;
 
 
+
+  constructor(private elRef: ElementRef, private frameWorkServ: DraftFrameWorkServiceService, private route: Router, private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef,public dialog: MatDialog) { }
 
   // @ViewChild('dropArea') this.dopElement?: ElementRef;
   public form: Object = {
     "title": "My Test Form",
-    builder:{
+    builder: {
       basic: false,
       advanced: false,
       data: false,
@@ -136,8 +139,8 @@ export class ObservationUtilitiesComponent implements OnInit {
         "theme": "primary",
         "type": "button",
         "hidden": true
-    }
-     
+      }
+
     ],
     "components1": [
       // {
@@ -207,22 +210,15 @@ export class ObservationUtilitiesComponent implements OnInit {
       advanced: false,
       data: false,
       layout: true,
-
     },
   };
 
   onChange(event) {
-
-
-
     this.Data = event.form;
-    console.log(event.form);
   }
-
-
   showQuestions = false;
   html = "";
-  myForm: FormGroup;
+  criteriaForm: FormGroup;
   solutionForm: FormGroup;
   addEntityForm: FormGroup;
 
@@ -233,11 +229,11 @@ export class ObservationUtilitiesComponent implements OnInit {
   selectedCriteriaOfqtn: string;
   // dropdownList:any;
 
-  frameWorkId:any;
+  frameWorkId: any;
 
   addEntityBlock = false;
 
-  formData:any =[
+  formData: any = [
     {
       type: "header",
       subtype: "h1",
@@ -249,45 +245,37 @@ export class ObservationUtilitiesComponent implements OnInit {
         "This is a demonstration of formBuilder running in an AngularJS project."
     }
   ];
-  
+
+  draftSolutionLanguage:any;
+  draftsolutionDescription:any;
+  draftSolutionName:any;
+  draftSolutionEntityType = "";
+  criteriaSubmitted:boolean = false;
+  languageArr = ["Kannada","English","Hindi","Tamil"];
+  ngAfterViewInit() {
+    this.criteriaList.paginator = this.paginator;
+    this.criteriaList.sort = this.sort;
+  }
 
   ngOnInit() {
-
-
-    this.showCreate =false;
-
+    this.showCreate = false;
     this.activatedRoute.params.subscribe(params => {
-
-      console.log("params",params);
-       this.frameWorkId = params['id'];
-
-       console.log("this.frameWorkId ",this.frameWorkId );
-
-      if(this.frameWorkId){
-        this.showCreate =true;
+      this.frameWorkId = params['id'];
+      console.log("this.frameWorkId ", this.frameWorkId);
+      if (this.frameWorkId) {
+        this.showCreate = true;
+        this.getEntityTypeList();
+        this.getFrameWorkDetails();
+       
       }
     });
-   
-
     this.criteria = [];
-
-
-    this.dataSource = new MatTableDataSource<Element>(this.criteria);
-    // this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; 
-
-    var formD  =this.form;
-    // $(  document.getElementById("fb-editor")).formBuilder({ formD });
-
+    var formD = this.form;
     this.solutions = [];
-
-    this.entitys = ['school', 'parent', 'teacher', 'student']
-
+   
     this.criteria = [
-      // {"id":1,"itemName":"India"}
     ];
     this.selectedItems = [
-
     ];
     this.dropdownSettings = {
       singleSelection: false,
@@ -298,9 +286,9 @@ export class ObservationUtilitiesComponent implements OnInit {
       classes: "myclass custom-class"
     };
 
-    this.myForm = new FormGroup({
-      criteriaName: new FormControl(''),
-      description:new FormControl(''),
+    this.criteriaForm = new FormGroup({
+      criteriaName: new FormControl('',Validators.required),
+      description: new FormControl('',Validators.required),
       // l1: new FormControl(''),
       // l2: new FormControl(''),
       // l3: new FormControl(''),
@@ -308,15 +296,15 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
 
     this.solutionForm = new FormGroup({
-      solutionName: new FormControl(''),
+      solutionName: new FormControl('',Validators.required),
       // selectEntity:new FormControl(),
       solutionDescription: new FormControl(''),
       // status: new FormControl(''),
       // concepts: new FormControl(''),
       solutionKeywords: new FormControl(''),
       // isReusable: new FormControl('')
-      solutionLanguage:new FormControl(''),
-      solutionEntityType: new FormControl('')
+      solutionLanguage: new FormControl('',Validators.required),
+      solutionEntityType: new FormControl('',Validators.required)
 
     });
 
@@ -352,43 +340,26 @@ export class ObservationUtilitiesComponent implements OnInit {
 
 
   AddQuestions() {
-
-
     this.viewBlock = "";
     this.addEntityBlock = false;
-
-
     this.showQuestions = this.showQuestions == true ? false : true;
-
     this.showMapping = false;
-    // if(this.showQuestions ){
-
-    // }else{
-
-    // }
-
-
   }
- 
+
+
   dragEnd(event, name) {
     console.log('Element was dragged', event);
-
-
     if (name == 'criteria') {
       this.html = this.html + "<div id='criteria' class='col-sm-4 card card-header'>" + name + " <span style='color:blue'>Add Criteria</span></div> ";
-      // this.dopElement = this.html;
     } else {
       this.html = this.html + "<div class='col-sm-4 card card-header' >" + name + "</div> ";
     }
-
     // console.log(this.elRef.nativeElement.querySelector('criteria'));
     this.elRef.nativeElement.querySelector('my-element')
       .addEventListener('click', this.callCriteria.bind(this));
-
     this.elRef.nativeElement.querySelector('criteria').addEventListener('click', function () {
       console.log("ddd");
     });
-
 
   }
   drop(event) {
@@ -398,50 +369,65 @@ export class ObservationUtilitiesComponent implements OnInit {
     // alert("called");
     console.log("called");
   }
-
-
-  //   openModalDialog(){
-  //     this.display='block'; //Set block css
-  //  }
-
-  //  closeModalDialog(){
-  //   this.display='none'; //set none css after close dialog
-  //  }
-
+  /**
+   * 
+   * Submitting the Criteria for 
+   */
   onSubmit(form) {
-    console.log('Valid?', form.valid); // true or false
 
+    
+     this.criteriaSubmitted = true;
     if (form.valid) {
-
       var criteriaObj = {
         id: this.criteria.length + 1,
         itemName: form.value.criteriaName,
         criteriaName: form.value.criteriaName,
-        description:form.value.description
-        // l1: form.value.l1,
-        // l2: form.value.l2,
-        // l3: form.value.l3,
-        // l4: form.value.l4
+        description: form.value.description
       }
       this.criteria.push(criteriaObj);
-      // this.solutionObj =criteriaObj;
       this.criteriaString = JSON.stringify(this.criteria);
+      if (this.criteriaAddorUpdate === "Add") {
+        let obj = {
+          draftFrameworkId: this.frameWorkId,
+        }
+        this.frameWorkServ.draftCriteriaCreate(obj).subscribe(data => {
+          let criteriaObj = {
+            name: form.value.criteriaName,
+            description: form.value.description
+          }
+          if (data['result']._id) {
+            this.frameWorkServ.updateDraftCriteria(data['result']._id, criteriaObj).subscribe(data => {
+              this.openSnackBar("Criteria Added Succesfully", "Done");
+              this.draftCriteriaList(this.frameWorkId);
+              this.criteriaList.paginator = this.paginator;
+              this.criteriaList.sort = this.sort;
+              // this.criteriaForm.reset();
+              // this.criteriaNameupdate = "";
+              // this.criteriaDescriptionUpdate = "";
+              this.criteriaSubmitted =false;
+            });
+          }
+        });
+      } else {
 
-
-      this.myForm.reset();
-
-      // $("#myModal").modal('hide');
-      // console.log("this.criteria", this.criteria);
+        let criteriaObj = {
+          name: form.value.criteriaName,
+          description: form.value.description
+        }
+        this.frameWorkServ.updateDraftCriteria(this.currentCriteriaId, criteriaObj).subscribe(data => {
+          // if(data.r)
+          this.openSnackBar("Criteria Updated Succesfully", "Done");
+          this.draftCriteriaList(this.frameWorkId);
+          this.criteriaList.paginator = this.paginator;
+          this.criteriaList.sort = this.sort;
+          this.criteriaForm.reset();
+          this.criteriaSubmitted =false;
+        });
+      }
     }
-
-
-    // console.log('Name', form.value.criteriaName);
-    // console.log('Email', form.value.email);
-    // console.log('Message', form.value.message);
   }
   solutionSubmit(form) {
     // console.log("form",form.value); 
-
     var solObj = {
       name: form.value.name,
       description: form.value.description,
@@ -455,36 +441,28 @@ export class ObservationUtilitiesComponent implements OnInit {
       isRubricDriven: true
     }
     this.solutions.push(solObj);
-
     this.solutionString = JSON.stringify(this.solutions);
-
-
     $("#solutionModel").modal('hide');
 
   }
   showJson() {
-
     this.showJsonInfo = this.showJsonInfo == true ? false : true;
     // this.showMapping =false;
   }
 
   mapData() {
-
     this.viewBlock = "";
     this.addEntityBlock = false;
     this.showMapping = true;
     this.showQuestions = false;
-
   }
 
   saveQuestions() {
 
     this.questions = {
-
       criteria: this.selectedCriteriaOfqtn,
       questions: this.Data
     }
-
     console.log("ss", this.questions);
 
   }
@@ -497,63 +475,57 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   addFormSubmit(InputForm) {
-
     console.log("input form", InputForm.value.entityName);
-
     this.entitys.push(InputForm.value.entityName);
   }
 
   viewData(input) {
-
     console.log("input", input);
-
     this.addEntityBlock = false;
     this.showQuestions = false;
     this.showMapping = false;
-
-
-    // if (input == 'entitys') {
-      this.viewBlock = input;
-    // }else
-
+    this.viewBlock = input;
   }
+
+
+  /**
+   * Tab changes events will be handled here
+   */
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
 
-    console.log("tabChangeEvent.index",tabChangeEvent.index);
+    console.log("tabChangeEvent.index", tabChangeEvent.index);
     this.selectedIndex = tabChangeEvent.index;
 
     this.saveBtn = false;
 
-    if(this.selectedIndex==0){
+    if (this.selectedIndex == 0) {
       this.saveBtn = true;
-      this.previous =false;
-    }else{
-      
-      this.previous =true;
+      this.previous = false;
+    } else {
+
+      this.previous = true;
     }
 
-    if(this.selectedIndex==2){
+    // tab changed to criteria 
+    if (this.selectedIndex == 1) {
+
+
+      this.draftCriteriaList(this.frameWorkId);
+    }
+    if (this.selectedIndex == 2) {
       this.nextBtn = "Save"
-    }else{
+    } else {
       this.nextBtn = "Next";
     }
-    if(this.selectedIndex==3){
+    if (this.selectedIndex == 3) {
       this.nextBtn = "Previous";
       this.saveBtn = false;
       this.next = false;
-
     }
+  }
 
-    
-
-    // if(this.selectedIndex==3){
-    //   this.previous =false;
-    // }
-   
-}
-
- nextStep() {
+  nextStep() {
     if (this.selectedIndex != this.maxNumberOfTabs) {
       this.selectedIndex = this.selectedIndex + 1;
     }
@@ -567,50 +539,144 @@ export class ObservationUtilitiesComponent implements OnInit {
     console.log(this.selectedIndex);
   }
 
-  AddCriteria(){
-    this.showAddCriteria = this.showAddCriteria==true ?false:true;
+  AddCriteria() {
+    this.showAddCriteria = this.showAddCriteria == true ? false : true;
+    this.criteriaAddorUpdate = "Add";
+    console.log("criteriaForm.controls",this.criteriaForm.controls);
   }
 
-  create(){
+  create() {
     // creatingg Draft frameWork using below API
     this.frameWorkServ.createDraftFrameWork().subscribe(
       data => {
         // console.log("data",data['result']._id);
-        this.route.navigateByUrl("/workspace/edit/"+data['result']._id);
+        this.route.navigateByUrl("/workspace/edit/" + data['result']._id);
       },
       error => {
-        console.log("data",error);
+        console.log("data", error);
       }
     );
   }
-  saveData(){
-
-    
-     // save frame work data 
-    if(this.selectedIndex==0){
-      // updateDraftFrameWork
-
-
-      // console.log("this.solutionForm",this.solutionForm.value);
+  saveData() {
+    // save frame work data 
+    if (this.selectedIndex == 0) {
+      this.solFormSubmitted = true;
+      if(this.solutionForm.valid){
+        let selectedEntity = this.entitys[0].filter( data=>{ if(data._id==this.solutionForm.value.solutionEntityType){
+          return data;
+        }; })
+        // console.log("selectedEntity",selectedEntity);
       let obj = {
-        name:this.solutionForm.value.solutionName,
-        keywords:this.solutionForm.value.solutionKeywords,
-        language:this.solutionForm.value.solutionLanguage,
-        description:this.solutionForm.value.solutionDescription,
+        name: this.solutionForm.value.solutionName,
+        keywords: this.solutionForm.value.solutionKeywords,
+        language: this.solutionForm.value.solutionLanguage,
+        description: this.solutionForm.value.solutionDescription,
+        entityType:selectedEntity[0].name,
+        entityTypeId:selectedEntity[0]._id
       }
-      this.frameWorkServ.updateDraftFrameWork(obj,this.frameWorkId).subscribe( data => {
-        console.log("data",data);
-      
+      this.frameWorkServ.updateDraftFrameWork(obj, this.frameWorkId).subscribe(data => {
+        console.log("data", data);
+        this.openSnackBar("data updated Succesfully", "Updated");
       },
-      error => {
-        console.log("data",error);
-      });
-
-
+        error => {
+          console.log("data", error);
+        });
+    }else{
+      return false;
     }
+  }else{
+    return false;
+  }
   }
 
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  draftCriteriaList(frameWorkId) {
+    this.frameWorkServ.draftCriteriaList(frameWorkId, this.criteriaListPageSize, this.nextCriteriaPage + 1).subscribe(data => {
+      if (data && data['status'] == 200) {
+          this.criteriaList = data['result'].data;
+        this.cdr.detectChanges();
+        this.criteriaListCount = data['result'].count;
+      }
+    },
+      error => {
+        console.log("data", error);
+      });
+  }
+
+  onPaginateChange(event) {
+    console.log("event" ,event);
+    // console.log("this.criteriaListCount 1",this.criteriaListCount); 
+    this.nextCriteriaPage = event.pageIndex;
+    this.criteriaListPageSize = event.pageSize;
+    this.draftCriteriaList(this.frameWorkId);
+  }
+
+  // edit criteria form with selected criteria 
+  editCriteria(element) {
+    window.scroll(0,0);
+    this.showAddCriteria = true;
+    this.criteriaDescriptionUpdate = element.description;
+    this.criteriaNameupdate = element.name;
+    this.criteriaAddorUpdate = "Update";
+    this.currentCriteriaId = element._id;
+  }
+
+  // method to delete the existing criteria 
+  deleteDraftCriteria(element) {
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      width: '350px',
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
+          if(data['status']){
+            this.openSnackBar("Criteria Deleted Succesfully", "Deleted");
+            this.draftCriteriaList(this.frameWorkId);
+          }
+        }, error => {
+          console.log("error while callng api", error);
+        })
+      }
+    });
+  }
+
+  getFrameWorkDetails(){
+    this.frameWorkServ.getDraftFrameworksdetails(this.frameWorkId).subscribe(data => {
+      if(data['status']){
+        // console.log("data",data['result']);
+        let res = data['result'];
+        this.draftSolutionName = res.name;
+        this.draftsolutionDescription = res.description;
+        this.draftSolutionLanguage = res.language[0];
+        // console.log("this.draftSolutionLanguage",this.draftSolutionLanguage);
+        this.draftSolutionEntityType = res.entityTypeId;
+        this.keyWordItems = res.keywords;
+      }
+    }, error => {
+      console.log("error while callng api service", error);
+    })
+  }
+
+  get critForm() { return this.criteriaForm.controls; }
+
+  get solValid() { return this.solutionForm.controls; }
+
+  closeAddOrUpdate(){
+    this.showAddCriteria =false;
+  }
+
+  // method is used to get the All the Available entityTypes
+  getEntityTypeList(){
+    this.frameWorkServ.getEntityTypeList().subscribe(data => {
+      this.entitys.push(data['result']);
+      console.log("data this.getEntityTypeList();  ",data['result']);
+    });
+  }
+  
 }
-
-

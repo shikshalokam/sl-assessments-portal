@@ -5,6 +5,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from 'shikshalokam';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
+
+import { authConfig } from '../auth-config'
 // import { Observable } from 'rxjs/Observable';
 
 // import { environment } from 'src/environments/environment';
@@ -69,7 +71,7 @@ export class AuthService {
     // console.log("tokenInfo",tokenInfo);
     const headers = new HttpHeaders()
       .set("X-authenticated-user-token", this.getToken());
-    await this.http.get(environment.getProfileDetails + tokenInfo.sub, { headers }).toPromise()
+    await this.http.get(environment.base_user_management+ authConfig.getProfileDetails + tokenInfo.sub, { headers }).toPromise()
     .then(
       data =>{
         // console.log("http data",data);

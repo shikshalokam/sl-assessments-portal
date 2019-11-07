@@ -42,19 +42,102 @@ export class DraftFrameWorkServiceService {
 
   }
 
-  listOfDraftFrameWork(){
+  listOfDraftFrameWork(limit,PageNumber){
 
     let tokenInfo = localStorage.getItem("auth-token");
 
     let token = this.jwtHelper.decodeToken(tokenInfo);
-     console.log("tokenInfo",token.sub);
+    //  console.log("tokenInfo",token.sub);
     const customHeader = new HttpHeaders({
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
     })
-    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftFrameWorkList+"?page=1&limit=100", {
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftFrameWorkList+"?page="+PageNumber+"&limit="+limit, {
       headers: customHeader
     });
 
   }
+  deleteDraftFrameWork(id){
+    let tokenInfo = localStorage.getItem("auth-token");
+
+    // let token = this.jwtHelper.decodeToken(tokenInfo);
+    //  console.log("tokenInfo",token.sub);
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.deleteDraftFrameWork+id, {
+      headers: customHeader
+    });
+  }
+  draftCriteriaCreate(obj){
+    let tokenInfo = localStorage.getItem("auth-token");
+
+    // let token = this.jwtHelper.decodeToken(tokenInfo);
+    //  console.log("tokenInfo",token.sub);
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftCriteriaCreate,obj, {
+      headers: customHeader
+    });
+  }
+
+  updateDraftCriteria(criteriaId,obj){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.updateDraftCriteria+criteriaId,obj, {
+      headers: customHeader
+    });
+  }
+  draftCriteriaList(frameWorkId,criteriaListPageSize,nextPage){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.listDraftCriteria+frameWorkId+'?page='+nextPage+'&limit='+criteriaListPageSize, {
+      headers: customHeader
+    });
+  }
+
+  draftCriteriaDelete(id){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftCriteriaDelete+id, {
+      headers: customHeader
+    });
+  }
+
+  // to get frameWork Details, it accepts frameWorkId
+  getDraftFrameworksdetails(id){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.getDraftFrameWorkDetails+id, {
+      headers: customHeader
+    });
+
+  }
+  getEntityTypeList(){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.getEntityTypeList, {
+      headers: customHeader
+    });
+  }
+
+
 }
