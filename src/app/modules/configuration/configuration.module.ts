@@ -25,6 +25,7 @@ import { DraftComponent } from './draft/draft.component';
 import { UnderReviewComponent } from './under-review/under-review.component';
 import { PublishComponent } from './publish/publish.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component';
+// import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { UpForReviewComponent } from './up-for-review/up-for-review.component';
     TagInputModule,
     MatPaginatorModule
   ],
+  // exports:[MatPaginatorModule],
 
   providers: [DynamicFormComponent],
   entryComponents: [DeleteConfirmComponent]
