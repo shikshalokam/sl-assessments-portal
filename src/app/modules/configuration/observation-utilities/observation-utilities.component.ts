@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild, NgModule, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { FormioModule } from 'ng2-formio';
+
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { MatTabChangeEvent, MatPaginator, MatTableDataSource, MatSort, MatSnackBar,MatDialog } from '@angular/material';
+import { MatTabChangeEvent, MatPaginator, MatTableDataSource, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
@@ -11,9 +11,10 @@ import { DeleteConfirmComponent } from '../designer-worspace/components/delete-c
 declare var $: any;
 
 import { TagInputModule } from 'ngx-chips';
-import { from } from 'rxjs';
+import { from, Subject } from 'rxjs';
 import { error } from 'util';
 import { IfStmt } from '@angular/compiler';
+import { element } from '@angular/core/src/render3';
 
 TagInputModule.withDefaults({
   tagInput: {
@@ -53,24 +54,7 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   viewBlock = "";
 
-  formioOptions = {
-    builder: {
-      basic: false,
-      advanced: false,
-      data: false,
-      customBasic: {
-        title: 'Basic Components',
-        default: true,
-        weight: 0,
-        components: {
-          textfield: true,
-          textarea: true,
-          email: true,
-          phoneNumber: true
-        }
-      }
-    }
-  };
+
   Data: any;
   dopElement = "";
   selectedIndex: number = 0;
@@ -78,140 +62,29 @@ export class ObservationUtilitiesComponent implements OnInit {
   showAddCriteria = false;
   saveBtn = true;
   criteriaList = new MatTableDataSource<Element>();
-  displayedColumns: string[] = ['no','name', 'description', 'action'];
+  ArrayOfCriteria = [];
+  displayedColumns: string[] = ['no', 'name', 'description', 'action'];
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-
   @ViewChild('json') jsonElement?: ElementRef;
   showCreate = false;
   criteriaListPageSize = 5;
-
   nextCriteriaPage = 0;
-
   criteriaNameupdate: any;
   criteriaDescriptionUpdate: any;
   criteriaAddorUpdate: string = "Add";
   currentCriteriaId: any;
-
-  criteriaListCount:number;
-  tcriteriaList = new MatTableDataSource<Element>();
-
+  criteriaListCount: number;
   solFormSubmitted = false;
 
+  localQuestionList: any;
 
 
-  constructor(private elRef: ElementRef, private frameWorkServ: DraftFrameWorkServiceService, private route: Router, private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef,public dialog: MatDialog) { }
+  constructor(private elRef: ElementRef, private frameWorkServ: DraftFrameWorkServiceService, private route: Router, private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef, public dialog: MatDialog) { }
 
-  // @ViewChild('dropArea') this.dopElement?: ElementRef;
-  public form: Object = {
-    "title": "My Test Form",
-    builder: {
-      basic: false,
-      advanced: false,
-      data: false,
-      customBasic: {
-        title: 'Basic Components',
-        default: true,
-        weight: 0,
-        components: {
-          textfield: true,
-          textarea: true,
-          email: true,
-          phoneNumber: true
-        }
-      }
-    },
-    components: [],
-    "components11": [
-      {
-        "input": true,
-        "label": "Submit",
-        "tableView": false,
-        "key": "submit",
-        "size": "md",
-        "leftIcon": "",
-        "rightIcon": "",
-        "block": false,
-        "action": "submit",
-        "disableOnInvalid": true,
-        "theme": "primary",
-        "type": "button",
-        "hidden": true
-      }
 
-    ],
-    "components1": [
-      // {
-      //   "type": "textfield",
-      //   "input": true,
-      //   "tableView": true,
-      //   "inputType": "hidden",
-      //   "inputMask": "",
-      //   "label": "text",
-      //   "key": "firstName",
-      //   "placeholder": "name",
-      //   "prefix": "",
-      //   "suffix": "",
-      //   "multiple": false,
-      //   "defaultValue": "",
-      //   "protected": false,
-      //   "unique": false,
-      //   "persistent": true,
-      //   "validate": {
-      //     "required": true,
-      //     "minLength": 2,
-      //     "maxLength": 10,
-      //     "pattern": "",
-      //     "custom": "",
-      //     "customPrivate": false
-      //   },
-      //   "conditional": {
-      //     "show": "",
-      //     "when": null,
-      //     "eq": ""
-      //   }
-      // },
-      // {
-      //   "type": "textfield",
-      //   "input": true,
-      //   "tableView": true,
-      //   "inputType": "text",
-      //   "inputMask": "",
-      //   "label": "Last Name",
-      //   "key": "lastName",
-      //   "placeholder": "Enter your last name",
-      //   "prefix": "",
-      //   "suffix": "",
-      //   "multiple": false,
-      //   "defaultValue": "",
-      //   "protected": false,
-      //   "unique": false,
-      //   "persistent": true,
-      //   "validate": {
-      //     "required": true,
-      //     "minLength": 2,
-      //     "maxLength": 10,
-      //     "pattern": "",
-      //     "custom": "",
-      //     "customPrivate": false
-      //   },
-      //   "conditional": {
-      //     "show": "",
-      //     "when": null,
-      //     "eq": ""
-      //   }
-      // },
-
-    ],
-    readOnly: false,
-    group: {
-      advanced: false,
-      data: false,
-      layout: true,
-    },
-  };
 
   onChange(event) {
     this.Data = event.form;
@@ -221,43 +94,44 @@ export class ObservationUtilitiesComponent implements OnInit {
   criteriaForm: FormGroup;
   solutionForm: FormGroup;
   addEntityForm: FormGroup;
+  selectCriteriaForm : FormGroup;
 
   solutions: any;
   criteria: any;
   solutionString: string;
   criteriaString: string;
-  selectedCriteriaOfqtn: string;
+  selectedCriteriaOfqtn = {};
   // dropdownList:any;
 
   frameWorkId: any;
 
   addEntityBlock = false;
 
-  formData: any = [
-    {
-      type: "header",
-      subtype: "h1",
-      label: "formBuilder in Angular"
-    },
-    {
-      type: "paragraph",
-      label:
-        "This is a demonstration of formBuilder running in an AngularJS project."
-    }
-  ];
 
-  draftSolutionLanguage:any;
-  draftsolutionDescription:any;
-  draftSolutionName:any;
+  draftSolutionLanguage: any;
+  draftsolutionDescription: any;
+  draftSolutionName: any;
   draftSolutionEntityType = "";
-  criteriaSubmitted:boolean = false;
-  languageArr = ["Kannada","English","Hindi","Tamil"];
+  criteriaSubmitted: boolean = false;
+  languageArr = ["Kannada", "English", "Hindi", "Tamil"];
+
+  eventsSubject: Subject<void> = new Subject<void>();
+  questionList: any;
+  draftEvidenceMethodId: any;
+  draftSectionId: any;
+  allFields: any;
+  updateArray: any;
+  questionSubmit:boolean =false;
+
   ngAfterViewInit() {
     this.criteriaList.paginator = this.paginator;
     this.criteriaList.sort = this.sort;
   }
 
   ngOnInit() {
+    this.allFields = [];
+    this.updateArray = [];
+    this.localQuestionList = [];
     this.showCreate = false;
     this.activatedRoute.params.subscribe(params => {
       this.frameWorkId = params['id'];
@@ -266,13 +140,17 @@ export class ObservationUtilitiesComponent implements OnInit {
         this.showCreate = true;
         this.getEntityTypeList();
         this.getFrameWorkDetails();
-       
+        this.listDraftSection(this.frameWorkId);
+        this.listDraftEcm(this.frameWorkId);
+        this.draftCriteriaList(this.frameWorkId);
+        this.draftQuestionList();
+
       }
     });
     this.criteria = [];
-    var formD = this.form;
+
     this.solutions = [];
-   
+
     this.criteria = [
     ];
     this.selectedItems = [
@@ -287,8 +165,8 @@ export class ObservationUtilitiesComponent implements OnInit {
     };
 
     this.criteriaForm = new FormGroup({
-      criteriaName: new FormControl('',Validators.required),
-      description: new FormControl('',Validators.required),
+      criteriaName: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
       // l1: new FormControl(''),
       // l2: new FormControl(''),
       // l3: new FormControl(''),
@@ -296,15 +174,15 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
 
     this.solutionForm = new FormGroup({
-      solutionName: new FormControl('',Validators.required),
+      solutionName: new FormControl('', Validators.required),
       // selectEntity:new FormControl(),
       solutionDescription: new FormControl(''),
       // status: new FormControl(''),
       // concepts: new FormControl(''),
       solutionKeywords: new FormControl(''),
       // isReusable: new FormControl('')
-      solutionLanguage: new FormControl('',Validators.required),
-      solutionEntityType: new FormControl('',Validators.required)
+      solutionLanguage: new FormControl('', Validators.required),
+      solutionEntityType: new FormControl('', Validators.required)
 
     });
 
@@ -320,6 +198,10 @@ export class ObservationUtilitiesComponent implements OnInit {
       pincode: new FormControl(''),
       state: new FormControl('')
     });
+
+    this.selectCriteriaForm = new FormGroup({
+      selectedCriteriaOfqtn:new FormControl('',Validators.required)
+    })
   }
 
 
@@ -375,8 +257,8 @@ export class ObservationUtilitiesComponent implements OnInit {
    */
   onSubmit(form) {
 
-    
-     this.criteriaSubmitted = true;
+
+    this.criteriaSubmitted = true;
     if (form.valid) {
       var criteriaObj = {
         id: this.criteria.length + 1,
@@ -404,7 +286,7 @@ export class ObservationUtilitiesComponent implements OnInit {
               // this.criteriaForm.reset();
               // this.criteriaNameupdate = "";
               // this.criteriaDescriptionUpdate = "";
-              this.criteriaSubmitted =false;
+              this.criteriaSubmitted = false;
             });
           }
         });
@@ -421,7 +303,7 @@ export class ObservationUtilitiesComponent implements OnInit {
           this.criteriaList.paginator = this.paginator;
           this.criteriaList.sort = this.sort;
           this.criteriaForm.reset();
-          this.criteriaSubmitted =false;
+          this.criteriaSubmitted = false;
         });
       }
     }
@@ -459,10 +341,10 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   saveQuestions() {
 
-    this.questions = {
-      criteria: this.selectedCriteriaOfqtn,
-      questions: this.Data
-    }
+    // this.questions = {
+    //   criteria: this.selectedCriteriaOfqtn,
+    //   questions: this.Data
+    // }
     console.log("ss", this.questions);
 
   }
@@ -494,6 +376,8 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
 
+    // this.getGeneratedQuestion();
+
     console.log("tabChangeEvent.index", tabChangeEvent.index);
     this.selectedIndex = tabChangeEvent.index;
 
@@ -511,14 +395,17 @@ export class ObservationUtilitiesComponent implements OnInit {
     if (this.selectedIndex == 1) {
 
 
-      this.draftCriteriaList(this.frameWorkId);
+      // this.draftCriteriaList(this.frameWorkId);
+      // this.draftQuestionList();
     }
     if (this.selectedIndex == 2) {
       this.nextBtn = "Save"
+      this.next = true;
     } else {
       this.nextBtn = "Next";
     }
     if (this.selectedIndex == 3) {
+
       this.nextBtn = "Previous";
       this.saveBtn = false;
       this.next = false;
@@ -526,10 +413,48 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.selectedIndex != this.maxNumberOfTabs) {
+
+    // console.log("this.selectedIndex",this.selectedIndex);
+    if (this.selectedIndex == 2) {
+      // this.selectCriteriaForm.
+
+      console.log("this.selectedCriteriaOfqtn['_id'",this.selectedCriteriaOfqtn);
+
+      if(this.selectedCriteriaOfqtn && this.selectedCriteriaOfqtn['_id']){
+        this.questionSubmit = false;
+
+         /** 
+       * call event to get the data from library if data present it update the json 
+       * otherwise library trigger an event to return the data
+       *  **/
+      this.eventsSubject.next();
+
+      if (this.selectedIndex != this.maxNumberOfTabs) {
       this.selectedIndex = this.selectedIndex + 1;
     }
-    console.log(this.selectedIndex);
+
+        
+      }else{
+        this.questionSubmit = true;
+     
+
+      
+
+     
+
+      }
+
+    
+    }else{
+      if (this.selectedIndex != this.maxNumberOfTabs) {
+      this.selectedIndex = this.selectedIndex + 1;
+    }
+    }
+
+    
+
+
+
   }
 
   previousStep() {
@@ -542,7 +467,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   AddCriteria() {
     this.showAddCriteria = this.showAddCriteria == true ? false : true;
     this.criteriaAddorUpdate = "Add";
-    console.log("criteriaForm.controls",this.criteriaForm.controls);
+    console.log("criteriaForm.controls", this.criteriaForm.controls);
   }
 
   create() {
@@ -550,7 +475,13 @@ export class ObservationUtilitiesComponent implements OnInit {
     this.frameWorkServ.createDraftFrameWork().subscribe(
       data => {
         // console.log("data",data['result']._id);
+
+        let frameWorkId = data['result']._id
+
+        this.createDraftEcm(frameWorkId);
+        this.createDraftSection(frameWorkId);
         this.route.navigateByUrl("/workspace/edit/" + data['result']._id);
+
       },
       error => {
         console.log("data", error);
@@ -558,35 +489,38 @@ export class ObservationUtilitiesComponent implements OnInit {
     );
   }
   saveData() {
+
     // save frame work data 
     if (this.selectedIndex == 0) {
       this.solFormSubmitted = true;
-      if(this.solutionForm.valid){
-        let selectedEntity = this.entitys[0].filter( data=>{ if(data._id==this.solutionForm.value.solutionEntityType){
-          return data;
-        }; })
+      if (this.solutionForm.valid) {
+        let selectedEntity = this.entitys[0].filter(data => {
+          if (data._id == this.solutionForm.value.solutionEntityType) {
+            return data;
+          };
+        })
         // console.log("selectedEntity",selectedEntity);
-      let obj = {
-        name: this.solutionForm.value.solutionName,
-        keywords: this.solutionForm.value.solutionKeywords,
-        language: this.solutionForm.value.solutionLanguage,
-        description: this.solutionForm.value.solutionDescription,
-        entityType:selectedEntity[0].name,
-        entityTypeId:selectedEntity[0]._id
+        let obj = {
+          name: this.solutionForm.value.solutionName,
+          keywords: this.solutionForm.value.solutionKeywords,
+          language: this.solutionForm.value.solutionLanguage,
+          description: this.solutionForm.value.solutionDescription,
+          entityType: selectedEntity[0].name,
+          entityTypeId: selectedEntity[0]._id
+        }
+        this.frameWorkServ.updateDraftFrameWork(obj, this.frameWorkId).subscribe(data => {
+          console.log("data", data);
+          this.openSnackBar("data updated Succesfully", "Updated");
+        },
+          error => {
+            console.log("data", error);
+          });
+      } else {
+        return false;
       }
-      this.frameWorkServ.updateDraftFrameWork(obj, this.frameWorkId).subscribe(data => {
-        console.log("data", data);
-        this.openSnackBar("data updated Succesfully", "Updated");
-      },
-        error => {
-          console.log("data", error);
-        });
-    }else{
+    } else {
       return false;
     }
-  }else{
-    return false;
-  }
   }
 
 
@@ -599,7 +533,14 @@ export class ObservationUtilitiesComponent implements OnInit {
   draftCriteriaList(frameWorkId) {
     this.frameWorkServ.draftCriteriaList(frameWorkId, this.criteriaListPageSize, this.nextCriteriaPage + 1).subscribe(data => {
       if (data && data['status'] == 200) {
-          this.criteriaList = data['result'].data;
+
+
+        this.criteriaList = data['result'].data;
+        console.log("ArrayOfCriteria", this.criteriaList);
+
+        this.selectedCriteriaOfqtn = this.criteriaList[0];
+
+        this.ArrayOfCriteria = data['result'].data;
         this.cdr.detectChanges();
         this.criteriaListCount = data['result'].count;
       }
@@ -610,7 +551,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   onPaginateChange(event) {
-    console.log("event" ,event);
+    console.log("event", event);
     // console.log("this.criteriaListCount 1",this.criteriaListCount); 
     this.nextCriteriaPage = event.pageIndex;
     this.criteriaListPageSize = event.pageSize;
@@ -619,7 +560,7 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   // edit criteria form with selected criteria 
   editCriteria(element) {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.showAddCriteria = true;
     this.criteriaDescriptionUpdate = element.description;
     this.criteriaNameupdate = element.name;
@@ -635,7 +576,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
-          if(data['status']){
+          if (data['status']) {
             this.openSnackBar("Criteria Deleted Succesfully", "Deleted");
             this.draftCriteriaList(this.frameWorkId);
           }
@@ -646,9 +587,10 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
   }
 
-  getFrameWorkDetails(){
+  // method allows to get FrameWork Details
+  getFrameWorkDetails() {
     this.frameWorkServ.getDraftFrameworksdetails(this.frameWorkId).subscribe(data => {
-      if(data['status']){
+      if (data['status']) {
         // console.log("data",data['result']);
         let res = data['result'];
         this.draftSolutionName = res.name;
@@ -666,17 +608,469 @@ export class ObservationUtilitiesComponent implements OnInit {
   get critForm() { return this.criteriaForm.controls; }
 
   get solValid() { return this.solutionForm.controls; }
+  get questionSubmitForm() { return this.selectCriteriaForm.controls; }
 
-  closeAddOrUpdate(){
-    this.showAddCriteria =false;
+  closeAddOrUpdate() {
+    this.showAddCriteria = false;
   }
 
   // method is used to get the All the Available entityTypes
-  getEntityTypeList(){
+  getEntityTypeList() {
     this.frameWorkServ.getEntityTypeList().subscribe(data => {
       this.entitys.push(data['result']);
-      console.log("data this.getEntityTypeList();  ",data['result']);
+      console.log("data this.getEntityTypeList();  ", data['result']);
     });
   }
+
+  // triiger event from child for drop Question or Save All Question
+  eventFromChild($event) {
+    console.log("$event", this.frameWorkId);
+
+    let _this = this;
+
+    if ($event.action == 'all') {
+
+      console.log("save all")
+      this.questionList = $event;
+
+      if ($event.data) {
+        _this.allFields = $event.data;
+        _this.allFields.forEach(function (element, index) {
+
+          // to update the existing question object and update to server
+          if (element._id && _this.updateArray.includes(element._id)) {
+            console.log("updated data",element);
+            let obj = {
+              question: [],
+              responseType:element.type,
+              options:[]
+            }
+            obj.question.push(element.label);
+            obj.question.push(element.options);
+            
+            // _this.updateArray.push($event.data._id);
+            _this.updateDraftQuestion(obj, element._id);
+          
+          }else{
+            // add question to server if only newly add question
+            // checking by _id
+            if(!element._id){
+
+              console.log("newly added",element);
+            let obj = {
+
+            "draftFrameworkId": _this.frameWorkId,
+            "draftCriteriaId": _this.selectedCriteriaOfqtn['_id'],
+            "draftEvidenceMethodId": _this.draftEvidenceMethodId,
+            "draftSectionId": _this.draftSectionId
+            }
+
+          
+            let options = [];
+            if(element.options){
+              for (var key in element.options) {
+
+                let object  = {
+                  label: element.options[key]['label'],
+                  value:element.options[key]['key']
   
+                }
+                options.push(object);
+  
+              }
+            }
+            
+
+
+          console.log("options",options);
+
+            
+          let updateQuestionObj = {
+            question: [],
+            responseType: element.type,
+            options:options
+          }
+
+          updateQuestionObj.question.push(element.label);
+       
+          let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
+          console.log("index==_this.allFields.length", index, "==", _this.allFields.length)
+          if (index == _this.allFields.length) {
+            this.eventsSubject.next(_this.allFields);
+          }
+        }
+        }
+        });
+        }
+    } else if ($event.action == 'add') {
+      // let obj = {
+
+      //   "draftFrameworkId": this.frameWorkId,
+      //   "draftCriteriaId": this.selectedCriteriaOfqtn['_id'],
+      //   "draftEvidenceMethodId": this.draftEvidenceMethodId,
+      //   "draftSectionId": this.draftSectionId
+      // }
+
+      // let updateQuestionObj = {
+      //   question: [],
+      //   responseType: $event.data.type,
+
+      // }
+
+      // updateQuestionObj.question.push($event.data.label)
+
+      // console.log("updateQuestionObj",updateQuestionObj);
+
+      // // create question and Update The question
+      // this.createDraftQuestion(obj, updateQuestionObj);
+
+    } else if ($event.action == 'update') {
+      
+      // update arry contains only existing data which is available in server
+      if($event.data._id){
+        _this.updateArray.push($event.data._id);
+      }
+      // this.updateDraftQuestion(obj, $event.data._id);
+    }else if($event.action == 'delete'){
+
+      console.log("$event",$event.data);
+
+      console.log("this.allFields 1",_this.allFields.length);
+
+      // _this.eventsSubject.next();
+      _this.allFields  = _this.allFields.filter(function(el,index){
+        // if(el.isDelete){
+          return !el.isDelete;
+        // }else{
+        //   return;
+        // }
+      })
+      this.deleteDraftQuestion($event.data._id);
+
+
+      console.log("this.allFields 2",this.allFields.length);
+      this.eventsSubject.next(_this.allFields);
+    }
+
+  }
+
+  // publish an event for eventsSubject 
+  getGeneratedQuestion() {
+    this.eventsSubject.next();
+  }
+
+  /**
+   * Service call for creating Draft ECM
+   */
+  createDraftEcm(frameWorkId) {
+
+    this.frameWorkServ.draftEcmCreate(frameWorkId).subscribe(data => {
+      console.log("data this;  ", data['result']);
+    });
+
+  }
+  /**
+   * Service call for creating Draft Section 
+   */
+  createDraftSection(frameWorkId) {
+
+    this.frameWorkServ.draftSectionCreate(frameWorkId).subscribe(data => {
+      console.log("data this;  ", data['result']);
+    });
+
+  }
+  /**
+   * Service call for get All Draft Section for framework
+   */
+  listDraftSection(frameWorkId) {
+
+    this.frameWorkServ.draftSectionCreate(frameWorkId).subscribe(data => {
+      console.log("data this;  ", data['result']);
+      if (data['result']) {
+
+        this.draftSectionId = data['result']._id;
+      }
+    });
+  }
+  /**
+ * Service call for get All Draft Ecm for framework 
+ */
+  listDraftEcm(frameWorkId) {
+    this.frameWorkServ.listDraftEcm(frameWorkId).subscribe(data => {
+      if (data['result'] && data['result'].data) {
+        // console.log("Ecm List;  ", data['result']);
+        this.draftEvidenceMethodId = data['result'].data[0]._id;
+        // console.log("Ecm List;  ",data['result'].data[0]._id);
+      }
+
+    });
+  }
+
+  /**
+   * Service call for to create Draft Ecm for framework 
+   */
+  createDraftQuestion(obj, updateObj = {}, index) {
+    this.frameWorkServ.draftQuestionCreate(obj).subscribe(data => {
+      if (data['result']) {
+        // console.log("create question", data['result']);
+
+        if (updateObj) {
+          console.log("updateObj", updateObj);
+
+          this.updateDraftQuestion(updateObj, data['result']._id);
+          // 
+          this.allFields[index]._id = data['result']._id;
+          console.log("all -- fields", this.allFields[index]);
+          return data['result']._id;
+        }
+        return data['result'];
+
+      } else {
+        console.log("Error", data);
+      }
+
+    });
+  }
+
+  updateDraftQuestion(obj, questionId) {
+
+    // obj['_id']= questionId;
+
+    console.log(" questionId", obj);
+    this.frameWorkServ.updateDraftQuestion(obj, questionId).subscribe(data => {
+      if (data['result']) {
+        console.log("question updated", data['result']);
+
+
+
+      } else {
+        console.log("Error", data);
+      }
+
+    });
+  }
+  criteriaChange() {
+    // console.log("this",this.selectedCriteriaOfqtn);
+  }
+  draftQuestionList() {
+    // this.localQuestionList = "asdasd";
+
+    let questionList = this.localQuestionList;
+
+    let _this = this;
+    console.log("werewr ", this.localQuestionList);
+    this.frameWorkServ.draftQuestionList(this.frameWorkId).subscribe(data => {
+      if (data['result'] && data['result'].data) {
+        console.log("question list", data['result']);
+
+        data['result'].data.forEach(function (element, index) {
+
+          
+
+          // let questionObj = {
+          //   "position": index,
+          //   "field":index+"question",
+          //   "type": element.responseType,
+          //   "label": element.question[0],
+          //   "placeholder": "Please enter your question here",
+          //   "validations": {
+          //     "required": true,
+          //     "minLenght": "",
+          //     "maxLength": ""
+          //   }
+          // }
+          // console.log("questionObj",questionObj);
+          // console.log("questionObj",questionList);
+
+          let currentThis = _this;
+        
+          // _this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt =>{
+
+          //   if(qnt['result']){
+
+          //     console.log("in--",qnt['result'],"qnt['result']",);
+          // console.log(element,"data['result'].count====",data['result'].count);
+          let questionObj = currentThis.reGenerateQuestionObject(element, data['result'].count)    
+          // let questionObj = _this.reGenerateQuestionObject(qnt['result'], index)
+              // questionList.push(questionObj);
+           
+          if(currentThis.localQuestionList.length== data['result'].count){
+            currentThis.eventsSubject.next(currentThis.localQuestionList);
+          }
+
+          
+
+         
+        });
+
+        // console.log("this.localQuestionList",this.localQuestionList);
+        
+
+
+      } else {
+        console.log("Error while featching question list", data);
+      }
+    });
+  }
+
+  reGenerateQuestionObject(element, legnth) {
+
+    let ele = element.responseType;
+    let label = element.question[0];
+    let len = legnth + 1;
+
+
+    this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt =>{
+
+    let options = [];
+
+     element = qnt['result'];
+     let responseType = ele;
+
+     console.log("response type",ele);
+
+    console.log("element.options",element.options);
+      if(element.options){
+              for (var key in element.options) {
+
+                console.log("key--",key);
+
+                let object  = {
+                  label: element.options[key]['label'],
+                  key:element.options[key]['value']
+  
+                }
+                options.push(object);
+  
+              }
+            }
+
+            console.log("--------opt",options);
+
+
+
+    var obj = {};
+    if (ele == 'text') {
+      obj = {
+        "position": len,
+        "field": len + "question",
+        "type": responseType,
+        "label": label,
+        "placeholder": "Please enter your question here",
+        "validations": {
+          "required": true,
+          "minLenght": "",
+          "maxLength": ""
+        },
+        "_id": element._id
+      }
+    }
+    if (ele == 'number') {
+      obj = {
+        "field": len + "question",
+        "type": responseType,
+        "label": label,
+        "placeholder": "Please enter your question here",
+        "validations": {
+          "required": true,
+          "minLenght": "",
+          "maxLength": ""
+        },
+        "_id": element._id
+
+      }
+    }
+
+    if (ele == 'radio') {
+      obj = {
+        field: len + "question",
+        name: len + "question",
+        type: responseType,
+        label: label,
+        value: 'in',
+        validations: {
+          required: true,
+          minLenght: "",
+          maxLength: ""
+        },
+        required: true,
+        options: options,
+        "_id": element._id
+      }
+    }
+    if (ele == "checkbox") {
+      obj = {
+        field: len + "question",
+        name: len + "question",
+        type: responseType,
+        label: label,
+        validations: {
+          required: true,
+          minLenght: "",
+          maxLength: ""
+        },
+        required: true,
+        options: options,
+        "_id": element._id
+      }
+    }
+    if (ele == "dropdown") {
+      obj = {
+        field: len + "question",
+        name: len + ". question",
+        type: responseType,
+        label: label,
+        validations: {
+          required: true,
+          minLenght: "",
+          maxLength: ""
+        },
+        value: 'option1',
+        required: true,
+        options: options,
+        "_id": element._id
+      }
+    }
+
+    console.log("obj", obj);
+
+    this.localQuestionList.push(obj);
+    this.eventsSubject.next(this.localQuestionList);
+    return obj;
+
+  });
+
+    // console.log("fields controls", this.form);
+  }
+
+  deleteDraftQuestion(questionId){
+
+    console.log("questionId--",questionId);
+    this.frameWorkServ.deleteDraftQuestion(questionId).subscribe(data => {
+      if (data) {
+        console.log("Deleted",data);
+      }else{
+        console.log("failed to delete");
+      }
+    });
+
+  }
+
+  detailsDraftQuestion(questionId){
+    console.log("questionId--",questionId);
+    this.frameWorkServ.detailsDraftQuestion(questionId).subscribe(data => {
+      if (data) {
+        console.log("details",data);
+        // this.reGenerateQuestionObject(data['result'], 2);
+
+      }else{
+        console.log("details ");
+      }
+    });
+  }
+
+
+
+
+
 }
