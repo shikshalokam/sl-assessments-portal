@@ -56,9 +56,9 @@ export class AppComponent implements OnInit {
 
     // let details = this.apiService.get(environment.getProfileDetails);
     let allowedArray = [];
-    let res = await this.authService.getUserRoles();
+  //   let res = await this.authService.getUserRoles();
 
-   allowedArray = this.authService.getAllowedUrls();
+  //  allowedArray = this.authService.getAllowedUrls();
   
 
     this. links = [ { 

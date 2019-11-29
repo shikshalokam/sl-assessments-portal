@@ -14,7 +14,7 @@ import { ObservationUtilitiesComponent } from './observation-utilities/observati
 // import {  } from '@angular/material';
 import { FormGroup , FormControl , ReactiveFormsModule , FormsModule } from '@angular/forms';
 
-import { FormioModule } from 'angular-formio';
+// import { FormioModule } from 'angular-formio';
 // import { NgDragDropModule } from 'ng-drag-drop';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -26,6 +26,10 @@ import { UnderReviewComponent } from './under-review/under-review.component';
 import { PublishComponent } from './publish/publish.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 // import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+
+import  { DynamicFormBuilderModule1 } from 'dynamic-form-builder';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -64,11 +68,12 @@ import { UpForReviewComponent } from './up-for-review/up-for-review.component';
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    FormioModule,
+    // FormioModule,
     // NgDragDropModule.forRoot(),
     DragAndDropModule,
     TagInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DynamicFormBuilderModule1
   ],
   // exports:[MatPaginatorModule],
 

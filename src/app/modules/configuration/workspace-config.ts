@@ -8,5 +8,14 @@ export const configOfFrameWorkAPIs = {
     listDraftCriteria:"draftCriteria/list/",
     draftCriteriaDelete:"draftCriteria/delete/",
     getDraftFrameWorkDetails:"draftFrameworks/details/",
-    getEntityTypeList:"entityTypes/canBeObserved/"
+    getEntityTypeList:"entityTypes/canBeObserved/",
+    draftEcmCreate:"draftECM/create",
+    draftSectionCreate:"draftSections/create",
+    listDraftSection:"draftSections/list",
+    listDraftEcm:"draftECM/list",
+    draftCreateQuestion:"draftQuestions/create",
+    updateDraftQuestion:"draftQuestions/update/",
+    draftQuestionList:"draftQuestions/list/",
+    deleteDraftQuestion:"draftQuestions/delete/",
+    detailsDraftQuestion:"draftQuestions/details/"
 }

@@ -35,7 +35,7 @@ const routes: Routes = [
       {
         path: 'workspace',
         data : {},
-        canActivate:[AuthGuard],
+        // canActivate:[AuthGuard],
         loadChildren: './modules/configuration/configuration.module#ConfigurationModule'
       },
       {

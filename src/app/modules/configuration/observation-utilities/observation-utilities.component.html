@@ -213,7 +213,7 @@
           <mat-card style="    float: left;
     width: 98%;
     margin: 15px;">
-            <div class="form-group" class="col-sm-6" style="padding: 36px;">
+            <div class="form-group" class="col-sm-6" >
               <!-- <label for="sel1">Select Criteria:</label> -->
               <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
             <option *ngFor="let ele of criteria" value="{{ ele.criteriaName }}">{{ ele.criteriaName }}</option>
@@ -229,10 +229,34 @@
         </mat-form-field> -->
 
             </div>
-            <div class="col-sm-12" style="padding:30px">
-              <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
-              </form-builder>
+            <div class="col-sm-12" style="padding:20px">
+              <!-- <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
+              </form-builder> -->
+
+              <form [formGroup]="selectCriteriaForm">
+
+            
+              <mat-form-field class="col-sm-12 ">
+                <mat-label>Select Criteria</mat-label>
+                <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()" formControlName="selectedCriteriaOfqtn" >
+                  <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
+                </select>
+                
+                <!-- <div *ngIf="solFormSubmitted && solValid.solutionLanguage.errors" class="col-sm-12 error-block">
+                  <div *ngIf="solValid.solutionLanguage.errors.required">Language is required</div> -->
+               <!-- </div> -->
+
+              </mat-form-field>
+              <div *ngIf="questionSubmit && !selectedCriteriaOfqtn" class="col-sm-12 error-block">
+                <div >Criteria is required</div>
+              </div>
+              
+            </form>
+
+              <lib-dynamic-form-builder [events]="eventsSubject.asObservable()" (questionTrigger)="eventFromChild($event)" ></lib-dynamic-form-builder>
             </div>
+
+
 
             <!-- <div id="fb-editor"></div> -->
 
@@ -242,7 +266,7 @@
 
         </mat-tab>
         <mat-tab label="Preview">
-            <mat-card style="    float: left;
+            <mat-card style="float: left;
             width: 98%;
             margin: 15px;height: 300px;">
               Coming Soon ..

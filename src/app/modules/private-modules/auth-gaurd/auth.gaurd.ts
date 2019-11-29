@@ -97,6 +97,8 @@ export class AuthGuard implements CanActivate {
     // return new Promise(async function(resolve,reject){
 
       console.log("first line");
+
+      return true;
     this.authServe.getUserRoles("ss").then(function(data){
 
     console.log("res",data);
