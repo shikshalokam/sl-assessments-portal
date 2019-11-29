@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, NgModule, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { FormioModule } from 'ng2-formio';
+
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
@@ -988,6 +988,11 @@ export class ObservationUtilitiesComponent implements OnInit {
         type: responseType,
         label: label,
         value: 'in',
+        validations: {
+          required: true,
+          minLenght: "",
+          maxLength: ""
+        },
         required: true,
         options: options,
         "_id": element._id
@@ -999,6 +1004,11 @@ export class ObservationUtilitiesComponent implements OnInit {
         name: len + "question",
         type: responseType,
         label: label,
+        validations: {
+          required: true,
+          minLenght: "",
+          maxLength: ""
+        },
         required: true,
         options: options,
         "_id": element._id
@@ -1010,6 +1020,11 @@ export class ObservationUtilitiesComponent implements OnInit {
         name: len + ". question",
         type: responseType,
         label: label,
+        validations: {
+          required: true,
+          minLenght: "",
+          maxLength: ""
+        },
         value: 'option1',
         required: true,
         options: options,
