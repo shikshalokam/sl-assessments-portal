@@ -184,15 +184,32 @@
 
                     <ng-container matColumnDef="name" mat-sort-header>
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Criteria Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                      <mat-cell *matCellDef="let element"> 
+                        
+                        <!-- {{element.name}}  -->
+
+                        <!-- <mat-cell *matCellDef="let element"> -->
+                          <mat-form-field floatLabel="never" class="inline-edit" title="edit">
+                            <input matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
+                          </mat-form-field>
+                        
+
+                      </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="description">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                      <mat-cell *matCellDef="let element">
+                         <!-- {{element.description}} -->
+                      
+                          <mat-form-field floatLabel="never" class="inline-edit" title="edit">
+                              <input matInput  placeholder="Description" [value]="element.description" [(ngModel)]="element.description" (mouseout)="criteriaUpdate(element)">
+                            </mat-form-field>
+                      </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="action">
                       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> <span class="pull-right"><i title="Edit" class="material-icons cursor-pointer" (click)="editCriteria(element)">edit</i>
+                      <mat-cell *matCellDef="let element"> <span class="pull-right">
+                        <!-- <i title="Edit" class="material-icons cursor-pointer" (click)="editCriteria(element)">edit</i> -->
                         <i class="material-icons cursor-pointer" title="Delete" (click)="deleteDraftCriteria(element)">delete</i></span> </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
