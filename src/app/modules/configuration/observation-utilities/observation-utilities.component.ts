@@ -380,6 +380,9 @@ export class ObservationUtilitiesComponent implements OnInit {
     if (this.selectedIndex == 1) {
     }
     if (this.selectedIndex == 2) {
+
+      
+
       this.nextBtn = "Save"
       this.next = true;
     } else {
@@ -592,6 +595,8 @@ export class ObservationUtilitiesComponent implements OnInit {
       if ($event.data) {
         _this.allFields = $event.data;
         _this.allFields.forEach(function (element, index) {
+          console.log("element==",element);
+
           // to update the existing question object and update to server
           if (element._id && _this.updateArray.includes(element._id)) {
             console.log("updated  ---", element);
@@ -603,6 +608,17 @@ export class ObservationUtilitiesComponent implements OnInit {
                 required: element.validations.required
               }
             }
+
+            
+            if(element.type=="date"){
+              obj.validation['max'] = element.validations.maxDate;
+              obj.validation['min'] = element.validations.minDate;
+            }else if(element.type=="slider"){
+              obj.validation['max'] = element.validations.max;
+              obj.validation['min'] = element.validations.min;
+            }
+
+
             obj.question.push(element.label);
             obj.question.push(element.options);
 
@@ -638,9 +654,17 @@ export class ObservationUtilitiesComponent implements OnInit {
               let updateQuestionObj = {
                 question: [],
                 responseType: element.type,
-                options: options
+                options: options,
+                validation:{
+                  required: element.validations.required
+                }
               }
 
+              if(element.type=="date"){
+                updateQuestionObj.validation['max'] = element.validations.maxDate;
+                updateQuestionObj.validation['min'] = element.validations.minDate;
+              }
+              
               updateQuestionObj.question.push(element.label);
 
               let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
@@ -757,36 +781,37 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
   }
   criteriaChange() {
-    if (this.unSavedQuestionList.length > 0 && !this.isDilogOpened) {
-      const message = `It looks like you have been editing something.If you leave before saving, your changes will be lost?`;
-      const dialogData = new ConfirmDialogModel("Confirm Action", message);
-      setTimeout(() => {
+    // if (this.unSavedQuestionList.length > 0 && !this.isDilogOpened) {
+    //   const message = `It looks like you have been editing something.If you leave before saving, your changes will be lost?`;
+    //   const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    //   setTimeout(() => {
 
-        const dialogRef = this.dialog.open(DeleteConfirmComponent, {
-          width: '350px',
-          data: dialogData
-        })
-        dialogRef.afterClosed().subscribe(result => {
-          if (!result) {
+    //     const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+    //       width: '350px',
+    //       data: dialogData
+    //     })
+    //     dialogRef.afterClosed().subscribe(result => {
+    //       if (!result) {
 
-            this.isDilogOpened = true;
-            this.selectedCriteriaOfqtn = this.previousCriteria;
-            this.previousCriteria = this.selectedCriteriaOfqtn;
-          }
-        });
-      })
-    } else {
+    //         this.isDilogOpened = true;
+    //         this.selectedCriteriaOfqtn = this.previousCriteria;
+    //         this.previousCriteria = this.selectedCriteriaOfqtn;
+    //       }
+    //     });
+    //   })
+    // } else {
+
+    console.log("chnage",this.allQuestionWithDetails.length);
       this.previousCriteria = this.selectedCriteriaOfqtn;
       if (this.allQuestionWithDetails.length > 0) {
         let qntDat = this.allQuestionWithDetails.filter(item => {
-          if (item.draftCriteriaId == this.selectedCriteriaOfqtn['_id']) {
-            return true;
-          }
+          return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+            
         })
         console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat);
         if (qntDat.length > 0) {
           qntDat.forEach(element => {
-            let questionObj = this.reGenerateQuestionObject(element, qntDat.length, false);
+            let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
           });
         } else {
           let array: any = [];
@@ -794,7 +819,7 @@ export class ObservationUtilitiesComponent implements OnInit {
         }
       } else {
       }
-    }
+    // }
   }
   draftQuestionList() {
     // this.localQuestionList = "asdasd";
@@ -815,7 +840,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
   }
 
-  reGenerateQuestionObject(element, legnth, realod = true) {
+  reGenerateQuestionObject(element, legnth) {
 
     let ele = element.responseType;
     let label = element.question[0];
@@ -830,13 +855,23 @@ export class ObservationUtilitiesComponent implements OnInit {
 
       // console.log("details of qnt", element);
 
-      console.log("realod", realod);
-      if (realod) {
-        console.log("details of qnt", element);
+      // console.log("realod", realod);
+      // var results 
+      // if (realod) {
+        // console.log("details of qnt", element);
 
-        this.allQuestionWithDetails.push(element);
+        var results =  this.allQuestionWithDetails.filter(li=>{
+          return li._id === element._id;
+        });
 
-      }
+      
+        console.log("results",results)
+        if(results.length == 0){
+          this.allQuestionWithDetails.push(element);
+        }
+        
+
+      // }
       let responseType = ele;
       if (element.options) {
         for (var key in element.options) {
@@ -886,15 +921,49 @@ export class ObservationUtilitiesComponent implements OnInit {
           draftCriteriaId: element.draftCriteriaId
 
         }
-      }
+      }else if (ele == 'date') {
+        obj = {
+          field: len + "question",
+          type: responseType,
+          label: label,
+          placeholder: "Please enter your question here",
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: "",
+            maxDate:element.validation.max,
+            minDate:element.validation.min,
+          },
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
 
-      if (ele == 'radio') {
+        }
+      }else if (ele == 'slider') {
+        obj = {
+          field: len + "question",
+          type: responseType,
+          label: label,
+          placeholder: "Please enter your question here",
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: "",
+            max:element.validation.max,
+            min:element.validation.min,
+          },
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+
+        }
+      }else if (ele == 'radio') {
         obj = {
           field: len + "question",
           name: len + "question",
           type: responseType,
           label: label,
-          value: 'in',
+          value: '',
           validations: {
             required: isRequired,
             minLenght: "",
@@ -906,7 +975,7 @@ export class ObservationUtilitiesComponent implements OnInit {
           draftCriteriaId: element.draftCriteriaId
         }
       }
-      if (ele == "checkbox") {
+      else if (ele == "checkbox") {
         obj = {
           field: len + "question",
           name: len + "question",
@@ -923,7 +992,7 @@ export class ObservationUtilitiesComponent implements OnInit {
           draftCriteriaId: element.draftCriteriaId
         }
       }
-      if (ele == "dropdown") {
+      else if (ele == "dropdown") {
         obj = {
           field: len + "question",
           name: len + ". question",
@@ -941,7 +1010,10 @@ export class ObservationUtilitiesComponent implements OnInit {
           draftCriteriaId: element.draftCriteriaId
         }
       }
-      this.localQuestionList.push(obj);
+      if(results.length  == 0){
+        this.localQuestionList.push(obj);
+      }
+      
       let list = this.localQuestionList.filter(item => {
         if (item.draftCriteriaId == this.selectedCriteriaOfqtn['_id']) {
           return true;
