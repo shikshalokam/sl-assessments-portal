@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule,MatPaginatorModule} from '@angular/material';
+import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule,
+   MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, 
+   MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule,
+   MatPaginatorModule,
+   MatDatepickerModule,
+   MatNativeDateModule
+  } from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
@@ -66,6 +72,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatDialogModule,
     MatButtonModule,
     AngularMultiSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     // FormioModule,
@@ -77,7 +85,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   ],
   // exports:[MatPaginatorModule],
 
-  providers: [DynamicFormComponent],
+  providers: [DynamicFormComponent,
+    MatDatepickerModule],
   entryComponents: [DeleteConfirmComponent]
 })
 export class ConfigurationModule { }

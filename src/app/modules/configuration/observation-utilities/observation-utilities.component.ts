@@ -7,7 +7,7 @@ import { MatTabChangeEvent, MatPaginator, MatTableDataSource, MatSort, MatSnackB
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
-import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
+import { DeleteConfirmComponent, ConfirmDialogModel } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
 declare var $: any;
 
 import { TagInputModule } from 'ngx-chips';
@@ -15,6 +15,7 @@ import { from, Subject } from 'rxjs';
 import { error } from 'util';
 import { IfStmt } from '@angular/compiler';
 import { element } from '@angular/core/src/render3';
+import { Item } from 'angular2-multiselect-dropdown';
 
 TagInputModule.withDefaults({
   tagInput: {
@@ -32,43 +33,47 @@ TagInputModule.withDefaults({
   styleUrls: ['./observation-utilities.component.scss']
 })
 export class ObservationUtilitiesComponent implements OnInit {
+
+
+  constructor(private elRef: ElementRef,
+    private frameWorkServ: DraftFrameWorkServiceService,
+    private route: Router,
+    private activatedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog) {
+
+  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('json') jsonElement?: ElementRef;
+
+
   title = 'form-build';
   closeResult: string;
   display = 'none'; //default Variable
   showJsonInfo: boolean = false;
   solutionObj = {};
   showMapping: boolean = false;
-
   questions: any;
-
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
   keyWordItems = [];
-
   entitys = [];
-
   previous = false;
   next = true;
   nextBtn = "Next";
-
   viewBlock = "";
-
-
   Data: any;
   dopElement = "";
   selectedIndex: number = 0;
   maxNumberOfTabs = 3;
   showAddCriteria = false;
   saveBtn = true;
-  criteriaList = new MatTableDataSource<Element>();
+  criteriaList: any = new MatTableDataSource<Element>();
   ArrayOfCriteria = [];
   displayedColumns: string[] = ['no', 'name', 'description', 'action'];
-
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('json') jsonElement?: ElementRef;
   showCreate = false;
   criteriaListPageSize = 5;
   nextCriteriaPage = 0;
@@ -78,57 +83,52 @@ export class ObservationUtilitiesComponent implements OnInit {
   currentCriteriaId: any;
   criteriaListCount: number;
   solFormSubmitted = false;
-
   localQuestionList: any;
-
-
-  constructor(private elRef: ElementRef, private frameWorkServ: DraftFrameWorkServiceService, private route: Router, private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef, public dialog: MatDialog) { }
-
-
-
-  onChange(event) {
-    this.Data = event.form;
-  }
   showQuestions = false;
   html = "";
   criteriaForm: FormGroup;
   solutionForm: FormGroup;
   addEntityForm: FormGroup;
-  selectCriteriaForm : FormGroup;
-
+  selectCriteriaForm: FormGroup;
   solutions: any;
   criteria: any;
   solutionString: string;
   criteriaString: string;
   selectedCriteriaOfqtn = {};
-  // dropdownList:any;
-
+  previousCriteria = {};
+  isDilogOpened = false;
   frameWorkId: any;
-
   addEntityBlock = false;
-
-
   draftSolutionLanguage: any;
   draftsolutionDescription: any;
   draftSolutionName: any;
   draftSolutionEntityType = "";
   criteriaSubmitted: boolean = false;
   languageArr = ["Kannada", "English", "Hindi", "Tamil"];
-
   eventsSubject: Subject<void> = new Subject<void>();
   questionList: any;
   draftEvidenceMethodId: any;
   draftSectionId: any;
   allFields: any;
   updateArray: any;
-  questionSubmit:boolean =false;
+  questionSubmit: boolean = false;
+  allQuestionWithDetails: any;
+  allCriteriaList: any;
+  unSavedQuestionList: any;
 
+
+  onChange(event) {
+    this.Data = event.form;
+  }
   ngAfterViewInit() {
     this.criteriaList.paginator = this.paginator;
     this.criteriaList.sort = this.sort;
   }
 
   ngOnInit() {
+    this.unSavedQuestionList = [];
+    this.allCriteriaList = [];
+    this.allQuestionWithDetails = [];
     this.allFields = [];
     this.updateArray = [];
     this.localQuestionList = [];
@@ -200,7 +200,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
 
     this.selectCriteriaForm = new FormGroup({
-      selectedCriteriaOfqtn:new FormControl('',Validators.required)
+      selectedCriteriaOfqtn: new FormControl('', Validators.required)
     })
   }
 
@@ -338,17 +338,6 @@ export class ObservationUtilitiesComponent implements OnInit {
     this.showMapping = true;
     this.showQuestions = false;
   }
-
-  saveQuestions() {
-
-    // this.questions = {
-    //   criteria: this.selectedCriteriaOfqtn,
-    //   questions: this.Data
-    // }
-    console.log("ss", this.questions);
-
-  }
-
   AddEntity() {
     this.viewBlock = "";
     this.addEntityBlock = true;
@@ -375,14 +364,10 @@ export class ObservationUtilitiesComponent implements OnInit {
    */
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-
     // this.getGeneratedQuestion();
-
-    console.log("tabChangeEvent.index", tabChangeEvent.index);
+    // console.log("tabChangeEvent.index", tabChangeEvent.index);
     this.selectedIndex = tabChangeEvent.index;
-
     this.saveBtn = false;
-
     if (this.selectedIndex == 0) {
       this.saveBtn = true;
       this.previous = false;
@@ -393,19 +378,17 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     // tab changed to criteria 
     if (this.selectedIndex == 1) {
-
-
-      // this.draftCriteriaList(this.frameWorkId);
-      // this.draftQuestionList();
     }
     if (this.selectedIndex == 2) {
+
+      
+
       this.nextBtn = "Save"
       this.next = true;
     } else {
       this.nextBtn = "Next";
     }
     if (this.selectedIndex == 3) {
-
       this.nextBtn = "Previous";
       this.saveBtn = false;
       this.next = false;
@@ -417,44 +400,27 @@ export class ObservationUtilitiesComponent implements OnInit {
     // console.log("this.selectedIndex",this.selectedIndex);
     if (this.selectedIndex == 2) {
       // this.selectCriteriaForm.
-
-      console.log("this.selectedCriteriaOfqtn['_id'",this.selectedCriteriaOfqtn);
-
-      if(this.selectedCriteriaOfqtn && this.selectedCriteriaOfqtn['_id']){
+      console.log("this.selectedCriteriaOfqtn['_id'", this.selectedCriteriaOfqtn);
+      if (this.selectedCriteriaOfqtn && this.selectedCriteriaOfqtn['_id']) {
         this.questionSubmit = false;
 
-         /** 
-       * call event to get the data from library if data present it update the json 
-       * otherwise library trigger an event to return the data
-       *  **/
-      this.eventsSubject.next();
+        /** 
+      * call event to get the data from library if data present it update the json 
+      * otherwise library trigger an event to return the data
+      *  **/
+        this.eventsSubject.next();
 
-      if (this.selectedIndex != this.maxNumberOfTabs) {
-      this.selectedIndex = this.selectedIndex + 1;
-    }
-
-        
-      }else{
+        if (this.selectedIndex != this.maxNumberOfTabs) {
+          this.selectedIndex = this.selectedIndex + 1;
+        }
+      } else {
         this.questionSubmit = true;
-     
-
-      
-
-     
-
       }
-
-    
-    }else{
+    } else {
       if (this.selectedIndex != this.maxNumberOfTabs) {
-      this.selectedIndex = this.selectedIndex + 1;
+        this.selectedIndex = this.selectedIndex + 1;
+      }
     }
-    }
-
-    
-
-
-
   }
 
   previousStep() {
@@ -475,13 +441,10 @@ export class ObservationUtilitiesComponent implements OnInit {
     this.frameWorkServ.createDraftFrameWork().subscribe(
       data => {
         // console.log("data",data['result']._id);
-
         let frameWorkId = data['result']._id
-
         this.createDraftEcm(frameWorkId);
         this.createDraftSection(frameWorkId);
         this.route.navigateByUrl("/workspace/edit/" + data['result']._id);
-
       },
       error => {
         console.log("data", error);
@@ -533,13 +496,11 @@ export class ObservationUtilitiesComponent implements OnInit {
   draftCriteriaList(frameWorkId) {
     this.frameWorkServ.draftCriteriaList(frameWorkId, this.criteriaListPageSize, this.nextCriteriaPage + 1).subscribe(data => {
       if (data && data['status'] == 200) {
-
-
+        // deep cloning the object
+        this.allCriteriaList = JSON.parse(JSON.stringify(data['result'].data));
         this.criteriaList = data['result'].data;
         console.log("ArrayOfCriteria", this.criteriaList);
-
         this.selectedCriteriaOfqtn = this.criteriaList[0];
-
         this.ArrayOfCriteria = data['result'].data;
         this.cdr.detectChanges();
         this.criteriaListCount = data['result'].count;
@@ -570,8 +531,11 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   // method to delete the existing criteria 
   deleteDraftCriteria(element) {
+    let message = `Are you sure you delete criteria?`;
+    let dialogData = new ConfirmDialogModel("Confirm Action", message);
     const dialogRef = this.dialog.open(DeleteConfirmComponent, {
       width: '350px',
+      data: dialogData
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -591,7 +555,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   getFrameWorkDetails() {
     this.frameWorkServ.getDraftFrameworksdetails(this.frameWorkId).subscribe(data => {
       if (data['status']) {
-        // console.log("data",data['result']);
+        console.log("framework Details", data['result']);
         let res = data['result'];
         this.draftSolutionName = res.name;
         this.draftsolutionDescription = res.description;
@@ -624,134 +588,112 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   // triiger event from child for drop Question or Save All Question
   eventFromChild($event) {
-    console.log("$event", this.frameWorkId);
 
     let _this = this;
-
     if ($event.action == 'all') {
-
-      console.log("save all")
       this.questionList = $event;
-
       if ($event.data) {
         _this.allFields = $event.data;
         _this.allFields.forEach(function (element, index) {
+          console.log("element==",element);
 
           // to update the existing question object and update to server
           if (element._id && _this.updateArray.includes(element._id)) {
-            console.log("updated data",element);
+            console.log("updated  ---", element);
             let obj = {
               question: [],
-              responseType:element.type,
-              options:[]
-            }
-            obj.question.push(element.label);
-            obj.question.push(element.options);
-            
-            // _this.updateArray.push($event.data._id);
-            _this.updateDraftQuestion(obj, element._id);
-          
-          }else{
-            // add question to server if only newly add question
-            // checking by _id
-            if(!element._id){
-
-              console.log("newly added",element);
-            let obj = {
-
-            "draftFrameworkId": _this.frameWorkId,
-            "draftCriteriaId": _this.selectedCriteriaOfqtn['_id'],
-            "draftEvidenceMethodId": _this.draftEvidenceMethodId,
-            "draftSectionId": _this.draftSectionId
-            }
-
-          
-            let options = [];
-            if(element.options){
-              for (var key in element.options) {
-
-                let object  = {
-                  label: element.options[key]['label'],
-                  value:element.options[key]['key']
-  
-                }
-                options.push(object);
-  
+              responseType: element.type,
+              options: [],
+              validation: {
+                required: element.validations.required
               }
             }
-            
-
-
-          console.log("options",options);
 
             
-          let updateQuestionObj = {
-            question: [],
-            responseType: element.type,
-            options:options
-          }
+            if(element.type=="date"){
+              obj.validation['max'] = element.validations.maxDate;
+              obj.validation['min'] = element.validations.minDate;
+            }else if(element.type=="slider"){
+              obj.validation['max'] = element.validations.max;
+              obj.validation['min'] = element.validations.min;
+            }
 
-          updateQuestionObj.question.push(element.label);
-       
-          let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
-          console.log("index==_this.allFields.length", index, "==", _this.allFields.length)
-          if (index == _this.allFields.length) {
-            this.eventsSubject.next(_this.allFields);
+
+            obj.question.push(element.label);
+            obj.question.push(element.options);
+
+            // _this.updateArray.push($event.data._id);
+            _this.updateDraftQuestion(obj, element._id);
+
+
+          } else {
+            // add question to server if only newly add question
+            // checking by _id
+
+            // console.log("---id",element._id)
+            if (element._id) {
+              console.log("existing question", element);
+            } else {
+              console.log("newly added", element);
+              let obj = {
+                "draftFrameworkId": _this.frameWorkId,
+                "draftCriteriaId": _this.selectedCriteriaOfqtn['_id'],
+                "draftEvidenceMethodId": _this.draftEvidenceMethodId,
+                "draftSectionId": _this.draftSectionId
+              }
+              let options = [];
+              if (element.options) {
+                for (var key in element.options) {
+                  let object = {
+                    label: element.options[key]['label'],
+                    value: element.options[key]['key']
+                  }
+                  options.push(object);
+                }
+              }
+              let updateQuestionObj = {
+                question: [],
+                responseType: element.type,
+                options: options,
+                validation:{
+                  required: element.validations.required
+                }
+              }
+
+              if(element.type=="date"){
+                updateQuestionObj.validation['max'] = element.validations.maxDate;
+                updateQuestionObj.validation['min'] = element.validations.minDate;
+              }
+              
+              updateQuestionObj.question.push(element.label);
+
+              let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
+              if (index == _this.allFields.length) {
+                this.eventsSubject.next(_this.allFields);
+              }
+            }
           }
-        }
-        }
         });
-        }
+      }
     } else if ($event.action == 'add') {
-      // let obj = {
-
-      //   "draftFrameworkId": this.frameWorkId,
-      //   "draftCriteriaId": this.selectedCriteriaOfqtn['_id'],
-      //   "draftEvidenceMethodId": this.draftEvidenceMethodId,
-      //   "draftSectionId": this.draftSectionId
-      // }
-
-      // let updateQuestionObj = {
-      //   question: [],
-      //   responseType: $event.data.type,
-
-      // }
-
-      // updateQuestionObj.question.push($event.data.label)
-
-      // console.log("updateQuestionObj",updateQuestionObj);
-
-      // // create question and Update The question
-      // this.createDraftQuestion(obj, updateQuestionObj);
+      $event.data.draftCriteriaId = _this.selectedCriteriaOfqtn['_id'];
+      _this.isDilogOpened = false;
+      _this.unSavedQuestionList.push($event.data);
 
     } else if ($event.action == 'update') {
-      
       // update arry contains only existing data which is available in server
-      if($event.data._id){
+      if ($event.data._id) {
         _this.updateArray.push($event.data._id);
       }
-      // this.updateDraftQuestion(obj, $event.data._id);
-    }else if($event.action == 'delete'){
 
-      console.log("$event",$event.data);
+    } else if ($event.action == 'delete') {
 
-      console.log("this.allFields 1",_this.allFields.length);
-
-      // _this.eventsSubject.next();
-      _this.allFields  = _this.allFields.filter(function(el,index){
-        // if(el.isDelete){
-          return !el.isDelete;
-        // }else{
-        //   return;
-        // }
+      _this.allFields = _this.allFields.filter(function (el, index) {
+        return !el.isDelete;
       })
       this.deleteDraftQuestion($event.data._id);
-
-
-      console.log("this.allFields 2",this.allFields.length);
       this.eventsSubject.next(_this.allFields);
     }
-
   }
 
   // publish an event for eventsSubject 
@@ -815,98 +757,83 @@ export class ObservationUtilitiesComponent implements OnInit {
         // console.log("create question", data['result']);
 
         if (updateObj) {
-          console.log("updateObj", updateObj);
+          // console.log("updateObj", updateObj);
 
           this.updateDraftQuestion(updateObj, data['result']._id);
           // 
           this.allFields[index]._id = data['result']._id;
-          console.log("all -- fields", this.allFields[index]);
+          // console.log("all -- fields", this.allFields[index]);
           return data['result']._id;
         }
         return data['result'];
-
       } else {
         console.log("Error", data);
       }
-
     });
   }
 
   updateDraftQuestion(obj, questionId) {
-
-    // obj['_id']= questionId;
-
-    console.log(" questionId", obj);
     this.frameWorkServ.updateDraftQuestion(obj, questionId).subscribe(data => {
       if (data['result']) {
-        console.log("question updated", data['result']);
-
-
-
       } else {
         console.log("Error", data);
       }
-
     });
   }
   criteriaChange() {
-    // console.log("this",this.selectedCriteriaOfqtn);
+    // if (this.unSavedQuestionList.length > 0 && !this.isDilogOpened) {
+    //   const message = `It looks like you have been editing something.If you leave before saving, your changes will be lost?`;
+    //   const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    //   setTimeout(() => {
+
+    //     const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+    //       width: '350px',
+    //       data: dialogData
+    //     })
+    //     dialogRef.afterClosed().subscribe(result => {
+    //       if (!result) {
+
+    //         this.isDilogOpened = true;
+    //         this.selectedCriteriaOfqtn = this.previousCriteria;
+    //         this.previousCriteria = this.selectedCriteriaOfqtn;
+    //       }
+    //     });
+    //   })
+    // } else {
+
+    console.log("chnage",this.allQuestionWithDetails.length);
+      this.previousCriteria = this.selectedCriteriaOfqtn;
+      if (this.allQuestionWithDetails.length > 0) {
+        let qntDat = this.allQuestionWithDetails.filter(item => {
+          return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+            
+        })
+        console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat);
+        if (qntDat.length > 0) {
+          qntDat.forEach(element => {
+            let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+          });
+        } else {
+          let array: any = [];
+          this.eventsSubject.next(array);
+        }
+      } else {
+      }
+    // }
   }
   draftQuestionList() {
     // this.localQuestionList = "asdasd";
-
     let questionList = this.localQuestionList;
-
     let _this = this;
-    console.log("werewr ", this.localQuestionList);
     this.frameWorkServ.draftQuestionList(this.frameWorkId).subscribe(data => {
       if (data['result'] && data['result'].data) {
-        console.log("question list", data['result']);
-
         data['result'].data.forEach(function (element, index) {
-
-          
-
-          // let questionObj = {
-          //   "position": index,
-          //   "field":index+"question",
-          //   "type": element.responseType,
-          //   "label": element.question[0],
-          //   "placeholder": "Please enter your question here",
-          //   "validations": {
-          //     "required": true,
-          //     "minLenght": "",
-          //     "maxLength": ""
-          //   }
-          // }
-          // console.log("questionObj",questionObj);
-          // console.log("questionObj",questionList);
-
           let currentThis = _this;
-        
-          // _this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt =>{
-
-          //   if(qnt['result']){
-
-          //     console.log("in--",qnt['result'],"qnt['result']",);
-          // console.log(element,"data['result'].count====",data['result'].count);
-          let questionObj = currentThis.reGenerateQuestionObject(element, data['result'].count)    
-          // let questionObj = _this.reGenerateQuestionObject(qnt['result'], index)
-              // questionList.push(questionObj);
-           
-          if(currentThis.localQuestionList.length== data['result'].count){
+          let questionObj = currentThis.reGenerateQuestionObject(element, data['result'].count)
+          if (currentThis.localQuestionList.length == data['result'].count) {
             currentThis.eventsSubject.next(currentThis.localQuestionList);
           }
-
-          
-
-         
         });
-
-        // console.log("this.localQuestionList",this.localQuestionList);
-        
-
-
       } else {
         console.log("Error while featching question list", data);
       }
@@ -920,157 +847,239 @@ export class ObservationUtilitiesComponent implements OnInit {
     let len = legnth + 1;
 
 
-    this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt =>{
+    this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt => {
 
-    let options = [];
+      let options = [];
 
-     element = qnt['result'];
-     let responseType = ele;
+      element = qnt['result'];
 
-     console.log("response type",ele);
+      // console.log("details of qnt", element);
 
-    console.log("element.options",element.options);
-      if(element.options){
-              for (var key in element.options) {
+      // console.log("realod", realod);
+      // var results 
+      // if (realod) {
+        // console.log("details of qnt", element);
 
-                console.log("key--",key);
+        var results =  this.allQuestionWithDetails.filter(li=>{
+          return li._id === element._id;
+        });
 
-                let object  = {
-                  label: element.options[key]['label'],
-                  key:element.options[key]['value']
-  
-                }
-                options.push(object);
-  
-              }
-            }
+      
+        console.log("results",results)
+        if(results.length == 0){
+          this.allQuestionWithDetails.push(element);
+        }
+        
 
-            console.log("--------opt",options);
+      // }
+      let responseType = ele;
+      if (element.options) {
+        for (var key in element.options) {
+          let object = {
+            label: element.options[key]['label'],
+            key: element.options[key]['value']
 
-
-
-    var obj = {};
-    if (ele == 'text') {
-      obj = {
-        "position": len,
-        "field": len + "question",
-        "type": responseType,
-        "label": label,
-        "placeholder": "Please enter your question here",
-        "validations": {
-          "required": true,
-          "minLenght": "",
-          "maxLength": ""
-        },
-        "_id": element._id
+          }
+          options.push(object);
+        }
       }
-    }
-    if (ele == 'number') {
-      obj = {
-        "field": len + "question",
-        "type": responseType,
-        "label": label,
-        "placeholder": "Please enter your question here",
-        "validations": {
-          "required": true,
-          "minLenght": "",
-          "maxLength": ""
-        },
-        "_id": element._id
-
+      let isRequired = false;
+      if (element.validation && element.validation.required) {
+        isRequired = element.validation.required;
       }
-    }
-
-    if (ele == 'radio') {
-      obj = {
-        field: len + "question",
-        name: len + "question",
-        type: responseType,
-        label: label,
-        value: 'in',
-        validations: {
-          required: true,
-          minLenght: "",
-          maxLength: ""
-        },
-        required: true,
-        options: options,
-        "_id": element._id
+      var obj = {};
+      if (ele == 'text') {
+        obj = {
+          position: len,
+          field: len + "question",
+          type: responseType,
+          label: label,
+          placeholder: "Please enter your question here",
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: ""
+          },
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+        }
       }
-    }
-    if (ele == "checkbox") {
-      obj = {
-        field: len + "question",
-        name: len + "question",
-        type: responseType,
-        label: label,
-        validations: {
-          required: true,
-          minLenght: "",
-          maxLength: ""
-        },
-        required: true,
-        options: options,
-        "_id": element._id
+      if (ele == 'number') {
+        obj = {
+          field: len + "question",
+          type: responseType,
+          label: label,
+          placeholder: "Please enter your question here",
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: ""
+          },
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+
+        }
+      }else if (ele == 'date') {
+        obj = {
+          field: len + "question",
+          type: responseType,
+          label: label,
+          placeholder: "Please enter your question here",
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: "",
+            maxDate:element.validation.max,
+            minDate:element.validation.min,
+          },
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+
+        }
+      }else if (ele == 'slider') {
+        obj = {
+          field: len + "question",
+          type: responseType,
+          label: label,
+          placeholder: "Please enter your question here",
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: "",
+            max:element.validation.max,
+            min:element.validation.min,
+          },
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+
+        }
+      }else if (ele == 'radio') {
+        obj = {
+          field: len + "question",
+          name: len + "question",
+          type: responseType,
+          label: label,
+          value: '',
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: ""
+          },
+          options: options,
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+        }
       }
-    }
-    if (ele == "dropdown") {
-      obj = {
-        field: len + "question",
-        name: len + ". question",
-        type: responseType,
-        label: label,
-        validations: {
-          required: true,
-          minLenght: "",
-          maxLength: ""
-        },
-        value: 'option1',
-        required: true,
-        options: options,
-        "_id": element._id
+      else if (ele == "checkbox") {
+        obj = {
+          field: len + "question",
+          name: len + "question",
+          type: responseType,
+          label: label,
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: ""
+          },
+          options: options,
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+        }
       }
-    }
-
-    console.log("obj", obj);
-
-    this.localQuestionList.push(obj);
-    this.eventsSubject.next(this.localQuestionList);
-    return obj;
-
-  });
-
-    // console.log("fields controls", this.form);
-  }
-
-  deleteDraftQuestion(questionId){
-
-    console.log("questionId--",questionId);
-    this.frameWorkServ.deleteDraftQuestion(questionId).subscribe(data => {
-      if (data) {
-        console.log("Deleted",data);
-      }else{
-        console.log("failed to delete");
+      else if (ele == "dropdown") {
+        obj = {
+          field: len + "question",
+          name: len + ". question",
+          type: responseType,
+          label: label,
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: ""
+          },
+          value: 'option1',
+          options: options,
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+        }
       }
+      if(results.length  == 0){
+        this.localQuestionList.push(obj);
+      }
+      
+      let list = this.localQuestionList.filter(item => {
+        if (item.draftCriteriaId == this.selectedCriteriaOfqtn['_id']) {
+          return true;
+        }
+      })
+      if (list.length > 0) {
+        this.eventsSubject.next(list);
+      } else {
+        let array: any = [];
+        this.eventsSubject.next(array);
+      }
+      return obj;
     });
+  }
+
+  deleteDraftQuestion(questionId) {
+
+    // console.log("questionId--", questionId);
+
+    // const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+    //   width: '350px',
+    // })
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+
+    if (questionId) {
+      this.frameWorkServ.deleteDraftQuestion(questionId).subscribe(data => {
+        if (data) {
+          console.log("Deleted", data);
+        } else {
+          console.log("failed to delete");
+        }
+      });
+    }
+    //   }
+    // })
 
   }
 
-  detailsDraftQuestion(questionId){
-    console.log("questionId--",questionId);
+  detailsDraftQuestion(questionId) {
+    console.log("questionId--", questionId);
     this.frameWorkServ.detailsDraftQuestion(questionId).subscribe(data => {
       if (data) {
-        console.log("details",data);
+        console.log("details", data);
         // this.reGenerateQuestionObject(data['result'], 2);
 
-      }else{
+      } else {
         console.log("details ");
       }
     });
   }
 
-
-
-
-
+  criteriaUpdate(element) {
+    let _this = this;
+    _this.allCriteriaList.filter(function (item, index) {
+      if (item._id == element._id) {
+        if (item.name != element.name || item.description != element.description) {
+          _this.frameWorkServ.updateDraftCriteria(element._id, element).subscribe(data => {
+            _this.openSnackBar("Criteria Updated Succesfully", "Done");
+            _this.draftCriteriaList(_this.frameWorkId);
+            _this.criteriaList.paginator = _this.paginator;
+            _this.criteriaList.sort = _this.sort;
+            _this.criteriaSubmitted = false;
+          });
+        }
+      }
+    })
+  }
 }

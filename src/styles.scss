@@ -158,3 +158,25 @@ span:focus {
     padding: 1.25rem;
     min-height: 284px;
 }
+
+.inline-edit {
+	.mat-form-field-wrapper {
+		.mat-form-field-underline {
+			
+				height: 0px !important;
+			
+		}
+	}
+}
+
+.inline-edit:hover {
+	.mat-form-field-wrapper {
+		.mat-form-field-underline {
+            height: 1px !important;
+			
+		}
+	}
+}
+.mat-slider-horizontal {
+    min-width: 80% !important;
+}
