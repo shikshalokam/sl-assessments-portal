@@ -931,6 +931,7 @@ export class ObservationUtilitiesComponent implements OnInit {
             required: isRequired,
             minLenght: "",
             maxLength: "",
+            autoCollect: false,
             maxDate:element.validation.max,
             minDate:element.validation.min,
           },
