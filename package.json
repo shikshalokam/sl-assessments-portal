@@ -37,7 +37,7 @@
     "bit-bin": "^13.0.4",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
-    "dynamic-form-builder": "file:../sl-shikshalokam-dynamic-forms/dist/dynamic-form-builder/dynamic-form-builder-0.0.1.tgz",
+    "dynamic-form-builder": "file:../../sl-shikshalokam-dynamic-forms/dist/dynamic-form-builder/dynamic-form-builder-0.0.1.tgz",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
     "formBuilder": "^3.2.5",

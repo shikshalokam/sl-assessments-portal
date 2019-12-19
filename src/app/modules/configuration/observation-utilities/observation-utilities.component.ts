@@ -105,7 +105,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   draftSolutionEntityType = "";
   criteriaSubmitted: boolean = false;
   languageArr = ["Kannada", "English", "Hindi", "Tamil"];
-  eventsSubject: Subject<void> = new Subject<void>();
+  eventsSubject: Subject<any> = new Subject<any>();
   questionList: any;
   draftEvidenceMethodId: any;
   draftSectionId: any;
@@ -669,7 +669,12 @@ export class ObservationUtilitiesComponent implements OnInit {
 
               let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
               if (index == _this.allFields.length) {
-                this.eventsSubject.next(_this.allFields);
+                let obj = {
+                  questionArray:_this.allFields,
+                  criteriaList:this.criteriaList
+                }
+                console.log("--------------obj------",obj);
+                this.eventsSubject.next(obj);
               }
             }
           }
@@ -691,8 +696,15 @@ export class ObservationUtilitiesComponent implements OnInit {
       _this.allFields = _this.allFields.filter(function (el, index) {
         return !el.isDelete;
       })
+
       this.deleteDraftQuestion($event.data._id);
-      this.eventsSubject.next(_this.allFields);
+
+      let obj = {
+        questionArray:_this.allFields,
+        criteriaList:this.criteriaList
+      }
+      console.log("--------------obj------",obj);
+      this.eventsSubject.next(obj);
     }
   }
 
@@ -815,7 +827,12 @@ export class ObservationUtilitiesComponent implements OnInit {
           });
         } else {
           let array: any = [];
-          this.eventsSubject.next(array);
+
+          let obj = {
+            questionArray:array,
+            criteriaList:this.criteriaList
+          }
+          this.eventsSubject.next(obj);
         }
       } else {
       }
@@ -831,7 +848,13 @@ export class ObservationUtilitiesComponent implements OnInit {
           let currentThis = _this;
           let questionObj = currentThis.reGenerateQuestionObject(element, data['result'].count)
           if (currentThis.localQuestionList.length == data['result'].count) {
-            currentThis.eventsSubject.next(currentThis.localQuestionList);
+
+            let obj = {
+              questionArray:currentThis.localQuestionList,
+              criteriaList:this.criteriaList
+            }
+
+            currentThis.eventsSubject.next(obj);
           }
         });
       } else {
@@ -1021,10 +1044,23 @@ export class ObservationUtilitiesComponent implements OnInit {
         }
       })
       if (list.length > 0) {
-        this.eventsSubject.next(list);
+
+        let obj = {
+          questionArray:list,
+          criteriaList:this.criteriaList
+        }
+        this.eventsSubject.next(obj);
       } else {
         let array: any = [];
-        this.eventsSubject.next(array);
+
+        let obj = {
+          questionArray:array,
+          criteriaList:this.criteriaList
+        }
+
+       
+        console.log("--------------obj------",obj);
+        this.eventsSubject.next(obj);
       }
       return obj;
     });
