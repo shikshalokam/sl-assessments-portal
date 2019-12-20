@@ -23,9 +23,15 @@ export class DraftFrameWorkServiceService {
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
     })
-    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.createDraftFrameWork, {}, {
+
+   return this.http.get("https://devhome.shikshalokam.org/unnati/api/v1/template/all", {
       headers: customHeader
     });
+
+    // console.log("console.lg",data)
+    // return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.createDraftFrameWork, {}, {
+    //   headers: customHeader
+    // });
 
   }
   updateDraftFrameWork(obj,frameWorkId){
