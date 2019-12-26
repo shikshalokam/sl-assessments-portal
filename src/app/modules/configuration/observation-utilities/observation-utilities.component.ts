@@ -17,6 +17,8 @@ import { IfStmt } from '@angular/compiler';
 import { element } from '@angular/core/src/render3';
 import { Item } from 'angular2-multiselect-dropdown';
 
+import { DynamicFormBuilderService } from "dynamic-form-builder";
+
 TagInputModule.withDefaults({
   tagInput: {
     placeholder: 'Add a Keyword',
@@ -41,6 +43,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
+    private DynamicFomServe:DynamicFormBuilderService,
     public dialog: MatDialog) {
 
   }
@@ -119,6 +122,9 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   onChange(event) {
     this.Data = event.form;
+
+    
+    
   }
   ngAfterViewInit() {
     this.criteriaList.paginator = this.paginator;
@@ -433,6 +439,10 @@ export class ObservationUtilitiesComponent implements OnInit {
   AddCriteria() {
     this.showAddCriteria = this.showAddCriteria == true ? false : true;
     this.criteriaAddorUpdate = "Add";
+
+    
+
+
     console.log("criteriaForm.controls", this.criteriaForm.controls);
   }
 
@@ -499,6 +509,9 @@ export class ObservationUtilitiesComponent implements OnInit {
         // deep cloning the object
         this.allCriteriaList = JSON.parse(JSON.stringify(data['result'].data));
         this.criteriaList = data['result'].data;
+
+        this.DynamicFomServe.setCriteria(this.criteriaList);
+
         console.log("ArrayOfCriteria", this.criteriaList);
         this.selectedCriteriaOfqtn = this.criteriaList[0];
         this.ArrayOfCriteria = data['result'].data;
@@ -589,6 +602,9 @@ export class ObservationUtilitiesComponent implements OnInit {
   // triiger event from child for drop Question or Save All Question
   eventFromChild($event) {
 
+
+    console.log("emit value",$event);
+
     let _this = this;
     if ($event.action == 'all') {
       this.questionList = $event;
@@ -651,10 +667,16 @@ export class ObservationUtilitiesComponent implements OnInit {
                   options.push(object);
                 }
               }
+
+              let childernArray = [];
+              if(element.child){
+                childernArray = element.child;
+              }
               let updateQuestionObj = {
                 question: [],
                 responseType: element.type,
                 options: options,
+                children:childernArray,
                 validation:{
                   required: element.validations.required
                 }
@@ -667,6 +689,8 @@ export class ObservationUtilitiesComponent implements OnInit {
               
               updateQuestionObj.question.push(element.label);
 
+
+              console.log("updateQuestionObj",updateQuestionObj);
               let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
               if (index == _this.allFields.length) {
                 let obj = {
@@ -1033,6 +1057,28 @@ export class ObservationUtilitiesComponent implements OnInit {
           description: "",
           draftCriteriaId: element.draftCriteriaId
         }
+      } else if (ele == "matrix") {
+
+        console.log("ele.children",element)
+        obj = {
+          position: len,
+          field: len + "question",
+          name: len + ". question",
+          type: responseType,
+          label: label,
+          child:element.children,
+          validations: {
+            required: isRequired,
+            minLenght: "",
+            maxLength: ""
+          },
+          value: 'option1',
+          options: options,
+          _id: element._id,
+          description: "",
+          draftCriteriaId: element.draftCriteriaId
+        }
+
       }
       if(results.length  == 0){
         this.localQuestionList.push(obj);
