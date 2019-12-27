@@ -24,6 +24,11 @@ export class DraftFrameWorkServiceService {
       'Content-Type': 'application/json'
     })
 
+  
+    // return this.http.get("https://qahome.shikshalokam.org/unnati/api/v1/template/all", {
+    //   headers: customHeader
+    // });
+
     // console.log("console.lg",data)
     return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.createDraftFrameWork, {}, {
       headers: customHeader

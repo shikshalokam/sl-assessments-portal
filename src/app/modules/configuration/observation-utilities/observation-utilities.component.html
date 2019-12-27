@@ -246,14 +246,14 @@
         </mat-form-field> -->
 
             </div>
-            <div class="col-sm-12" style="padding:20px">
+            <div class="col-sm-12" style="padding:0px">
               <!-- <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
               </form-builder> -->
 
               <form [formGroup]="selectCriteriaForm">
 
             
-              <mat-form-field class="col-sm-12 ">
+              <mat-form-field class="col-sm-4">
                 <mat-label>Select Criteria</mat-label>
                 <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()" formControlName="selectedCriteriaOfqtn" >
                   <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>

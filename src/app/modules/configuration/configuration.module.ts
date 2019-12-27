@@ -33,7 +33,8 @@ import { PublishComponent } from './publish/publish.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 // import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
-import  { DynamicFormBuilderModule1 } from 'dynamic-form-builder';
+import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-form-builder';
+
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -86,6 +87,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   // exports:[MatPaginatorModule],
 
   providers: [DynamicFormComponent,
+    DynamicFormBuilderService,
     MatDatepickerModule],
   entryComponents: [DeleteConfirmComponent]
 })
