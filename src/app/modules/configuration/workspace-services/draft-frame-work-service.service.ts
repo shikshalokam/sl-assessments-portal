@@ -18,20 +18,16 @@ export class DraftFrameWorkServiceService {
   createDraftFrameWork() {
 
     let tokenInfo = localStorage.getItem("auth-token");
-    //  console.log("tokenInfo",tokenInfo);
+     console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
     })
 
-   return this.http.get("https://devhome.shikshalokam.org/unnati/api/v1/template/all", {
+    // console.log("console.lg",data)
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.createDraftFrameWork, {}, {
       headers: customHeader
     });
-
-    // console.log("console.lg",data)
-    // return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.createDraftFrameWork, {}, {
-    //   headers: customHeader
-    // });
 
   }
   updateDraftFrameWork(obj,frameWorkId){

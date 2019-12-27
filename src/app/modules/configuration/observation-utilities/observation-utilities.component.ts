@@ -200,7 +200,8 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
 
     this.selectCriteriaForm = new FormGroup({
-      selectedCriteriaOfqtn: new FormControl('', Validators.required)
+      selectedCriteriaOfqtn: new FormControl('', Validators.required),
+      selectedpagenumber: new FormControl(''),
     })
   }
 
@@ -440,7 +441,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     // creatingg Draft frameWork using below API
     this.frameWorkServ.createDraftFrameWork().subscribe(
       data => {
-        // console.log("data",data['result']._id);
+        console.log("frameWorkServ data",data);
         let frameWorkId = data['result']._id
         this.createDraftEcm(frameWorkId);
         this.createDraftSection(frameWorkId);

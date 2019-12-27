@@ -267,6 +267,13 @@
               <div *ngIf="questionSubmit && !selectedCriteriaOfqtn" class="col-sm-12 error-block">
                 <div >Criteria is required</div>
               </div>
+
+              <mat-form-field class="col-sm-4">
+                <mat-label>Page Number</mat-label>
+                <select matNativeControl [(ngModel)]="selectedpagenumber" (ngModelChange)="pageChange()" formControlName="selectedpagenumber">
+                  <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
+                </select>
+              </mat-form-field>
               
             </form>
 
