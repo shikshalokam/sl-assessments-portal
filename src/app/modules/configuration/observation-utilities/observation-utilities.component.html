@@ -271,7 +271,7 @@
               <mat-form-field class="col-sm-4">
                 <mat-label>Page Number</mat-label>
                 <select matNativeControl [(ngModel)]="selectedpagenumber" (ngModelChange)="pageChange()" formControlName="selectedpagenumber">
-                  <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
+                  <option *ngFor="let page of totalpages" [ngValue]="page.value"> {{ page.label }} </option>
                 </select>
               </mat-form-field>
               
