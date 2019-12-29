@@ -18,7 +18,7 @@ export class DraftFrameWorkServiceService {
   createDraftFrameWork() {
 
     let tokenInfo = localStorage.getItem("auth-token");
-    //  console.log("tokenInfo",tokenInfo);
+     console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
