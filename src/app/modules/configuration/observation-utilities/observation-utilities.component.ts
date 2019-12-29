@@ -119,6 +119,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   allCriteriaList: any;
   unSavedQuestionList: any;
   totalpages: any;
+  selectedpageNumber: any;
 
   onChange(event) {
     this.Data = event.form;
@@ -847,9 +848,10 @@ export class ObservationUtilitiesComponent implements OnInit {
     console.log('_this.allFields', this.allFields);
 
     // srikanth
-    // this.allFields.filter(item => item.draftCriteriaId === this.selectedCriteriaOfqtn['_id']);
+    // const filtereddata =  this.allFields.filter(item => item.draftCriteriaId === this.selectedCriteriaOfqtn['_id']);
 
-    console.log('after filter', this.allFields);
+    // console.log('after filter', filtereddata);
+
     this.previousCriteria = this.selectedCriteriaOfqtn;
 
     if (this.allQuestionWithDetails.length > 0) {
@@ -877,6 +879,13 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   pageChange() {
+
+    // const filtereddata =  this.allFields.filter(item => item.draftCriteriaId === this.selectedCriteriaOfqtn['_id']);
+
+
+    // let qntDat = this.allQuestionWithDetails.filter(item => {
+    //   return (item.draftCriteriaId == this.selectedCriteriaOfqtn['_id']) && (item.pageNumber == this.selectedpageNumber);
+    // })
 
   }
   draftQuestionList() {
