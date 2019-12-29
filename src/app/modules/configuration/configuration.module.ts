@@ -5,7 +5,8 @@ import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule,
    MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule,
    MatPaginatorModule,
    MatDatepickerModule,
-   MatNativeDateModule
+   MatNativeDateModule,
+   MatToolbarModule
   } from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
@@ -82,7 +83,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     DragAndDropModule,
     TagInputModule,
     MatPaginatorModule,
-    DynamicFormBuilderModule1
+    DynamicFormBuilderModule1,
+    MatToolbarModule
   ],
   // exports:[MatPaginatorModule],
 

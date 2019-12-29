@@ -111,6 +111,7 @@ margin-top:20px;
     font-size: 40px;
     padding: 17px;
     color: royalblue;
+    cursor: pointer;
   }
   .add-button {
     text-align: right;
@@ -145,9 +146,31 @@ margin-top:20px;
   .margin-right {
     margin-right: 10px;
   }
- 
+  .toobar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .custom-toolbar {
+    background: #fff;
+  }
 
   
+
+  .add-criteria-icon {
+    font-size: px;
+     padding: 3px;
+     cursor: pointer;
+     color: royalblue;
+  }
+
+  .add-criteria-lable {
+    font-size: 19px;
+    cursor: pointer;
+    color: royalblue;
+  }
+
+ 
+
   
   
   
