@@ -628,8 +628,6 @@ export class ObservationUtilitiesComponent implements OnInit {
                 required: element.validations.required
               }
             }
-
-
             if (element.type == "date") {
               obj.validation['max'] = element.validations.maxDate;
               obj.validation['min'] = element.validations.minDate;
@@ -709,7 +707,11 @@ export class ObservationUtilitiesComponent implements OnInit {
         });
       }
     } else if ($event.action == 'add') {
-      $event.data.draftCriteriaId = _this.selectedCriteriaOfqtn['_id'];
+      console.log('selectedCriteriaOfqtn', this.selectedCriteriaOfqtn);
+
+      if (this.selectedCriteriaOfqtn) {
+        $event.data.draftCriteriaId = this.selectedCriteriaOfqtn['_id'];
+      }
       _this.isDilogOpened = false;
       _this.unSavedQuestionList.push($event.data);
 
