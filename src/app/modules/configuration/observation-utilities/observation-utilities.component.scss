@@ -111,6 +111,7 @@ margin-top:20px;
     font-size: 40px;
     padding: 17px;
     color: royalblue;
+    cursor: pointer;
   }
   .add-button {
     text-align: right;
@@ -122,7 +123,9 @@ margin-top:20px;
       margin-top: 15px;
   }
   .material-icons {
-      font-size: 14px;
+      font-size: 20px;
+      padding: 8px;
+      vertical-align: middle;
   }
   .plus-icon {
     font-size: 27px;
@@ -135,6 +138,7 @@ margin-top:20px;
   }
   .margin-top-0 {
       margin-top: 0px;
+      margin-bottom: 0px;
   }
   .add-keyword-block {
     margin-bottom: 10px;
@@ -145,9 +149,34 @@ margin-top:20px;
   .margin-right {
     margin-right: 10px;
   }
- 
+  .toobar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .custom-toolbar {
+    background: #fff;
+  }
 
   
+
+  .add-criteria-icon {
+    font-size: px;
+     padding: 3px;
+     cursor: pointer;
+     color: royalblue;
+  }
+
+  .add-criteria-lable {
+    font-size: 19px;
+    cursor: pointer;
+    color: royalblue;
+  }
+
+  button.m-top-10.mat-flat-button.mat-primary {
+    cursor: pointer;
+  }
+ 
+
   
   
   

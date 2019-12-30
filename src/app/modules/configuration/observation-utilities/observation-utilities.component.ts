@@ -439,7 +439,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   AddCriteria() {
-    this.showAddCriteria = this.showAddCriteria == true ? false : true;
+     this.showAddCriteria = this.showAddCriteria == true ? false : true;
     this.criteriaAddorUpdate = "Add";
 
 
@@ -1193,4 +1193,33 @@ export class ObservationUtilitiesComponent implements OnInit {
       }
     })
   }
+
+
+  /**
+   * Adding Auto Genrated Critera 
+   */
+
+   autoAddCriteria(){
+    let obj = {
+      draftFrameworkId: this.frameWorkId,
+    }
+    this.frameWorkServ.draftCriteriaCreate(obj).subscribe(data => {
+      let criteriaObj = {
+        name: '',
+        description: ''
+      }
+      if (data['result']._id) {
+        this.frameWorkServ.updateDraftCriteria(data['result']._id, criteriaObj).subscribe(data => {
+          this.openSnackBar("Criteria Added Succesfully", "Done");
+          this.draftCriteriaList(this.frameWorkId);
+          this.criteriaList.paginator = this.paginator;
+          this.criteriaList.sort = this.sort;
+          // this.criteriaForm.reset();
+          // this.criteriaNameupdate = "";
+          // this.criteriaDescriptionUpdate = "";
+          this.criteriaSubmitted = false;
+        });
+      }
+    });
+   }
 }
