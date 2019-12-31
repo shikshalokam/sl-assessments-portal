@@ -908,16 +908,29 @@ export class ObservationUtilitiesComponent implements OnInit {
     // let data=
 
     // console.log("get all",this.isUpdate);
-    if( this.isUpdate ==2 ){
 
-      let allQnt = this.DynamicFomServe.getALl();
-
-      console.log("get all", allQnt['questionList']['questionList']);
-
-      this.beforCriteriaChange = allQnt['questionList']['questionList'];
-
-      this.isUpdate = this.isUpdate  + 1 ;
+    let allQnt = this.DynamicFomServe.getALl();
+    let qntLen  = allQnt['questionList']['questionList']
+    if( this.beforCriteriaChange && qntLen && this.beforCriteriaChange.length < qntLen.length ){
+      this.beforCriteriaChange = qntLen;
+    }else{
+    if( this.beforCriteriaChange){
+      console.log("data present")
+      if( this.beforCriteriaChange.length==0){
+        let allQnt = this.DynamicFomServe.getALl();
+        console.log("get all", allQnt['questionList']['questionList']);
+        this.beforCriteriaChange = allQnt['questionList']['questionList'];
+      }
     }
+    else{
+      let allQnt = this.DynamicFomServe.getALl();
+      console.log("get all", allQnt['questionList']['questionList']);
+      this.beforCriteriaChange = allQnt['questionList']['questionList'];
+    }
+  }
+
+   
+    // this.isUpdate = this.isUpdate  + 1 ;
 
     console.log("chnage", this.allQuestionWithDetails.length);
     console.log('criteriaChange', this.allQuestionWithDetails);
@@ -949,8 +962,8 @@ export class ObservationUtilitiesComponent implements OnInit {
         return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
 
       })
-      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat);
-      if (qntDat.length > 0) {
+      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
+      if (qntDat && qntDat.length > 0) {
         qntDat.forEach(element => {
           let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
         });
@@ -1007,8 +1020,10 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   reGenerateQuestionObject(element, legnth) {
 
+
+    console.log("element-----------",element);
     let ele = element.responseType;
-    let label = element.question[0];
+    let label = element.label?element.label:element.question;
     let len = legnth + 1;
 
 
