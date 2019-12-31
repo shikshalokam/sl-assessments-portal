@@ -439,7 +439,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   }
 
   AddCriteria() {
-     this.showAddCriteria = this.showAddCriteria == true ? false : true;
+    this.showAddCriteria = this.showAddCriteria == true ? false : true;
     this.criteriaAddorUpdate = "Add";
 
 
@@ -723,18 +723,66 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     } else if ($event.action == 'delete') {
 
-      _this.allFields = _this.allFields.filter(function (el, index) {
-        return !el.isDelete;
+      let message = `Are you sure you want to delete this question?`;
+      let dialogData = new ConfirmDialogModel("Confirm Action", message);
+      const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+        width: '350px',
+        data: dialogData
       })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
+          //   if (data['status']) {
+              this.openSnackBar("Question Deleted Succesfully", "Deleted");
+          //     this.draftCriteriaList(this.frameWorkId);
+          //   }
+          // }, error => {
+          //   console.log("error while callng api", error);
+          // })
+          debugger
+          _this.allFields = _this.allFields.filter(function (el, index) {
+            return !el.isDelete;
+          })
+    
+          this.deleteDraftQuestion($event.data._id);
+          let obj = {
+            questionArray: _this.allFields,
+            criteriaList: this.criteriaList
+          }
+          this.eventsSubject.next(obj);
+        }
+      });
+    } else if ($event.action == 'childDelete') {
 
-      this.deleteDraftQuestion($event.data._id);
-
-      let obj = {
-        questionArray: _this.allFields,
-        criteriaList: this.criteriaList
-      }
-      console.log("--------------obj------", obj);
-      this.eventsSubject.next(obj);
+      let message = `Are you sure you want to delete this question?`;
+      let dialogData = new ConfirmDialogModel("Confirm Action", message);
+      const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+        width: '350px',
+        data: dialogData
+      })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
+          //   if (data['status']) {
+              this.openSnackBar("Question Deleted Succesfully", "Deleted");
+          //     this.draftCriteriaList(this.frameWorkId);
+          //   }
+          // }, error => {
+          //   console.log("error while callng api", error);
+          // })
+          debugger
+          _this.allFields = _this.allFields[0].child.filter(function (el, index) {
+            return !el.isDelete;
+          })
+    
+          // this.deleteDraftQuestion($event.data._id);
+          let obj = {
+            questionArray: _this.allFields,
+            criteriaList: this.criteriaList
+          }
+          this.eventsSubject.next(obj);
+        }
+      });
     }
   }
 
@@ -1199,7 +1247,7 @@ export class ObservationUtilitiesComponent implements OnInit {
    * Adding Auto Genrated Critera 
    */
 
-   autoAddCriteria(){
+  autoAddCriteria() {
     let obj = {
       draftFrameworkId: this.frameWorkId,
     }
@@ -1221,5 +1269,5 @@ export class ObservationUtilitiesComponent implements OnInit {
         });
       }
     });
-   }
+  }
 }
