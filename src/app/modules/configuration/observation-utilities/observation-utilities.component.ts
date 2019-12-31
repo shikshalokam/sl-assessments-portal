@@ -707,7 +707,7 @@ export class ObservationUtilitiesComponent implements OnInit {
         });
       }
     } else if ($event.action == 'add') {
-      console.log('selectedCriteriaOfqtn', this.selectedCriteriaOfqtn);
+      console.log('addd', $event);
 
       if (this.selectedCriteriaOfqtn) {
         $event.data.draftCriteriaId = this.selectedCriteriaOfqtn['_id'];
@@ -715,11 +715,25 @@ export class ObservationUtilitiesComponent implements OnInit {
       _this.isDilogOpened = false;
       _this.unSavedQuestionList.push($event.data);
 
+      if ($event.data.copied) {
+        const message = $event.data.type.charAt(0).toUpperCase() + $event.data.type.substring(1) + ' ' + 'Question Copied Succesfully';
+        this.openSnackBar(message, "Copied");
+
+      } else {
+        const message = $event.data.type.charAt(0).toUpperCase() + $event.data.type.substring(1) + ' ' + 'Question Added Succesfully';
+        this.openSnackBar(message, "Added");
+      }
+
     } else if ($event.action == 'update') {
       // update arry contains only existing data which is available in server
       if ($event.data._id) {
         _this.updateArray.push($event.data._id);
       }
+      console.log('update---------', $event)
+      // $event.data.data.type.charAt(0).toUpperCase() + $event.data.type.substring(1) + 
+      const message = $event.data.data.field.position + ' ' + 'Question Updated Succesfully';
+      this.openSnackBar(message, "Updated");
+      
 
     } else if ($event.action == 'delete') {
 
@@ -733,7 +747,7 @@ export class ObservationUtilitiesComponent implements OnInit {
         if (result) {
           // this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
           //   if (data['status']) {
-              this.openSnackBar("Question Deleted Succesfully", "Deleted");
+          this.openSnackBar("Question Deleted Succesfully", "Deleted");
           //     this.draftCriteriaList(this.frameWorkId);
           //   }
           // }, error => {
@@ -743,7 +757,7 @@ export class ObservationUtilitiesComponent implements OnInit {
           _this.allFields = _this.allFields.filter(function (el, index) {
             return !el.isDelete;
           })
-    
+
           this.deleteDraftQuestion($event.data._id);
           let obj = {
             questionArray: _this.allFields,
@@ -764,7 +778,7 @@ export class ObservationUtilitiesComponent implements OnInit {
         if (result) {
           // this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
           //   if (data['status']) {
-              this.openSnackBar("Question Deleted Succesfully", "Deleted");
+          this.openSnackBar("Question Deleted Succesfully", "Deleted");
           //     this.draftCriteriaList(this.frameWorkId);
           //   }
           // }, error => {
@@ -774,7 +788,7 @@ export class ObservationUtilitiesComponent implements OnInit {
           _this.allFields = _this.allFields[0].child.filter(function (el, index) {
             return !el.isDelete;
           })
-    
+
           // this.deleteDraftQuestion($event.data._id);
           let obj = {
             questionArray: _this.allFields,
