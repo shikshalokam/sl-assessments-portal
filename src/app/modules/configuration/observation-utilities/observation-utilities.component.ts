@@ -121,6 +121,9 @@ export class ObservationUtilitiesComponent implements OnInit {
   totalpages: any;
   selectedpageNumber: any;
 
+  beforCriteriaChange:any = [];
+  isUpdate = 1;
+
   onChange(event) {
     this.Data = event.form;
 
@@ -636,6 +639,9 @@ export class ObservationUtilitiesComponent implements OnInit {
               obj.validation['min'] = element.validations.min;
             }
 
+            if(element.draftCriteriaId){
+                obj['draftCriteriaId'] = element.draftCriteriaId;
+            }
 
             obj.question.push(element.label);
             obj.question.push(element.options);
@@ -653,9 +659,14 @@ export class ObservationUtilitiesComponent implements OnInit {
               console.log("existing question", element);
             } else {
               console.log("newly added", element);
+
+              let el = _this.selectedCriteriaOfqtn['_id'];
+              if(element.draftCriteriaId){
+                el = element.draftCriteriaId;
+              }
               let obj = {
                 "draftFrameworkId": _this.frameWorkId,
-                "draftCriteriaId": _this.selectedCriteriaOfqtn['_id'],
+                "draftCriteriaId": el,
                 "draftEvidenceMethodId": _this.draftEvidenceMethodId,
                 "draftSectionId": _this.draftSectionId
               }
@@ -905,7 +916,10 @@ export class ObservationUtilitiesComponent implements OnInit {
       }
     });
   }
+
+ 
   criteriaChange() {
+
     // if (this.unSavedQuestionList.length > 0 && !this.isDilogOpened) {
     //   const message = `It looks like you have been editing something.If you leave before saving, your changes will be lost?`;
     //   const dialogData = new ConfirmDialogModel("Confirm Action", message);
@@ -926,6 +940,33 @@ export class ObservationUtilitiesComponent implements OnInit {
     //   })
     // } else {
 
+    // let data=
+
+    // console.log("get all",this.isUpdate);
+
+    let allQnt = this.DynamicFomServe.getALl();
+    let qntLen  = allQnt['questionList']['questionList']
+    if( this.beforCriteriaChange && qntLen && this.beforCriteriaChange.length < qntLen.length ){
+      this.beforCriteriaChange = qntLen;
+    }else{
+    if( this.beforCriteriaChange){
+      console.log("data present")
+      if( this.beforCriteriaChange.length==0){
+        let allQnt = this.DynamicFomServe.getALl();
+        console.log("get all", allQnt['questionList']['questionList']);
+        this.beforCriteriaChange = allQnt['questionList']['questionList'];
+      }
+    }
+    else{
+      let allQnt = this.DynamicFomServe.getALl();
+      console.log("get all", allQnt['questionList']['questionList']);
+      this.beforCriteriaChange = allQnt['questionList']['questionList'];
+    }
+  }
+
+   
+    // this.isUpdate = this.isUpdate  + 1 ;
+
     console.log("chnage", this.allQuestionWithDetails.length);
     console.log('criteriaChange', this.allQuestionWithDetails);
     console.log('this.selectedCriteriaOfqtn', this.selectedCriteriaOfqtn);
@@ -939,13 +980,25 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     this.previousCriteria = this.selectedCriteriaOfqtn;
 
-    if (this.allQuestionWithDetails.length > 0) {
-      let qntDat = this.allQuestionWithDetails.filter(item => {
+    // if (this.allQuestionWithDetails.length > 0) {
+
+  //  console.log("get all",this.DynamicFomServe.getALl());
+
+  //  this.DynamicFomServe.getALl()
+
+  //  let allQnt = this.DynamicFomServe.getALl();/
+
+  //  console.log("get all", allQnt['questionList']['questionList']);
+
+   console.log("this.beforCriteriaChange",this.beforCriteriaChange);
+   if(this.beforCriteriaChange && this.beforCriteriaChange.length > 0){
+
+      let qntDat = this.beforCriteriaChange.filter(item => {
         return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
 
       })
-      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat);
-      if (qntDat.length > 0) {
+      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
+      if (qntDat && qntDat.length > 0) {
         qntDat.forEach(element => {
           let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
         });
@@ -958,8 +1011,9 @@ export class ObservationUtilitiesComponent implements OnInit {
         }
         this.eventsSubject.next(obj);
       }
-    } else {
     }
+    // } else {
+    // }
     // }
   }
 
@@ -981,6 +1035,7 @@ export class ObservationUtilitiesComponent implements OnInit {
       if (data['result'] && data['result'].data) {
         data['result'].data.forEach(function (element, index) {
           let currentThis = _this;
+
           let questionObj = currentThis.reGenerateQuestionObject(element, data['result'].count)
           if (currentThis.localQuestionList.length == data['result'].count) {
 
@@ -1000,8 +1055,10 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   reGenerateQuestionObject(element, legnth) {
 
+
+    console.log("element-----------",element);
     let ele = element.responseType;
-    let label = element.question[0];
+    let label = element.label?element.label:element.question;
     let len = legnth + 1;
 
 
