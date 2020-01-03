@@ -174,7 +174,7 @@
                 </div> -->
                 <h4>List of Criteria</h4>
                 <div class="col-sm-12 mat-elevation-z8">
-                  <mat-table #table [dataSource]="criteriaList" class="" matSort>
+                  <mat-table #table [dataSource]="criteriaList" class="mtable" matSort>
 
                     <ng-container matColumnDef="no">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
@@ -218,7 +218,7 @@
                  
 
                   <mat-toolbar class="custom-toolbar">
-                    <mat-toolbar-row>
+                    <mat-toolbar-row style="padding: 0px;">
 
                       <mat-paginator [showFirstLastButtons]="true" [length]="this.criteriaListCount" #paginator
                       [pageSize]="criteriaListPageSize"
