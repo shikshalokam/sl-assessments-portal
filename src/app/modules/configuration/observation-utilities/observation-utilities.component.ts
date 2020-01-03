@@ -795,8 +795,26 @@ export class ObservationUtilitiesComponent implements OnInit {
           this.eventsSubject.next(obj);
         }
       });
-    } else if ($event.action == 'childDelete') {
+    } else if ($event.action == 'childDroped') {
+      console.log('addd', $event);
 
+      // if (this.selectedCriteriaOfqtn) {
+      //   $event.data.draftCriteriaId = this.selectedCriteriaOfqtn['_id'];
+      // }
+      // _this.isDilogOpened = false;
+      // _this.unSavedQuestionList.push($event.data);
+
+      if ($event.data.copied) {
+        const message = $event.data.data.responseType.charAt(0).toUpperCase() + $event.data.data.responseType.substring(1) + ' ' + 'Question Copied Succesfully in Matrix';
+        this.openSnackBar(message, "Copied");
+
+      } else {
+        const message = $event.data.data.responseType.charAt(0).toUpperCase() + $event.data.data.responseType.substring(1) + ' ' + 'Question Added Succesfully in Matrix';
+        this.openSnackBar(message, "Added");
+      }
+
+    }else if ($event.action == 'childDelete') {
+      console.log('childDelete', _this.allFields);
       let message = `Are you sure you want to delete this question?`;
       let dialogData = new ConfirmDialogModel("Confirm Action", message);
       const dialogRef = this.dialog.open(DeleteConfirmComponent, {
@@ -807,6 +825,8 @@ export class ObservationUtilitiesComponent implements OnInit {
         if (result) {
           // this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
           //   if (data['status']) {
+            $event.data.child.splice($event.deleteindex, 1);
+            // _this.allFields
           this.openSnackBar("Question Deleted Succesfully", "Deleted");
           //     this.draftCriteriaList(this.frameWorkId);
           //   }
@@ -814,9 +834,10 @@ export class ObservationUtilitiesComponent implements OnInit {
           //   console.log("error while callng api", error);
           // })
           debugger
-          _this.allFields = _this.allFields[0].child.filter(function (el, index) {
-            return !el.isDelete;
-          })
+          console.log('child delete', _this.allFields);
+          // _this.allFields = _this.allFields[0].child.filter(function (el, index) {
+          //   return !el.isDelete;
+          // })
 
           // this.deleteDraftQuestion($event.data._id);
           let obj = {
