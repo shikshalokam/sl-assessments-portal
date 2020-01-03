@@ -1,0 +1,45 @@
+{
+  "_from": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+  "_id": "shikshalokam@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-wmPhpI+0zCjHqtzdr/bAp/Ic6PYBaBoBn0NgaSzC5C+Yq/tcSUthDZwUgQy+Mv30bj0reM43k02i1/JERucXJg==",
+  "_location": "/shikshalokam",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "file",
+    "where": "/home/user/Public/personal/sl-assessments-portal",
+    "raw": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+    "rawSpec": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+    "saveSpec": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+    "fetchSpec": "/home/user/Public/personal/sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "/home/user/Public/personal/sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+  "_shasum": "8326607816e2dbf9be0c28758b8c500e64958888",
+  "_spec": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+  "_where": "/home/user/Public/personal/sl-assessments-portal",
+  "bundleDependencies": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "deprecated": false,
+  "es2015": "fesm2015/shikshalokam.js",
+  "esm2015": "esm2015/shikshalokam.js",
+  "esm5": "esm5/shikshalokam.js",
+  "fesm2015": "fesm2015/shikshalokam.js",
+  "fesm5": "fesm5/shikshalokam.js",
+  "main": "bundles/shikshalokam.umd.js",
+  "metadata": "shikshalokam.metadata.json",
+  "module": "fesm5/shikshalokam.js",
+  "name": "shikshalokam",
+  "peerDependencies": {
+    "@angular/common": "^7.1.0",
+    "@angular/core": "^7.1.0"
+  },
+  "sideEffects": false,
+  "typings": "shikshalokam.d.ts",
+  "version": "0.0.1"
+}

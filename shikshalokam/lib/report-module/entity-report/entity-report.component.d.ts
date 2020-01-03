@@ -1,0 +1,33 @@
+import { OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReportService } from '../report-service/report.service';
+import { MatSnackBar } from '@angular/material';
+import { UtilityService } from '../../core-module/services/utility-service/utility.service';
+export declare class EntityReportComponent implements OnInit {
+    private apiService;
+    private snackBar;
+    private route;
+    private utility;
+    private router;
+    headings: string;
+    entityResult: any;
+    insightReport: any;
+    programId: any;
+    entityId: any;
+    globalConfig: any;
+    apiBaseUrl: any;
+    reportConfig: any;
+    shareLinkApi: any;
+    publicSharedBaseUrl: any;
+    linkId: string;
+    componentId: any;
+    baseUrl: any;
+    portalName: any;
+    solutionId: string;
+    constructor(apiService: ReportService, snackBar: MatSnackBar, route: Router, utility: UtilityService, router: ActivatedRoute);
+    ngOnInit(): void;
+    setColor(): void;
+    getRandomColor(): string;
+    getEntityReport(): void;
+    naviagteToRubrics(): void;
+}

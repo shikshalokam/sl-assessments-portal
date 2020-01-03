@@ -115,7 +115,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   allFields: any;
   updateArray: any;
   questionSubmit: boolean = false;
-  allQuestionWithDetails: any;
+  allQuestionWithDetails: any = [];
   allCriteriaList: any;
   unSavedQuestionList: any;
   totalpages: any;
@@ -133,6 +133,7 @@ export class ObservationUtilitiesComponent implements OnInit {
   ngAfterViewInit() {
     this.criteriaList.paginator = this.paginator;
     this.criteriaList.sort = this.sort;
+   
   }
 
   ngOnInit() {
@@ -154,6 +155,9 @@ export class ObservationUtilitiesComponent implements OnInit {
         this.listDraftEcm(this.frameWorkId);
         this.draftCriteriaList(this.frameWorkId);
         this.draftQuestionList();
+
+        
+        
 
       }
     });
@@ -377,6 +381,8 @@ export class ObservationUtilitiesComponent implements OnInit {
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     // this.getGeneratedQuestion();
     // console.log("tabChangeEvent.index", tabChangeEvent.index);
+
+    
     this.selectedIndex = tabChangeEvent.index;
     this.saveBtn = false;
     if (this.selectedIndex == 0) {
@@ -389,11 +395,11 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     // tab changed to criteria 
     if (this.selectedIndex == 1) {
+
     }
     if (this.selectedIndex == 2) {
 
-
-
+      this.totalpages =  this.DynamicFomServe.getPageNumbers();
       this.nextBtn = "Save"
       this.next = true;
     } else {
@@ -444,10 +450,6 @@ export class ObservationUtilitiesComponent implements OnInit {
   AddCriteria() {
     this.showAddCriteria = this.showAddCriteria == true ? false : true;
     this.criteriaAddorUpdate = "Add";
-
-
-
-
     console.log("criteriaForm.controls", this.criteriaForm.controls);
   }
 
@@ -607,6 +609,7 @@ export class ObservationUtilitiesComponent implements OnInit {
 
   // triiger event from child for drop Question or Save All Question
   eventFromChild($event) {
+    this.totalpages =  this.DynamicFomServe.getPageNumbers();
 
 
     console.log("emit value", $event);
@@ -765,13 +768,28 @@ export class ObservationUtilitiesComponent implements OnInit {
           //   console.log("error while callng api", error);
           // })
           debugger
-          _this.allFields = _this.allFields.filter(function (el, index) {
+
+          console.log(_this.allQuestionWithDetails,"this.DynamicFomServe.getQuestions()",this.DynamicFomServe.getQuestions());
+
+
+          if(_this.allQuestionWithDetails.length ==0){
+            console.log("this.DynamicFomServe.getQuestions()");
+            let data = this.DynamicFomServe.getQuestions();
+            _this.allQuestionWithDetails = data['questionList'] ;
+          }
+         
+
+          _this.allQuestionWithDetails = _this.allQuestionWithDetails.filter(function (el, index) {
             return !el.isDelete;
           })
 
+          // _this.allFields = _this.allFields.filter(function (el, index) {
+          //   return !el.isDelete;
+          // })
+
           this.deleteDraftQuestion($event.data._id);
           let obj = {
-            questionArray: _this.allFields,
+            questionArray:_this.allQuestionWithDetails,
             criteriaList: this.criteriaList
           }
           this.eventsSubject.next(obj);
@@ -921,36 +939,38 @@ export class ObservationUtilitiesComponent implements OnInit {
 
     // let data=
 
-    // console.log("get all",this.isUpdate);
+    console.log("get all",this.isUpdate);
 
-    let allQnt = this.DynamicFomServe.getALl();
-    let qntLen  = allQnt['questionList']['questionList']
-    if( this.beforCriteriaChange && qntLen && this.beforCriteriaChange.length < qntLen.length ){
-      this.beforCriteriaChange = qntLen;
-    }else{
-    if( this.beforCriteriaChange){
-      console.log("data present")
-      if( this.beforCriteriaChange.length==0){
-        let allQnt = this.DynamicFomServe.getALl();
-        console.log("get all", allQnt['questionList']['questionList']);
-        this.beforCriteriaChange = allQnt['questionList']['questionList'];
-      }
-    }
-    else{
-      let allQnt = this.DynamicFomServe.getALl();
-      console.log("get all", allQnt['questionList']['questionList']);
-      this.beforCriteriaChange = allQnt['questionList']['questionList'];
-    }
-  }
+  //   let allQnt = this.DynamicFomServe.getALl();
+  //   let qntLen  = allQnt['questionList']['questionList']
+
+  //   console.log("qntLen",qntLen);
+  //   if( this.beforCriteriaChange && qntLen && this.beforCriteriaChange.length < qntLen.length ){
+  //     this.beforCriteriaChange = qntLen;
+  //   }else{
+  //   if( this.beforCriteriaChange){
+  //     console.log("data present")
+  //     if( this.beforCriteriaChange.length==0){
+  //       let allQnt = this.DynamicFomServe.getALl();
+  //       console.log("get all", allQnt['questionList']['questionList']);
+  //       this.beforCriteriaChange = allQnt['questionList']['questionList'];
+  //     }
+  //   }
+  //   else{
+  //     let allQnt = this.DynamicFomServe.getALl();
+  //     console.log("get all", allQnt['questionList']['questionList']);
+  //     this.beforCriteriaChange = allQnt['questionList']['questionList'];
+  //   }
+  // }
 
    
-    // this.isUpdate = this.isUpdate  + 1 ;
+    this.isUpdate = this.isUpdate  + 1 ;
 
-    console.log("chnage", this.allQuestionWithDetails.length);
-    console.log('criteriaChange', this.allQuestionWithDetails);
-    console.log('this.selectedCriteriaOfqtn', this.selectedCriteriaOfqtn);
+    // console.log("chnage", this.allQuestionWithDetails.length);
+    // console.log('criteriaChange', this.allQuestionWithDetails);
+    // console.log('this.selectedCriteriaOfqtn', this.selectedCriteriaOfqtn);
 
-    console.log('_this.allFields', this.allFields);
+    // console.log('_this.allFields', this.allFields);
 
     // srikanth
     // const filtereddata =  this.allFields.filter(item => item.draftCriteriaId === this.selectedCriteriaOfqtn['_id']);
@@ -970,27 +990,113 @@ export class ObservationUtilitiesComponent implements OnInit {
   //  console.log("get all", allQnt['questionList']['questionList']);
 
    console.log("this.beforCriteriaChange",this.beforCriteriaChange);
-   if(this.beforCriteriaChange && this.beforCriteriaChange.length > 0){
+  //  if(this.beforCriteriaChange && this.beforCriteriaChange.length > 0){
 
-      let qntDat = this.beforCriteriaChange.filter(item => {
-        return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+  //     let qntDat = this.beforCriteriaChange.filter(item => {
+  //       return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
 
-      })
-      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
-      if (qntDat && qntDat.length > 0) {
-        qntDat.forEach(element => {
-          let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
-        });
-      } else {
-        let array: any = [];
+  //     })
+  //     console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
+  //     if (qntDat && qntDat.length > 0) {
+  //       qntDat.forEach(element => {
+  //            let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+  //       });
+  //     } else {
+  //       let array: any = [];
 
-        let obj = {
-          questionArray: array,
-          criteriaList: this.criteriaList
-        }
-        this.eventsSubject.next(obj);
-      }
+  //       let obj = {
+  //         questionArray: array,
+  //         criteriaList: this.criteriaList
+  //       }
+  //       this.eventsSubject.next(obj);
+  //     }
+  //   }
+
+
+  console.log(this.allQuestionWithDetails,"this.allQuestionWithDetails",this.allQuestionWithDetails.length);
+
+// if(this.allQuestionWithDetails){
+
+
+  // let allQnt = this.DynamicFomServe.getQuestions();
+
+  if(!this.allQuestionWithDetails){
+    console.log("no data");
+    this.allQuestionWithDetails = [];
+  }
+
+  if(!this.allQuestionWithDetails || this.allQuestionWithDetails.length==0){
+
+    // let allQnt = this.DynamicFomServe.getQuestions();
+    // console.log("get from service",allQnt);
+
+    // this.allQuestionWithDetails = allQnt['questionList'];  
+ 
+
+    let _this = this;
+
+   
+    let allQnt = this.DynamicFomServe.getQuestions();
+
+    debugger;
+    // let qntLen  = allQnt['questionList']['questionList'];
+
+    console.log("there is no data",allQnt);
+
+    if(allQnt['questionList'] && allQnt['questionList'].length >0 ){
+      this.allQuestionWithDetails = allQnt['questionList'];  
+    }else{
+      this.allQuestionWithDetails = [];
     }
+    
+
+
+    console.log("this.allQuestionWithDetails",this.allQuestionWithDetails);
+    let qntDat = this.allQuestionWithDetails.filter(item => {
+      return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+
+    })
+    console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
+    if (qntDat && qntDat.length > 0) {
+      qntDat.forEach(element => {
+           let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+      });
+    } else {
+      let array: any = [];
+
+      let obj = {
+        questionArray: array,
+        criteriaList: this.criteriaList
+      }
+      this.eventsSubject.next(obj);
+    }
+  }
+  
+  if(this.allQuestionWithDetails.length > 0){
+    let qntDat = this.allQuestionWithDetails.filter(item => {
+      return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+
+    })
+    console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
+    if (qntDat && qntDat.length > 0) {
+      qntDat.forEach(element => {
+           let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+      });
+    } else {
+      let array: any = [];
+
+      let obj = {
+        questionArray: array,
+        criteriaList: this.criteriaList
+      }
+      this.eventsSubject.next(obj);
+    }
+  
+  
+  }
+// }
+
+    
     // } else {
     // }
     // }
@@ -1006,6 +1112,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     // })
 
   }
+  
   draftQuestionList() {
     // this.localQuestionList = "asdasd";
     let questionList = this.localQuestionList;
@@ -1015,7 +1122,9 @@ export class ObservationUtilitiesComponent implements OnInit {
         data['result'].data.forEach(function (element, index) {
           let currentThis = _this;
 
-          let questionObj = currentThis.reGenerateQuestionObject(element, data['result'].count)
+          console.log("inside data");
+
+          let questionObj = currentThis.reGenerateQuestionObject(element, index)
           if (currentThis.localQuestionList.length == data['result'].count) {
 
             let obj = {
@@ -1036,201 +1145,83 @@ export class ObservationUtilitiesComponent implements OnInit {
 
 
     console.log("element-----------",element);
-    let ele = element.responseType;
-    let label = element.label?element.label:element.question;
-    let len = legnth + 1;
+  
 
 
-    this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt => {
+    if(element._id){
 
-      let options = [];
+      let ele = element.responseType;
+      let label = element.label?element.label:element.question;
+      let len = legnth + 1;
 
-      element = qnt['result'];
 
-      // console.log("details of qnt", element);
+      this.frameWorkServ.detailsDraftQuestion(element._id).subscribe(qnt => {
+        element = qnt['result'];
+        var results = this.allQuestionWithDetails.filter(li => {
+          return li._id === element._id;
+        });
+        if (results.length == 0) {
+          this.allQuestionWithDetails.push(element);
+        }
+       
+        // var obj = {};
+        // this.getObjectOfField()
+        var obj = this.getObjectOfField(ele,element,len,label);
+        if (results.length == 0) {
+          this.localQuestionList.push(obj);
+        }
+        let list = this.localQuestionList.filter(item => {
+          if (item.draftCriteriaId == this.selectedCriteriaOfqtn['_id']) {
+            return true;
+          }
+        })
+        if (list.length > 0) {
+  
+          let obj = {
+            questionArray: list,
+            criteriaList: this.criteriaList
+          }
+          this.eventsSubject.next(obj);
+        } else {
+          let array: any = [];
+  
+          let obj = {
+            questionArray: array,
+            criteriaList: this.criteriaList
+          }
+          console.log("--------------obj------", obj);
+          this.eventsSubject.next(obj);
+        }
+        return obj;
 
-      // console.log("realod", realod);
-      // var results 
-      // if (realod) {
-      console.log("details of qnt", qnt);
+      });
+      
+    }else{
+
+      console.log("====================")
+
+
+      let ele = element.type;
+      let label = element.label?element.label:element.question;
+      let len = legnth + 1;
 
       var results = this.allQuestionWithDetails.filter(li => {
-        return li._id === element._id;
+        return li.field === element.field;
       });
 
-
-      console.log("results", results)
+      console.log("results",results);
       if (results.length == 0) {
         this.allQuestionWithDetails.push(element);
       }
+     
+ 
+      var obj = this.getObjectOfField(ele,element,len,label);
 
+      console.log("obj---",obj);
 
-      // }
-      let responseType = ele;
-      if (element.options) {
-        for (var key in element.options) {
-          let object = {
-            label: element.options[key]['label'],
-            key: element.options[key]['value']
-
-          }
-          options.push(object);
-        }
-      }
-      let isRequired = false;
-      if (element.validation && element.validation.required) {
-        isRequired = element.validation.required;
-      }
-      var obj = {};
-      if (ele == 'text') {
-        obj = {
-          position: len,
-          field: len + "question",
-          type: responseType,
-          label: label,
-          placeholder: "Please enter your question here",
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: ""
-          },
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-        }
-      }
-      if (ele == 'number') {
-        obj = {
-          field: len + "question",
-          type: responseType,
-          label: label,
-          placeholder: "Please enter your question here",
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: ""
-          },
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-
-        }
-      } else if (ele == 'date') {
-        obj = {
-          field: len + "question",
-          type: responseType,
-          label: label,
-          placeholder: "Please enter your question here",
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: "",
-            autoCollect: false,
-            maxDate: element.validation.max,
-            minDate: element.validation.min,
-          },
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-
-        }
-      } else if (ele == 'slider') {
-        obj = {
-          field: len + "question",
-          type: responseType,
-          label: label,
-          placeholder: "Please enter your question here",
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: "",
-            max: element.validation.max,
-            min: element.validation.min,
-          },
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-
-        }
-      } else if (ele == 'radio') {
-        obj = {
-          field: len + "question",
-          name: len + "question",
-          type: responseType,
-          label: label,
-          value: '',
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: ""
-          },
-          options: options,
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-        }
-      }
-      else if (ele == "checkbox") {
-        obj = {
-          field: len + "question",
-          name: len + "question",
-          type: responseType,
-          label: label,
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: ""
-          },
-          options: options,
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-        }
-      }
-      else if (ele == "dropdown") {
-        obj = {
-          field: len + "question",
-          name: len + ". question",
-          type: responseType,
-          label: label,
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: ""
-          },
-          value: 'option1',
-          options: options,
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-        }
-      } else if (ele == "matrix") {
-
-        console.log("ele.children", element)
-        obj = {
-          position: len,
-          field: len + "question",
-          name: len + ". question",
-          type: responseType,
-          label: label,
-          child: element.children,
-          validations: {
-            required: isRequired,
-            minLenght: "",
-            maxLength: ""
-          },
-          value: 'option1',
-          options: options,
-          _id: element._id,
-          description: "",
-          draftCriteriaId: element.draftCriteriaId
-        }
-
-      }
       if (results.length == 0) {
         this.localQuestionList.push(obj);
       }
-
       let list = this.localQuestionList.filter(item => {
         if (item.draftCriteriaId == this.selectedCriteriaOfqtn['_id']) {
           return true;
@@ -1250,15 +1241,179 @@ export class ObservationUtilitiesComponent implements OnInit {
           questionArray: array,
           criteriaList: this.criteriaList
         }
-
-
         console.log("--------------obj------", obj);
         this.eventsSubject.next(obj);
       }
       return obj;
-    });
+    }
+
   }
 
+
+  getObjectOfField(ele,element,len,label){
+
+    let options = [];
+    let responseType = ele;
+    if (element.options) {
+      for (var key in element.options) {
+        let object = {
+          label: element.options[key]['label'],
+          key: element.options[key]['value']
+        }
+        options.push(object);
+      }
+    }
+    let isRequired = false;
+    if (element.validation && element.validation.required) {
+      isRequired = element.validation.required;
+    }
+    var obj = {}
+    if (ele == 'text') {
+      obj = {
+        position: len,
+        field: len + "question",
+        type: responseType,
+        label: label,
+        placeholder: "Please enter your question here",
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: ""
+        },
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+      }
+    }
+    if (ele == 'number') {
+      obj = {
+        field: len + "question",
+        type: responseType,
+        label: label,
+        placeholder: "Please enter your question here",
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: ""
+        },
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+      }
+    } else if (ele == 'date') {
+      obj = {
+        field: len + "question",
+        type: responseType,
+        label: label,
+        placeholder: "Please enter your question here",
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: "",
+          autoCollect: false,
+          maxDate: element.validation.max,
+          minDate: element.validation.min,
+        },
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+
+      }
+    } else if (ele == 'slider') {
+      obj = {
+        field: len + "question",
+        type: responseType,
+        label: label,
+        placeholder: "Please enter your question here",
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: "",
+          max: element.validation.max,
+          min: element.validation.min,
+        },
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+
+      }
+    } else if (ele == 'radio') {
+      obj = {
+        field: len + "question",
+        name: len + "question",
+        type: responseType,
+        label: label,
+        value: '',
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: ""
+        },
+        options: options,
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+      }
+    }
+    else if (ele == "checkbox") {
+      obj = {
+        field: len + "question",
+        name: len + "question",
+        type: responseType,
+        label: label,
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: ""
+        },
+        options: options,
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+      }
+    }
+    else if (ele == "dropdown") {
+      obj = {
+        field: len + "question",
+        name: len + ". question",
+        type: responseType,
+        label: label,
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: ""
+        },
+        value: 'option1',
+        options: options,
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+      }
+    } else if (ele == "matrix") {
+
+      console.log("ele.children", element)
+      obj = {
+        position: len,
+        field: len + "question",
+        name: len + ". question",
+        type: responseType,
+        label: label,
+        child: element.children,
+        validations: {
+          required: isRequired,
+          minLenght: "",
+          maxLength: ""
+        },
+        value: 'option1',
+        options: options,
+        _id: element._id,
+        description: "",
+        draftCriteriaId: element.draftCriteriaId
+      }
+    }
+
+    return obj
+  }
   deleteDraftQuestion(questionId) {
 
     // console.log("questionId--", questionId);

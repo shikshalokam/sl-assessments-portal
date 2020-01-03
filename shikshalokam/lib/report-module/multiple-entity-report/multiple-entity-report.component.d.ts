@@ -1,0 +1,33 @@
+import { OnInit } from '@angular/core';
+import { ReportService } from '../report-service/report.service';
+import { MatSnackBar } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UtilityService } from '../../core-module/services/utility-service/utility.service';
+export declare class MultipleEntityRportComponent implements OnInit {
+    private reportService;
+    private utility;
+    private snackBar;
+    private route;
+    private router;
+    mutipleEntity: any;
+    programId: any;
+    headings: string;
+    entityId: any;
+    blockName: any;
+    apiBaseUrl: any;
+    reportConfig: any;
+    shareLinkApi: any;
+    publicSharedBaseUrl: any;
+    globalConfig: any;
+    linkId: any;
+    componentId: any;
+    baseUrl: any;
+    portalName: any;
+    solutionId: any;
+    constructor(reportService: ReportService, utility: UtilityService, snackBar: MatSnackBar, route: Router, router: ActivatedRoute);
+    ngOnInit(): void;
+    getMultiEntityReport(): void;
+    url: string;
+    createNewData(): void;
+    naviagteToRubrics(): void;
+}

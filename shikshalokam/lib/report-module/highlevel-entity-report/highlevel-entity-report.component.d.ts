@@ -1,0 +1,30 @@
+import { OnInit } from '@angular/core';
+import { ReportService } from '../report-service/report.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { UtilityService } from '../../core-module/services/utility-service/utility.service';
+export declare class HighlevelEntityReportComponent implements OnInit {
+    private apiService;
+    private utility;
+    private snackBar;
+    private router;
+    private route;
+    programId: any;
+    entityId: any;
+    globalConfig: any;
+    reportConfig: any;
+    apiBaseUrl: any;
+    highLevelInsight: any;
+    headings: string;
+    shareLinkApi: any;
+    publicSharedBaseUrl: any;
+    linkId: any;
+    componentId: any;
+    baseUrl: any;
+    portalName: any;
+    solutionId: any;
+    constructor(apiService: ReportService, utility: UtilityService, snackBar: MatSnackBar, router: ActivatedRoute, route: Router);
+    ngOnInit(): void;
+    getHighEntityReport(): void;
+    naviagteToRubrics(): void;
+}

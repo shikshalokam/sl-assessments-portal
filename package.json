@@ -37,7 +37,7 @@
     "bit-bin": "^13.0.4",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
-    "dynamic-form-builder": "file:../sl-shikshalokam-dynamic-forms/dist/dynamic-form-builder/dynamic-form-builder-0.0.1.tgz",
+    "dynamic-form-builder": "file:../../sl-shikshalokam-dynamic-forms/dist/dynamic-form-builder/dynamic-form-builder-0.0.1.tgz",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
     "formBuilder": "^3.2.5",
@@ -56,7 +56,7 @@
     "ngx-spinner": "^6.1.2",
     "node-sass": "^4.10.0",
     "rxjs": "^6.3.3",
-    "shikshalokam": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",
+    "shikshalokam": "1.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
