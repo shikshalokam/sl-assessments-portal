@@ -161,10 +161,8 @@ margin-top:20px;
   
 
   .add-criteria-icon {
-    font-size: px;
-     padding: 3px;
      cursor: pointer;
-     color: royalblue;
+    
   }
 
   .add-criteria-lable {
@@ -176,9 +174,19 @@ margin-top:20px;
   button.m-top-10.mat-flat-button.mat-primary {
     cursor: pointer;
   }
+  .comingsoon-block {
+    float: left;
+            width: 98%;
+            margin: 15px;height: 300px;
+  }
 
   .mtable {
     margin-bottom: 40px;
+  }
+
+  .mat-column-action {
+   text-align: right;
+   justify-content: center;
   }
  
 

@@ -189,7 +189,7 @@
 
                         <!-- <mat-cell *matCellDef="let element"> -->
                           <mat-form-field floatLabel="never" class="inline-edit" title="edit">
-                            <input matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
+                            <input autofocus matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
                           </mat-form-field>
                         
 
@@ -225,12 +225,11 @@
                       [pageSizeOptions]="[5,10,20,50,100]"  (page)="onPaginateChange($event)">
                       </mat-paginator>
                       <span class="toobar-spacer"></span>
-                     <span (click)="autoAddCriteria()" title="Add Criteria"><span class="add-criteria-lable">Add</span> <i class="material-icons pull-right plus-icon add-criteria-icon"> add </i></span>
-                      
-                     
 
-                  
-                     
+                      <button mat-flat-button [disabled] = "enableadd" title="Add Criteria" color="primary" style="margin-right:10px;" (click)="autoAddCriteria()">
+                          Add Criteria<i class="material-icons pull-right add-criteria-icon">add_circle_outline</i>
+                        </button>
+
                     </mat-toolbar-row>
                   </mat-toolbar>
 
@@ -304,11 +303,7 @@
 
         </mat-tab>
         <mat-tab label="Preview">
-            <mat-card style="float: left;
-            width: 98%;
-            margin: 15px;height: 300px;">
-              Coming Soon ..
-            </mat-card>
+            <mat-card class="comingsoon-block">Coming Soon ..</mat-card>
         </mat-tab>
         <!-- <mat-tab label="Map"> 
       <div class="col-sm-6" style="padding:20px">
