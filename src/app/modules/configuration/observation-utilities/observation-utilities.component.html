@@ -189,7 +189,7 @@
 
                         <!-- <mat-cell *matCellDef="let element"> -->
                           <mat-form-field floatLabel="never" class="inline-edit" title="edit">
-                            <input autofocus matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
+                            <input #myInput autofocus matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
                           </mat-form-field>
                         
 
@@ -201,7 +201,8 @@
                          <!-- {{element.description}} -->
                       
                           <mat-form-field floatLabel="never" class="inline-edit" title="edit">
-                              <input matInput  placeholder="Description" [value]="element.description" [(ngModel)]="element.description" (mouseout)="criteriaUpdate(element)">
+                              <textarea matInput  placeholder="Description" [value]="element.description"
+                               [(ngModel)]="element.description" cols="40" (mouseout)="criteriaUpdate(element)"></textarea>
                             </mat-form-field>
                       </mat-cell>
                     </ng-container>
@@ -226,7 +227,7 @@
                       </mat-paginator>
                       <span class="toobar-spacer"></span>
 
-                      <button mat-flat-button [disabled] = "enableadd" title="Add Criteria" color="primary" style="margin-right:10px;" (click)="autoAddCriteria()">
+                      <button mat-flat-button [disabled] = "enableadd" title="Add Criteria" color="primary" style="margin-right:10px;" (click)="autoAddCriteria();setFocus('myInput')">
                           Add Criteria<i class="material-icons pull-right add-criteria-icon">add_circle_outline</i>
                         </button>
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, NgModule, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, NgModule, Inject, PLATFORM_ID, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 
 import { DragAndDropModule } from 'angular-draggable-droppable';
 // import { FormGroup, FormControl } from '@angular/forms';
@@ -18,6 +18,7 @@ import { element } from '@angular/core/src/render3';
 import { Item } from 'angular2-multiselect-dropdown';
 
 import { DynamicFormBuilderService } from "dynamic-form-builder";
+import { isPlatformBrowser } from '@angular/common';
 
 TagInputModule.withDefaults({
   tagInput: {
@@ -44,12 +45,14 @@ export class ObservationUtilitiesComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private DynamicFomServe: DynamicFormBuilderService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    @Inject(PLATFORM_ID) private platformId: Object) {
 
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('json') jsonElement?: ElementRef;
+  @ViewChild('nameit') private elementRef: ElementRef;
 
 
   title = 'form-build';
@@ -120,9 +123,9 @@ export class ObservationUtilitiesComponent implements OnInit {
   unSavedQuestionList: any;
   totalpages: any;
   selectedpageNumber: any;
-  enableadd  = false;
+  enableadd = false;
 
-  beforCriteriaChange:any = [];
+  beforCriteriaChange: any = [];
   isUpdate = 1;
 
   onChange(event) {
@@ -134,7 +137,8 @@ export class ObservationUtilitiesComponent implements OnInit {
   ngAfterViewInit() {
     this.criteriaList.paginator = this.paginator;
     this.criteriaList.sort = this.sort;
-   
+    this.elementRef.nativeElement.focus();
+
   }
 
   ngOnInit() {
@@ -157,8 +161,8 @@ export class ObservationUtilitiesComponent implements OnInit {
         this.draftCriteriaList(this.frameWorkId);
         this.draftQuestionList();
 
-        
-        
+
+
 
       }
     });
@@ -273,7 +277,7 @@ export class ObservationUtilitiesComponent implements OnInit {
    */
   onSubmit(form) {
 
-debugger
+    debugger
     this.criteriaSubmitted = true;
     if (form.valid) {
       alert('if')
@@ -387,7 +391,7 @@ debugger
     // this.getGeneratedQuestion();
     // console.log("tabChangeEvent.index", tabChangeEvent.index);
 
-    
+
     this.selectedIndex = tabChangeEvent.index;
     this.saveBtn = false;
     if (this.selectedIndex == 0) {
@@ -404,7 +408,7 @@ debugger
     }
     if (this.selectedIndex == 2) {
 
-      this.totalpages =  this.DynamicFomServe.getPageNumbers();
+      this.totalpages = this.DynamicFomServe.getPageNumbers();
       this.nextBtn = "Save"
       this.next = true;
     } else {
@@ -418,8 +422,8 @@ debugger
   }
 
   nextStep() {
-
-    // console.log("this.selectedIndex",this.selectedIndex);
+    console.log("this.selectedIndex", this.selectedIndex);
+    console.log('this.criteria', this.criteriaList);
     if (this.selectedIndex == 2) {
       // this.selectCriteriaForm.
       console.log("this.selectedCriteriaOfqtn['_id'", this.selectedCriteriaOfqtn);
@@ -437,6 +441,12 @@ debugger
         }
       } else {
         this.questionSubmit = true;
+      }
+    } else if (this.selectedIndex == 1) {
+      if (this.criteriaList[this.allCriteriaList.length - 1].name && this.selectedIndex != this.maxNumberOfTabs) {
+        this.selectedIndex = this.selectedIndex + 1;
+      } else {
+        this.openSnackBar("Criteria Cannot be Empty", "Failed");
       }
     } else {
       if (this.selectedIndex != this.maxNumberOfTabs) {
@@ -513,7 +523,7 @@ debugger
     this._snackBar.open(message, action, {
       duration: 2000,
     });
-  } 
+  }
 
   draftCriteriaList(frameWorkId) {
     this.frameWorkServ.draftCriteriaList(frameWorkId, this.criteriaListPageSize, this.nextCriteriaPage + 1).subscribe(data => {
@@ -614,7 +624,7 @@ debugger
 
   // triiger event from child for drop Question or Save All Question
   eventFromChild($event) {
-    this.totalpages =  this.DynamicFomServe.getPageNumbers();
+    this.totalpages = this.DynamicFomServe.getPageNumbers();
 
 
     console.log("emit value", $event);
@@ -647,8 +657,8 @@ debugger
               obj.validation['min'] = element.validations.min;
             }
 
-            if(element.draftCriteriaId){
-                obj['draftCriteriaId'] = element.draftCriteriaId;
+            if (element.draftCriteriaId) {
+              obj['draftCriteriaId'] = element.draftCriteriaId;
             }
 
             obj.question.push(element.label);
@@ -669,7 +679,7 @@ debugger
               console.log("newly added", element);
 
               let el = _this.selectedCriteriaOfqtn['_id'];
-              if(element.draftCriteriaId){
+              if (element.draftCriteriaId) {
                 el = element.draftCriteriaId;
               }
               let obj = {
@@ -752,7 +762,7 @@ debugger
       // $event.data.data.type.charAt(0).toUpperCase() + $event.data.type.substring(1) + 
       const message = $event.data.data.field.position + ' ' + 'Question Updated Succesfully';
       this.openSnackBar(message, "Updated");
-      
+
 
     } else if ($event.action == 'delete') {
 
@@ -772,15 +782,15 @@ debugger
           // }, error => {
           //   console.log("error while callng api", error);
           // })
-          console.log(_this.allQuestionWithDetails,"this.DynamicFomServe.getQuestions()",this.DynamicFomServe.getQuestions());
+          console.log(_this.allQuestionWithDetails, "this.DynamicFomServe.getQuestions()", this.DynamicFomServe.getQuestions());
 
 
-          if(_this.allQuestionWithDetails.length ==0){
+          if (_this.allQuestionWithDetails.length == 0) {
             console.log("this.DynamicFomServe.getQuestions()");
             let data = this.DynamicFomServe.getQuestions();
-            _this.allQuestionWithDetails = data['questionList'] ;
+            _this.allQuestionWithDetails = data['questionList'];
           }
-         
+
 
           _this.allQuestionWithDetails = _this.allQuestionWithDetails.filter(function (el, index) {
             return !el.isDelete;
@@ -792,7 +802,7 @@ debugger
 
           this.deleteDraftQuestion($event.data._id);
           let obj = {
-            questionArray:_this.allQuestionWithDetails,
+            questionArray: _this.allQuestionWithDetails,
             criteriaList: this.criteriaList
           }
           this.eventsSubject.next(obj);
@@ -816,7 +826,7 @@ debugger
         this.openSnackBar(message, "Added");
       }
 
-    }else if ($event.action == 'childDelete') {
+    } else if ($event.action == 'childDelete') {
       console.log('childDelete', _this.allFields);
       let message = `Are you sure you want to delete this question?`;
       let dialogData = new ConfirmDialogModel("Confirm Action", message);
@@ -828,8 +838,8 @@ debugger
         if (result) {
           // this.frameWorkServ.draftCriteriaDelete(element._id).subscribe(data => {
           //   if (data['status']) {
-            $event.data.child.splice($event.deleteindex, 1);
-            // _this.allFields
+          $event.data.child.splice($event.deleteindex, 1);
+          // _this.allFields
           this.openSnackBar("Question Deleted Succesfully", "Deleted");
           //     this.draftCriteriaList(this.frameWorkId);
           //   }
@@ -938,7 +948,7 @@ debugger
     });
   }
 
- 
+
   criteriaChange() {
 
     // if (this.unSavedQuestionList.length > 0 && !this.isDilogOpened) {
@@ -963,32 +973,32 @@ debugger
 
     // let data=
 
-    console.log("get all",this.isUpdate);
+    console.log("get all", this.isUpdate);
 
-  //   let allQnt = this.DynamicFomServe.getALl();
-  //   let qntLen  = allQnt['questionList']['questionList']
+    //   let allQnt = this.DynamicFomServe.getALl();
+    //   let qntLen  = allQnt['questionList']['questionList']
 
-  //   console.log("qntLen",qntLen);
-  //   if( this.beforCriteriaChange && qntLen && this.beforCriteriaChange.length < qntLen.length ){
-  //     this.beforCriteriaChange = qntLen;
-  //   }else{
-  //   if( this.beforCriteriaChange){
-  //     console.log("data present")
-  //     if( this.beforCriteriaChange.length==0){
-  //       let allQnt = this.DynamicFomServe.getALl();
-  //       console.log("get all", allQnt['questionList']['questionList']);
-  //       this.beforCriteriaChange = allQnt['questionList']['questionList'];
-  //     }
-  //   }
-  //   else{
-  //     let allQnt = this.DynamicFomServe.getALl();
-  //     console.log("get all", allQnt['questionList']['questionList']);
-  //     this.beforCriteriaChange = allQnt['questionList']['questionList'];
-  //   }
-  // }
+    //   console.log("qntLen",qntLen);
+    //   if( this.beforCriteriaChange && qntLen && this.beforCriteriaChange.length < qntLen.length ){
+    //     this.beforCriteriaChange = qntLen;
+    //   }else{
+    //   if( this.beforCriteriaChange){
+    //     console.log("data present")
+    //     if( this.beforCriteriaChange.length==0){
+    //       let allQnt = this.DynamicFomServe.getALl();
+    //       console.log("get all", allQnt['questionList']['questionList']);
+    //       this.beforCriteriaChange = allQnt['questionList']['questionList'];
+    //     }
+    //   }
+    //   else{
+    //     let allQnt = this.DynamicFomServe.getALl();
+    //     console.log("get all", allQnt['questionList']['questionList']);
+    //     this.beforCriteriaChange = allQnt['questionList']['questionList'];
+    //   }
+    // }
 
-   
-    this.isUpdate = this.isUpdate  + 1 ;
+
+    this.isUpdate = this.isUpdate + 1;
 
     // console.log("chnage", this.allQuestionWithDetails.length);
     // console.log('criteriaChange', this.allQuestionWithDetails);
@@ -1005,122 +1015,122 @@ debugger
 
     // if (this.allQuestionWithDetails.length > 0) {
 
-  //  console.log("get all",this.DynamicFomServe.getALl());
+    //  console.log("get all",this.DynamicFomServe.getALl());
 
-  //  this.DynamicFomServe.getALl()
+    //  this.DynamicFomServe.getALl()
 
-  //  let allQnt = this.DynamicFomServe.getALl();/
+    //  let allQnt = this.DynamicFomServe.getALl();/
 
-  //  console.log("get all", allQnt['questionList']['questionList']);
+    //  console.log("get all", allQnt['questionList']['questionList']);
 
-   console.log("this.beforCriteriaChange",this.beforCriteriaChange);
-  //  if(this.beforCriteriaChange && this.beforCriteriaChange.length > 0){
+    console.log("this.beforCriteriaChange", this.beforCriteriaChange);
+    //  if(this.beforCriteriaChange && this.beforCriteriaChange.length > 0){
 
-  //     let qntDat = this.beforCriteriaChange.filter(item => {
-  //       return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+    //     let qntDat = this.beforCriteriaChange.filter(item => {
+    //       return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
 
-  //     })
-  //     console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
-  //     if (qntDat && qntDat.length > 0) {
-  //       qntDat.forEach(element => {
-  //            let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
-  //       });
-  //     } else {
-  //       let array: any = [];
+    //     })
+    //     console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
+    //     if (qntDat && qntDat.length > 0) {
+    //       qntDat.forEach(element => {
+    //            let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+    //       });
+    //     } else {
+    //       let array: any = [];
 
-  //       let obj = {
-  //         questionArray: array,
-  //         criteriaList: this.criteriaList
-  //       }
-  //       this.eventsSubject.next(obj);
-  //     }
-  //   }
-
-
-  console.log(this.allQuestionWithDetails,"this.allQuestionWithDetails",this.allQuestionWithDetails.length);
-
-// if(this.allQuestionWithDetails){
+    //       let obj = {
+    //         questionArray: array,
+    //         criteriaList: this.criteriaList
+    //       }
+    //       this.eventsSubject.next(obj);
+    //     }
+    //   }
 
 
-  // let allQnt = this.DynamicFomServe.getQuestions();
+    console.log(this.allQuestionWithDetails, "this.allQuestionWithDetails", this.allQuestionWithDetails.length);
 
-  if(!this.allQuestionWithDetails){
-    console.log("no data");
-    this.allQuestionWithDetails = [];
-  }
+    // if(this.allQuestionWithDetails){
 
-  if(!this.allQuestionWithDetails || this.allQuestionWithDetails.length==0){
 
     // let allQnt = this.DynamicFomServe.getQuestions();
-    // console.log("get from service",allQnt);
 
-    // this.allQuestionWithDetails = allQnt['questionList'];  
- 
-
-    let _this = this;
-
-   
-    let allQnt = this.DynamicFomServe.getQuestions();
-
-    debugger;
-    // let qntLen  = allQnt['questionList']['questionList'];
-
-    console.log("there is no data",allQnt);
-
-    if(allQnt['questionList'] && allQnt['questionList'].length >0 ){
-      this.allQuestionWithDetails = allQnt['questionList'];  
-    }else{
+    if (!this.allQuestionWithDetails) {
+      console.log("no data");
       this.allQuestionWithDetails = [];
     }
-    
+
+    if (!this.allQuestionWithDetails || this.allQuestionWithDetails.length == 0) {
+
+      // let allQnt = this.DynamicFomServe.getQuestions();
+      // console.log("get from service",allQnt);
+
+      // this.allQuestionWithDetails = allQnt['questionList'];  
 
 
-    console.log("this.allQuestionWithDetails",this.allQuestionWithDetails);
-    let qntDat = this.allQuestionWithDetails.filter(item => {
-      return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+      let _this = this;
 
-    })
-    console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
-    if (qntDat && qntDat.length > 0) {
-      qntDat.forEach(element => {
-           let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
-      });
-    } else {
-      let array: any = [];
 
-      let obj = {
-        questionArray: array,
-        criteriaList: this.criteriaList
+      let allQnt = this.DynamicFomServe.getQuestions();
+
+      debugger;
+      // let qntLen  = allQnt['questionList']['questionList'];
+
+      console.log("there is no data", allQnt);
+
+      if (allQnt['questionList'] && allQnt['questionList'].length > 0) {
+        this.allQuestionWithDetails = allQnt['questionList'];
+      } else {
+        this.allQuestionWithDetails = [];
       }
-      this.eventsSubject.next(obj);
-    }
-  }
-  
-  if(this.allQuestionWithDetails.length > 0){
-    let qntDat = this.allQuestionWithDetails.filter(item => {
-      return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
 
-    })
-    console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat,"legnth",qntDat.length);
-    if (qntDat && qntDat.length > 0) {
-      qntDat.forEach(element => {
-           let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
-      });
-    } else {
-      let array: any = [];
 
-      let obj = {
-        questionArray: array,
-        criteriaList: this.criteriaList
+
+      console.log("this.allQuestionWithDetails", this.allQuestionWithDetails);
+      let qntDat = this.allQuestionWithDetails.filter(item => {
+        return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+
+      })
+      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat, "legnth", qntDat.length);
+      if (qntDat && qntDat.length > 0) {
+        qntDat.forEach(element => {
+          let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+        });
+      } else {
+        let array: any = [];
+
+        let obj = {
+          questionArray: array,
+          criteriaList: this.criteriaList
+        }
+        this.eventsSubject.next(obj);
       }
-      this.eventsSubject.next(obj);
     }
-  
-  
-  }
-// }
 
-    
+    if (this.allQuestionWithDetails.length > 0) {
+      let qntDat = this.allQuestionWithDetails.filter(item => {
+        return item.draftCriteriaId == this.selectedCriteriaOfqtn['_id'];
+
+      })
+      console.log(this.selectedCriteriaOfqtn['_id'], "qntDat", qntDat, "legnth", qntDat.length);
+      if (qntDat && qntDat.length > 0) {
+        qntDat.forEach(element => {
+          let questionObj = this.reGenerateQuestionObject(element, qntDat.length);
+        });
+      } else {
+        let array: any = [];
+
+        let obj = {
+          questionArray: array,
+          criteriaList: this.criteriaList
+        }
+        this.eventsSubject.next(obj);
+      }
+
+
+    }
+    // }
+
+
     // } else {
     // }
     // }
@@ -1136,7 +1146,7 @@ debugger
     // })
 
   }
-  
+
   draftQuestionList() {
     // this.localQuestionList = "asdasd";
     let questionList = this.localQuestionList;
@@ -1168,14 +1178,14 @@ debugger
   reGenerateQuestionObject(element, legnth) {
 
 
-    console.log("element-----------",element);
-  
+    console.log("element-----------", element);
 
 
-    if(element._id){
+
+    if (element._id) {
 
       let ele = element.responseType;
-      let label = element.label?element.label:element.question;
+      let label = element.label ? element.label : element.question;
       let len = legnth + 1;
 
 
@@ -1187,10 +1197,10 @@ debugger
         if (results.length == 0) {
           this.allQuestionWithDetails.push(element);
         }
-       
+
         // var obj = {};
         // this.getObjectOfField()
-        var obj = this.getObjectOfField(ele,element,len,label);
+        var obj = this.getObjectOfField(ele, element, len, label);
         if (results.length == 0) {
           this.localQuestionList.push(obj);
         }
@@ -1200,7 +1210,7 @@ debugger
           }
         })
         if (list.length > 0) {
-  
+
           let obj = {
             questionArray: list,
             criteriaList: this.criteriaList
@@ -1208,7 +1218,7 @@ debugger
           this.eventsSubject.next(obj);
         } else {
           let array: any = [];
-  
+
           let obj = {
             questionArray: array,
             criteriaList: this.criteriaList
@@ -1219,29 +1229,29 @@ debugger
         return obj;
 
       });
-      
-    }else{
+
+    } else {
 
       console.log("====================")
 
 
       let ele = element.type;
-      let label = element.label?element.label:element.question;
+      let label = element.label ? element.label : element.question;
       let len = legnth + 1;
 
       var results = this.allQuestionWithDetails.filter(li => {
         return li.field === element.field;
       });
 
-      console.log("results",results);
+      console.log("results", results);
       if (results.length == 0) {
         this.allQuestionWithDetails.push(element);
       }
-     
- 
-      var obj = this.getObjectOfField(ele,element,len,label);
 
-      console.log("obj---",obj);
+
+      var obj = this.getObjectOfField(ele, element, len, label);
+
+      console.log("obj---", obj);
 
       if (results.length == 0) {
         this.localQuestionList.push(obj);
@@ -1274,7 +1284,7 @@ debugger
   }
 
 
-  getObjectOfField(ele,element,len,label){
+  getObjectOfField(ele, element, len, label) {
 
     let options = [];
     let responseType = ele;
@@ -1493,7 +1503,12 @@ debugger
     })
   }
 
-
+  setFocus(id: string) {
+    console.log('setFocus', id);
+    if (isPlatformBrowser(this.platformId)) {
+      this[id].nativeElement.focus();
+    }
+  }
   /**
    * Adding Auto Genrated Critera 
    */
@@ -1505,28 +1520,28 @@ debugger
     }
 
     console.log('criterialist', this.criteriaList);
-    
-    if(this.criteriaList.length < 1 || (this.criteriaList[this.allCriteriaList.length -1].name && this.criteriaList[this.allCriteriaList.length -1].description)) {
-    this.frameWorkServ.draftCriteriaCreate(obj).subscribe(data => {
-      let criteriaObj = {
-        name: '',
-        description: ''
-      }
-      if (data['result']._id) {
-        this.frameWorkServ.updateDraftCriteria(data['result']._id, criteriaObj).subscribe(data => {
-          this.openSnackBar("Criteria Added Succesfully", "Done");
-          this.draftCriteriaList(this.frameWorkId);
-          this.criteriaList.paginator = this.paginator;
-          this.criteriaList.sort = this.sort;
-          // this.criteriaForm.reset();
-          // this.criteriaNameupdate = "";
-          // this.criteriaDescriptionUpdate = "";
-          this.criteriaSubmitted = false;
-        });
-      }
-    });
-  } else {
-    this.openSnackBar("Previous Added Criteria Cannot be blank", "Failed");
-  }
+
+    if (this.criteriaList.length < 1 || (this.criteriaList[this.allCriteriaList.length - 1].name && this.criteriaList[this.allCriteriaList.length - 1].description)) {
+      this.frameWorkServ.draftCriteriaCreate(obj).subscribe(data => {
+        let criteriaObj = {
+          name: '',
+          description: ''
+        }
+        if (data['result']._id) {
+          this.frameWorkServ.updateDraftCriteria(data['result']._id, criteriaObj).subscribe(data => {
+            this.openSnackBar("Criteria Added Succesfully", "Done");
+            this.draftCriteriaList(this.frameWorkId);
+            this.criteriaList.paginator = this.paginator;
+            this.criteriaList.sort = this.sort;
+            // this.criteriaForm.reset();
+            // this.criteriaNameupdate = "";
+            // this.criteriaDescriptionUpdate = "";
+            this.criteriaSubmitted = false;
+          });
+        }
+      });
+    } else {
+      this.openSnackBar("Previous Added Criteria Cannot be blank", "Failed");
+    }
   }
 }
