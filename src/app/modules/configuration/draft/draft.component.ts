@@ -7,6 +7,7 @@ import {MatTableDataSource,MatDialog,PageEvent,MatPaginator, MatSort,Sort } from
 import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-draft',
@@ -28,7 +29,9 @@ export class DraftComponent implements OnInit {
 
 
 
-  constructor(private frameWorkServ:DraftFrameWorkServiceService,public dialog: MatDialog,private _snackBar: MatSnackBar, private route: Router,private cdr: ChangeDetectorRef) { 
+  constructor(private frameWorkServ:DraftFrameWorkServiceService,public dialog: MatDialog,private _snackBar: MatSnackBar,
+     private route: Router,private cdr: ChangeDetectorRef,
+     private spinner: NgxSpinnerService) { 
 
     this.getList();
 
@@ -45,7 +48,10 @@ export class DraftComponent implements OnInit {
     
   }
   ngOnInit() {
-
+    this.spinner.show();
+    setTimeout(() => {
+      this,this.spinner.hide();
+    }, 1000);
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace

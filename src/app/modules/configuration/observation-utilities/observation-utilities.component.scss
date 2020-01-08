@@ -123,7 +123,7 @@ margin-top:20px;
       margin-top: 15px;
   }
   .material-icons {
-      font-size: 15px;
+      font-size: 20px;
       padding: 8px;
       vertical-align: middle;
   }
@@ -186,16 +186,41 @@ margin-top:20px;
 
   .mat-column-action {
    text-align: right;
-   justify-content: center;
+   justify-content: flex-end;
   }
 
+  .mat-column-no .mat-form-field{
+   width: 10%;
+  
+   }
+   .customWidthClass{
+    flex: 0 0 75px;
+ }
+   .mat-column-description .mat-form-field {
+    width: 100%;
+   }
   .mat-column-description{
     flex: 0 0 40% !important;
    }
    .mat-form-field-description {
      width: 100%;
    }
- 
+ .mat-form-field-infix-description {
+   width: 100%
+ }
+ .mat-column-no .mat-header-cell {
+   max-width: 10%;
+ }
+
+ .mat-column-no .mat-header-cell {
+  max-width: 10%;
+}
+
+.actioncolor {
+  color: #a63936;
+  font-size: 15px;
+ }
+
 
   
   

@@ -1,32 +1,42 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <div class="col-sm-12 margin-40px">
+   
   <div class="col-sm-12 mat-elevation-z8 noPadd">
     <mat-table #table [dataSource]="dataSource" class="col-sm-12" matSort *ngIf="showTable">
 
       <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
       <ng-container matColumnDef="no">
-        <mat-header-cell *matHeaderCellDef  mat-sort-header> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
+        <mat-header-cell style="max-width: 10%;" *matHeaderCellDef  mat-sort-header> No. </mat-header-cell>
+        <mat-cell style="max-width: 10%;" *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="externalId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> External Id </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.externalId}} </mat-cell>
+        <mat-header-cell class="cgap" *matHeaderCellDef mat-sort-header> External Id </mat-header-cell>
+        <mat-cell class="cgap" *matCellDef="let element"> {{element.externalId}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <mat-header-cell  class="cgap" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell  class="cgap" *matCellDef="let element"> {{element.name}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+        <mat-header-cell  class="cgap" *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+        <mat-cell class="cgap" *matCellDef="let element"> {{element.description}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
         <!-- <td mat-cell *matCellDef="let element"> </td> -->
-        <mat-cell *matCellDef="let element"> <i class="material-icons cursor-pointer"
-            (click)="redirectToEditDraft(element)" title="Edit">edit</i> <i class="material-icons cursor-pointer"
+        <mat-cell *matCellDef="let element"> <i class="material-icons actioncolor action cursor-pointer"
+            (click)="redirectToEditDraft(element)" style = "padding-left: 5em;" title="Edit">edit</i>
+             <i style = "padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"
             (click)="deleteDraftFW(element._id)" title="Delete" >delete</i> </mat-cell>
       </ng-container>
 

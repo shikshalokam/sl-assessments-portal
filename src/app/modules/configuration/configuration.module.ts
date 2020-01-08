@@ -37,7 +37,8 @@ import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-form-builder';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import { DynamicTableModule } from 'material-dynamic-table';
 
 
 @NgModule({
@@ -84,7 +85,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     TagInputModule,
     MatPaginatorModule,
     DynamicFormBuilderModule1,
-    MatToolbarModule
+    MatToolbarModule,
+    NgxSpinnerModule,
+    DynamicTableModule
   ],
   // exports:[MatPaginatorModule],
 

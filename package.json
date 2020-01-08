@@ -50,6 +50,7 @@
     "keycloak-js": "^4.6.0",
     "mat-progress-buttons": "^7.0.10",
     "material-design-icons": "^3.0.1",
+    "material-dynamic-table": "^8.3.0",
     "mxgraph": "^3.9.12",
     "ng2-formio": "^1.0.0-rc.34",
     "ngx-chips": "^2.0.2",
