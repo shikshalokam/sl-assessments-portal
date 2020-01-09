@@ -6,7 +6,8 @@ import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule,
    MatPaginatorModule,
    MatDatepickerModule,
    MatNativeDateModule,
-   MatToolbarModule
+   MatToolbarModule,
+   MatSortModule
   } from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
@@ -38,7 +39,7 @@ import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-fo
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { DynamicTableModule } from 'material-dynamic-table';
+
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { DynamicTableModule } from 'material-dynamic-table';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    // MatSortModule, // here is the problem with is module
     // FormioModule,
     // NgDragDropModule.forRoot(),
     DragAndDropModule,
@@ -87,7 +89,6 @@ import { DynamicTableModule } from 'material-dynamic-table';
     DynamicFormBuilderModule1,
     MatToolbarModule,
     NgxSpinnerModule,
-    DynamicTableModule
   ],
   // exports:[MatPaginatorModule],
 

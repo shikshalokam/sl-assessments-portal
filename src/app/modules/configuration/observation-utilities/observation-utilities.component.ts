@@ -135,6 +135,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   confirmationValue: any;
   lastIndex: any;
   spin = false;
+  tableData: any;
   onChange(event) {
     this.Data = event.form;
 
@@ -162,6 +163,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     this.updateArray = [];
     this.localQuestionList = [];
     this.showCreate = false;
+    debugger
     this.activatedRoute.params.subscribe(params => {
       this.frameWorkId = params['id'];
       console.log("this.frameWorkId ", this.frameWorkId);
@@ -559,6 +561,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   }
 
   draftCriteriaList(frameWorkId) {
+
     this.frameWorkServ.draftCriteriaList(frameWorkId, this.criteriaListPageSize, this.nextCriteriaPage + 1).subscribe(data => {
       if (data && data['status'] == 200) {
         // deep cloning the object
@@ -678,9 +681,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   eventFromChild($event) {
     this.totalpages = this.DynamicFomServe.getPageNumbers();
 
-
     console.log("emit value", $event);
-
     this.totalpages = $event.pages
     let _this = this;
     if ($event.action == 'all') {
@@ -787,8 +788,8 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
           }
         });
       }
-      const message = 'Data Saved Succesfully';
-      this.openSnackBar(message, "Save");
+      // const message = 'Data Saved Succesfully';
+      // this.openSnackBar(message, "Save");
     } else if ($event.action == 'add') {
       console.log('addd', $event);
 
