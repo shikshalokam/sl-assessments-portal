@@ -15,10 +15,6 @@
     justify-content: flex-end;
    }
 
-   .cgap {
-    max-width: 20%;
-   }
-
    .action {
     font-size: 20px;
    }
@@ -28,8 +24,15 @@
    }
 
    .search {
-    float: right;
+    float: left;
     padding-top: 20px;
-    padding-right: 15px;
+    padding-left: 15px;
     width: 50%;;
+   }
+
+   .cdk-column-no {
+    max-width: 10%;
+   } 
+   .mat-column-no {
+    max-width: 10%;
    }

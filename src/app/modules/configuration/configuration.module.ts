@@ -39,6 +39,8 @@ import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-fo
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { CommonChildModule } from './publish/common.module';
+import { PublishingComponent } from './publishing/publishing.component';
 
 
 
@@ -53,6 +55,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     UnderReviewComponent,
     PublishComponent,
     UpForReviewComponent,
+    PublishingComponent,
   ],
   imports: [
     CommonModule,
@@ -89,8 +92,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     DynamicFormBuilderModule1,
     MatToolbarModule,
     NgxSpinnerModule,
+    // CommonChildModule
   ],
-  // exports:[MatPaginatorModule],
+  exports:[],
 
   providers: [DynamicFormComponent,
     DynamicFormBuilderService,

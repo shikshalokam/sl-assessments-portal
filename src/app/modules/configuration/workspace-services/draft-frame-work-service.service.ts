@@ -16,7 +16,6 @@ export class DraftFrameWorkServiceService {
   constructor(private apiService: ApiService, private http: HttpClient,private jwtHelper: JwtHelperService) { }
 
   createDraftFrameWork() {
-
     let tokenInfo = localStorage.getItem("auth-token");
      console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
@@ -216,6 +215,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // update status
   updateDraftQuestion(obj,questionId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({

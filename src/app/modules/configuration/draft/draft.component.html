@@ -1,4 +1,6 @@
-
+<ngx-spinner class="cspin" type="ball-clip-rotate">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
 <div *ngIf="display">
   <app-publish (datasending)="dataFromChild($event)" [field]="tableData"></app-publish>
 </div>

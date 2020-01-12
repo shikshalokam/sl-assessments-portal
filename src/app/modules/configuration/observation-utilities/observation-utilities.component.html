@@ -1,10 +1,14 @@
-<div class="_flex-box _justify-content-center wrapper">
 
+<div class="_flex-box _justify-content-center wrapper">
+ 
   <div class="_full-width ">
     <!-- <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading> -->
 
     <mat-card class="card-block custom-card-block" *ngIf="!showCreate">
       <div class="row margin-5-perc">
+          <ngx-spinner  class="cspin" type="ball-clip-rotate">
+              <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
         <div class="col-sm-4 ">
           <div class="col-sm-12">
             <h4 class="margin-top-0"> <i class="material-icons">create</i>Create Observations</h4>
@@ -47,18 +51,14 @@
       </div>
 
     </mat-card>
-    <ngx-spinner *ngIf="spin" bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <ngx-spinner class="cspin" type="ball-clip-rotate">
       <p style="font-size: 20px; color: white">Loading...</p>
     </ngx-spinner>
     <div class="row" *ngIf="showCreate">
-      <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)"
+      <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)"
         class="mat-tab-group mat-primary">
         <mat-tab label="Details">
-          <!-- <mat-tab-group style="padding: 15px;"> -->
-          <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-            <p style="font-size: 20px; color: white">Loading...</p>
-          </ngx-spinner>
-
+         
           <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
             <mat-card class="card-block">
               <mat-form-field class="col-xs-12">
@@ -147,9 +147,6 @@
           </form>
         </mat-tab>
         <mat-tab label="Criteria">
-          <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-            <p style="font-size: 20px; color: white">Loading...</p>
-          </ngx-spinner>
           <div class="">
 
             <form [formGroup]="criteriaForm" *ngIf="showAddCriteria" class="col-xs-12 card-content"
@@ -256,9 +253,6 @@
           </div>
         </mat-tab>
         <mat-tab label="Questions">
-          <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-            <p style="font-size: 20px; color: white">Loading...</p>
-          </ngx-spinner>
           <mat-card style="float: left;
                  width: 98%; margin: 15px;">
             <div class="form-group" class="col-sm-6">
@@ -300,13 +294,13 @@
                   <div>Criteria is required</div>
                 </div>
 
-                <mat-form-field class="col-sm-4">
+                <!-- <mat-form-field class="col-sm-4">
                   <mat-label>Page Number</mat-label>
                   <select matNativeControl [(ngModel)]="selectedpageNumber" (ngModelChange)="pageChange()"
                     formControlName="selectedpagenumber">
                     <option *ngFor="let page of totalpages" [ngValue]="page.value"> {{ page.label }} </option>
                   </select>
-                </mat-form-field>
+                </mat-form-field> -->
 
               </form>
 
@@ -324,9 +318,6 @@
 
         </mat-tab>
         <mat-tab label="Preview">
-          <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-            <p style="font-size: 20px; color: white">Loading...</p>
-          </ngx-spinner>
           <mat-card class="comingsoon-block">Coming Soon ..</mat-card>
         </mat-tab>
         <!-- <mat-tab label="Map"> 

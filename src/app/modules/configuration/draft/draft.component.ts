@@ -32,6 +32,14 @@ export class DraftComponent implements OnInit {
   pageSize = 10;
   totalFrameWorks: any;
   tableData: any;
+  spin: any;
+  config = {
+    search:true,
+    sort: true,
+    pagination: true,
+    actions: true,
+    title: "Draft-table"
+  }
 
 
 
@@ -54,15 +62,17 @@ export class DraftComponent implements OnInit {
     // this.cdr.detectChanges();
     this.tableData = {
       data: this.dataSource,
-      displayedColumns: this.displayedColumns
+      displayedColumns: this.displayedColumns,
+      totalRecords : 183
     }
   }
 
   ngOnInit() {
     this.spinner.show();
-    setTimeout(() => {
-      this, this.spinner.hide();
-    }, 1000);
+    this.spin = true;
+    // setTimeout(() => {
+    //   this.spinner.hide();
+    // }, 1000);
   }
 
   emitEventToChild() {
@@ -87,6 +97,7 @@ export class DraftComponent implements OnInit {
 
             this.openSnackBar("Succesfully Deleted", "Deleted");
             this.getList();
+            this.spinner.hide();
             //  this.dataSource = data['result'].data;
           },
           error => {
@@ -108,7 +119,7 @@ export class DraftComponent implements OnInit {
    */
 
   dataFromChild(data) {
-    console.log('dataFromObject', data);
+    console.log('draft comonent', data);
     if (data.action == 'Edit') {
       this.route.navigateByUrl('/workspace/edit/' + data._id);
     }
@@ -131,16 +142,18 @@ export class DraftComponent implements OnInit {
         this.tableData = {
           data: this.dataSource,
           displayedColumns: this.displayedColumns,
-          totalRecords: this.totalFrameWorks
+          totalRecords: this.totalFrameWorks,
+          configdata: this.config
         }
         this.cdr.detectChanges();
+
         this.display = true;
         this.dataSource.sort = this.sort;
 
         this.dataSource.paginator = this.paginator;
         this.field.next();
         this.cdr.detectChanges();
-
+        this.spinner.hide();
 
       },
       error => {
@@ -157,11 +170,15 @@ export class DraftComponent implements OnInit {
       data => {
         this.dataSource = data['result'].data;
         console.log('==this.dataSource=', this.dataSource);
+        this.totalFrameWorks = data['result'].count;
         this.tableData = {
           data: this.dataSource,
-          displayedColumns: this.displayedColumns
+          displayedColumns: this.displayedColumns,
+          totalRecords: this.totalFrameWorks,
+          configdata: this.config
         }
-        this.totalFrameWorks = data['result'].count;
+        console.log('==this.tableData=', this.tableData);
+       
         this.cdr.detectChanges();
         this.field.next();
       },

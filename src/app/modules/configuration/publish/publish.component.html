@@ -1,6 +1,8 @@
 
-
 <div>
+  <h3 style="text-align: center;">{{configdata.title}} Listing</h3>
+</div>
+<div *ngIf = "configdata.search">
   <mat-form-field class="search">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
@@ -10,12 +12,12 @@
     <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
       <ng-container *ngFor="let column of finaldisplaycolummns" matColumnDef="{{column.name}}">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.label}} </mat-header-cell>
-        <mat-cell class="cgap" *matCellDef="let element">
+        <mat-cell  *matCellDef="let element">
           <span *ngIf="column.name!='action'"> {{element[column.name]}} </span>
-          <span *ngIf="column.name =='action'"><i class="material-icons actioncolor action cursor-pointer"
-              (click)="editData(element)" style="padding-left: 5em;" title="Edit">edit</i>
-            <i style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"
-              (click)="deleteData(element)" title="Delete">delete</i></span>
+          <span *ngIf="column.name =='action'">
+            <i class="material-icons actioncolor action cursor-pointer"(click)="editData(element)" style="padding-left: 5em;" title="Edit">edit</i>
+            <i style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="deleteData(element)" title="Delete">delete</i>
+            <i style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Review">rate_review</i></span>
 
         </mat-cell>
       </ng-container>

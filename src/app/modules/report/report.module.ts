@@ -38,7 +38,7 @@ import { DownloadReportComponent } from './download-report/download-report.compo
     CoreModule,
     MatPaginatorModule,
     ReportRoutingModule,
-    MatSortModule
+    // MatSortModule
 
   ],
   entryComponents: [ImageModalComponent],

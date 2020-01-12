@@ -6,11 +6,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-under-review',
-  templateUrl: './under-review.component.html',
-  styleUrls: ['./under-review.component.scss']
+  selector: 'app-publishing',
+  templateUrl: './publishing.component.html',
+  styleUrls: ['./publishing.component.scss']
 })
-export class UnderReviewComponent implements OnInit {
+export class PublishingComponent implements OnInit {
+
   field: Subject<any> = new Subject();
   dataSource: any;
   display: boolean = false;
@@ -24,7 +25,7 @@ export class UnderReviewComponent implements OnInit {
     sort: true,
     pagination: true,
     actions: true,
-    title: "Under Review"
+    title: "Publishing"
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -112,5 +113,4 @@ export class UnderReviewComponent implements OnInit {
     );
     // call your api function here with the offset
   }
-
 }
