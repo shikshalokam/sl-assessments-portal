@@ -16,7 +16,6 @@ export class DraftFrameWorkServiceService {
   constructor(private apiService: ApiService, private http: HttpClient,private jwtHelper: JwtHelperService) { }
 
   createDraftFrameWork() {
-
     let tokenInfo = localStorage.getItem("auth-token");
      console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
@@ -46,7 +45,7 @@ export class DraftFrameWorkServiceService {
 
   }
 
-  listOfDraftFrameWork(limit,PageNumber){
+  listOfDraftFrameWork(limit,PageNumber,listType){
 
     let tokenInfo = localStorage.getItem("auth-token");
 
@@ -56,7 +55,7 @@ export class DraftFrameWorkServiceService {
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
     })
-    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftFrameWorkList+"?page="+PageNumber+"&limit="+limit, {
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftFrameWorkList+"?page="+PageNumber+"&limit="+limit+"&listType="+listType, {
       headers: customHeader
     });
 
@@ -213,6 +212,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // update status
   updateDraftQuestion(obj,questionId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({

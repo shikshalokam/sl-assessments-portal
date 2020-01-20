@@ -9,3 +9,26 @@
 .noPadd {
     padding: 0px;
 }
+
+.mat-column-action {
+    text-align: right;
+    justify-content: flex-end;
+   }
+
+   .cgap {
+    max-width: 20%;
+   }
+
+   .action {
+    font-size: 20px;
+   }
+
+   .actioncolor {
+    color: #a63936;
+   }
+   .cspin {
+    background-color: "rgba(51,51,51,0.8)";
+     size: "medium";
+    color: "#fff";
+    
+   }

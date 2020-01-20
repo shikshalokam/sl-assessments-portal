@@ -6,7 +6,8 @@ import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule,
    MatPaginatorModule,
    MatDatepickerModule,
    MatNativeDateModule,
-   MatToolbarModule
+   MatToolbarModule,
+   MatSortModule,
   } from '@angular/material';
 import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
@@ -37,6 +38,9 @@ import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-form-builder';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { CommonChildModule } from './publish/common.module';
+import { PublishingComponent } from './publishing/publishing.component';
 
 
 
@@ -51,6 +55,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     UnderReviewComponent,
     PublishComponent,
     UpForReviewComponent,
+    PublishingComponent,
   ],
   imports: [
     CommonModule,
@@ -78,15 +83,18 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    // MatSortModule, // here is the problem with is module
     // FormioModule,
     // NgDragDropModule.forRoot(),
     DragAndDropModule,
     TagInputModule,
     MatPaginatorModule,
     DynamicFormBuilderModule1,
-    MatToolbarModule
+    MatToolbarModule,
+    NgxSpinnerModule,
+    // CommonChildModule
   ],
-  // exports:[MatPaginatorModule],
+  exports:[],
 
   providers: [DynamicFormComponent,
     DynamicFormBuilderService,

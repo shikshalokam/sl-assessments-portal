@@ -1,10 +1,14 @@
-<div class="_flex-box _justify-content-center wrapper">
 
+<div class="_flex-box _justify-content-center wrapper">
+ 
   <div class="_full-width ">
     <!-- <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading> -->
 
     <mat-card class="card-block custom-card-block" *ngIf="!showCreate">
       <div class="row margin-5-perc">
+          <ngx-spinner  class="cspin" type="ball-clip-rotate">
+              <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
         <div class="col-sm-4 ">
           <div class="col-sm-12">
             <h4 class="margin-top-0"> <i class="material-icons">create</i>Create Observations</h4>
@@ -47,24 +51,25 @@
       </div>
 
     </mat-card>
-
+    <ngx-spinner class="cspin" type="ball-clip-rotate">
+      <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>
     <div class="row" *ngIf="showCreate">
-      <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="tabChanged($event)"
+      <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)"
         class="mat-tab-group mat-primary">
         <mat-tab label="Details">
-          <!-- <mat-tab-group style="padding: 15px;"> -->
-
-
+         
           <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
             <mat-card class="card-block">
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Solution Name" formControlName="solutionName" [(ngModel)]="draftSolutionName">
+                <input matInput placeholder="Solution Name" formControlName="solutionName"
+                  [(ngModel)]="draftSolutionName">
 
               </mat-form-field>
               <div *ngIf="solFormSubmitted && solValid.solutionName.errors" class="col-sm-12 error-block">
                 <div *ngIf="solValid.solutionName.errors.required">Solution Name is required</div>
-             </div>
-              
+              </div>
+
               <!-- <mat-form-field class="col-xs-12">
                   <mat-select placeholder="Select Entity" formControlName="selectEntity" [(ngModel)]="selectedEntity">
                     <mat-option *ngFor="let ele of entitys" [value]="ele">
@@ -74,7 +79,8 @@
                 </mat-form-field> -->
 
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Description" formControlName="solutionDescription" [(ngModel)]="draftsolutionDescription">
+                <input matInput placeholder="Description" formControlName="solutionDescription"
+                  [(ngModel)]="draftsolutionDescription">
               </mat-form-field>
 
               <!-- <mat-form-field class="col-xs-12">
@@ -97,31 +103,33 @@
               <div class="m-top-10">
                 <mat-form-field class="col-xs-12 ">
                   <mat-label>Select Language</mat-label>
-                  <select matNativeControl required formControlName="solutionLanguage"  [(ngModel)]="draftSolutionLanguage">
+                  <select matNativeControl required formControlName="solutionLanguage"
+                    [(ngModel)]="draftSolutionLanguage">
                     <option *ngFor="let item of languageArr" [value]="item"> {{ item }} </option>
                     <!-- <option [value]="English">English</option>  
                     <option [value]="Hindi">Hindi</option> -->
                   </select>
                   <div *ngIf="solFormSubmitted && solValid.solutionLanguage.errors" class="col-sm-12 error-block">
                     <div *ngIf="solValid.solutionLanguage.errors.required">Language is required</div>
-                 </div>
+                  </div>
 
                 </mat-form-field>
-               
+
               </div>
 
 
               <div class="m-top-10">
-              <mat-form-field class="col-xs-12">
-                <mat-label>Entity Type</mat-label>
-                <select matNativeControl required formControlName="solutionEntityType" [(ngModel)]="draftSolutionEntityType" >
-                  <option *ngFor="let item of entitys[0]" [value]="item._id" >{{ item.name }} </option>
-                </select>
-               
-              </mat-form-field>
-              <div *ngIf="solFormSubmitted && solValid.solutionEntityType.errors" class="col-sm-12 error-block">
-                <div *ngIf="solValid.solutionEntityType.errors.required">Entity Type is required</div>
-             </div>
+                <mat-form-field class="col-xs-12">
+                  <mat-label>Entity Type</mat-label>
+                  <select matNativeControl required formControlName="solutionEntityType"
+                    [(ngModel)]="draftSolutionEntityType">
+                    <option *ngFor="let item of entitys[0]" [value]="item._id">{{ item.name }} </option>
+                  </select>
+
+                </mat-form-field>
+                <div *ngIf="solFormSubmitted && solValid.solutionEntityType.errors" class="col-sm-12 error-block">
+                  <div *ngIf="solValid.solutionEntityType.errors.required">Entity Type is required</div>
+                </div>
               </div>
 
 
@@ -145,23 +153,25 @@
               (ngSubmit)="onSubmit(criteriaForm)">
               <mat-card class="card-block">
                 <mat-form-field class="col-xs-12">
-                  <input matInput placeholder="Criteria Name" [(ngModel)]="criteriaNameupdate" formControlName="criteriaName">
+                  <input matInput placeholder="Criteria Name" [(ngModel)]="criteriaNameupdate"
+                    formControlName="criteriaName">
                   <!-- <span *ngIf="(criteriaName.dirty || criteriaName.touched) && criteriaName.invalid && criteriaName.errors.required">Criteria is required</span> -->
                 </mat-form-field>
-               
+
                 <div *ngIf="criteriaSubmitted && critForm.criteriaName.errors" class="col-sm-12 error-block">
                   <div *ngIf="critForm.criteriaName.errors.required">Criteria Name is required</div>
-               </div>
+                </div>
 
                 <mat-form-field class="col-xs-12">
-                  <input matInput placeholder="Description" [(ngModel)]="criteriaDescriptionUpdate" formControlName="description">
+                  <input matInput placeholder="Description" [(ngModel)]="criteriaDescriptionUpdate"
+                    formControlName="description">
                 </mat-form-field>
                 <div *ngIf="criteriaSubmitted && critForm.description.errors" class="col-sm-12 error-block">
                   <div *ngIf="critForm.description.errors.required">Description is required</div>
-               </div>
+                </div>
 
-                
-                <div class="col-sm-12"> 
+
+                <div class="col-sm-12">
                   <button mat-raised-button class="margin-right col-sm-1" (click)="closeAddOrUpdate()"> Cancel</button>
                   <button mat-raised-button color="primary" class="col-sm-1"> {{ criteriaAddorUpdate }} </button></div>
               </mat-card>
@@ -172,79 +182,80 @@
                 <!-- <div class="col-sm-12 add-criteria pull-right" (click)="AddCriteria()">
                   <span class="col-sm-12 add-button"><i class="material-icons pull-right plus-icon"> add </i> Add Criteria</span>
                 </div> -->
+
                 <h4>List of Criteria</h4>
                 <div class="col-sm-12 mat-elevation-z8">
                   <mat-table #table [dataSource]="criteriaList" class="mtable" matSort>
 
                     <ng-container matColumnDef="no">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-                      <mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
+                      <mat-header-cell style="max-width: 10%;" *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                      <mat-cell style="max-width: 10%;" *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="name" mat-sort-header>
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Criteria Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element"> 
-                        
-                        <!-- {{element.name}}  -->
+                      <mat-cell *matCellDef="let element">
 
-                        <!-- <mat-cell *matCellDef="let element"> -->
-                          <mat-form-field floatLabel="never" class="inline-edit" title="edit">
-                            <input #myInput autofocus matInput placeholder="Name" [value]="element.name" [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
-                          </mat-form-field>
-                        
-
+                        <mat-form-field floatLabel="never" class="inline-edit" title="edit">
+                          <input #myInput autofocus matInput placeholder="Name" [value]="element.name"
+                            [(ngModel)]="element.name" (mouseout)="criteriaUpdate(element)">
+                        </mat-form-field>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="description">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                         <!-- {{element.description}} -->
-                      
-                          <mat-form-field floatLabel="never" class="inline-edit" title="edit">
-                              <textarea matInput  placeholder="Description" [value]="element.description"
-                               [(ngModel)]="element.description" cols="40" (mouseout)="criteriaUpdate(element)"></textarea>
-                            </mat-form-field>
+                        <mat-form-field floatLabel="never" class="inline-edit" title="edit">
+                          <textarea matInput placeholder="Description" [value]="element.description"
+                            [(ngModel)]="element.description" cols="40" (mouseout)="criteriaUpdate(element)"></textarea>
+                        </mat-form-field>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="action">
                       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                       <mat-cell *matCellDef="let element"> <span class="pull-right">
-                        <!-- <i title="Edit" class="material-icons cursor-pointer" (click)="editCriteria(element)">edit</i> -->
-                        <i class="material-icons cursor-pointer" title="Delete" (click)="deleteDraftCriteria(element)">delete</i></span> </mat-cell>
+                          <i class="material-icons actioncolor cursor-pointer" title="Delete"
+                            (click)="deleteDraftCriteria(element)">delete</i></span> </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;">
                     </mat-row>
                   </mat-table>
-                 
+
 
                   <mat-toolbar class="custom-toolbar">
                     <mat-toolbar-row style="padding: 0px;">
 
                       <mat-paginator [showFirstLastButtons]="true" [length]="this.criteriaListCount" #paginator
-                      [pageSize]="criteriaListPageSize"
-                      [pageSizeOptions]="[5,10,20,50,100]"  (page)="onPaginateChange($event)">
+                        [pageSize]="criteriaListPageSize" [pageSizeOptions]="[5,10,20,50,100]"
+                        (page)="onPaginateChange($event)">
                       </mat-paginator>
                       <span class="toobar-spacer"></span>
 
-                      <button mat-flat-button [disabled] = "enableadd" title="Add Criteria" color="primary" style="margin-right:10px;" (click)="autoAddCriteria();setFocus('myInput')">
-                          Add Criteria<i class="material-icons pull-right add-criteria-icon">add_circle_outline</i>
-                        </button>
+                      <button mat-flat-button [disabled]="enableadd" title="Add Criteria" color="primary"
+                        style="margin-right:10px;" (click)="autoAddCriteria()">
+                        Add Criteria<i class="material-icons pull-right add-criteria-icon">add_circle_outline</i>
+                      </button>
 
                     </mat-toolbar-row>
                   </mat-toolbar>
 
                 </div>
+                <!-- <div *ngIf="displaycommon">
+                  <app-publish [field]="tableData"></app-publish>
+                  <button mat-flat-button [disabled]="enableadd" title="Add Criteria" color="primary"
+                    style="margin-right:10px;" (click)="autoAddCriteria()">
+                    Add Criteria<i class="material-icons pull-right add-criteria-icon">add_circle_outline</i>
+                  </button>
+                </div> -->
               </mat-card>
             </div>
           </div>
         </mat-tab>
         <mat-tab label="Questions">
-
-          <mat-card style="    float: left;
-    width: 98%;
-    margin: 15px;">
-            <div class="form-group" class="col-sm-6" >
+          <mat-card style="float: left;
+                 width: 98%; margin: 15px;">
+            <div class="form-group" class="col-sm-6">
               <!-- <label for="sel1">Select Criteria:</label> -->
               <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
             <option *ngFor="let ele of criteria" value="{{ ele.criteriaName }}">{{ ele.criteriaName }}</option>
@@ -266,32 +277,35 @@
 
               <form [formGroup]="selectCriteriaForm">
 
-            
-              <mat-form-field class="col-sm-4">
-                <mat-label>Select Criteria</mat-label>
-                <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()" formControlName="selectedCriteriaOfqtn" >
-                  <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
-                </select>
-                
-                <!-- <div *ngIf="solFormSubmitted && solValid.solutionLanguage.errors" class="col-sm-12 error-block">
+
+                <mat-form-field class="col-sm-4">
+                  <mat-label>Select Criteria</mat-label>
+                  <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()"
+                    formControlName="selectedCriteriaOfqtn">
+                    <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
+                  </select>
+
+                  <!-- <div *ngIf="solFormSubmitted && solValid.solutionLanguage.errors" class="col-sm-12 error-block">
                   <div *ngIf="solValid.solutionLanguage.errors.required">Language is required</div> -->
-               <!-- </div> -->
+                  <!-- </div> -->
 
-              </mat-form-field>
-              <div *ngIf="questionSubmit && !selectedCriteriaOfqtn" class="col-sm-12 error-block">
-                <div >Criteria is required</div>
-              </div>
+                </mat-form-field>
+                <div *ngIf="questionSubmit && !selectedCriteriaOfqtn" class="col-sm-12 error-block">
+                  <div>Criteria is required</div>
+                </div>
 
-              <!-- <mat-form-field class="col-sm-4" >
-                <mat-label>Page Number</mat-label>
-                <select matNativeControl [(ngModel)]="selectedpageNumber" (ngModelChange)="pageChange()" formControlName="selectedpagenumber">
-                  <option *ngFor="let page of totalpages" [ngValue]="page.value"> {{ page.label }} </option>
-                </select>
-              </mat-form-field> -->
-              
-            </form>
+                <!-- <mat-form-field class="col-sm-4">
+                  <mat-label>Page Number</mat-label>
+                  <select matNativeControl [(ngModel)]="selectedpageNumber" (ngModelChange)="pageChange()"
+                    formControlName="selectedpagenumber">
+                    <option *ngFor="let page of totalpages" [ngValue]="page.value"> {{ page.label }} </option>
+                  </select>
+                </mat-form-field> -->
 
-              <lib-dynamic-form-builder [events]="eventsSubject.asObservable()" (questionTrigger)="eventFromChild($event)" ></lib-dynamic-form-builder>
+              </form>
+
+              <lib-dynamic-form-builder [events]="eventsSubject.asObservable()"
+                (questionTrigger)="eventFromChild($event)"></lib-dynamic-form-builder>
             </div>
 
 
@@ -304,7 +318,7 @@
 
         </mat-tab>
         <mat-tab label="Preview">
-            <mat-card class="comingsoon-block">Coming Soon ..</mat-card>
+          <mat-card class="comingsoon-block">Coming Soon ..</mat-card>
         </mat-tab>
         <!-- <mat-tab label="Map"> 
       <div class="col-sm-6" style="padding:20px">
