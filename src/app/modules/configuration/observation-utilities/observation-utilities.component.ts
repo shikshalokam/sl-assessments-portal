@@ -137,6 +137,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   spin = false;
   tableData: any;
   criteriaEmpty: any = false;
+  childArray:any;
   onChange(event) {
     this.Data = event.form;
 
@@ -449,7 +450,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       if (this.criteriaEmpty) {
         this.selectedIndex = 1
         this.openSnackBar("Initial Criteria Cannot be Empty", "Failed");
-     } 
+      }
       this.totalpages = this.DynamicFomServe.getPageNumbers();
       this.nextBtn = "Save"
       this.next = true;
@@ -707,7 +708,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       console.log('this.questionList', this.questionList['data']);
       for (let i = 0; i < this.questionList['data'].length; i++) {
         if (!this.questionList['data'][i].draftCriteriaId) {
-          
+
           // alert('criteria cannot blanlk for' + this.questionList['data'][i].position + 'Question');
 
         }
@@ -768,49 +769,77 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
                 "draftEvidenceMethodId": _this.draftEvidenceMethodId,
                 "draftSectionId": _this.draftSectionId
               }
-              let options = [];
-              if (element.options) {
-                for (var key in element.options) {
-                  let object = {
-                    label: element.options[key]['label'],
-                    value: element.options[key]['key']
-                  }
-                  options.push(object);
-                }
-              }
+
 
               let childernArray = [];
               if (element.child) {
                 childernArray = element.child;
               }
-              let updateQuestionObj = {
-                question: [],
-                responseType: element.type,
-                options: options,
-                children: childernArray,
-                validation: {
-                  required: element.validations.required
+
+              // let updateQuestionObj = {
+              //   question: [],
+              //   responseType: element.type,
+              //   instanceQuestions: childernArray,
+              //   validation: {
+              //     required: element.validations.required
+              //   },
+              //   visibleIf: element.visibleIf ? element.visibleIf : [],
+              //   children: element.parentChildren ? element.parentChildren : [],
+              // }
+
+              // if (element.child) {
+              //   element.child.forEach(element => {
+              //     let updateObj = _this.dbQuestionObjGeneration(element);
+              //     console.log("updateObj========", updateObj);
+              //     let questionIds = _this.createDraftQuestion(obj, updateObj, index);
+              //     console.log("questionIds=============", questionIds);
+              //   });
+              // }
+
+
+              // updateQuestionObj.question.push(element.label);
+
+              let updateQuestionObj = _this.dbQuestionObjGeneration(element);
+
+              debugger;
+               _this.childArray = []
+              if (element.child) {
+
+                console.log("child loop");
+                element.child.forEach(item => {
+                  let dataOfChildOBj = _this.dbQuestionObjGeneration(item);
+                  _this.childArray.push(dataOfChildOBj);
+
+                 
+                  console.log(element.child.length,"childObj",_this.childArray.length);
+                  if(_this.childArray.length == element.child.length){
+                    let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index,_this.childArray);
+                    if (index == _this.allFields.length) {
+                      let obj = {
+                        questionArray: _this.allFields,
+                        criteriaList: this.criteriaList
+                      }
+                      this.eventsSubject.next(obj);
+                    }
+                  }
+                });
+              } else {
+                let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
+                if (index == _this.allFields.length) {
+                  let obj = {
+                    questionArray: _this.allFields,
+                    criteriaList: this.criteriaList
+                  }
+                  console.log("--------------obj------", obj);
+                  this.eventsSubject.next(obj);
                 }
+
               }
 
-              if (element.type == "date") {
-                updateQuestionObj.validation['max'] = element.validations.maxDate;
-                updateQuestionObj.validation['min'] = element.validations.minDate;
-              }
-
-              updateQuestionObj.question.push(element.label);
 
 
-              console.log("updateQuestionObj", updateQuestionObj);
-              let questionId = _this.createDraftQuestion(obj, updateQuestionObj, index);
-              if (index == _this.allFields.length) {
-                let obj = {
-                  questionArray: _this.allFields,
-                  criteriaList: this.criteriaList
-                }
-                console.log("--------------obj------", obj);
-                this.eventsSubject.next(obj);
-              }
+              // console.log("updateQuestionObj", updateQuestionObj);
+
             }
           }
         });
@@ -982,21 +1011,44 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   /**
    * Service call for to create Draft Ecm for framework 
    */
-  createDraftQuestion(obj, updateObj = {}, index) {
+  createDraftQuestion(obj, updateObj = {}, index, child = []) {
     this.frameWorkServ.draftQuestionCreate(obj).subscribe(data => {
       if (data['result']) {
-        // console.log("create question", data['result']);
+        console.log(child,"create question");
 
         if (updateObj) {
-          // console.log("updateObj", updateObj);
+          if (child && child.length > 0) {
 
+            console.log("inside child",child.length);
+
+            // child.forEach()
+            let i = 0;
+            let childIds = [];
+            child.forEach(element => {
+              this.frameWorkServ.draftQuestionCreate(obj).subscribe(childData => {
+                if (childData['result']) {  
+                  
+
+                  console.log("child qnt created", childData['result']._id);
+                  childIds.push(childData['result']._id);
+                  this.updateDraftQuestion(element, childData['result']._id);
+                  i = i + 1;
+                  if (i == childIds.length) {
+
+                    console.log("child ids",childIds);
+                    this.updateDraftQuestion({ instanceQuestions: childIds }, data['result']._id);
+                  }
+                }
+              });
+            });
+          }
           this.updateDraftQuestion(updateObj, data['result']._id);
-          // 
           this.allFields[index]._id = data['result']._id;
-          // console.log("all -- fields", this.allFields[index]);
           return data['result']._id;
+        } else {
+          return data['result'];
         }
-        return data['result'];
+
       } else {
         console.log("Error", data);
       }
@@ -1354,12 +1406,12 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         type: responseType,
         label: label,
         placeholder: "Please enter your question here",
-        formValidation:{
-          validate:false,
-          fields:['label']
+        formValidation: {
+          validate: false,
+          fields: ['label']
         },
         validations: {
-          requiredFields:['label','draftCriteriaId'],
+          requiredFields: ['label', 'draftCriteriaId'],
           required: isRequired,
           minLenght: "",
           maxLength: ""
@@ -1595,5 +1647,37 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     } else {
       this.openSnackBar("Previous Added Criteria Cannot be blank", "Failed");
     }
+  }
+
+
+  dbQuestionObjGeneration(element) {
+
+    let options = [];
+    if (element.options) {
+      for (var key in element.options) {
+        let object = {
+          label: element.options[key]['label'],
+          value: element.options[key]['key']
+        }
+        options.push(object);
+      }
+    }
+    let updateQuestionObj = {
+      question: [],
+      responseType: element.type,
+      options: options,
+      validation: {
+        required: element.validations.required ? element.validations.required : false
+      },
+      visibleIf: element.visibleIf ? element.visibleIf : [],
+      children: element.parentChildren ? element.parentChildren : [],
+    }
+    if (element.type == "date") {
+      updateQuestionObj.validation['max'] = element.validations.maxDate;
+      updateQuestionObj.validation['min'] = element.validations.minDate;
+    }
+    updateQuestionObj.question.push(element.label);
+    return updateQuestionObj;
+
   }
 }
