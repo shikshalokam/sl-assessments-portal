@@ -131,7 +131,11 @@
                   <div *ngIf="solValid.solutionEntityType.errors.required">Entity Type is required</div>
                 </div>
               </div>
-
+              <div class="col-sm-12 padd-15">Voice Over ?</div>
+              <mat-radio-group aria-label="isReusable" formControlName="voiceOver" class="col-xs-12">
+                <mat-radio-button value="true">Yes</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
 
               <!-- <div class="col-sm-12 padd-15">Reusable ?</div>
         <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">

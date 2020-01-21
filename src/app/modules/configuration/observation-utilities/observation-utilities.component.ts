@@ -136,7 +136,10 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   lastIndex: any;
   spin = false;
   tableData: any;
+  clickedIndex: any;
   criteriaEmpty: any = false;
+  clikOk: any = false;
+  dialogRef: any;
   onChange(event) {
     this.Data = event.form;
 
@@ -210,7 +213,8 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       // status: new FormControl(''),
       // concepts: new FormControl(''),
       solutionKeywords: new FormControl(''),
-      // isReusable: new FormControl('')
+      isReusable: new FormControl(''),
+      voiceOver: new FormControl('false'),
       solutionLanguage: new FormControl('', Validators.required),
       solutionEntityType: new FormControl('', Validators.required)
 
@@ -359,6 +363,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       concepts: form.value.concepts,
       keywords: form.value.keywords,
       isReusable: form.value.isReusable,
+      voiceOver: form.value.voiceOver,
       type: "observation",
       subType: "school",
       isDeleted: false,
@@ -406,24 +411,37 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
    */
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    console.log('tabChangeEvent', tabChangeEvent);
     // this.getGeneratedQuestion();
     // this.spinner.show();
     this.spinner.hide();
-    // setTimeout(() => {
-    //   this.spinner.hide();
-    // }, 1000);
+    this.clickedIndex = tabChangeEvent.index;
     this.selectedIndex = tabChangeEvent.index;
+
     this.saveBtn = false;
     if (this.selectedIndex == 0) {
       if (this.confirm) {
-        this.selectedIndex = 2;
+        // this.clickedIndex = tabChangeEvent.index;
         this.confirmToSaveData();
+        this.dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.confirm = false;
+            this.clikOk = true;
+            this.draftQuestionList();
+            this.selectedIndex = this.clickedIndex; // this.clickedIndex
+          } else {
+            this.clikOk = false;
+            this.confirm = true;
+            this.lastIndex = this.selectedIndex;
+            this.selectedIndex = 2;
+          }
+        });
       }
       if (this.criteriaEmpty) {
         this.selectedIndex = 1
         this.openSnackBar("Initial Criteria Cannot be Empty", "Failed");
       }
-      this.confirm = false;
+      // this.confirm = false;
       this.saveBtn = true;
       this.previous = false;
     } else {
@@ -434,13 +452,29 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
 
     // tab changed to criteria 
     if (this.selectedIndex == 1) {
-      debugger
       if (this.confirm) {
-        this.selectedIndex = 2;
+        // this.selectedIndex = 2;
         this.confirmToSaveData();
+        this.dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.confirm = false;
+            this.clikOk = true;
+            // console.log('%%%%%%%%%%%%%', this.allFields);
+
+             let all = this.DynamicFomServe.getALl();
+            console.log('unsaved', all);
+
+            this.selectedIndex = this.clickedIndex; // this.clickedIndex
+          } else {
+            this.clikOk = false;
+            this.confirm = true;
+            this.lastIndex = this.selectedIndex;
+            this.selectedIndex = 2;
+          }
+        });
       }
 
-      this.confirm = false;
+      // this.confirm = false;
     }
     if (this.selectedIndex == 2) {
       if (!this.confirm) {
@@ -449,7 +483,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       if (this.criteriaEmpty) {
         this.selectedIndex = 1
         this.openSnackBar("Initial Criteria Cannot be Empty", "Failed");
-     } 
+      }
       this.totalpages = this.DynamicFomServe.getPageNumbers();
       this.nextBtn = "Save"
       this.next = true;
@@ -458,13 +492,26 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     }
     if (this.selectedIndex == 3) {
       if (this.confirm) {
-        this.selectedIndex = 2;
         this.confirmToSaveData();
+        this.dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.confirm = false;
+            this.clikOk = true;
+            let all = this.DynamicFomServe.getALl();
+            console.log('unsaved', all);
+            this.selectedIndex = this.clickedIndex; // this.clickedIndex
+          } else {
+            this.clikOk = false;
+            this.confirm = true;
+            this.lastIndex = this.selectedIndex;
+            this.selectedIndex = 2;
+          }
+        });
       }
       this.nextBtn = "Previous";
       this.saveBtn = false;
       this.next = false;
-      this.confirm = false;
+      // this.confirm = false;
     }
   }
 
@@ -476,7 +523,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       // if (this.confirm) {
       //   this.confirmToSaveData();
       // }
-      this.eventsSubject.next('validate');
+      // this.eventsSubject.next('validate');
       console.log('qqqqqqqqq', this.questionList);
       console.log('sssssssssss', this.allFields);
       if (this.selectedCriteriaOfqtn && this.selectedCriteriaOfqtn['_id']) {
@@ -644,18 +691,25 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   confirmToSaveData() {
     let message = `Data get loss without save`;
     let dialogData = new ConfirmDialogModel("Confirm Action", message);
-    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+    this.dialogRef = this.dialog.open(DeleteConfirmComponent, {
       width: '350px',
       data: dialogData
     })
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.confirm = false;
-      } else {
-        this.confirm = true;
-        this.lastIndex = this.selectedIndex;
-      }
-    });
+    // this.dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     this.confirm = false;
+
+    //     alert('OK'+this.clickedIndex);
+    //     this.clikOk = true;
+    //     this.selectedIndex = this.clickedIndex; // this.clickedIndex
+    //     // const x :MatTabChangeEvent = '1';
+    //     // this.tabChanged(x);
+    //   } else {
+    //     this.clikOk = false;
+    //     this.confirm = true;
+    //     this.lastIndex = this.selectedIndex;
+    //   }
+    // });
   }
 
 
@@ -698,16 +752,16 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   eventFromChild($event) {
     this.totalpages = this.DynamicFomServe.getPageNumbers();
     this.confirm = false;
+    this.clikOk = false;
     console.log("emit value", $event);
     this.totalpages = $event.pages
     let _this = this;
     if ($event.action == 'all') {
-      debugger
-      this.questionList = $event;
+     this.questionList = $event;
       console.log('this.questionList', this.questionList['data']);
       for (let i = 0; i < this.questionList['data'].length; i++) {
         if (!this.questionList['data'][i].draftCriteriaId) {
-          
+
           // alert('criteria cannot blanlk for' + this.questionList['data'][i].position + 'Question');
 
         }
@@ -1354,12 +1408,12 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         type: responseType,
         label: label,
         placeholder: "Please enter your question here",
-        formValidation:{
-          validate:false,
-          fields:['label']
+        formValidation: {
+          validate: false,
+          fields: ['label']
         },
         validations: {
-          requiredFields:['label','draftCriteriaId'],
+          requiredFields: ['label', 'draftCriteriaId'],
           required: isRequired,
           minLenght: "",
           maxLength: ""
