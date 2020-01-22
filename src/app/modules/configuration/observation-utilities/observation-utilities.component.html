@@ -11,38 +11,45 @@
             </ngx-spinner>
         <div class="col-sm-4 ">
           <div class="col-sm-12">
-            <h4 class="margin-top-0"> <i class="material-icons">create</i>Create Observations</h4>
-            <div class="col-sm-12 desc">
-
-              Description goes here ....
+            <h4 class="margin-top-0"> 
+              <i class="material-icons">
+                description
+              </i>
+              Create Observations</h4>
+            <div class="col-sm-12 desc">  
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus. 
             </div>
-            <button class="m-top-10" mat-flat-button color="primary" (click)="create()">Create</button>
+            <div class="col-sm-12 text-center" ><button class="m-top-10" mat-flat-button color="primary" (click)="create()">Create</button></div>
             <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div> -->
           </div>
 
         </div>
         <div class="col-sm-4">
           <div class="col-sm-12">
-            <h4 class="margin-top-0"><i class="material-icons">create</i>Create Institutional Assessments</h4>
-            <div class="col-sm-12 desc">
-
-              Description goes here ....
+            <h4 class="margin-top-0">
+              <i class="material-icons">
+              assessment
+              </i>Create Institutional Assessments</h4>
+            <div class="col-sm-12 desc">  
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus. 
             </div>
-
-            <button class="m-top-10" mat-flat-button color="primary">Create</button>
+            <div class="col-sm-12 text-center" ><button class="m-top-10" mat-flat-button color="primary">Create</button></div>
             <!-- <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
           </div>
 
         </div>
         <div class="col-sm-4">
           <div class="col-sm-12">
-            <h4 class="margin-top-0"><i class="material-icons">create</i>Create Individual Assessments</h4>
-            <div class="col-sm-12 desc">
-
-              Description goes here ....
+            <h4 class="margin-top-0">
+              <i class="material-icons">
+                description
+              </i>
+              Create Individual Assessments</h4>
+            <div class="col-sm-12 desc">  
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus. 
             </div>
 
-            <button class="m-top-10" mat-flat-button color="primary">Create</button>
+            <div class="col-sm-12 text-center" ><button class="m-top-10" mat-flat-button color="primary">Create</button></div>
             <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
           </div>
 
@@ -131,7 +138,13 @@
                   <div *ngIf="solValid.solutionEntityType.errors.required">Entity Type is required</div>
                 </div>
               </div>
-
+              <div class="col-sm-12 noPadd">
+              <div class="col-sm-12 padd-bottom-5">Voice Over ?</div>
+              <mat-radio-group aria-label="isReusable" formControlName="voiceOver" class="col-xs-12">
+                <mat-radio-button value="true">Yes</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
 
               <!-- <div class="col-sm-12 padd-15">Reusable ?</div>
         <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
@@ -155,6 +168,8 @@
                 <mat-form-field class="col-xs-12">
                   <input matInput placeholder="Criteria Name" [(ngModel)]="criteriaNameupdate"
                     formControlName="criteriaName">
+                  <!-- <input matInput placeholder="Criteria Name" [(ngModel)]="criteriaNameupdate"
+                    formControlName="criteriaName"> -->
                   <!-- <span *ngIf="(criteriaName.dirty || criteriaName.touched) && criteriaName.invalid && criteriaName.errors.required">Criteria is required</span> -->
                 </mat-form-field>
 
@@ -278,10 +293,12 @@
               <form [formGroup]="selectCriteriaForm">
 
 
-                <mat-form-field class="col-sm-4">
+                <mat-form-field class="col-sm-4" style="display: none;">
                   <mat-label>Select Criteria</mat-label>
-                  <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()"
-                    formControlName="selectedCriteriaOfqtn">
+                  <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn"
+                  formControlName="selectedCriteriaOfqtn">
+                  <!-- <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()"
+                    formControlName="selectedCriteriaOfqtn"> -->
                     <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
                   </select>
 
