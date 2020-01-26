@@ -34,7 +34,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
-    declarations: [,
+    declarations: [
     ],
     imports: [
         CommonModule,
