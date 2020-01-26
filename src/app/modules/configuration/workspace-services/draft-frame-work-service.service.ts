@@ -260,5 +260,44 @@ export class DraftFrameWorkServiceService {
 
   }
 
+  publishDraftFrameWork(frameWorkId,entityType){
+
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.publishDraftFrameWork+frameWorkId+'?entityType='+entityType,{}, {
+      headers: customHeader
+    });
+
+  }
+
+  updateDraftECM(ecmId,obj){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftEcmUpdate+ecmId,obj, {
+      headers: customHeader
+    });
+
+  }
+  updateDraftSection(sectionId,obj){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftSectionUpdate+sectionId,obj, {
+      headers: customHeader
+    });
+
+  }
+
 
 }

@@ -1,58 +1,114 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MatTableDataSource, MatDialog, PageEvent, MatPaginator, MatSort, Sort } from '@angular/material';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
-import { NgxSpinnerService } from "ngx-spinner";
+
+import { MatTableDataSource, MatDialog, PageEvent, MatPaginator, MatSort, Sort } from '@angular/material';
+// import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+import { PublishComponent } from '../publish/publish.component';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-publishing',
+  selector: 'app-draft',
   templateUrl: './publishing.component.html',
   styleUrls: ['./publishing.component.scss']
 })
-export class PublishingComponent implements OnInit {
 
-  field: Subject<any> = new Subject();
+
+
+export class PublishingComponent implements OnInit,AfterViewInit {
+
+  // dataSource:any;
+  eventsSubject: Subject<void> = new Subject<void>();
+  field:Subject<any> = new Subject();
+  showTable: boolean = true;
+  element = []
   dataSource: any;
   display: boolean = false;
-  displayedColumns: string[] = ['no', 'externalId', 'name', 'description', 'action'];
+  displayedColumns: string[] = ['no', 'externalId', 'name', 'description','status'];
   pageSize = 10;
   totalFrameWorks: any;
   tableData: any;
   spin: any;
   config = {
-    search: true,
+    search:true,
     sort: true,
     pagination: true,
     actions: true,
-    title: "Publishing"
+    title: "Published Framework List"
   }
 
+
+
+  constructor(private frameWorkServ: DraftFrameWorkServiceService, public dialog: MatDialog, private _snackBar: MatSnackBar,
+    private route: Router, private cdr: ChangeDetectorRef,
+    private spinner: NgxSpinnerService) {
+
+    this.getList();
+
+  }
+
+
+  // private paginator: MatPaginator;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private frameWorkServ: DraftFrameWorkServiceService, private cdr: ChangeDetectorRef,
-    private spinner: NgxSpinnerService, private route: Router) { }
+
+  ngAfterViewInit() {
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.cdr.detectChanges();
+    // this.tableData = {
+    //   data: this.dataSource,
+    //   displayedColumns: this.displayedColumns,
+    //   totalRecords : 183
+    // }
+  }
 
   ngOnInit() {
-    this.getList();
     this.spinner.show();
+    this.spin = true;
+    // setTimeout(() => {
+    //   this.spinner.hide();
+    // }, 1000);
   }
+
+  emitEventToChild() {
+    console.log('emitEventToChild');
+    this.eventsSubject.next();
+  }
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+ 
 
 
   getList() {
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1,'draft').subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1,"published").subscribe(
       data => {
+        data['result'].data =  data['result'].data.filter(item=>{
+          item.status ="published";
+          return item;
+        })
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
         this.totalFrameWorks = data['result'].count;
-        this.dataSource = []; // after changing api remove this
-        this.totalFrameWorks = 0; // after changing api remove this
         this.tableData = {
           data: this.dataSource,
           displayedColumns: this.displayedColumns,
           totalRecords: this.totalFrameWorks,
           configdata: this.config
         }
-        this.spinner.hide();
         this.cdr.detectChanges();
 
         this.display = true;
@@ -61,7 +117,7 @@ export class PublishingComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.field.next();
         this.cdr.detectChanges();
-        // this.spinner.hide();
+        this.spinner.hide();
 
       },
       error => {
@@ -70,28 +126,11 @@ export class PublishingComponent implements OnInit {
     );
   }
 
-
-  dataFromChild(data) {
-    console.log('under-review', data);
-    if (data.action == 'Edit') {
-      // this.route.navigateByUrl('/workspace/edit/' + data._id);
-    }
-    if (data.action == 'delete') {
-      // this.deleteDraftFW(data._id);
-    }
-
-    if (data.action == 'pagination') {
-      this.getNext(data);
-    }
-
-  }
-
-  // pagination purpose
   getNext(event: PageEvent) {
     console.log('getNext', event);
     this.pageSize = event.pageSize;
     let offset = event.pageSize * event.pageIndex;
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1,'draft').subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1,'published').subscribe(
       data => {
         this.dataSource = data['result'].data;
         console.log('==this.dataSource=', this.dataSource);
@@ -103,7 +142,7 @@ export class PublishingComponent implements OnInit {
           configdata: this.config
         }
         console.log('==this.tableData=', this.tableData);
-
+       
         this.cdr.detectChanges();
         this.field.next();
       },
@@ -113,4 +152,33 @@ export class PublishingComponent implements OnInit {
     );
     // call your api function here with the offset
   }
+  redirectToEditDraft(ele) {
+
+    console.log("ele ======= ", ele);
+
+    this.route.navigateByUrl('/workspace/edit/' + ele._id);
+
+  }
+
+  updateToReviewStatus(data){
+
+
+    let obj = {
+     status:"review"
+    }
+    console.log("==========",data);
+    this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
+      console.log("data", data);
+      this.openSnackBar("Sent For Review", "Updated");
+    },
+      error => {
+        console.log("data", error);
+    });
+
+  }
+
+  // ngOnDestroy() {
+  //   this.subject.complete();
+  // }
 }
+

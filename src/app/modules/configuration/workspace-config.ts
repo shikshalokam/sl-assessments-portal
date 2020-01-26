@@ -17,5 +17,8 @@ export const configOfFrameWorkAPIs = {
     updateDraftQuestion:"draftQuestions/update/",
     draftQuestionList:"draftQuestions/list/",
     deleteDraftQuestion:"draftQuestions/delete/",
-    detailsDraftQuestion:"draftQuestions/details/"
+    detailsDraftQuestion:"draftQuestions/details/",
+    publishDraftFrameWork:"draftFrameworks/publish/",
+    draftEcmUpdate:"draftECM/update/",
+    draftSectionUpdate:"draftSections/update/"
 }

@@ -125,6 +125,7 @@ export class PublishComponent implements OnInit, AfterContentChecked {
    * 
    */
   requiredDataFormation(data) {
+    console.log("data",data)
     for (let i = 0; i < data.length; i++) {
       data[i].no = (i + 1);
     }
