@@ -208,6 +208,15 @@ export class DraftComponent implements OnInit,AfterViewInit {
      status:"review"
     }
     console.log("==========",data);
+
+    this.updateAllEcm(data._id);
+    this.updateAllDraftSection(data._id);
+    this.updateALlCriteria(data._id);
+    this.updateAllQuestion(data._id);
+
+
+
+
     this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
       console.log("data", data);
 
@@ -223,5 +232,57 @@ export class DraftComponent implements OnInit,AfterViewInit {
   // ngOnDestroy() {
   //   this.subject.complete();
   // }
+
+ 
+
+  updateAllEcm(frameWorkId) {
+    this.frameWorkServ.listDraftEcm(frameWorkId).subscribe(data => {
+      if (data['result'] && data['result'].data) {   
+       
+        console.log("data['result'].data",data['result'].data);
+        data['result'].data.forEach(element => {
+          this.frameWorkServ.updateDraftECM(element._id,{ status:'review' }).subscribe(result=>{
+             
+            console.log("ecm update",result);
+          });          
+        });
+
+      }
+    });
+  }
+
+  updateAllDraftSection(frameWorkId){
+    console.log("frameWorkId",frameWorkId);
+    this.frameWorkServ.listDraftSection(frameWorkId).subscribe(data => {
+      data['result'].data.forEach(element => {
+        this.frameWorkServ.updateDraftSection(element._id,{ status:'review' }).subscribe(result=>{
+          console.log("alllll frame work section update",result);
+        });          
+      });
+    });
+  }
+
+  updateALlCriteria(frameWorkId){
+  
+    this.frameWorkServ.draftCriteriaList(frameWorkId,100,0).subscribe(data => {
+
+      console.log("all criteria",data['result'].data);
+      data['result'].data.forEach(element => {
+        this.frameWorkServ.updateDraftCriteria(element._id,{ status:'review' }).subscribe(result=>{
+          console.log("criteria update",result);
+        });          
+      });
+    });
+  }
+
+  updateAllQuestion(frameWorkId){
+    this.frameWorkServ.draftQuestionList(frameWorkId).subscribe(data => {
+      data['result'].data.forEach(element => {
+        this.frameWorkServ.updateDraftQuestion({ status:'review' },element._id).subscribe(result=>{
+          console.log("question update",result);
+        });          
+      });
+    });
+  }
 }
 

@@ -94,9 +94,12 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
         this.frameWorkServ.deleteDraftFrameWork(id).subscribe(
           data => {
             console.log("data", data);
-
-            this.openSnackBar("Succesfully Deleted", "Deleted");
+            this.cdr.detectChanges();
             this.getList();
+            this.cdr.detectChanges();
+       
+            this.openSnackBar("Succesfully Deleted", "Deleted");
+            
             this.spinner.hide();
             //  this.dataSource = data['result'].data;
           },
@@ -125,6 +128,7 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
     }
     else if (data.action == 'delete') {
       this.deleteDraftFW(data._id);
+    
     }else if (data.action == 'pagination') {
       this.getNext(data);
     }else if(data.action == 'review'){
@@ -141,6 +145,7 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
       data => {
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
         this.totalFrameWorks = data['result'].count;
+
         this.tableData = {
           data: this.dataSource,
           displayedColumns: this.displayedColumns,
@@ -171,7 +176,7 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
     this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1,'review').subscribe(
       data => {
         this.dataSource = data['result'].data;
-        console.log('==this.dataSource=', this.dataSource);
+        // console.log('==this.dataSource=', this.dataSource);
         this.totalFrameWorks = data['result'].count;
         this.tableData = {
           data: this.dataSource,
@@ -179,7 +184,7 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
           totalRecords: this.totalFrameWorks,
           configdata: this.config
         }
-        console.log('==this.tableData=', this.tableData);
+        // console.log('==this.tableData=', this.tableData);
        
         this.cdr.detectChanges();
         this.field.next();
@@ -205,15 +210,45 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
      status:"review"
     }
     console.log("==========",data);
-    this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
-      console.log("data", data);
-      this.openSnackBar("Sent For Review", "Updated");
-    },
-      error => {
-        console.log("data", error);
+    // this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
+    //   console.log("data", data);
+    //   this.openSnackBar("Sent For Review", "Updated");
+    // },
+    //   error => {
+    //     console.log("data", error);
+    // });
+
+    let _this = this;
+    this.frameWorkServ.getDraftFrameworksdetails(data._id).subscribe(details=>{
+
+      let res = details['result'];
+       
+      //  res.entityTypeId;
+      console.log("res",res);
+
+     
+       
+      _this.frameWorkServ.publishDraftFrameWork(data._id,res.entityType).subscribe(data=>{
+
+        console.log("data",data);
+        if(  data && data['status']==200){
+          this.openSnackBar("Succesfully Published", "Done");
+          this.getList();
+       
+        }else{
+          this.openSnackBar("Failed to Publish", "Failed");
+       
+        }
+      });
+
     });
+   
+    // /assessment-design/api/v1/draftFrameworks/publish/
 
   }
+
+
+
 
   // ngOnDestroy() {
   //   this.subject.complete();

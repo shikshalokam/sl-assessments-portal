@@ -554,6 +554,8 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   }
 
   create() {
+
+    console.log("create called");
     // creatingg Draft frameWork using below API
     this.frameWorkServ.createDraftFrameWork().subscribe(
       data => {
@@ -579,13 +581,15 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
           };
         })
         // console.log("selectedEntity",selectedEntity);
+        let id = this.generateExternalId();
         let obj = {
           name: this.solutionForm.value.solutionName,
           keywords: this.solutionForm.value.solutionKeywords,
           language: this.solutionForm.value.solutionLanguage,
           description: this.solutionForm.value.solutionDescription,
           entityType: selectedEntity[0].name,
-          entityTypeId: selectedEntity[0]._id
+          entityTypeId: selectedEntity[0]._id,
+          externalId:id
         }
         this.frameWorkServ.updateDraftFrameWork(obj, this.frameWorkId).subscribe(data => {
           console.log("data", data);
@@ -709,6 +713,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         this.draftsolutionDescription = res.description;
         this.draftSolutionLanguage = res.language[0];
         // console.log("this.draftSolutionLanguage",this.draftSolutionLanguage);
+        
         this.draftSolutionEntityType = res.entityTypeId;
         this.keyWordItems = res.keywords;
       }
@@ -794,6 +799,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
              
             }else{
               let updateQuestionObj = _this.dbQuestionObjGeneration(element);
+              
               _this.updateDraftQuestion(updateQuestionObj, element._id);
             }
           } else {
@@ -1040,7 +1046,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   createDraftEcm(frameWorkId) {
 
     this.frameWorkServ.draftEcmCreate(frameWorkId).subscribe(data => {
-      console.log("data this;  ", data['result']);
+      console.log("ecm created ", data['result']);
     });
 
   }
@@ -1050,7 +1056,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   createDraftSection(frameWorkId) {
 
     this.frameWorkServ.draftSectionCreate(frameWorkId).subscribe(data => {
-      console.log("data this;  ", data['result']);
+      console.log("draft section created ", data['result']);
     });
 
   }
@@ -1060,7 +1066,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   listDraftSection(frameWorkId) {
 
     this.frameWorkServ.draftSectionCreate(frameWorkId).subscribe(data => {
-      console.log("data this;  ", data['result']);
+      console.log("section length ", data['result']);
       if (data['result']) {
 
         this.draftSectionId = data['result']._id;
@@ -1073,7 +1079,8 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   listDraftEcm(frameWorkId) {
     this.frameWorkServ.listDraftEcm(frameWorkId).subscribe(data => {
       if (data['result'] && data['result'].data) {
-        // console.log("Ecm List;  ", data['result']);
+        console.log("Ecm List;  ", data['result']);
+
         this.draftEvidenceMethodId = data['result'].data[0]._id;
         // console.log("Ecm List;  ",data['result'].data[0]._id);
       }
@@ -1400,9 +1407,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
               _this.generateQuestion(allRecords, _this);
             }
           });
-
         });
-
         console.log("after data==", data['result'].data);
       } else {
         console.log("Error while featching question list", data);
@@ -1722,21 +1727,31 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       }
     }
 
-    if(obj['type']=="matrix"){
-      console.log("--------matrix",obj['child']);
+    obj['prefix'] =element.prefix?element.prefix:"";
+    obj['applicable'] =element.applicable?element.applicable:false;
+    obj['audiorecording'] = element.audiorecording?element.audiorecording:false;
+    obj['filecount'] = element.filecount?element.filecount:0;
+    obj['fileType'] = element.fileType?element.fileType:"";
+    obj['caption'] = element.caption?element.caption:false;
+    obj['remarks'] =element.remarks?element.remarks:false;
+    obj['filerequired'] = element.filerequired?element.filerequired:false;
 
+    // obj['']=
+    
+
+    if(obj['type']=="matrix"){
+      obj['sectionHeader'] = element.sectionHeader?element.sectionHeader:"";
       let allChilds = []
       obj['child'] =  obj['child'].filter((childObj,i) => {
         let latestChildObj = this.getObjectOfField(childObj.responseType, childObj, i, childObj.question[0]);
-        console.log(childObj.responseType, childObj, i, childObj.question[0],"latestChildObj",latestChildObj);
         allChilds.push(latestChildObj);
         return latestChildObj;
       });
-      console.log(allChilds,"obj['child']",obj['child']);
       obj['child'] = allChilds;
       return obj;
       
     }else{
+
       return obj
     }
     
@@ -1784,6 +1799,11 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     _this.allCriteriaList.filter(function (item, index) {
       if (item._id == element._id) {
         if (item.name != element.name || item.description != element.description) {
+
+          let id = _this.generateExternalId();
+
+          element.externalId = id;
+
           _this.frameWorkServ.updateDraftCriteria(element._id, element).subscribe(data => {
             _this.criteriaEmpty = false;
             _this.openSnackBar("Criteria Updated Succesfully", "Done");
@@ -1864,12 +1884,42 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       visibleIf: element.visibleIf ? element.visibleIf : [],
       children: element.parentChildren ? element.parentChildren : [],
     }
+
+    updateQuestionObj['prefix'] =element.prefix?element.prefix:"";
+    updateQuestionObj['applicable'] =element.applicable?element.applicable:false;
+    updateQuestionObj['audiorecording'] = element.audiorecording?element.audiorecording:false;
+    updateQuestionObj['filecount'] = element.filecount?element.filecount:0;
+    updateQuestionObj['fileType'] = element.fileType?element.fileType:"";
+    updateQuestionObj['caption'] = element.caption?element.caption:false;
+    updateQuestionObj['remarks'] =element.remarks?element.remarks:"";
+    updateQuestionObj['filerequired'] = element.filerequired?element.filerequired:false;
+
     if (element.type == "date") {
       updateQuestionObj.validation['max'] = element.validations.maxDate;
       updateQuestionObj.validation['min'] = element.validations.minDate;
+      updateQuestionObj['autoCollect'] = element.autoCollect?element.autoCollect:false;
+      updateQuestionObj['dateformat'] = element.dateformat?element.dateformat:"";
+    }else if (element.type == "matrix") {
+      
+      updateQuestionObj['instanceIdentifier'] = element.instanceIdentifier?element.instanceIdentifier:false; 
+      updateQuestionObj['sectionHeader'] = element.sectionHeader?element.sectionHeader:false;
+    }else if(element.type== "Number"){
+      updateQuestionObj['weightage'] = element.weightage?element.weightage:false;
+      
+    }else if(element == 'slider'){
+      updateQuestionObj['max'] =  element.max?element.max:false;
+      updateQuestionObj['min'] = element.min?element.min:false;
     }
     updateQuestionObj.question.push(element.label);
+    updateQuestionObj['externalId'] = this.generateExternalId();
     return updateQuestionObj;
 
   }
+
+   generateExternalId() {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
 }
