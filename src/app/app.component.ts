@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
           value: "WorkSpace",
           // value: "headings.configurations",
           id: 'configurations',
-          anchorLink: "/workspace",
+          anchorLink: "/workspace/create",
           icon:"comment",
           iconName:"comment",
           linkActive:false,
@@ -107,12 +107,12 @@ export class AppComponent implements OnInit {
             {
               value:"Sent For Review",
               anchorLink:"/workspace/under-review",
-              icon:"description"
+              icon:"rate_review"
             },
             {
               value:"Up For Review",
               anchorLink:"/workspace/up-for-review",
-              icon:"description"
+              icon:"rate_review"
             },
             {
               value:"Published",

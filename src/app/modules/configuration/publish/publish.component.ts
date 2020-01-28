@@ -152,11 +152,22 @@ export class PublishComponent implements OnInit, AfterContentChecked {
 
     data.action = 'review';
     this.datasending.emit(data);
+  }
 
+  upforreview(data){
+    data.action = 'upforreview';
+    this.datasending.emit(data);
+  }
+
+  publishing(data){
+    data.action = 'publish';
+    this.datasending.emit(data);
+  }
 
 // Need to validate the Questions before sending to the review
     // this.route.navigateByUrl('/workspace/under-review');
-  }
+  
+
 
 }
 

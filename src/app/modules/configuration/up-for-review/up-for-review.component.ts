@@ -37,7 +37,16 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
     search:true,
     sort: true,
     pagination: true,
-    actions: true,
+    actions:{
+      edit: false,
+      delete: false,
+      senttoreview: false,
+      upforreview: false,
+      published: true,
+      search: true,
+      pagination: true,
+      request_change: true
+    },
     title: "Up for Review Frameworks List"
   }
 
@@ -94,12 +103,9 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
         this.frameWorkServ.deleteDraftFrameWork(id).subscribe(
           data => {
             console.log("data", data);
-            this.cdr.detectChanges();
             this.getList();
             this.cdr.detectChanges();
-       
             this.openSnackBar("Succesfully Deleted", "Deleted");
-            
             this.spinner.hide();
             //  this.dataSource = data['result'].data;
           },
@@ -135,13 +141,17 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
       // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
       this.updateToReviewStatus(data);
 
+    }else if(data.action == 'publish'){
+      // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
+      this.updateToReviewStatus(data);
+
     }
 
   }
 
 
   getList() {
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1,"review").subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1, "upforreview").subscribe(
       data => {
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
         this.totalFrameWorks = data['result'].count;
@@ -207,7 +217,7 @@ export class UpForReviewComponent implements OnInit,AfterViewInit {
 
 
     let obj = {
-     status:"review"
+     status:"publish"
     }
     console.log("==========",data);
     // this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {

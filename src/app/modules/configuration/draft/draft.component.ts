@@ -19,11 +19,11 @@ import { Subject } from 'rxjs';
 
 
 
-export class DraftComponent implements OnInit,AfterViewInit {
+export class DraftComponent implements OnInit, AfterViewInit {
 
   // dataSource:any;
   eventsSubject: Subject<void> = new Subject<void>();
-  field:Subject<any> = new Subject();
+  field: Subject<any> = new Subject();
   showTable: boolean = true;
   element = []
   dataSource: any;
@@ -34,10 +34,18 @@ export class DraftComponent implements OnInit,AfterViewInit {
   tableData: any;
   spin: any;
   config = {
-    search:true,
+    search: true,
     sort: true,
     pagination: true,
-    actions: true,
+    actions: {
+      edit: true,
+      delete: true,
+      senttoreview: true,
+      upforreview: false,
+      published: false,
+      search: true,
+      pagination: true
+    },
     title: "Draft FrameWorks List"
   }
 
@@ -125,23 +133,20 @@ export class DraftComponent implements OnInit,AfterViewInit {
     }
     else if (data.action == 'delete') {
       this.deleteDraftFW(data._id);
-    }else if (data.action == 'pagination') {
+    } else if (data.action == 'pagination') {
       this.getNext(data);
-    }else if(data.action == 'review'){
+    } else if (data.action == 'review') {
       // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
       this.updateToReviewStatus(data);
 
     }
-
   }
 
 
   getList() {
     this.display = false;
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1,"draft").subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1, "draft").subscribe(
       data => {
-
-        console.log("----",data);
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
         this.totalFrameWorks = data['result'].count;
         this.tableData = {
@@ -150,8 +155,6 @@ export class DraftComponent implements OnInit,AfterViewInit {
           totalRecords: this.totalFrameWorks,
           configdata: this.config
         }
-        this.cdr.detectChanges();
-
         this.display = true;
         this.dataSource.sort = this.sort;
 
@@ -171,7 +174,7 @@ export class DraftComponent implements OnInit,AfterViewInit {
     console.log('getNext', event);
     this.pageSize = event.pageSize;
     let offset = event.pageSize * event.pageIndex;
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1,'draft').subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1, 'draft').subscribe(
       data => {
         this.dataSource = data['result'].data;
         console.log('==this.dataSource=', this.dataSource);
@@ -183,7 +186,7 @@ export class DraftComponent implements OnInit,AfterViewInit {
           configdata: this.config
         }
         console.log('==this.tableData=', this.tableData);
-       
+
         this.cdr.detectChanges();
         this.field.next();
       },
@@ -194,28 +197,20 @@ export class DraftComponent implements OnInit,AfterViewInit {
     // call your api function here with the offset
   }
   redirectToEditDraft(ele) {
-
-    console.log("ele ======= ", ele);
-
     this.route.navigateByUrl('/workspace/edit/' + ele._id);
 
   }
 
-  updateToReviewStatus(data){
+  updateToReviewStatus(data) {
 
 
     let obj = {
-     status:"review"
+      status: "review"
     }
-    console.log("==========",data);
-
     this.updateAllEcm(data._id);
     this.updateAllDraftSection(data._id);
     this.updateALlCriteria(data._id);
     this.updateAllQuestion(data._id);
-
-
-
 
     this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
       console.log("data", data);
@@ -225,7 +220,7 @@ export class DraftComponent implements OnInit,AfterViewInit {
     },
       error => {
         console.log("data", error);
-    });
+      });
 
   }
 
@@ -233,54 +228,54 @@ export class DraftComponent implements OnInit,AfterViewInit {
   //   this.subject.complete();
   // }
 
- 
+
 
   updateAllEcm(frameWorkId) {
     this.frameWorkServ.listDraftEcm(frameWorkId).subscribe(data => {
-      if (data['result'] && data['result'].data) {   
-       
-        console.log("data['result'].data",data['result'].data);
+      if (data['result'] && data['result'].data) {
+
+        console.log("data['result'].data", data['result'].data);
         data['result'].data.forEach(element => {
-          this.frameWorkServ.updateDraftECM(element._id,{ status:'review' }).subscribe(result=>{
-             
-            console.log("ecm update",result);
-          });          
+          this.frameWorkServ.updateDraftECM(element._id, { status: 'review' }).subscribe(result => {
+
+            console.log("ecm update", result);
+          });
         });
 
       }
     });
   }
 
-  updateAllDraftSection(frameWorkId){
-    console.log("frameWorkId",frameWorkId);
+  updateAllDraftSection(frameWorkId) {
+    console.log("frameWorkId", frameWorkId);
     this.frameWorkServ.listDraftSection(frameWorkId).subscribe(data => {
       data['result'].data.forEach(element => {
-        this.frameWorkServ.updateDraftSection(element._id,{ status:'review' }).subscribe(result=>{
-          console.log("alllll frame work section update",result);
-        });          
+        this.frameWorkServ.updateDraftSection(element._id, { status: 'review' }).subscribe(result => {
+          console.log("alllll frame work section update", result);
+        });
       });
     });
   }
 
-  updateALlCriteria(frameWorkId){
-  
-    this.frameWorkServ.draftCriteriaList(frameWorkId,100,0).subscribe(data => {
+  updateALlCriteria(frameWorkId) {
 
-      console.log("all criteria",data['result'].data);
+    this.frameWorkServ.draftCriteriaList(frameWorkId, 100, 0).subscribe(data => {
+
+      console.log("all criteria", data['result'].data);
       data['result'].data.forEach(element => {
-        this.frameWorkServ.updateDraftCriteria(element._id,{ status:'review' }).subscribe(result=>{
-          console.log("criteria update",result);
-        });          
+        this.frameWorkServ.updateDraftCriteria(element._id, { status: 'review' }).subscribe(result => {
+          console.log("criteria update", result);
+        });
       });
     });
   }
 
-  updateAllQuestion(frameWorkId){
+  updateAllQuestion(frameWorkId) {
     this.frameWorkServ.draftQuestionList(frameWorkId).subscribe(data => {
       data['result'].data.forEach(element => {
-        this.frameWorkServ.updateDraftQuestion({ status:'review' },element._id).subscribe(result=>{
-          console.log("question update",result);
-        });          
+        this.frameWorkServ.updateDraftQuestion({ status: 'review' }, element._id).subscribe(result => {
+          console.log("question update", result);
+        });
       });
     });
   }

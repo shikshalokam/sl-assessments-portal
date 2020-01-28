@@ -15,14 +15,17 @@
         <mat-cell  *matCellDef="let element">
           <span *ngIf="column.name!='action'"> {{element[column.name]}} </span>
           <span *ngIf="column.name =='action'">
-            <i class="material-icons actioncolor action cursor-pointer"(click)="editData(element)" style="padding-left: 5em;" title="Edit">edit</i>
-            <i style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="deleteData(element)" title="Delete">delete</i>
+            <i *ngIf = "configdata.actions.edit" class="material-icons actioncolor action cursor-pointer"(click)="editData(element)" style="padding-left: 5em;" title="Edit">edit</i>
+            <i *ngIf = "configdata.actions.delete" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="deleteData(element)" title="Delete">delete</i>
 
             <!-- <button mat-flat-button color="primary" style="margin-right:10px;" (click)="reviewData(element)">
               Submit For Review
             </button> -->
 
-            <i style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Review">rate_review</i>
+            <i *ngIf = "configdata.actions.senttoreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Send For Review">rate_review</i>
+            <i *ngIf = "configdata.actions.upforreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="upforreview(element)" title="Up For Review">rate_review</i>
+            <i *ngIf = "configdata.actions.request_change" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Request Changes">track_changes</i>
+            <i *ngIf = "configdata.actions.published" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="publish">publish</i>
 
           </span>
         </mat-cell>

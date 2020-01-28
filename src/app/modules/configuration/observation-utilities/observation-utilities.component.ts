@@ -141,6 +141,9 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   childArray: any;
   clikOk: any = false;
   dialogRef: any;
+  response: any;
+  detailschanged: boolean = false;
+  detailsdialogRef: any;
   onChange(event) {
     this.Data = event.form;
 
@@ -287,6 +290,22 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   }
   callCriteria() {
   }
+
+  /**
+   * To know whether the data changed or not
+   */
+  modelChanged(newdata) {
+    console.log('modelChanged', newdata);
+    if (this.solutionForm.get('solutionName').dirty || this.solutionForm.get('solutionDescription').dirty
+      || this.solutionForm.get('solutionKeywords').dirty || this.solutionForm.get('solutionLanguage').dirty ||
+      this.solutionForm.get('solutionEntityType').dirty || this.solutionForm.get('voiceOver').dirty) {
+      this.detailschanged = true;
+      console.log('modelChanged to make true', newdata);
+    } else {
+      this.detailschanged = false;
+    }
+  }
+
   /**
    * 
    * Submitting the Criteria for 
@@ -405,11 +424,17 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     // this.getGeneratedQuestion();
     // this.spinner.show();
+debugger
     this.spinner.hide();
     this.clickedIndex = tabChangeEvent.index;
     this.selectedIndex = tabChangeEvent.index;
-
+    console.log('tab changed', this.selectedIndex, this.detailschanged);
     this.saveBtn = false;
+
+    if (this.detailschanged && this.selectedIndex != 0) {
+      this.confirmpopup();
+    }
+
     if (this.selectedIndex == 0) {
       if (this.confirm) {
         // this.clickedIndex = tabChangeEvent.index;
@@ -438,11 +463,14 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     } else {
 
       this.previous = true;
+     
     }
 
 
     // tab changed to criteria 
     if (this.selectedIndex == 1) {
+      this.nextBtn = "Next";
+      this.next = true;
       if (this.confirm) {
         // this.selectedIndex = 2;
         this.confirmToSaveData();
@@ -459,6 +487,16 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
             this.selectedIndex = 2;
           }
         });
+      } else if (this.detailschanged) {
+        this.detailsdialogRef.afterClosed().subscribe(result => {
+          console.log('confirmpopup data changed', result);
+          if (result) {
+            this.getFrameWorkDetails();
+            this.detailschanged = false;
+          } else {
+            this.selectedIndex = 0;
+          }
+        });
       }
 
       // this.confirm = false;
@@ -470,7 +508,18 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       if (this.criteriaEmpty) {
         this.selectedIndex = 1
         this.openSnackBar("Initial Criteria Cannot be Empty", "Failed");
-      }
+      }else if(this.detailschanged) {
+        this.detailsdialogRef.afterClosed().subscribe(result => {
+         console.log('confirmpopup data changed', result);
+         if (result) {
+          this.detailschanged = false;
+          this.getFrameWorkDetails();
+         
+         } else {
+           this.selectedIndex = 0;
+         }
+       });
+       }
       this.totalpages = this.DynamicFomServe.getPageNumbers();
       this.nextBtn = "Save"
       this.next = true;
@@ -478,6 +527,15 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       this.nextBtn = "Next";
     }
     if (this.selectedIndex == 3) {
+      if (this.criteriaEmpty) {
+        this.selectedIndex = 1
+        this.openSnackBar("Initial Criteria Cannot be Empty", "Failed");
+
+      } else {
+        this.nextBtn = "Previous";
+        this.saveBtn = false;
+        this.next = false;
+      }
       if (this.confirm) {
         this.confirmToSaveData();
         this.dialogRef.afterClosed().subscribe(result => {
@@ -494,10 +552,18 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
             this.selectedIndex = 2;
           }
         });
+      } else if (this.detailschanged) {
+        this.detailsdialogRef.afterClosed().subscribe(result => {
+          console.log('confirmpopup data changed', result);
+          if (result) {
+            this.getFrameWorkDetails();
+            this.detailschanged = false;
+          } else {
+            this.selectedIndex = 0;
+          }
+        });
       }
-      this.nextBtn = "Previous";
-      this.saveBtn = false;
-      this.next = false;
+
       // this.confirm = false;
     }
   }
@@ -524,8 +590,14 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         if (this.selectedIndex != this.maxNumberOfTabs) {
           this.selectedIndex = this.selectedIndex + 1;
         }
+        this.openSnackBar("Data saved sucessfully", "Success");
       } else {
         this.questionSubmit = true;
+      }
+      if ((!this.criteriaList.length) || (this.criteriaList[this.allCriteriaList.length - 1].name && this.selectedIndex != this.maxNumberOfTabs)) {
+        this.selectedIndex = this.selectedIndex + 1;
+      } else {
+        this.openSnackBar("Criteria Cannot be Empty", "Failed");
       }
     } else if (this.selectedIndex == 1) {
       if ((!this.criteriaList.length) || (this.criteriaList[this.allCriteriaList.length - 1].name && this.selectedIndex != this.maxNumberOfTabs)) {
@@ -542,7 +614,12 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
 
   previousStep() {
     if (this.selectedIndex != 0) {
-      this.selectedIndex = this.selectedIndex - 1;
+      if ((!this.criteriaList.length) || (this.criteriaList[this.allCriteriaList.length - 1].name && this.selectedIndex != this.maxNumberOfTabs)) {
+        this.selectedIndex = this.selectedIndex - 1;
+      } else {
+        this.openSnackBar("Criteria Cannot be Empty", "Failed");
+      }
+
     }
     console.log(this.selectedIndex);
   }
@@ -589,11 +666,13 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
           description: this.solutionForm.value.solutionDescription,
           entityType: selectedEntity[0].name,
           entityTypeId: selectedEntity[0]._id,
-          externalId:id
+          externalId: id
         }
         this.frameWorkServ.updateDraftFrameWork(obj, this.frameWorkId).subscribe(data => {
           console.log("data", data);
           this.openSnackBar("data updated Succesfully", "Updated");
+          // this.detailschanged = false;
+          //  this.route.navigateByUrl('/workspace/draft');
         },
           error => {
             console.log("data", error);
@@ -679,7 +758,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
 
   // confirmation Method to delete the existing criteria 
   confirmToSaveData() {
-    let message = `Data get loss without save`;
+    let message = `Your changes will be lost if you don't save them.`;
     let dialogData = new ConfirmDialogModel("Confirm Action", message);
     this.dialogRef = this.dialog.open(DeleteConfirmComponent, {
       width: '350px',
@@ -712,8 +791,9 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         this.draftSolutionName = res.name;
         this.draftsolutionDescription = res.description;
         this.draftSolutionLanguage = res.language[0];
+        this.detailschanged = false;
         // console.log("this.draftSolutionLanguage",this.draftSolutionLanguage);
-        
+
         this.draftSolutionEntityType = res.entityTypeId;
         this.keyWordItems = res.keywords;
       }
@@ -739,6 +819,15 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     });
   }
 
+
+  confirmpopup() {
+    let message = `Your changes will be lost if you don't save them.?`;
+    let dialogData = new ConfirmDialogModel("Confirm Action", message);
+    this.detailsdialogRef = this.dialog.open(DeleteConfirmComponent, {
+      width: '350px',
+      data: dialogData
+    })
+  }
   // triiger event from child for drop Question or Save All Question
   eventFromChild($event) {
 
@@ -762,7 +851,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       if ($event.data) {
         _this.allFields = $event.data;
         _this.allFields.forEach(function (element, index) {
-          
+
           // to update the existing question object and update to server
           if (element._id && _this.updateArray.includes(element._id)) {
             // console.log("updated  ---", element);
@@ -790,16 +879,16 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
             // obj.question.push(element.options);
 
 
-           
-            console.log("element.type && element.type ",element.type )
 
-            
-            if (element.type && element.type =="matrix" ) {
+            console.log("element.type && element.type ", element.type)
+
+
+            if (element.type && element.type == "matrix") {
               _this.createQuestionAndUpdateMatrixQuestion(element);
-             
-            }else{
+
+            } else {
               let updateQuestionObj = _this.dbQuestionObjGeneration(element);
-              
+
               _this.updateDraftQuestion(updateQuestionObj, element._id);
             }
           } else {
@@ -921,12 +1010,12 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
     } else if ($event.action == 'update') {
       this.confirm = true
       debugger;
-      console.log("------update------",$event);
+      console.log("------update------", $event);
       // update arry contains only existing data which is available in server
       if ($event.data._id) {
         _this.updateArray.push($event.data._id);
       }
-      if($event.data.data && $event.data.data._id){
+      if ($event.data.data && $event.data.data._id) {
         _this.updateArray.push($event.data.data._id);
       }
       console.log('update---------', _this.updateArray)
@@ -955,9 +1044,9 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
           }
           _this.allQuestionWithDetails = _this.allQuestionWithDetails.filter(function (el, index) {
             // return $event.data._id;
-            if(el._id && el._id != $event.data._id){
+            if (el._id && el._id != $event.data._id) {
               return el;
-            }else if(el.field && el.field != $event.data.field){
+            } else if (el.field && el.field != $event.data.field) {
               return el;
             }
             // if(el._id && el._id ==$event.data._id ){
@@ -968,18 +1057,18 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
             // }
           })
           console.log(" after _this.allQuestionWithDetails", _this.allQuestionWithDetails);
-          if($event.data._id){
+          if ($event.data._id) {
             this.deleteDraftQuestion($event.data._id);
-          }else{
+          } else {
             let obj = {
               questionArray: this.allQuestionWithDetails,
               criteriaList: this.criteriaList
             }
             this.eventsSubject.next(obj);
           }
-          
-          
-         
+
+
+
         }
       });
     } else if ($event.action == 'childDroped') {
@@ -993,7 +1082,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         let message = $event.data.data.responseType.charAt(0).toUpperCase() + $event.data.data.responseType.substring(1) + ' ' + 'Question Added Succesfully in Matrix';
         this.openSnackBar(message, "Added");
 
-        
+
         if ($event.data.data.mutiSelect && $event.data.data.mutiSelect._id) {
           _this.updateArray.push($event.data.data.mutiSelect._id);
         }
@@ -1122,7 +1211,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
           }
           this.updateDraftQuestion(updateObj, data['result']._id);
           this.allFields[index]._id = data['result']._id;
-        
+
           return data['result']._id;
         } else {
           return data['result'];
@@ -1135,13 +1224,13 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   }
 
   updateDraftQuestion(obj, questionId) {
-    let updateQuestionObj = { };
-    if(obj.question && obj.question.length > 0  ){
-       updateQuestionObj = obj;
-    }else{
-       updateQuestionObj = this.dbQuestionObjGeneration(obj);
+    let updateQuestionObj = {};
+    if (obj.question && obj.question.length > 0) {
+      updateQuestionObj = obj;
+    } else {
+      updateQuestionObj = this.dbQuestionObjGeneration(obj);
     }
-    
+
     this.frameWorkServ.updateDraftQuestion(updateQuestionObj, questionId).subscribe(data => {
       if (data['result']) {
       } else {
@@ -1151,46 +1240,46 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   }
 
   createQuestionAndUpdateMatrixQuestion(obj) {
-   debugger;
-    let _this = this; 
-    if( obj.child &&  obj.child.length > 0){
-    obj.child.forEach(element => {
-      if(!element._id){
+    debugger;
+    let _this = this;
+    if (obj.child && obj.child.length > 0) {
+      obj.child.forEach(element => {
+        if (!element._id) {
 
 
-        let updateQuestionObj = _this.dbQuestionObjGeneration(element);
-        
-        let frameWorkData = {
-          "draftFrameworkId": _this.frameWorkId,
-          "draftCriteriaId":  element.draftCriteriaId,
-          "draftEvidenceMethodId": _this.draftEvidenceMethodId,
-          "draftSectionId": _this.draftSectionId
-        }
+          let updateQuestionObj = _this.dbQuestionObjGeneration(element);
 
-        _this.frameWorkServ.draftQuestionCreate(frameWorkData).subscribe(childData => {
-          console.log("childDatachildData ",childData);
-          if (childData['result']) {
-            _this.updateDraftQuestion(updateQuestionObj,childData['result']._id);
-
-            _this.frameWorkServ.detailsDraftQuestion(obj._id).subscribe(matrixData => {
-              // matrixData['result'].instanceQuestions.push(childData['result']._id);
-              let updateOb = {
-                instanceQuestions:[]
-              }
-              updateOb.instanceQuestions = matrixData['result'].instanceQuestions;
-              updateOb.instanceQuestions.push(childData['result']._id);
-              console.log(updateOb,"instanceQuestions",updateOb.instanceQuestions.length)
-             _this.updateDraftQuestion(updateOb,obj._id);
-            });
+          let frameWorkData = {
+            "draftFrameworkId": _this.frameWorkId,
+            "draftCriteriaId": element.draftCriteriaId,
+            "draftEvidenceMethodId": _this.draftEvidenceMethodId,
+            "draftSectionId": _this.draftSectionId
           }
+
+          _this.frameWorkServ.draftQuestionCreate(frameWorkData).subscribe(childData => {
+            console.log("childDatachildData ", childData);
+            if (childData['result']) {
+              _this.updateDraftQuestion(updateQuestionObj, childData['result']._id);
+
+              _this.frameWorkServ.detailsDraftQuestion(obj._id).subscribe(matrixData => {
+                // matrixData['result'].instanceQuestions.push(childData['result']._id);
+                let updateOb = {
+                  instanceQuestions: []
+                }
+                updateOb.instanceQuestions = matrixData['result'].instanceQuestions;
+                updateOb.instanceQuestions.push(childData['result']._id);
+                console.log(updateOb, "instanceQuestions", updateOb.instanceQuestions.length)
+                _this.updateDraftQuestion(updateOb, obj._id);
+              });
+            }
+          });
+        } else {
+          _this.updateDraftQuestion(element, element._id);
+        }
       });
-      }else{
-        _this.updateDraftQuestion(element,element._id);
-      }
-    });
+    }
+    _this.updateDraftQuestion(obj, obj._id);
   }
-  _this.updateDraftQuestion(obj,obj._id);
-}
 
 
   criteriaChange() {
@@ -1437,12 +1526,12 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         return item;
       }
     });
-   _this.localQuestionList.length = 0
-    console.log("_this.localQuestionList    ----- BEFORE",_this.localQuestionList.length);
+    _this.localQuestionList.length = 0
+    console.log("_this.localQuestionList    ----- BEFORE", _this.localQuestionList.length);
     allRecords.forEach(function (element, index) {
-      
+
       let questionObj = _this.reGenerateQuestionObject(element, index);
-      console.log(index," index _this.localQuestionList    -----",_this.localQuestionList);
+      console.log(index, " index _this.localQuestionList    -----", _this.localQuestionList);
       if (_this.localQuestionList == allRecords.length - 1) {
         let obj = {
           questionArray: _this.localQuestionList,
@@ -1450,21 +1539,21 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         }
         // this.eventsSubject.next(obj);
 
-        console.log("_this.localQuestionList",_this.localQuestionList);
-        if(!_this.allQuestionWithDetails){
+        console.log("_this.localQuestionList", _this.localQuestionList);
+        if (!_this.allQuestionWithDetails) {
           _this.allQuestionWithDetails = [];
           _this.allQuestionWithDetails = _this.localQuestionList;
-        }else{
+        } else {
           _this.allQuestionWithDetails = _this.localQuestionList;
         }
-        
+
       }
-      });
-   }
+    });
+  }
 
   reGenerateQuestionObject(element, legnth) {
 
-    console.log("reGenerateQuestionObject ---",element);
+    console.log("reGenerateQuestionObject ---", element);
     if (element._id) {
 
       // console.log("===============element========",element);
@@ -1503,7 +1592,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
           questionArray: array,
           criteriaList: this.criteriaList
         }
-         this.eventsSubject.next(obj);
+        this.eventsSubject.next(obj);
       }
       return obj;
 
@@ -1594,9 +1683,9 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         _id: element._id,
         description: "",
         draftCriteriaId: element.draftCriteriaId,
-        isDeleted:element.isDeleted?element.isDeleted:false
-       
-        
+        isDeleted: element.isDeleted ? element.isDeleted : false
+
+
       }
     }
     if (ele == 'number') {
@@ -1712,7 +1801,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         name: len + ". question",
         type: responseType,
         label: label,
-         validations: {
+        validations: {
           required: isRequired,
           minLenght: "",
           maxLength: ""
@@ -1723,38 +1812,38 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
         description: "",
         draftCriteriaId: element.draftCriteriaId,
         instanceQuestions: element.instanceQuestions ? element.instanceQuestions : [],
-        child:element.childArray,
+        child: element.childArray,
       }
     }
 
-    obj['prefix'] =element.prefix?element.prefix:"";
-    obj['applicable'] =element.applicable?element.applicable:false;
-    obj['audiorecording'] = element.audiorecording?element.audiorecording:false;
-    obj['filecount'] = element.filecount?element.filecount:0;
-    obj['fileType'] = element.fileType?element.fileType:"";
-    obj['caption'] = element.caption?element.caption:false;
-    obj['remarks'] =element.remarks?element.remarks:false;
-    obj['filerequired'] = element.filerequired?element.filerequired:false;
+    obj['prefix'] = element.prefix ? element.prefix : "";
+    obj['applicable'] = element.applicable ? element.applicable : false;
+    obj['audiorecording'] = element.audiorecording ? element.audiorecording : false;
+    obj['filecount'] = element.filecount ? element.filecount : 0;
+    obj['fileType'] = element.fileType ? element.fileType : "";
+    obj['caption'] = element.caption ? element.caption : false;
+    obj['remarks'] = element.remarks ? element.remarks : false;
+    obj['filerequired'] = element.filerequired ? element.filerequired : false;
 
     // obj['']=
-    
 
-    if(obj['type']=="matrix"){
-      obj['sectionHeader'] = element.sectionHeader?element.sectionHeader:"";
+
+    if (obj['type'] == "matrix") {
+      obj['sectionHeader'] = element.sectionHeader ? element.sectionHeader : "";
       let allChilds = []
-      obj['child'] =  obj['child'].filter((childObj,i) => {
+      obj['child'] = obj['child'].filter((childObj, i) => {
         let latestChildObj = this.getObjectOfField(childObj.responseType, childObj, i, childObj.question[0]);
         allChilds.push(latestChildObj);
         return latestChildObj;
       });
       obj['child'] = allChilds;
       return obj;
-      
-    }else{
+
+    } else {
 
       return obj
     }
-    
+
   }
   deleteDraftQuestion(questionId) {
 
@@ -1795,7 +1884,11 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
    * @param element  is contain the update date of criteria
    */
   criteriaUpdate(element) {
+    console.log('update element', element);
     let _this = this;
+    if (element.name == '' || element.description === '') {
+      this.criteriaEmpty = true;
+    }
     _this.allCriteriaList.filter(function (item, index) {
       if (item._id == element._id) {
         if (item.name != element.name || item.description != element.description) {
@@ -1812,6 +1905,8 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
             _this.criteriaList.sort = _this.sort;
             _this.criteriaSubmitted = false;
           });
+        } else {
+          _this.criteriaEmpty = true;
         }
       }
     })
@@ -1877,7 +1972,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       question: [],
       responseType: element.type,
       options: options,
-      isDeleted:element.isDeleted?element.isDeleted:false,
+      isDeleted: element.isDeleted ? element.isDeleted : false,
       validation: {
         required: element.validations.required ? element.validations.required : false
       },
@@ -1885,30 +1980,30 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       children: element.parentChildren ? element.parentChildren : [],
     }
 
-    updateQuestionObj['prefix'] =element.prefix?element.prefix:"";
-    updateQuestionObj['applicable'] =element.applicable?element.applicable:false;
-    updateQuestionObj['audiorecording'] = element.audiorecording?element.audiorecording:false;
-    updateQuestionObj['filecount'] = element.filecount?element.filecount:0;
-    updateQuestionObj['fileType'] = element.fileType?element.fileType:"";
-    updateQuestionObj['caption'] = element.caption?element.caption:false;
-    updateQuestionObj['remarks'] =element.remarks?element.remarks:"";
-    updateQuestionObj['filerequired'] = element.filerequired?element.filerequired:false;
+    updateQuestionObj['prefix'] = element.prefix ? element.prefix : "";
+    updateQuestionObj['applicable'] = element.applicable ? element.applicable : false;
+    updateQuestionObj['audiorecording'] = element.audiorecording ? element.audiorecording : false;
+    updateQuestionObj['filecount'] = element.filecount ? element.filecount : 0;
+    updateQuestionObj['fileType'] = element.fileType ? element.fileType : "";
+    updateQuestionObj['caption'] = element.caption ? element.caption : false;
+    updateQuestionObj['remarks'] = element.remarks ? element.remarks : "";
+    updateQuestionObj['filerequired'] = element.filerequired ? element.filerequired : false;
 
     if (element.type == "date") {
       updateQuestionObj.validation['max'] = element.validations.maxDate;
       updateQuestionObj.validation['min'] = element.validations.minDate;
-      updateQuestionObj['autoCollect'] = element.autoCollect?element.autoCollect:false;
-      updateQuestionObj['dateformat'] = element.dateformat?element.dateformat:"";
-    }else if (element.type == "matrix") {
-      
-      updateQuestionObj['instanceIdentifier'] = element.instanceIdentifier?element.instanceIdentifier:false; 
-      updateQuestionObj['sectionHeader'] = element.sectionHeader?element.sectionHeader:false;
-    }else if(element.type== "Number"){
-      updateQuestionObj['weightage'] = element.weightage?element.weightage:false;
-      
-    }else if(element == 'slider'){
-      updateQuestionObj['max'] =  element.max?element.max:false;
-      updateQuestionObj['min'] = element.min?element.min:false;
+      updateQuestionObj['autoCollect'] = element.autoCollect ? element.autoCollect : false;
+      updateQuestionObj['dateformat'] = element.dateformat ? element.dateformat : "";
+    } else if (element.type == "matrix") {
+
+      updateQuestionObj['instanceIdentifier'] = element.instanceIdentifier ? element.instanceIdentifier : false;
+      updateQuestionObj['sectionHeader'] = element.sectionHeader ? element.sectionHeader : false;
+    } else if (element.type == "Number") {
+      updateQuestionObj['weightage'] = element.weightage ? element.weightage : false;
+
+    } else if (element == 'slider') {
+      updateQuestionObj['max'] = element.max ? element.max : false;
+      updateQuestionObj['min'] = element.min ? element.min : false;
     }
     updateQuestionObj.question.push(element.label);
     updateQuestionObj['externalId'] = this.generateExternalId();
@@ -1916,7 +2011,7 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
 
   }
 
-   generateExternalId() {
+  generateExternalId() {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.

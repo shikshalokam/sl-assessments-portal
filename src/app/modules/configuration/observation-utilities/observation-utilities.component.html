@@ -69,7 +69,8 @@
           <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
             <mat-card class="card-block">
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Solution Name" formControlName="solutionName"
+                <mat-label>Solution Name *</mat-label>
+                <input matInput placeholder="Solution Name" (change)="modelChanged($event)" formControlName="solutionName"
                   [(ngModel)]="draftSolutionName">
 
               </mat-form-field>
@@ -86,7 +87,7 @@
                 </mat-form-field> -->
 
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Description" formControlName="solutionDescription"
+                <input matInput placeholder="Description" (change)="modelChanged($event)" formControlName="solutionDescription"
                   [(ngModel)]="draftsolutionDescription">
               </mat-form-field>
 
@@ -103,14 +104,14 @@
                 </mat-form-field> -->
 
               <div class="col-sm-12 add-keyword-block">
-                <tag-input [(ngModel)]='keyWordItems' [secondaryPlaceholder]="'Add Keywords'"
+                <tag-input [(ngModel)]='keyWordItems' (change)="modelChanged($event)" [secondaryPlaceholder]="'Add Keywords'"
                   [placeholder]="'Add Keywords'" formControlName="solutionKeywords"></tag-input>
               </div>
 
               <div class="m-top-10">
                 <mat-form-field class="col-xs-12 ">
                   <mat-label>Select Language</mat-label>
-                  <select matNativeControl required formControlName="solutionLanguage"
+                  <select matNativeControl required  (change)="modelChanged($event)" formControlName="solutionLanguage"
                     [(ngModel)]="draftSolutionLanguage">
                     <option *ngFor="let item of languageArr" [value]="item"> {{ item }} </option>
                     <!-- <option [value]="English">English</option>  
@@ -128,7 +129,7 @@
               <div class="m-top-10">
                 <mat-form-field class="col-xs-12">
                   <mat-label>Entity Type</mat-label>
-                  <select matNativeControl required formControlName="solutionEntityType"
+                  <select matNativeControl required  (change)="modelChanged($event)" formControlName="solutionEntityType"
                     [(ngModel)]="draftSolutionEntityType">
                     <option *ngFor="let item of entitys[0]" [value]="item._id">{{ item.name }} </option>
                   </select>
@@ -140,7 +141,7 @@
               </div>
               <div class="col-sm-12 noPadd">
               <div class="col-sm-12 padd-bottom-5">Voice Over ?</div>
-              <mat-radio-group aria-label="isReusable" formControlName="voiceOver" class="col-xs-12">
+              <mat-radio-group aria-label="isReusable" (change)="modelChanged($event)" formControlName="voiceOver" class="col-xs-12">
                 <mat-radio-button value="true">Yes</mat-radio-button>
                 <mat-radio-button value="false">No</mat-radio-button>
               </mat-radio-group>

@@ -37,7 +37,15 @@ export class PublishingComponent implements OnInit,AfterViewInit {
     search:true,
     sort: true,
     pagination: true,
-    actions: true,
+    actions:{
+      edit: false,
+      delete: false,
+      senttoreview: false,
+      upforreview: false,
+      published: true,
+      search: true,
+      pagination: true
+    },
     title: "Published Framework List"
   }
 

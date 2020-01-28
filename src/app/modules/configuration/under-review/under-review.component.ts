@@ -19,11 +19,11 @@ import { Subject } from 'rxjs';
 
 
 
-export class UnderReviewComponent implements OnInit,AfterViewInit {
+export class UnderReviewComponent implements OnInit, AfterViewInit {
 
   // dataSource:any;
   eventsSubject: Subject<void> = new Subject<void>();
-  field:Subject<any> = new Subject();
+  field: Subject<any> = new Subject();
   showTable: boolean = true;
   element = []
   dataSource: any;
@@ -34,10 +34,18 @@ export class UnderReviewComponent implements OnInit,AfterViewInit {
   tableData: any;
   spin: any;
   config = {
-    search:true,
+    search: true,
     sort: true,
     pagination: true,
-    actions: true,
+    actions: {
+      edit: true,
+      delete: true,
+      senttoreview: false,
+      upforreview: false,
+      published: false,
+      search: true,
+      pagination: true
+    },
     title: "Under Review List"
   }
 
@@ -125,9 +133,13 @@ export class UnderReviewComponent implements OnInit,AfterViewInit {
     }
     else if (data.action == 'delete') {
       this.deleteDraftFW(data._id);
-    }else if (data.action == 'pagination') {
+    } else if (data.action == 'pagination') {
       this.getNext(data);
-    }else if(data.action == 'review'){
+    } else if (data.action == 'review') {
+      // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
+      this.updateToReviewStatus(data);
+
+    } else if (data.action == 'upforreview') {
       // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
       this.updateToReviewStatus(data);
 
@@ -137,7 +149,7 @@ export class UnderReviewComponent implements OnInit,AfterViewInit {
 
 
   getList() {
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1,"review").subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1, "review").subscribe(
       data => {
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
         this.totalFrameWorks = data['result'].count;
@@ -168,7 +180,7 @@ export class UnderReviewComponent implements OnInit,AfterViewInit {
     console.log('getNext', event);
     this.pageSize = event.pageSize;
     let offset = event.pageSize * event.pageIndex;
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1,'review').subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1, 'review').subscribe(
       data => {
         this.dataSource = data['result'].data;
         console.log('==this.dataSource=', this.dataSource);
@@ -180,7 +192,7 @@ export class UnderReviewComponent implements OnInit,AfterViewInit {
           configdata: this.config
         }
         console.log('==this.tableData=', this.tableData);
-       
+
         this.cdr.detectChanges();
         this.field.next();
       },
@@ -198,21 +210,77 @@ export class UnderReviewComponent implements OnInit,AfterViewInit {
 
   }
 
-  updateToReviewStatus(data){
-
+  updateToReviewStatus(data) {
 
     let obj = {
-     status:"review"
+      status: "upforreview"
     }
-    console.log("==========",data);
+
+    this.updateAllEcm(data._id);
+    this.updateAllDraftSection(data._id);
+    this.updateALlCriteria(data._id);
+    this.updateAllQuestion(data._id);
+
+
     this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
       console.log("data", data);
-      this.openSnackBar("Sent For Review", "Updated");
+      this.getList();
+      this.openSnackBar("sent Up For Review", "Updated");
     },
       error => {
         console.log("data", error);
-    });
+      });
 
+  }
+
+  updateAllEcm(frameWorkId) {
+    this.frameWorkServ.listDraftEcm(frameWorkId).subscribe(data => {
+      if (data['result'] && data['result'].data) {
+
+        console.log("data['result'].data", data['result'].data);
+        data['result'].data.forEach(element => {
+          this.frameWorkServ.updateDraftECM(element._id, { status: 'upforreview' }).subscribe(result => {
+
+            console.log("ecm update", result);
+          });
+        });
+
+      }
+    });
+  }
+
+  updateAllDraftSection(frameWorkId) {
+    console.log("frameWorkId", frameWorkId);
+    this.frameWorkServ.listDraftSection(frameWorkId).subscribe(data => {
+      data['result'].data.forEach(element => {
+        this.frameWorkServ.updateDraftSection(element._id, { status: 'upforreview' }).subscribe(result => {
+          console.log("alllll frame work section update", result);
+        });
+      });
+    });
+  }
+
+  updateALlCriteria(frameWorkId) {
+
+    this.frameWorkServ.draftCriteriaList(frameWorkId, 100, 0).subscribe(data => {
+
+      console.log("all criteria", data['result'].data);
+      data['result'].data.forEach(element => {
+        this.frameWorkServ.updateDraftCriteria(element._id, { status: 'upforreview' }).subscribe(result => {
+          console.log("criteria update", result);
+        });
+      });
+    });
+  }
+
+  updateAllQuestion(frameWorkId) {
+    this.frameWorkServ.draftQuestionList(frameWorkId).subscribe(data => {
+      data['result'].data.forEach(element => {
+        this.frameWorkServ.updateDraftQuestion({ status: 'upforreview' }, element._id).subscribe(result => {
+          console.log("question update", result);
+        });
+      });
+    });
   }
 
   // ngOnDestroy() {
