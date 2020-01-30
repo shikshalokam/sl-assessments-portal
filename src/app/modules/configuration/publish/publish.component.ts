@@ -149,13 +149,17 @@ export class PublishComponent implements OnInit, AfterContentChecked {
   }
 
   reviewData(data) {
-
     data.action = 'review';
     this.datasending.emit(data);
   }
 
   upforreview(data){
     data.action = 'upforreview';
+    this.datasending.emit(data);
+  }
+
+  reviewdata(data){
+    console.log('==========', data);
     this.datasending.emit(data);
   }
 

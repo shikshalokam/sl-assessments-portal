@@ -23,9 +23,9 @@
             </button> -->
 
             <i *ngIf = "configdata.actions.senttoreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Send For Review">rate_review</i>
-            <i *ngIf = "configdata.actions.upforreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="upforreview(element)" title="Up For Review">rate_review</i>
-            <i *ngIf = "configdata.actions.request_change" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Request Changes">track_changes</i>
-            <i *ngIf = "configdata.actions.published" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="publish">publish</i>
+            <i *ngIf = "configdata.actions.upforreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Review">rate_review</i>
+            <i *ngIf = "configdata.actions.request_change" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData12(element)" title="Request Changes">track_changes</i>
+            <i *ngIf = "configdata.actions.published" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer" title="publish">publish</i>
 
           </span>
         </mat-cell>

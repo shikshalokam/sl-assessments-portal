@@ -424,13 +424,11 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     // this.getGeneratedQuestion();
     // this.spinner.show();
-debugger
     this.spinner.hide();
     this.clickedIndex = tabChangeEvent.index;
     this.selectedIndex = tabChangeEvent.index;
     console.log('tab changed', this.selectedIndex, this.detailschanged);
     this.saveBtn = false;
-
     if (this.detailschanged && this.selectedIndex != 0) {
       this.confirmpopup();
     }
@@ -671,7 +669,9 @@ debugger
         this.frameWorkServ.updateDraftFrameWork(obj, this.frameWorkId).subscribe(data => {
           console.log("data", data);
           this.openSnackBar("data updated Succesfully", "Updated");
-          // this.detailschanged = false;
+          this.detailschanged = false;
+          this.getFrameWorkDetails();
+          this.selectedIndex = this.selectedIndex + 1;
           //  this.route.navigateByUrl('/workspace/draft');
         },
           error => {
@@ -1886,7 +1886,9 @@ debugger
   criteriaUpdate(element) {
     console.log('update element', element);
     let _this = this;
-    if (element.name == '' || element.description === '') {
+    if (element.name !== '' && element.description !== '') {
+      this.criteriaEmpty = false;
+    } else {
       this.criteriaEmpty = true;
     }
     _this.allCriteriaList.filter(function (item, index) {
@@ -1905,8 +1907,6 @@ debugger
             _this.criteriaList.sort = _this.sort;
             _this.criteriaSubmitted = false;
           });
-        } else {
-          _this.criteriaEmpty = true;
         }
       }
     })
