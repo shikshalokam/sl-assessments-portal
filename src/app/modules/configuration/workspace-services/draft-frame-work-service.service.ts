@@ -31,8 +31,9 @@ export class DraftFrameWorkServiceService {
     });
 
   }
-  updateDraftFrameWork(obj,frameWorkId){
 
+  // To update the object based on frameworkId
+  updateDraftFrameWork(obj,frameWorkId){
     let tokenInfo = localStorage.getItem("auth-token");
     //  console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
@@ -225,6 +226,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // To get all the questions based on the framework
   draftQuestionList(frameWorkId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({
@@ -247,6 +250,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // Details for each question
   detailsDraftQuestion(questionId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({

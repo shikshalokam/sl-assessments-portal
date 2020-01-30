@@ -34,9 +34,10 @@ import { UnderReviewComponent } from './under-review/under-review.component';
 import { PublishComponent } from './publish/publish.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 // import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { DialogOverviewExampleDialog } from './up-for-review/up-for-review.component';
 
 import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-form-builder';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonChildModule } from './publish/common.module';
@@ -56,6 +57,8 @@ import { PublishingComponent } from './publishing/publishing.component';
     PublishComponent,
     UpForReviewComponent,
     PublishingComponent,
+    DialogOverviewExampleDialog
+    
   ],
   imports: [
     CommonModule,
@@ -83,6 +86,7 @@ import { PublishingComponent } from './publishing/publishing.component';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
     // MatSortModule, // here is the problem with is module
     // FormioModule,
     // NgDragDropModule.forRoot(),
@@ -99,6 +103,6 @@ import { PublishingComponent } from './publishing/publishing.component';
   providers: [DynamicFormComponent,
     DynamicFormBuilderService,
     MatDatepickerModule],
-  entryComponents: [DeleteConfirmComponent]
+  entryComponents: [DeleteConfirmComponent, DialogOverviewExampleDialog]
 })
 export class ConfigurationModule { }
