@@ -1,6 +1,44 @@
-<!-- <div class="col-sm-12"> -->
-  <mat-card style="float: left;margin:5%;width:80%">
-    <h3>Coming Soon ...</h3>
-  </mat-card>
-<!-- </div> -->
 
+<div>
+  <h3 style="text-align: center;">{{configdata.title}}</h3>
+</div>
+<div *ngIf = "configdata.search">
+  <mat-form-field class="search">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+<div class="col-sm-12">
+  <div class="col-sm-12 mat-elevation-z8 noPadd">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+      <ng-container *ngFor="let column of finaldisplaycolummns" matColumnDef="{{column.name}}">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.label}} </mat-header-cell>
+        <mat-cell  *matCellDef="let element">
+          <span *ngIf="column.name!='action'"> {{element[column.name]}} </span>
+          <span *ngIf="column.name =='action'">
+            <i *ngIf = "configdata.actions.edit" class="material-icons actioncolor action cursor-pointer"(click)="editData(element)" style="padding-left: 5em;" title="Edit">edit</i>
+            <i *ngIf = "configdata.actions.delete" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="deleteData(element)" title="Delete">delete</i>
+
+            <!-- <button mat-flat-button color="primary" style="margin-right:10px;" (click)="reviewData(element)">
+              Submit For Review
+            </button> -->
+
+            <i *ngIf = "configdata.actions.senttoreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Send For Review">rate_review</i>
+            <i *ngIf = "configdata.actions.upforreview" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData(element)" title="Review">rate_review</i>
+            <i *ngIf = "configdata.actions.request_change" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"(click)="reviewData12(element)" title="Request Changes">track_changes</i>
+            <i *ngIf = "configdata.actions.published" style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer" title="publish">publish</i>
+
+          </span>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <!-- <mat-paginator #paginator [length]="totalFrameWorks" [showFirstLastButtons]="true"
+      [pageSizeOptions]="[5,10,20,50,100]" class="col-sm-12" [pageSize]="pageSize" (page)="pagination($event)">
+    </mat-paginator> -->
+    <mat-paginator #paginator [length]="totalFrameWorks" [showFirstLastButtons]="true"
+      [pageSizeOptions]="[5,10,20,50,100]" class="col-sm-12" [pageSize]="pageSize" (page)="pagination($event)" #paginator>
+    </mat-paginator>
+  </div>
+</div>
