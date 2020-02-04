@@ -1,0 +1,38 @@
+.margin-40px {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+.noPadd {
+    padding: 0px;
+}
+
+.mat-column-action {
+    text-align: right;
+    justify-content: flex-end;
+   }
+
+   .action {
+    font-size: 20px;
+   }
+
+   .actioncolor {
+    color: #a63936;
+   }
+
+   .search {
+    float: left;
+    padding-top: 20px;
+    padding-left: 15px;
+    width: 50%;;
+   }
+
+   .cdk-column-no {
+    max-width: 10%;
+   } 
+   .mat-column-no {
+    max-width: 10%;
+   }

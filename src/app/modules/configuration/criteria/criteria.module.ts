@@ -9,6 +9,7 @@ import { CoreModule } from 'shikshalokam';
 import { MatCardModule, MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [CriteriaComponent, CriteriaListComponent, AddCriteriaBoxComponent],
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxSpinnerModule
 
   ],
   entryComponents: [AddCriteriaBoxComponent],

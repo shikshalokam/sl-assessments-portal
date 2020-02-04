@@ -11,13 +11,10 @@ export class ObservationReviewComponent implements OnInit {
   displayedColumns:any;
   dataSource:any;
   solutionDetails:any;
-
   animal: string;
   name: string;
   review = false;
-
   questionList:any;
-
   @ViewChild('callAPIDialog') callAPIDialog: TemplateRef<any>;
 
   constructor(public dialog: MatDialog) { }

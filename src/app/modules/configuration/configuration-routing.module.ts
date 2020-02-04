@@ -10,6 +10,7 @@ import { DraftComponent } from './draft/draft.component';
 import  { PublishComponent } from './publish/publish.component';
 import { UnderReviewComponent } from './under-review/under-review.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component'
+import { PublishingComponent } from './publishing/publishing.component';
 
 // import { }
 
@@ -87,7 +88,7 @@ const routes: Routes = [
       },
       {
         path: 'publish',
-        component : PublishComponent
+        component : PublishingComponent
       },
       {
         path: 'up-for-review',
