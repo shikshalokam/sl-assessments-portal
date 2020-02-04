@@ -16,20 +16,24 @@ export class DraftFrameWorkServiceService {
   constructor(private apiService: ApiService, private http: HttpClient,private jwtHelper: JwtHelperService) { }
 
   createDraftFrameWork() {
-
     let tokenInfo = localStorage.getItem("auth-token");
-    //  console.log("tokenInfo",tokenInfo);
+     console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
     })
+
+  
+    
+    // console.log("console.lg")
     return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.createDraftFrameWork, {}, {
       headers: customHeader
     });
 
   }
-  updateDraftFrameWork(obj,frameWorkId){
 
+  // To update the object based on frameworkId
+  updateDraftFrameWork(obj,frameWorkId){
     let tokenInfo = localStorage.getItem("auth-token");
     //  console.log("tokenInfo",tokenInfo);
     const customHeader = new HttpHeaders({
@@ -42,7 +46,7 @@ export class DraftFrameWorkServiceService {
 
   }
 
-  listOfDraftFrameWork(limit,PageNumber){
+  listOfDraftFrameWork(limit,PageNumber,listType){
 
     let tokenInfo = localStorage.getItem("auth-token");
 
@@ -52,7 +56,7 @@ export class DraftFrameWorkServiceService {
       'X-authenticated-user-token': tokenInfo,
       'Content-Type': 'application/json'
     })
-    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftFrameWorkList+"?page="+PageNumber+"&limit="+limit, {
+    return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftFrameWorkList+"?page="+PageNumber+"&limit="+limit+"&listType="+listType, {
       headers: customHeader
     });
 
@@ -209,6 +213,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // update status
   updateDraftQuestion(obj,questionId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({
@@ -220,6 +226,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // To get all the questions based on the framework
   draftQuestionList(frameWorkId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({
@@ -242,6 +250,8 @@ export class DraftFrameWorkServiceService {
       headers: customHeader
     });
   }
+
+  // Details for each question
   detailsDraftQuestion(questionId){
     let tokenInfo = localStorage.getItem("auth-token");
     const customHeader = new HttpHeaders({
@@ -250,6 +260,45 @@ export class DraftFrameWorkServiceService {
     })
     
     return this.http.get(environment.frameWorkbaseurl + configOfFrameWorkAPIs.detailsDraftQuestion+questionId, {
+      headers: customHeader
+    });
+
+  }
+
+  publishDraftFrameWork(frameWorkId,entityType){
+
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.publishDraftFrameWork+frameWorkId+'?entityType='+entityType,{}, {
+      headers: customHeader
+    });
+
+  }
+
+  updateDraftECM(ecmId,obj){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftEcmUpdate+ecmId,obj, {
+      headers: customHeader
+    });
+
+  }
+  updateDraftSection(sectionId,obj){
+    let tokenInfo = localStorage.getItem("auth-token");
+    const customHeader = new HttpHeaders({
+      'X-authenticated-user-token': tokenInfo,
+      'Content-Type': 'application/json'
+    })
+    
+    return this.http.post(environment.frameWorkbaseurl + configOfFrameWorkAPIs.draftSectionUpdate+sectionId,obj, {
       headers: customHeader
     });
 
