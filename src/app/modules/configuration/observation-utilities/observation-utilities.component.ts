@@ -500,6 +500,8 @@ export class ObservationUtilitiesComponent implements OnInit, AfterContentChecke
       // this.confirm = false;
     }
     if (this.selectedIndex == 2) {
+
+      console.log("allQuestionWithDetails",this.questionList);
       if (!this.confirm) {
         this.unSavedQuestionList = [];
       }

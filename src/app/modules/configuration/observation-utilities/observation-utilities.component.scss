@@ -187,7 +187,9 @@ margin-top:20px;
   .comingsoon-block {
     float: left;
             width: 98%;
-            margin: 15px;height: 300px;
+            margin: 15px;
+            min-height: 300px;
+            height: auto;
   }
 
   .mtable {
@@ -246,6 +248,13 @@ margin-top:20px;
    padding:0px;
  }
 
+.question-preview {
+  box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding:10px;
+  margin-top: 20px;
+
+}
+ 
 
   
   

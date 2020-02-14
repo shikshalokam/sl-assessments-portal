@@ -68,14 +68,15 @@ export class AuthService {
   async getUserRoles() {
 
     let tokenInfo = this.jwtHelper.decodeToken(this.keycloakAuth.token);
-    // console.log("tokenInfo",tokenInfo);
+    console.log("tokenInfo",tokenInfo);
     const headers = new HttpHeaders()
       .set("X-authenticated-user-token", this.getToken());
-    await this.http.get(environment.base_user_management+ authConfig.getProfileDetails + tokenInfo.sub, { headers }).toPromise()
+    await this.http.get(environment.kendra_base_url+ authConfig.getProfileDetails + tokenInfo.sub, { headers }).toPromise()
     .then(
       data =>{
-        // console.log("http data",data);
+        console.log("http data");
         if(data && data['status']){
+          console.log("http data",data);
           localStorage.setItem("roleInfo",JSON.stringify(data['result']));
           return (data);
         }else{
@@ -95,14 +96,15 @@ export class AuthService {
     let allowedArray = [];
     roles.roles.forEach(element => {
 
-      if(element=="OBS_REVIEWER"){
+      if(element==environment.obs_reviewer){
+        allowedArray.push("/workspace");
         allowedArray.push("/workspace/publish");
-        allowedArray.push("/workspace/under-review");
-        allowedArray.push("/workspace/up-for-review");
-      }else if(element=="OBS_DESIGNER"){
+         allowedArray.push("/workspace/up-for-review");
+      }else if(element==environment.obs_designer){
         allowedArray.push("/workspace");
         allowedArray.push("/workspace/create");
         allowedArray.push("/workspace/draft");
+        allowedArray.push("/workspace/under-review");
        }
     });
   

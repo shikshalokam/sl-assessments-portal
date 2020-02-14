@@ -11,6 +11,7 @@ import  { PublishComponent } from './publish/publish.component';
 import { UnderReviewComponent } from './under-review/under-review.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component'
 import { PublishingComponent } from './publishing/publishing.component';
+import { AuthGuard } from '../../modules/private-modules/auth-gaurd/auth.gaurd';
 
 // import { }
 
@@ -37,6 +38,7 @@ const routes: Routes = [
         data: {
           breadcrumb:''
         },
+        canActivate:[AuthGuard],
         // component: DashboardComponent
         component:ObservationUtilitiesComponent
       },
@@ -56,6 +58,7 @@ const routes: Routes = [
         data: {
           breadcrumb:''
         },
+        canActivate:[AuthGuard],
         // component: DashboardComponent
         component:ObservationReviewComponent
       },
@@ -84,18 +87,22 @@ const routes: Routes = [
 
       },{
         path: 'draft',
+        canActivate:[AuthGuard],
         component : DraftComponent
       },
       {
         path: 'publish',
+        canActivate:[AuthGuard],
         component : PublishingComponent
       },
       {
         path: 'up-for-review',
+        canActivate:[AuthGuard],
         component : UpForReviewComponent
       },
       {
         path: 'under-review',
+        canActivate:[AuthGuard],
         component : UnderReviewComponent
       }
 

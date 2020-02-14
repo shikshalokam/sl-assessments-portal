@@ -336,7 +336,29 @@
 
         </mat-tab>
         <mat-tab label="Preview">
-          <mat-card class="comingsoon-block">Coming Soon ..</mat-card>
+          <mat-card class="comingsoon-block" *ngIf="questionList">
+            <!-- {{ allQuestionWithDetails) }} -->
+            <div class="question-preview" *ngFor="let data of questionList['data'];let i =index">
+            <div  >
+                <div class="col-sm-12 noPadding question-block-head">
+                <div class="col-sm-6 noPadding">
+                    Question Number: {{i+1}}
+                </div>
+                <div class="col-sm-6 noPadding"> Question Type: {{data.type}}</div>
+                </div>
+                <div > label : <label> {{data.label[0]}}</label>
+                </div>
+                
+                <div >Date Format : <label> {{data.dateFormat}} </label></div>
+                <div > Allow Audio Recording : <label> {{data.audiorecording}}</label></div>
+                <div > Auto Capture : <label> {{data.autoCapture}} </label></div>
+                <div > Can Be Not Applicable : <label> {{data.applicable}} </label></div>
+            </div>
+        </div>
+        <div  *ngIf="!questionList">
+          No Question 
+        </div>
+      </mat-card>
         </mat-tab>
         <!-- <mat-tab label="Map"> 
       <div class="col-sm-6" style="padding:20px">
