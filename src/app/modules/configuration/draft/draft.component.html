@@ -1,49 +1,6 @@
 <ngx-spinner class="cspin" type="ball-clip-rotate">
-    <p style="font-size: 20px; color: white">Loading...</p>
+    <p class="load">Loading...</p>
   </ngx-spinner>
 <div *ngIf="display">
   <app-publish (datasending)="dataFromChild($event)" [field]="tableData"></app-publish>
 </div>
-
-<!-- <div *ngIf="display">
-    <app-publish (datasending)="dataFromChild($event)" [events]="eventsSubject.asObservable()"></app-publish>
-  </div> -->
-
-
-<!-- <div class="col-sm-12 margin-40px">
-  <div class="col-sm-12 mat-elevation-z8 noPadd">
-    <mat-table #table [dataSource]="dataSource" class="col-sm-12" matSort *ngIf="showTable">
-      <ng-container matColumnDef="no">
-        <mat-header-cell style="max-width: 10%;" *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-        <mat-cell style="max-width: 10%;" *matCellDef="let element;let i = index;"> {{i+1}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="externalId">
-        <mat-header-cell class="cgap" *matHeaderCellDef mat-sort-header> External Id </mat-header-cell>
-        <mat-cell class="cgap" *matCellDef="let element"> {{element.externalId}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <mat-header-cell class="cgap" *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-        <mat-cell class="cgap" *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="description">
-        <mat-header-cell class="cgap" *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-        <mat-cell class="cgap" *matCellDef="let element"> {{element.description}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="action">
-        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <i class="material-icons actioncolor action cursor-pointer"
-            (click)="redirectToEditDraft(element)" style="padding-left: 5em;" title="Edit">edit</i>
-          <i style="padding-left: 5px;" class="material-icons actioncolor action cursor-pointer"
-            (click)="deleteDraftFW(element._id)" title="Delete">delete</i> </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator #paginator [length]="totalFrameWorks" [showFirstLastButtons]="true"
-      [pageSizeOptions]="[5,10,20,50,100]" class="col-sm-12" [pageSize]="pageSize" (page)="getNext($event)" #paginator>
-    </mat-paginator>
-  </div>
-</div> -->

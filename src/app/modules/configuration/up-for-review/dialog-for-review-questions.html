@@ -7,19 +7,22 @@
 <div *ngIf="reviewdata" mat-dialog-content>
 
     <div *ngFor="let data of data.name;let i =index">
-        <div style="border: 1px solid;">
-            <div>
+        <div class="qtn-box">
+            <div class="col-sm-12 noPadding question-block-head">
+            <div class="col-sm-6 noPadding">
                 Question Number: {{i+1}}
             </div>
-            <div> <label>label: {{data.question}}</label></div>
-            <div> <label>Question Type: {{data.responseType}}</label></div>
-            <div> <label> DateFormat: {{data.dateFormat}} </label></div>
-            <div> <label> AllowAudioRecording: {{data.allowAudioRecording}}</label></div>
-            <div> <label>AutoCapture: {{data.autoCapture}} </label></div>
-            <div> <label>canBeNotApplicable: {{data.canBeNotApplicable}} </label></div>
+            <div class="col-sm-6 noPadding capitalize"> Question Type: {{data.responseType}}</div>
+            </div>
+            <div> label : <label> {{data.question}}</label></div>
+            
+            <div>Date Format : <label> {{data.dateFormat}} </label></div>
+            <div> Allow Audio Recording : <label> {{data.allowAudioRecording}}</label></div>
+            <div> Auto Capture : <label> {{data.autoCapture}} </label></div>
+            <div> Can Be Not Applicable : <label> {{data.canBeNotApplicable}} </label></div>
         </div>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions class="pull-right">
         <button mat-flat-button color="primary" mat-button (click)="requestChanges()">Request Changes</button>
         <button mat-flat-button color="primary" mat-button (click)="publishData(data.name)"
             cdkFocusInitial>publish</button>
@@ -84,14 +87,14 @@
                 the comments box)</mat-checkbox>
         </div>
         <div class="col-md-12">
-            <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Leave a comment"></textarea>
+            <mat-form-field class="example-full-width" style="display: block;">
+                <textarea matInput placeholder="Leave a comment" ></textarea>
             </mat-form-field>
         </div>
     </div>
     <!-- </form> -->
 
-    <div mat-dialog-actions>
+    <div mat-dialog-actions class="pull-right">
         <button mat-flat-button color="primary" mat-button (click)="requestChanges()">Request Changes</button>
         <button mat-flat-button color="primary" mat-button (click)="cancelRequestChanges()"
             cdkFocusInitial>Cancel</button>

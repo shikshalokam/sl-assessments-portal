@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTooltipModule,MatTabsModule,MatRadioModule,MatCardModule,
-   MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule, 
-   MatInputModule, MatSelectModule,MatTableModule,MatExpansionModule,
-   MatPaginatorModule,
-   MatDatepickerModule,
-   MatNativeDateModule,
-   MatToolbarModule,
-   MatSortModule,
-  } from '@angular/material';
-import { SharedModule ,DynamicFormComponent ,CoreModule } from 'shikshalokam';
+import {
+  MatTooltipModule, MatTabsModule, MatRadioModule, MatCardModule,
+  MatDialogModule, MatButtonModule, MatStepperModule, MatFormFieldModule,
+  MatInputModule, MatSelectModule, MatTableModule, MatExpansionModule,
+  MatPaginatorModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatToolbarModule,
+  MatSortModule,
+} from '@angular/material';
+import { SharedModule, DynamicFormComponent, CoreModule } from 'shikshalokam';
 import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { ConfigurationComponent } from './configuration.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -20,7 +21,7 @@ import { DeleteConfirmComponent } from './designer-worspace/components/delete-co
 import { ObservationUtilitiesComponent } from './observation-utilities/observation-utilities.component';
 
 // import {  } from '@angular/material';
-import { FormGroup , FormControl , ReactiveFormsModule , FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // import { FormioModule } from 'angular-formio';
 // import { NgDragDropModule } from 'ng-drag-drop';
@@ -35,14 +36,26 @@ import { PublishComponent } from './publish/publish.component';
 import { UpForReviewComponent } from './up-for-review/up-for-review.component';
 // import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DialogOverviewExampleDialog } from './up-for-review/up-for-review.component';
-
-import  { DynamicFormBuilderModule1,DynamicFormBuilderService } from 'dynamic-form-builder';
+import { DraftFrameWorkServiceService } from '../configuration/workspace-services/draft-frame-work-service.service';
+import { DynamicFormBuilderModule1, DynamicFormBuilderService } from 'dynamic-form-builder';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonChildModule } from './publish/common.module';
 import { PublishingComponent } from './publishing/publishing.component';
+// import { JwtModule, JwtModuleOptions, JwtHelperService } from '@auth0/angular-jwt';
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
+
+// const JWT_Module_Options: JwtModuleOptions = {
+//   config: {
+//     tokenGetter: tokenGetter,
+//     whitelistedDomains: ['example.com'],
+//     blacklistedRoutes: ['example.com/examplebadroute/']
+//   }
+// };
 
 
 @NgModule({
@@ -58,8 +71,9 @@ import { PublishingComponent } from './publishing/publishing.component';
     UpForReviewComponent,
     PublishingComponent,
     DialogOverviewExampleDialog
-    
+
   ],
+ 
   imports: [
     CommonModule,
     SharedModule,
@@ -90,6 +104,7 @@ import { PublishingComponent } from './publishing/publishing.component';
     // MatSortModule, // here is the problem with is module
     // FormioModule,
     // NgDragDropModule.forRoot(),
+    // JwtModule.forRoot(JWT_Module_Options),
     DragAndDropModule,
     TagInputModule,
     MatPaginatorModule,
@@ -98,10 +113,14 @@ import { PublishingComponent } from './publishing/publishing.component';
     NgxSpinnerModule,
     // CommonChildModule
   ],
-  exports:[],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  exports: [],
 
   providers: [DynamicFormComponent,
     DynamicFormBuilderService,
+    // JwtHelperService,
     MatDatepickerModule],
   entryComponents: [DeleteConfirmComponent, DialogOverviewExampleDialog]
 })

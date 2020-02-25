@@ -1,14 +1,18 @@
+/**
+ * Name : under-review.component.ts
+ * Author : Rakesh
+ * Created-date : 16-Dec-2019
+ * Description : To Maintain the records Under Reviewing.
+ */
+
+// dependencies
 import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
-
 import { MatTableDataSource, MatDialog, PageEvent, MatPaginator, MatSort, Sort } from '@angular/material';
-// import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { PublishComponent } from '../publish/publish.component';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -18,10 +22,8 @@ import { Subject } from 'rxjs';
 })
 
 
-
-export class UnderReviewComponent implements OnInit, AfterViewInit {
-
-  // dataSource:any;
+// To Maintain the records Under Reviewing
+export class UnderReviewComponent implements OnInit {
   eventsSubject: Subject<void> = new Subject<void>();
   field: Subject<any> = new Subject();
   showTable: boolean = true;
@@ -50,13 +52,13 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
   }
 
 
-
+  /**
+     * Default method called and objects are created to use other component functions
+     */
   constructor(private frameWorkServ: DraftFrameWorkServiceService, public dialog: MatDialog, private _snackBar: MatSnackBar,
     private route: Router, private cdr: ChangeDetectorRef,
     private spinner: NgxSpinnerService) {
-
-    this.getList();
-
+    this.getReviewList();
   }
 
 
@@ -64,35 +66,27 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    // this.cdr.detectChanges();
-    // this.tableData = {
-    //   data: this.dataSource,
-    //   displayedColumns: this.displayedColumns,
-    //   totalRecords : 183
-    // }
-  }
-
+  /**
+   * Angular first displays the data-bound properties and sets the directive/component's input properties.
+   *  Called once, after the first ngOnChanges().
+   */
   ngOnInit() {
     this.spinner.show();
     this.spin = true;
-    // setTimeout(() => {
-    //   this.spinner.hide();
-    // }, 1000);
   }
 
+  /**
+  * Catch the event and pass data using rxjs
+  */
   emitEventToChild() {
-    console.log('emitEventToChild');
     this.eventsSubject.next();
   }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
 
+  /**
+     * 
+     * To pass  the data to Delete the record
+     * @param data : data we need to delete
+     */
   deleteDraftFW(id) {
     const dialogRef = this.dialog.open(DeleteConfirmComponent, {
       width: '350px',
@@ -104,9 +98,8 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
             console.log("data", data);
 
             this.openSnackBar("Succesfully Deleted", "Deleted");
-            this.getList();
+            this.getReviewList();
             this.spinner.hide();
-            //  this.dataSource = data['result'].data;
           },
           error => {
             console.log("data", error);
@@ -116,39 +109,40 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+  * To show the toasters after the operation is done
+  * @param message : Message we want to show
+  * @param action : Action we have done
+  */
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
   }
-  /**
-   * 
-   * Getting data from the child data
-   */
 
+  /**
+   * Getting data from the child data and finding the actions
+   * @param data: The data sending from the child
+   */
   dataFromChild(data) {
-    console.log('draft comonent', data);
     if (data.action == 'Edit') {
       this.route.navigateByUrl('/workspace/edit/' + data._id);
-    }
-    else if (data.action == 'delete') {
+    } else if (data.action == 'delete') {
       this.deleteDraftFW(data._id);
     } else if (data.action == 'pagination') {
       this.getNext(data);
     } else if (data.action == 'review') {
-      // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
       this.updateToReviewStatus(data);
 
     } else if (data.action == 'upforreview') {
-      // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
       this.updateToReviewStatus(data);
-
     }
-
   }
 
-
-  getList() {
+  /** To get the review list
+   * @returns {JSON} - Response data.
+    */
+  getReviewList() {
     this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1, "review").subscribe(
       data => {
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
@@ -159,16 +153,12 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
           totalRecords: this.totalFrameWorks,
           configdata: this.config
         }
-        this.cdr.detectChanges();
-
         this.display = true;
         this.dataSource.sort = this.sort;
-
         this.dataSource.paginator = this.paginator;
         this.field.next();
         this.cdr.detectChanges();
         this.spinner.hide();
-
       },
       error => {
         console.log("data", error);
@@ -176,14 +166,16 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+  * Paginating the under-review listing
+  * @returns {JSON} - Response data.
+  */
   getNext(event: PageEvent) {
-    console.log('getNext', event);
     this.pageSize = event.pageSize;
     let offset = event.pageSize * event.pageIndex;
     this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1, 'review').subscribe(
       data => {
         this.dataSource = data['result'].data;
-        console.log('==this.dataSource=', this.dataSource);
         this.totalFrameWorks = data['result'].count;
         this.tableData = {
           data: this.dataSource,
@@ -191,8 +183,6 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
           totalRecords: this.totalFrameWorks,
           configdata: this.config
         }
-        console.log('==this.tableData=', this.tableData);
-
         this.cdr.detectChanges();
         this.field.next();
       },
@@ -202,29 +192,27 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
     );
     // call your api function here with the offset
   }
+
+  /** To redirect the page to edit */
   redirectToEditDraft(ele) {
-
-    console.log("ele ======= ", ele);
-
     this.route.navigateByUrl('/workspace/edit/' + ele._id);
-
   }
 
+  /**
+    * For updating the status to review
+    * @param data: data from the child (i.e) object
+    * @returns {JSON} - Response data.
+    */
   updateToReviewStatus(data) {
-
     let obj = {
       status: "upforreview"
     }
-
     this.updateAllEcm(data._id);
     this.updateAllDraftSection(data._id);
-    this.updateALlCriteria(data._id);
+    this.updateAllCriteria(data._id);
     this.updateAllQuestion(data._id);
-
-
     this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
-      console.log("data", data);
-      this.getList();
+      this.getReviewList();
       this.openSnackBar("sent Up For Review", "Updated");
     },
       error => {
@@ -233,58 +221,66 @@ export class UnderReviewComponent implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * To Update all the drafts based on the framework id
+   * @param frameWorkId : Framework id.
+   * @returns {JSON} - Response data.
+   */
   updateAllEcm(frameWorkId) {
     this.frameWorkServ.listDraftEcm(frameWorkId).subscribe(data => {
       if (data['result'] && data['result'].data) {
-
         console.log("data['result'].data", data['result'].data);
         data['result'].data.forEach(element => {
           this.frameWorkServ.updateDraftECM(element._id, { status: 'upforreview' }).subscribe(result => {
-
-            console.log("ecm update", result);
           });
         });
-
       }
     });
   }
 
+  /**
+    * To update all the drafts based on the framworkid
+    * @param frameWorkId : Framework id.
+    * @returns {JSON} - Response data.
+    */
   updateAllDraftSection(frameWorkId) {
     console.log("frameWorkId", frameWorkId);
     this.frameWorkServ.listDraftSection(frameWorkId).subscribe(data => {
       data['result'].data.forEach(element => {
         this.frameWorkServ.updateDraftSection(element._id, { status: 'upforreview' }).subscribe(result => {
-          console.log("alllll frame work section update", result);
         });
       });
     });
   }
 
-  updateALlCriteria(frameWorkId) {
-
+  /**
+* To update the criteria based on the framework id
+* @param frameWorkId : Framework id.
+* @returns {JSON} - Response data.
+*/
+  updateAllCriteria(frameWorkId) {
     this.frameWorkServ.draftCriteriaList(frameWorkId, 100, 0).subscribe(data => {
-
       console.log("all criteria", data['result'].data);
       data['result'].data.forEach(element => {
         this.frameWorkServ.updateDraftCriteria(element._id, { status: 'upforreview' }).subscribe(result => {
-          console.log("criteria update", result);
         });
       });
     });
   }
 
+  /**
+  *To Update the Questions based on the frameworkId
+  * @param frameWorkId : Framework id.
+  * @returns {JSON} - Response data.
+  */
   updateAllQuestion(frameWorkId) {
     this.frameWorkServ.draftQuestionList(frameWorkId).subscribe(data => {
       data['result'].data.forEach(element => {
         this.frameWorkServ.updateDraftQuestion({ status: 'upforreview' }, element._id).subscribe(result => {
-          console.log("question update", result);
         });
       });
     });
   }
 
-  // ngOnDestroy() {
-  //   this.subject.complete();
-  // }
 }
 

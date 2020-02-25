@@ -1,3 +1,3 @@
 export const authConfig = {
-    getProfileDetails :'platformUserRoles/getProfile/'
+    getProfileDetails :'platform-user-roles/getProfile/'
 }

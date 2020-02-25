@@ -1,14 +1,17 @@
+/**
+ * name : publishing.component.ts
+ * author : Rakesh
+ * created-date : 13-Dec-2019
+ * Description : To publish the observation.
+ */
+
+// dependencies
 import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
-
 import { MatTableDataSource, MatDialog, PageEvent, MatPaginator, MatSort, Sort } from '@angular/material';
-// import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { PublishComponent } from '../publish/publish.component';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -18,26 +21,24 @@ import { Subject } from 'rxjs';
 })
 
 
-
-export class PublishingComponent implements OnInit,AfterViewInit {
-
-  // dataSource:any;
+// To publish the observation
+export class PublishingComponent implements OnInit {
   eventsSubject: Subject<void> = new Subject<void>();
-  field:Subject<any> = new Subject();
+  field: Subject<any> = new Subject();
   showTable: boolean = true;
   element = []
   dataSource: any;
   display: boolean = false;
-  displayedColumns: string[] = ['no', 'externalId', 'name', 'description','status'];
+  displayedColumns: string[] = ['no', 'externalId', 'name', 'description', 'status'];
   pageSize = 10;
   totalFrameWorks: any;
   tableData: any;
   spin: any;
   config = {
-    search:true,
+    search: true,
     sort: true,
     pagination: true,
-    actions:{
+    actions: {
       edit: false,
       delete: false,
       senttoreview: false,
@@ -48,65 +49,51 @@ export class PublishingComponent implements OnInit,AfterViewInit {
     },
     title: "Published Framework List"
   }
-
-
-
+  /**
+     * Default method called and objects are created to use other component functions
+     */
   constructor(private frameWorkServ: DraftFrameWorkServiceService, public dialog: MatDialog, private _snackBar: MatSnackBar,
     private route: Router, private cdr: ChangeDetectorRef,
     private spinner: NgxSpinnerService) {
-
-    this.getList();
-
+    this.getPublishedList();
   }
-
 
   // private paginator: MatPaginator;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    // this.cdr.detectChanges();
-    // this.tableData = {
-    //   data: this.dataSource,
-    //   displayedColumns: this.displayedColumns,
-    //   totalRecords : 183
-    // }
-  }
-
+  /**
+  * Angular first displays the data-bound properties and sets the directive/component's input properties.
+  *  Called once, after the first ngOnChanges().
+  */
   ngOnInit() {
     this.spinner.show();
     this.spin = true;
-    // setTimeout(() => {
-    //   this.spinner.hide();
-    // }, 1000);
   }
 
+  /**
+   * Catch the event and pass data using rxjs
+   */
   emitEventToChild() {
-    console.log('emitEventToChild');
     this.eventsSubject.next();
   }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
 
-
+  // To show the toaster messages
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
   }
- 
 
 
-  getList() {
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1,"published").subscribe(
+  /** To get the list of the published questions 
+   *  @returns {JSON} - Response data.
+  */
+  getPublishedList() {
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1, "published").subscribe(
       data => {
-        data['result'].data =  data['result'].data.filter(item=>{
-          item.status ="published";
+        data['result'].data = data['result'].data.filter(item => {
+          item.status = "published";
           return item;
         })
         this.dataSource = new MatTableDataSource<Element>(data['result'].data);
@@ -118,7 +105,7 @@ export class PublishingComponent implements OnInit,AfterViewInit {
           configdata: this.config
         }
         this.cdr.detectChanges();
-
+        this.spin = false;
         this.display = true;
         this.dataSource.sort = this.sort;
 
@@ -134,14 +121,15 @@ export class PublishingComponent implements OnInit,AfterViewInit {
     );
   }
 
+  /** Pagination change 
+   * @returns {JSON} - Response data.
+  */
   getNext(event: PageEvent) {
-    console.log('getNext', event);
     this.pageSize = event.pageSize;
     let offset = event.pageSize * event.pageIndex;
-    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1,'published').subscribe(
+    this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1, 'published').subscribe(
       data => {
         this.dataSource = data['result'].data;
-        console.log('==this.dataSource=', this.dataSource);
         this.totalFrameWorks = data['result'].count;
         this.tableData = {
           data: this.dataSource,
@@ -149,8 +137,6 @@ export class PublishingComponent implements OnInit,AfterViewInit {
           totalRecords: this.totalFrameWorks,
           configdata: this.config
         }
-        console.log('==this.tableData=', this.tableData);
-       
         this.cdr.detectChanges();
         this.field.next();
       },
@@ -160,33 +146,27 @@ export class PublishingComponent implements OnInit,AfterViewInit {
     );
     // call your api function here with the offset
   }
+
+  /** Redirecting to the edit page */
   redirectToEditDraft(ele) {
-
-    console.log("ele ======= ", ele);
-
     this.route.navigateByUrl('/workspace/edit/' + ele._id);
-
   }
 
-  updateToReviewStatus(data){
-
-
+  /**Sending the Questions to review
+   * @param data: question object passing to update
+   */
+  updateToReviewStatus(data) {
     let obj = {
-     status:"review"
+      status: "review"
     }
-    console.log("==========",data);
     this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
-      console.log("data", data);
       this.openSnackBar("Sent For Review", "Updated");
     },
       error => {
         console.log("data", error);
-    });
+      });
 
   }
 
-  // ngOnDestroy() {
-  //   this.subject.complete();
-  // }
 }
 

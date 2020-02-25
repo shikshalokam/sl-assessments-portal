@@ -1,16 +1,19 @@
+/**
+ * Name : up-for-review.component.ts
+ * Author : Rakesh
+ * Created-date : 16-Dec-2019
+ * Description : To Maintain the records Under Reviewing.
+ */
+
+// dependencies
 import { Component, OnInit, Inject, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
-
 import { MatTableDataSource, MatDialog, MatDialogRef, PageEvent, MAT_DIALOG_DATA, MatPaginator, MatSort, Sort } from '@angular/material';
-// import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DeleteConfirmComponent } from '../designer-worspace/components/delete-confirm/delete-confirm.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
-import { PublishComponent } from '../publish/publish.component';
 import { Subject } from 'rxjs';
-
 export interface DialogData {
     animal: string;
     name: string;
@@ -21,12 +24,8 @@ export interface DialogData {
     styleUrls: ['./up-for-review.component.scss']
 })
 
-
-
-export class UpForReviewComponent implements OnInit, AfterViewInit {
-
-
-    // dataSource:any;
+// To Maintain the records Under upForReviewing and curd operations
+export class UpForReviewComponent implements OnInit {
     eventsSubject: Subject<void> = new Subject<void>();
     field: Subject<any> = new Subject();
     showTable: boolean = true;
@@ -59,49 +58,39 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
     }
 
 
+    /**
+       * Default method called and objects are created to use other component functions
+       */
 
     constructor(private frameWorkServ: DraftFrameWorkServiceService, public dialog: MatDialog, private _snackBar: MatSnackBar,
         private route: Router, private cdr: ChangeDetectorRef,
         private spinner: NgxSpinnerService) {
-
-        this.getList();
-
+        this.getUpForReviewList();
     }
-
-
-    // private paginator: MatPaginator;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    ngAfterViewInit() {
-        // this.dataSource.sort = this.sort;
-        // this.dataSource.paginator = this.paginator;
-        // this.cdr.detectChanges();
-        // this.tableData = {
-        //   data: this.dataSource,
-        //   displayedColumns: this.displayedColumns,
-        //   totalRecords : 183
-        // }
-    }
-
+    /**
+ * Angular first displays the data-bound properties and sets the directive/component's input properties.
+ *  Called once, after the first ngOnChanges().
+ */
     ngOnInit() {
         this.spinner.show();
         this.spin = true;
-        // setTimeout(() => {
-        //   this.spinner.hide();
-        // }, 1000);
     }
 
+    /**
+  * Catch the event and pass data using rxjs
+  */
     emitEventToChild() {
-        console.log('emitEventToChild');
         this.eventsSubject.next();
     }
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
-    }
 
+    /**
+        * 
+        * To pass  the data to Delete the record
+        * @param id : id we need to delete
+        */
     deleteDraftFW(id) {
         const dialogRef = this.dialog.open(DeleteConfirmComponent, {
             width: '350px',
@@ -110,8 +99,7 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
             if (result) {
                 this.frameWorkServ.deleteDraftFrameWork(id).subscribe(
                     data => {
-                        console.log("data", data);
-                        this.getList();
+                        this.getUpForReviewList();
                         this.cdr.detectChanges();
                         this.openSnackBar("Succesfully Deleted", "Deleted");
                         this.spinner.hide();
@@ -125,40 +113,42 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
         });
     }
 
+    /**
+ * To show the toasters after the operation is done
+ * @param message : Message we want to show
+ * @param action : Action we have done
+ */
     openSnackBar(message: string, action: string) {
         this._snackBar.open(message, action, {
             duration: 2000,
         });
     }
-    /**
-     * 
-     * Getting data from the child data
-     */
 
+    /**
+      * Getting data from the child data and finding the actions
+      * @param data: The data sending from the child
+      */
     dataFromChild(data) {
-        console.log('draft comonent', data);
         if (data.action == 'Edit') {
             this.route.navigateByUrl('/workspace/edit/' + data._id);
-        }
-        else if (data.action == 'delete') {
+        } else if (data.action == 'delete') {
             this.deleteDraftFW(data._id);
 
         } else if (data.action == 'pagination') {
             this.getNext(data);
         } else if (data.action == 'review') {
-            // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
             this.updateToReviewStatus(data);
 
         } else if (data.action == 'publish') {
-            // this.route.navigateByUrl('/workspace/edit/' + data._id+'/valid');
             this.updateToReviewStatus(data);
-
         }
 
     }
 
-
-    getList() {
+    /** To get the upForReview list
+    * @returns {JSON} - Response data.
+   */
+    getUpForReviewList() {
         this.frameWorkServ.listOfDraftFrameWork(this.pageSize, 1, "review").subscribe(
             data => {
                 this.dataSource = new MatTableDataSource<Element>(data['result'].data);
@@ -187,8 +177,11 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
         );
     }
 
+    /**
+ * Paginating the under-review listing
+ * @returns {JSON} - Response data.
+ */
     getNext(event: PageEvent) {
-        console.log('getNext', event);
         this.pageSize = event.pageSize;
         let offset = event.pageSize * event.pageIndex;
         this.frameWorkServ.listOfDraftFrameWork(this.pageSize, event.pageIndex + 1, 'review').subscribe(
@@ -210,29 +203,19 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
         );
         // call your api function here with the offset
     }
-    redirectToEditDraft(ele) {
-        this.route.navigateByUrl('/workspace/edit/' + ele._id);
 
-    }
-
+     /**
+    * For updating the status to review
+    * @param data: data from the child (i.e) object
+    * @returns {JSON} - Response data.
+    */
     updateToReviewStatus(data) {
-
         let obj = {
             status: "publish"
         }
-        console.log("==========", data);
         this.globaldata = data._id;
-        // this.frameWorkServ.updateDraftFrameWork(obj, data._id).subscribe(data => {
-        //   console.log("data", data);
-        //   this.openSnackBar("Sent For Review", "Updated");
-        // },
-        //   error => {
-        //     console.log("data", error);
-        // });
-
         let _this = this;
         this.questiondetails = [];
-
         this.frameWorkServ.draftQuestionList(data._id).subscribe(data => {
             this.quesionslist = data['result'];
             console.log('this.quesionslist', this.quesionslist);
@@ -242,16 +225,11 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
                         this.questiondetails.push(data['result']);
                     })
                 });
-                console.log('this.questiondetails', this.questiondetails);
                 this.openDialog(this.questiondetails);
             } else {
                 this.openSnackBar('No questions selected for this framework', 'Failed')
             }
-           
-
         })
-        // /assessment-design/api/v1/draftFrameworks/publish/
-
     }
 
     /**
@@ -282,24 +260,6 @@ export class UpForReviewComponent implements OnInit, AfterViewInit {
 export class DialogOverviewExampleDialog {
     requestchanges = false;
     reviewdata = true;
-    appropriateness = [
-        {
-            item: 'Has Hate speech, Abuse, Violence, Profanity',
-            value: 'Has Hate speech, Abuse, Violence, Profanity'
-        },
-        {
-            item: 'Has Sexual content, Nudity or Vulgarity',
-            value: 'Has Sexual content, Nudity or Vulgarity'
-        },
-        {
-            item: 'Has Discriminatory or Defamatory content',
-            value: 'Has Discriminatory or Defamatory content'
-        },
-        {
-            item: 'Is not suitable for children',
-            value: 'Is not suitable for children'
-        }
-    ]
     constructor(
         public dialogRef: MatDialogRef<DialogOverviewExampleDialog>, private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: DialogData, private _snackBar: MatSnackBar,
@@ -328,8 +288,6 @@ export class DialogOverviewExampleDialog {
     publishData(data) {
         this.frameWorkServ.getDraftFrameworksdetails(data[0].draftFrameworkId).subscribe(details => {
             let res = details['result'];
-            //  res.entityTypeId;
-            console.log("res", res);
             this.frameWorkServ.publishDraftFrameWork(data[0].draftFrameworkId, res.entityType).subscribe(data => {
                 if (data && data['status'] == 200) {
                     this.openSnackBar("Succesfully Published", "Done");
@@ -343,10 +301,6 @@ export class DialogOverviewExampleDialog {
         });
     }
 
-    toggle(data) {
-        console.log('toggle', data);
-    }
-
     // For toaster message
     openSnackBar(message: string, action: string) {
         this._snackBar.open(message, action, {
@@ -354,6 +308,7 @@ export class DialogOverviewExampleDialog {
         });
     }
 
+    // Close the reviewing the questions
     close() {
         this.dialogRef.close();
     }

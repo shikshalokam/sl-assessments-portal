@@ -10,9 +10,16 @@ export class ConfigurationService {
 
   constructor(private apiService :ApiService) { }
 
+  /**
+   * To get the all Criteria list
+   */
   getCriteria(){
     return this.apiService.get(environment.apibaseurl+ ConfigurationConfig.getCriteria)
   }
+
+  /**
+   * Method is to add new Criteria
+   */
   addNewCriteria(updateData){
     return this.apiService.post( environment.apibaseurl+ConfigurationConfig.addCriteria , updateData)
 

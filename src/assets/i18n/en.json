@@ -101,5 +101,8 @@
             "startSurvey" : "Start Survey",
             "complete" : "Completed"
         }
+    },
+    "title": {
+        "page": "Page Title"
     }
 }

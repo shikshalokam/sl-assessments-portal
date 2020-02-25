@@ -8,8 +8,7 @@ dialog-overview-example-dialog.ng-star-inserted > div {
 }
 
 .mat-dialog-actions {
-    margin-left: 73%;
-    margin-top: 60%;
+   margin: 10px;
 
     }
 
@@ -31,10 +30,41 @@ dialog-overview-example-dialog.ng-star-inserted > div {
 .heading {
     background-color: brown;
     color: azure;
+    padding: 5px;
 }
 
 .modal-header {
     border: 0;
     padding: 0;
     position: relative;
+  }
+
+  #cdk-overlay-0 {
+    max-width: 80vw;
+    pointer-events: auto;
+    width: 80% important;
+    height: auto !important;
+    position: static;
+  }
+  .cdk-overlay-pane {
+    max-width: 80vw;
+    pointer-events: auto;
+    width: 80% important;
+    height: auto !important;
+    position: static;
+  }
+
+  .question-block-head {
+    padding-bottom: 4px;
+    /* border-bottom: 1px solid #333; */
+    margin-bottom: 10px;
+  }
+  .noPadding {
+      padding: 0px;
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+  .qtn-box {
+    padding:10px;box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }

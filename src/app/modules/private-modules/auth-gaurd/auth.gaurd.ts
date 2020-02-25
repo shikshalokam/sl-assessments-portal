@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../auth-service/auth.service';
 import { async } from '@angular/core/testing';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { pureFunction1 } from '@angular/core/src/render3';
 import { environment } from 'src/environments/environment';
 
@@ -20,32 +20,30 @@ import { environment } from 'src/environments/environment';
 // export class AuthGuard implements CanActivate, CanActivateChild {
 export class AuthGuard implements CanActivate {
 
-  authServe :any;
+  authServe: any;
 
-  constructor(private _http: HttpClient,private authService: AuthService, private snackBar: MatSnackBar, private router: Router) { 
+  constructor(private _http: HttpClient, private authService: AuthService, private snackBar: MatSnackBar, private router: Router) {
     this.authServe = authService;
   }
   url;
-   async canActivate(
+  async canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot)  {
+    state: RouterStateSnapshot) {
     let url: string = state.url;
     this.url = state.url;
     let allowedArray = [];
 
-
-    if(!localStorage.getItem("roleInfo")){
-      console.log("calling");
+    if (!localStorage.getItem("roleInfo")) {
       let res = await this.authServe.getUserRoles();
     }
     allowedArray = this.authServe.getAllowedUrls();
-  
-    
+
+
     if (allowedArray.includes(this.url)) {
       return true;
     } else {
       return false;
-  
+
     }
 
   }
@@ -93,47 +91,38 @@ export class AuthGuard implements CanActivate {
   }
 
 
-  async getRoleInfo(){
+  async getRoleInfo() {
     // return new Promise(async function(resolve,reject){
+    this.authServe.getUserRoles("ss").then(function (data) {
 
-      console.log("first line");
+      var curentRoles = data['result']['roles'];
 
-      // return true;
-    this.authServe.getUserRoles("ss").then(function(data){
-
-    console.log("res",data);
-
-    console.log("result data",data);
-  // console.log(" data['result']['roles'][0]", data['result']['roles'][0]);
-  var curentRole = data['result']['roles'][0];
-  // console.log("curentRole", curentRole);
+      var allowedArray = [];
 
 
-  let role = curentRole;
-  var allowedArray = [];
-  switch (role) {
+      if (curentRoles.includes(environment.obs_designer)) {
+        allowedArray.push("/workspace");
+        allowedArray.push("/workspace/create");
+        allowedArray.push("/workspace/under-review");
+      }
 
-    case role = "OBS_DESIGNER":
-      allowedArray.push("/workspace");
-      allowedArray.push("/workspace/create");
-      break;
-
-    case role = "OBS_REVIEWERS":
-   
-      break;
-
-  }
+      if (curentRoles.includes(environment.obs_reviewer)) {
+        allowedArray.push("/workspace");
+        allowedArray.push("/workspace/up-for-review");
+        allowedArray.push("/workspace/publish");
+      }
 
 
-  if (allowedArray.includes(this.url)) {
-    return true;
-  } else {
-    return false;
 
-  }
+      if (allowedArray.includes(this.url)) {
+        return true;
+      } else {
+        return false;
 
-   });
-   
+      }
+
+    });
+
     // },(error)=>{
 
     //   return false;
@@ -142,7 +131,7 @@ export class AuthGuard implements CanActivate {
     // );
     // console.log("last line");
     // return false;
-  // });
+    // });
   }
 
   //
@@ -154,6 +143,6 @@ export class AuthGuard implements CanActivate {
 
   /* . . . */
 
-  
+
 
 }

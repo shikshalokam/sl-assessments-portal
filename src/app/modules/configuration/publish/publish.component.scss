@@ -3,9 +3,9 @@
     margin-bottom: 40px;
 }
 
-.cursor-pointer {
-    cursor: pointer;
-}
+// .cursor-pointer {
+//     cursor: pointer;
+// }
 .noPadd {
     padding: 0px;
 }
@@ -17,11 +17,14 @@
 
    .action {
     font-size: 20px;
+    color: #a63936;
+    cursor: pointer;
+    padding-left: 5px;
    }
 
-   .actioncolor {
-    color: #a63936;
-   }
+//    .actioncolor {
+   
+//    }
 
    .search {
     float: left;
