@@ -1,11 +1,11 @@
+// angular core dependencies
 import {
-  Component, OnInit, Input, AfterContentChecked,
-  AfterViewChecked, ViewChild, Output, EventEmitter
+  Component, OnInit, Input,
+  ViewChild, Output, EventEmitter
 } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from "@angular/material";
 import { MatSort } from '@angular/material/sort';
-import { Subject, Subscription, Observable } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -13,8 +13,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   templateUrl: './publish.component.html',
   styleUrls: ['./publish.component.scss']
 })
-export class PublishComponent implements OnInit, AfterContentChecked {
 
+/** It is a Common table for displaying the data, from different component drafts, sent for review, 
+ * upforreview, published
+ */
+export class PublishComponent implements OnInit {
   pageSize: any = 10;
   dataSource: any;
   displayedColumns: any;
@@ -23,62 +26,51 @@ export class PublishComponent implements OnInit, AfterContentChecked {
   finaldisplaycolummns: Array<any> = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @Input() field ={};
   @Input() field: Subject<any>;
   @Output() datasending = new EventEmitter();
-  // private eventsSubscription: Subscription;
-  // @Input() events: Observable<void>;
-  searchString: any;
   configdata: any;
-  constructor(private route: Router) {
-    console.log('this.field', this.field);
 
+  /**
+   * Default method called and objects are created to use other component functions
+   */
+  constructor() {
   }
 
-  ngOnInit() {
 
+  /**
+   * Angular first displays the data-bound properties and sets the directive/component's input properties.
+   *  Called once, after the first ngOnChanges().
+   */
+  ngOnInit() {
     if (this.field) {
       this.configdata = this.field['configdata'];
       this.formJsonData(this.field['displayedColumns']);
       this.requiredDataFormation(this.field['data'].filteredData);
       this.dataSource.sort = this.sort;
     }
-
-
   }
+
   /**
    * To Catch the event from parent for pagination
+   * Initial method Life cycle method after constructor 
    */
   ngOnChanges() {
     this.requiredDataFormation(this.field['data']);
   }
 
-  ngAfterViewChecked() {
-    // console.log('ngAfterViewChecked', this.field);
-    // // this.formJsonData(this.field['displayedColumns']);
-    // this.requiredDataFormation(this.field['data']);
-  }
-
-  ngAfterContentChecked() {
-    // console.log('ngAfterContentChecked', this.field);
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit', this.field);
-
-  }
-
   /**
-   * To Search the data
+   * To search the table data
+   * @param filterValue : value we need to search
+   *  @returns {JSON} - Response data.
    */
   applyFilter(filterValue: string) {
-    console.log('===', filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /**
    * 
    * To Pass the data to the edit
+   * @param data : data we need to edit
    */
   editData(data) {
     data.action = 'Edit';
@@ -87,7 +79,8 @@ export class PublishComponent implements OnInit, AfterContentChecked {
 
   /**
    * 
-   *To pass  the data to Delete the record
+   * To pass  the data to Delete the record
+   * @param data : data we need to delete
    */
   deleteData(data) {
     data.action = 'delete'
@@ -97,14 +90,16 @@ export class PublishComponent implements OnInit, AfterContentChecked {
   /**
    * 
    * For the Pagination we are passing the data
+   * @param data : data we pass for the pagination
    */
   pagination(data) {
     data.action = 'pagination';
     this.datasending.emit(data);
   }
   /**
-   *  Generate the json for display column
-   * 
+   * Generate the json for display column
+   * @param displaycolumns: pass the displayed columns to format in required format
+   * @returns {JSON} - Response data.
    */
   formJsonData(displaycolumns) {
     for (let i = 0; i < displaycolumns.length; i++) {
@@ -115,69 +110,44 @@ export class PublishComponent implements OnInit, AfterContentChecked {
       this.finaldisplaycolummns.push(finaldata)
     }
     this.displayedColumns = this.finaldisplaycolummns.map(column => column.name);
-
   }
 
-
-
   /**
-   * To generate the numbers
-   * 
+   * To generate the new number column form here
+   * @param data: passing the data of the table
    */
   requiredDataFormation(data) {
-    console.log("data",data)
     for (let i = 0; i < data.length; i++) {
       data[i].no = (i + 1);
     }
     this.dataSource = new MatTableDataSource(data);
     this.totalFrameWorks = this.field['totalRecords'];
-    // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
-  /**
-  * For sorting the data based on the Column
-  * 
-  */
-  sortData(data) {
-    console.log('sortData', data);
-  }
 
-  ngOnDestroy() {
-    console.log("ngOnDestroy");
-  }
-
+  /** Action performing for reviewing the data
+   * @param data:pass the for reviewing
+   */
   reviewData(data) {
     data.action = 'review';
     this.datasending.emit(data);
   }
 
-  upforreview(data){
+
+  /** Action performing for reviewing the data
+   * @param data:pass the for reviewing
+   */
+  /** Action Performing for up for review */
+  upforreview(data) {
     data.action = 'upforreview';
     this.datasending.emit(data);
   }
 
-  reviewdata(data){
-    console.log('==========', data);
-    this.datasending.emit(data);
-  }
-
-  publishing(data){
+  /** Action Performing for publishing the record */
+  publishing(data) {
     data.action = 'publish';
     this.datasending.emit(data);
   }
-
-// Need to validate the Questions before sending to the review
-    // this.route.navigateByUrl('/workspace/under-review');
-  
-
-
 }
 
-export interface UserData {
-  no: number;
-  name: string;
-  externalId: string;
-  description: string;
-}

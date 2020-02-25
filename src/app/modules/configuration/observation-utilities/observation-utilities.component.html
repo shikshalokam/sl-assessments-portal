@@ -1,25 +1,26 @@
-
 <div class="_flex-box _justify-content-center wrapper">
- 
+
   <div class="_full-width ">
     <!-- <app-parent-heading [genericHeading]="headings" [showControl]="true" [schoolNameDivider]= "false"></app-parent-heading> -->
 
     <mat-card class="card-block custom-card-block" *ngIf="!showCreate">
       <div class="row margin-5-perc">
-          <ngx-spinner  class="cspin" type="ball-clip-rotate">
-              <p style="font-size: 20px; color: white">Loading...</p>
-            </ngx-spinner>
+        <ngx-spinner class="cspin" type="ball-clip-rotate">
+          <p class="load">Loading...</p>
+        </ngx-spinner>
         <div class="col-sm-4 ">
           <div class="col-sm-12">
-            <h4 class="margin-top-0"> 
+            <h4 class="margin-top-0">
               <i class="material-icons">
                 description
               </i>
               Create Observations</h4>
-            <div class="col-sm-12 desc">  
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus. 
+            <div class="col-sm-12 desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada
+              dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus.
             </div>
-            <div class="col-sm-12 text-center" ><button class="m-top-10" mat-flat-button color="primary" (click)="create()">Create</button></div>
+            <div class="col-sm-12 text-center"><button class="m-top-10" mat-flat-button color="primary"
+                (click)="create()">Create</button></div>
             <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center" (click)="create()" >  Create </div> -->
           </div>
 
@@ -28,12 +29,14 @@
           <div class="col-sm-12">
             <h4 class="margin-top-0">
               <i class="material-icons">
-              assessment
+                assessment
               </i>Create Institutional Assessments</h4>
-            <div class="col-sm-12 desc">  
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus. 
+            <div class="col-sm-12 desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada
+              dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus.
             </div>
-            <div class="col-sm-12 text-center" ><button class="m-top-10" mat-flat-button color="primary">Create</button></div>
+            <div class="col-sm-12 text-center"><button class="m-top-10" mat-flat-button color="primary">Create</button>
+            </div>
             <!-- <div class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
           </div>
 
@@ -45,11 +48,13 @@
                 description
               </i>
               Create Individual Assessments</h4>
-            <div class="col-sm-12 desc">  
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus. 
+            <div class="col-sm-12 desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat auctor nibh. Curabitur malesuada
+              dui ut tellus tempus, vitae tristique erat ultrices. Suspendisse pulvinar nec nisi quis maximus.
             </div>
 
-            <div class="col-sm-12 text-center" ><button class="m-top-10" mat-flat-button color="primary">Create</button></div>
+            <div class="col-sm-12 text-center"><button class="m-top-10" mat-flat-button color="primary">Create</button>
+            </div>
             <!-- <div  class="btn btn-primary" style="margin:10px;text-align:center">Create</div> -->
           </div>
 
@@ -65,13 +70,13 @@
       <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="tabChanged($event)"
         class="mat-tab-group mat-primary">
         <mat-tab label="Details">
-         
+
           <form [formGroup]="solutionForm" class="col-xs-12 card-content" (ngSubmit)="solutionSubmit(solutionForm)">
             <mat-card class="card-block">
               <mat-form-field class="col-xs-12">
                 <mat-label>Solution Name *</mat-label>
-                <input matInput placeholder="Solution Name" (change)="modelChanged($event)" formControlName="solutionName"
-                  [(ngModel)]="draftSolutionName">
+                <input matInput placeholder="Solution Name" (change)="modelChanged($event)"
+                  formControlName="solutionName" [(ngModel)]="draftSolutionName">
 
               </mat-form-field>
               <div *ngIf="solFormSubmitted && solValid.solutionName.errors" class="col-sm-12 error-block">
@@ -87,8 +92,8 @@
                 </mat-form-field> -->
 
               <mat-form-field class="col-xs-12">
-                <input matInput placeholder="Description" (change)="modelChanged($event)" formControlName="solutionDescription"
-                  [(ngModel)]="draftsolutionDescription">
+                <input matInput placeholder="Description" (change)="modelChanged($event)"
+                  formControlName="solutionDescription" [(ngModel)]="draftsolutionDescription">
               </mat-form-field>
 
               <!-- <mat-form-field class="col-xs-12">
@@ -104,14 +109,15 @@
                 </mat-form-field> -->
 
               <div class="col-sm-12 add-keyword-block">
-                <tag-input [(ngModel)]='keyWordItems' (change)="modelChanged($event)" [secondaryPlaceholder]="'Add Keywords'"
-                  [placeholder]="'Add Keywords'" formControlName="solutionKeywords"></tag-input>
+                <tag-input [(ngModel)]='keyWordItems' (change)="modelChanged($event)"
+                  [secondaryPlaceholder]="'Add Keywords'" [placeholder]="'Add Keywords'"
+                  formControlName="solutionKeywords"></tag-input>
               </div>
 
               <div class="m-top-10">
                 <mat-form-field class="col-xs-12 ">
                   <mat-label>Select Language</mat-label>
-                  <select matNativeControl required  (change)="modelChanged($event)" formControlName="solutionLanguage"
+                  <select matNativeControl required (change)="modelChanged($event)" formControlName="solutionLanguage"
                     [(ngModel)]="draftSolutionLanguage">
                     <option *ngFor="let item of languageArr" [value]="item"> {{ item }} </option>
                     <!-- <option [value]="English">English</option>  
@@ -125,11 +131,10 @@
 
               </div>
 
-
               <div class="m-top-10">
                 <mat-form-field class="col-xs-12">
                   <mat-label>Entity Type</mat-label>
-                  <select matNativeControl required  (change)="modelChanged($event)" formControlName="solutionEntityType"
+                  <select matNativeControl required (change)="modelChanged($event)" formControlName="solutionEntityType"
                     [(ngModel)]="draftSolutionEntityType">
                     <option *ngFor="let item of entitys[0]" [value]="item._id">{{ item.name }} </option>
                   </select>
@@ -140,12 +145,13 @@
                 </div>
               </div>
               <div class="col-sm-12 noPadd">
-              <div class="col-sm-12 padd-bottom-5">Voice Over ?</div>
-              <mat-radio-group aria-label="isReusable" (change)="modelChanged($event)" formControlName="voiceOver" class="col-xs-12">
-                <mat-radio-button value="true">Yes</mat-radio-button>
-                <mat-radio-button value="false">No</mat-radio-button>
-              </mat-radio-group>
-            </div>
+                <div class="col-sm-12 padd-bottom-5">Voice Over ?</div>
+                <mat-radio-group aria-label="isReusable" (change)="modelChanged($event)" formControlName="voiceOver"
+                  class="col-xs-12">
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
 
               <!-- <div class="col-sm-12 padd-15">Reusable ?</div>
         <mat-radio-group aria-label="isReusable" formControlName="isReusable" class="col-xs-12">
@@ -185,7 +191,6 @@
                 <div *ngIf="criteriaSubmitted && critForm.description.errors" class="col-sm-12 error-block">
                   <div *ngIf="critForm.description.errors.required">Description is required</div>
                 </div>
-
 
                 <div class="col-sm-12">
                   <button mat-raised-button class="margin-right col-sm-1" (click)="closeAddOrUpdate()"> Cancel</button>
@@ -296,9 +301,8 @@
 
                 <mat-form-field class="col-sm-4" style="display: none;">
                   <mat-label>Select Criteria</mat-label>
-                  <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn"
-                  formControlName="selectedCriteriaOfqtn">
-                  <!-- <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()"
+                  <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" formControlName="selectedCriteriaOfqtn">
+                    <!-- <select matNativeControl [(ngModel)]="selectedCriteriaOfqtn" (ngModelChange)="criteriaChange()"
                     formControlName="selectedCriteriaOfqtn"> -->
                     <option *ngFor="let ele of ArrayOfCriteria" [ngValue]="ele"> {{ ele.name }} </option>
                   </select>
@@ -325,15 +329,7 @@
               <lib-dynamic-form-builder [events]="eventsSubject.asObservable()"
                 (questionTrigger)="eventFromChild($event)"></lib-dynamic-form-builder>
             </div>
-
-
-
-            <!-- <div id="fb-editor"></div> -->
-
           </mat-card>
-          <!-- <div  class="btn btn-primary pull-right" (click)="saveQuestions()">Save Questions</div>   -->
-
-
         </mat-tab>
         <mat-tab label="Preview">
           <mat-card class="comingsoon-block" *ngIf="questionList">
@@ -360,38 +356,10 @@
         </div>
       </mat-card>
         </mat-tab>
-        <!-- <mat-tab label="Map"> 
-      <div class="col-sm-6" style="padding:20px">
-          <div class="form-group" class="col-sm-12" >
-            <label for="sel1">Select solutions</label>
-            <select class="form-control col-sm-10" id="sel1" [(ngModel)]="selectedSolution">
-              <option *ngFor="let item of solutions">{{ item.name }}</option>
-    
-            </select>
-          </div>
-          <div *ngIf="criteria.length > 0" style="padding:20px;padding-left: 20px;padding-top:40px;">
-            <div class="col-sm-11" style="padding-left: 0px;">
-              <label for="sel1">Select Criteria</label>
-              <angular2-multiselect [data]="criteria" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
-                (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
-                (onDeSelectAll)="onDeSelectAll($event)">
-                <c-item>
-                  <ng-template let-item="item">
-                    <label style="color: #333;min-width: 150px;">{{item.criteriaName}}</label>
-                  </ng-template>
-                </c-item>
-              </angular2-multiselect>
-            </div>
-          </div>
-        </div>
-  </mat-tab> -->
       </mat-tab-group>
-
       <div class="col-sm-12 text-center">
-
-        <!-- <div class="btn btn-primary pull-right">Save</div> -->
-        <!-- <div class="btn btn-primary pull-right" (click)="showJson()">Show JSON </div> -->
-        <button mat-flat-button color="primary" *ngIf="saveBtn" style="margin-right:10px;" (click)="saveData()">
+        <button mat-flat-button class="primary123" color="primary" id="someId" *ngIf="saveBtn"
+          style="margin-right:10px;" (click)="saveData()">
           Save
         </button>
         <button mat-flat-button color="primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">
@@ -415,8 +383,6 @@
       </div>
 
       <div>
-        <!-- <formio *ngIf="showQuestions" [form]="Data"></formio> -->
-
       </div>
     </div>
   </div>

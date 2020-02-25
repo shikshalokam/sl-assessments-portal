@@ -1,5 +1,5 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { DeleteConfirmComponent } from './components/delete-confirm/delete-confirm.component';
 
 declare var mxClient, mxUtils, mxDivResizer, mxCellOverlay,
@@ -12,7 +12,7 @@ declare var mxClient, mxUtils, mxDivResizer, mxCellOverlay,
   styleUrls: ['./designer-worspace.component.scss']
 })
 export class DesignerWorspaceComponent implements OnInit, OnDestroy {
-constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog) {
     mxConstants.SHADOWCOLOR = '#C0C0C0';
   }
 
@@ -21,12 +21,11 @@ constructor(public dialog: MatDialog) {
   }
 
   ngOnDestroy() {
-    console.log("Hiiii");
     var outline = document.getElementById('outlineContainer');
     outline.parentNode.removeChild(outline);
     var content = document.getElementById("tools");
     content.parentNode.removeChild(content);
-    var newContainer  = document.getElementsByClassName("mxWindow");
+    var newContainer = document.getElementsByClassName("mxWindow");
     newContainer[0].parentNode.removeChild(newContainer[0]);
     var container = document.getElementById('sampleDiv');
     container.parentNode.removeChild(container);
@@ -370,10 +369,10 @@ constructor(public dialog: MatDialog) {
 
   deleteSubtreeconfirm(graph, cell) {
     const dialogRef = this.dialog.open(DeleteConfirmComponent, {
-      width:'350px',
+      width: '350px',
     })
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.deleteSubtree(graph, cell)
       }
     });

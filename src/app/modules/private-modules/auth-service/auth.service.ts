@@ -1,30 +1,38 @@
+/**
+ * name : auth.service.ts
+ * author : srikanth
+ * created-date : 03-Dec-2019
+ * Description : To call the api's related to authorization part.
+ */
+
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as jwt_decode from "jwt-decode";
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ApiService } from 'shikshalokam';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from 'rxjs';
 
 import { authConfig } from '../auth-config'
-// import { Observable } from 'rxjs/Observable';
-
-// import { environment } from 'src/environments/environment';
-
+import { Token } from '@angular/compiler';
 declare var Keycloak: any;
 
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * To main all the api  calls related to authorizations
+ */
 export class AuthService {
   isLoggedIn = false;
   redirectUrl: string;
   userName: string;
-  constructor(private jwtHelper: JwtHelperService, private apiService: ApiService, private http: HttpClient) { }
+  constructor(private jwtHelper: JwtHelperService, private http: HttpClient) { }
 
 
   private keycloakAuth: any;
 
+  /**
+   * Implementing the keycloak login
+   * @returns {JSON} - Response data.
+   */
   init(): Promise<any> {
     return new Promise((resolve, reject) => {
       const config = {
@@ -35,7 +43,6 @@ export class AuthService {
       this.keycloakAuth = new Keycloak(config);
       this.keycloakAuth.init({ onLoad: 'login-required' })
         .success(() => {
-          console.log("seting")
           localStorage.setItem('auth-token', this.keycloakAuth.token)
           localStorage.setItem('downloadReport-token', environment.downloadReportHeaderValue)
 
@@ -47,12 +54,20 @@ export class AuthService {
     });
   }
 
+  /**
+   * Passing the token to entire application
+   * @returns {Token} - Returns token.
+   */
+
   getToken(): string {
     return this.keycloakAuth.token;
   }
 
+  /**
+   * To get the current login user details
+   * @returns {JSON} - Response data.
+   */
   getCurrentUserDetails() {
-    // console.log(jwt_decode(this.keycloakAuth.token).name)
     // this.userName = jwt_decode(this.keycloakAuth.token).name;
     // return jwt_decode(this.keycloakAuth.token);
     this.userName = this.jwtHelper.decodeToken(this.getToken()).name;
@@ -60,60 +75,62 @@ export class AuthService {
 
   }
 
+  /**
+   * This method is used to logout the current user
+   * To clear all the data from local storage
+   */
   getLogout() {
     localStorage.clear();
     return this.keycloakAuth.logout();
   }
 
+  /**
+   * Based on the user login get all the user roles 
+   * @returns {JSON} - Response data.
+   */
   async getUserRoles() {
-
     let tokenInfo = this.jwtHelper.decodeToken(this.keycloakAuth.token);
-    console.log("tokenInfo",tokenInfo);
     const headers = new HttpHeaders()
       .set("X-authenticated-user-token", this.getToken());
-    await this.http.get(environment.kendra_base_url+ authConfig.getProfileDetails + tokenInfo.sub, { headers }).toPromise()
-    .then(
-      data =>{
-        console.log("http data");
-        if(data && data['status']){
-          console.log("http data",data);
-          localStorage.setItem("roleInfo",JSON.stringify(data['result']));
-          return (data);
-        }else{
-          return "";
+    await this.http.get(environment.kendra_base_url + authConfig.getProfileDetails + tokenInfo.sub, { headers }).toPromise()
+      .then(
+        data => {
+          if (data && data['status']) {
+            localStorage.setItem("roleInfo", JSON.stringify(data['result']));
+            return (data);
+          } else {
+            return "";
+          }
         }
-      }
 
-    )
+      )
 
   }
-  getAllowedUrls(){
 
-    if(localStorage.getItem("roleInfo")){
-
-    
-    let roles = JSON.parse(localStorage.getItem("roleInfo"));
-    let allowedArray = [];
-    roles.roles.forEach(element => {
-
-      if(element==environment.obs_reviewer){
-        allowedArray.push("/workspace");
-        allowedArray.push("/workspace/publish");
-         allowedArray.push("/workspace/up-for-review");
-      }else if(element==environment.obs_designer){
-        allowedArray.push("/workspace");
-        allowedArray.push("/workspace/create");
-        allowedArray.push("/workspace/draft");
-        allowedArray.push("/workspace/under-review");
-       }
-    });
-  
-    console.log("allowedArray",allowedArray);
-
-    return allowedArray;
-  }else{
-    return [];
-  }
+  /**
+   * Restricting the urls based on the user role
+   * @returns {Array} - Response data.
+   */
+  getAllowedUrls() {
+    if (localStorage.getItem("roleInfo")) {
+      let roles = JSON.parse(localStorage.getItem("roleInfo"));
+      let allowedArray = [];
+      roles.roles.forEach(element => {
+        if (element == environment.obs_reviewer) {
+          allowedArray.push("/workspace");
+          allowedArray.push("/workspace/publish");
+          allowedArray.push("/workspace/up-for-review");
+        } else if (element == environment.obs_designer) {
+          allowedArray.push("/workspace");
+          allowedArray.push("/workspace/create");
+          allowedArray.push("/workspace/draft");
+          allowedArray.push("/workspace/under-review");
+        }
+      });
+      return allowedArray;
+    } else {
+      return [];
+    }
 
   }
 
