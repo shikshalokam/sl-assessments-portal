@@ -276,13 +276,13 @@
         <mat-tab label="Questions">
           <mat-card style="float: left;
                  width: 98%; margin: 15px;">
-            <div class="form-group" class="col-sm-6">
-              <!-- <label for="sel1">Select Criteria:</label> -->
-              <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
+            <!-- <div class="form-group" class="col-sm-6"> -->
+            <!-- <label for="sel1">Select Criteria:</label> -->
+            <!-- <select class="form-control" id="sel1" [(ngModel)]="selectedCriteriaOfqtn">
             <option *ngFor="let ele of criteria" value="{{ ele.criteriaName }}">{{ ele.criteriaName }}</option>
           </select> -->
 
-              <!-- <mat-form-field>
+            <!-- <mat-form-field>
           <mat-label>Select Criteria</mat-label>
           <mat-select>
             <mat-option *ngFor="let ele of criteria" [value]="ele.criteriaName">
@@ -291,7 +291,7 @@
           </mat-select>
         </mat-form-field> -->
 
-            </div>
+            <!-- </div> -->
             <div class="col-sm-12" style="padding:0px">
               <!-- <form-builder class="col-sm-12" [form]="form" (change)="onChange($event)" options="formioOptions">
               </form-builder> -->
@@ -335,31 +335,48 @@
           <mat-card class="comingsoon-block" *ngIf="questionList">
             <!-- {{ allQuestionWithDetails) }} -->
             <div class="question-preview" *ngFor="let data of questionList['data'];let i =index">
-            <div  >
+              <!-- <div> -->
                 <div class="col-sm-12 noPadding question-block-head">
-                <div class="col-sm-6 noPadding">
+                  <div class="col-sm-6 noPadding">
                     Question Number: {{i+1}}
+                  </div>
+                  <div class="col-sm-6 noPadding"> Question Type: {{data.type}}</div>
                 </div>
-                <div class="col-sm-6 noPadding"> Question Type: {{data.type}}</div>
+                <div> label : <label> {{data.label}}</label>
                 </div>
-                <div > label : <label> {{data.label[0]}}</label>
+
+                <div>Date Format : <label> {{data.dateFormat}} </label></div>
+                <div> Allow Audio Recording : <label> {{data.audiorecording}}</label></div>
+                <div> Auto Capture : <label> {{data.autoCapture}} </label></div>
+                <div> Can Be Not Applicable : <label> {{data.applicable}} </label></div>
+              <!-- </div> -->
+              <div *ngIf="data.type == 'matrix'" class="comingsoon-block">
+                <div *ngFor="let data of questionList['data'][i].child;let i =index">
+                  <div class="col-sm-12 noPadding question-block-head">
+                    <div class="col-sm-6 noPadding">
+                      Question Number: {{i+1}}
+                    </div>
+                    <div class="col-sm-6 noPadding"> Question Type: {{data.type}}</div>
+                  </div>
+                  <div> label : <label> {{data.label}}</label>
+                  </div>
+
+                  <div>Date Format : <label> {{data.dateFormat}} </label></div>
+                  <div> Allow Audio Recording : <label> {{data.audiorecording}}</label></div>
+                  <div> Auto Capture : <label> {{data.autoCapture}} </label></div>
+                  <div> Can Be Not Applicable : <label> {{data.applicable}} </label></div>
                 </div>
-                
-                <div >Date Format : <label> {{data.dateFormat}} </label></div>
-                <div > Allow Audio Recording : <label> {{data.audiorecording}}</label></div>
-                <div > Auto Capture : <label> {{data.autoCapture}} </label></div>
-                <div > Can Be Not Applicable : <label> {{data.applicable}} </label></div>
+              </div>
             </div>
-        </div>
-        <div  *ngIf="!questionList">
-          No Question 
-        </div>
-      </mat-card>
+            <div *ngIf="!questionList">
+              No Question
+            </div>
+          </mat-card>
         </mat-tab>
       </mat-tab-group>
       <div class="col-sm-12 text-center">
-        <button mat-flat-button class="primary123" color="primary" id="someId" *ngIf="saveBtn"
-          style="margin-right:10px;" (click)="saveData()">
+        <button mat-flat-button class="primary" color="primary" id="someId" *ngIf="saveBtn" style="margin-right:10px;"
+          (click)="saveData()">
           Save
         </button>
         <button mat-flat-button color="primary" *ngIf="previous" (click)="previousStep()" style="margin-right:10px;">

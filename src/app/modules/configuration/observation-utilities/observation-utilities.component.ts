@@ -6,11 +6,11 @@
  */
 
 // Dependencies
-import { Component, ElementRef, ViewChild, Inject,  PLATFORM_ID, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, PLATFORM_ID, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   MatTabChangeEvent, MatPaginator, MatTableDataSource, MatSort,
- MatSnackBar, MatTabGroup, MatDialog
+  MatSnackBar, MatTabGroup, MatDialog
 } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DraftFrameWorkServiceService } from '../../configuration/workspace-services/draft-frame-work-service.service';
@@ -18,7 +18,7 @@ import { DeleteConfirmComponent, ConfirmDialogModel } from '../designer-worspace
 import { NgxSpinnerService } from "ngx-spinner";
 declare var $: any;
 import { TagInputModule } from 'ngx-chips';
-import {  Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { DynamicFormBuilderService } from "dynamic-form-builder";
 
 TagInputModule.withDefaults({
@@ -365,6 +365,8 @@ export class ObservationUtilitiesComponent implements OnInit {
       this.confirmpopup();
     }
     if (this.selectedIndex == 0) {
+      this.nextBtn = "Next";
+      this.next = true;
       if (this.confirm) {
         // this.clickedIndex = tabChangeEvent.index;
         this.confirmToSaveData();
@@ -429,8 +431,7 @@ export class ObservationUtilitiesComponent implements OnInit {
       // this.confirm = false;
     }
     if (this.selectedIndex == 2) {
-
-      console.log("allQuestionWithDetails",this.questionList);
+      this.draftCriteriaList(this.frameWorkId)
       if (!this.confirm) {
         this.unSavedQuestionList = [];
       }
@@ -458,7 +459,6 @@ export class ObservationUtilitiesComponent implements OnInit {
       if (this.criteriaEmpty) {
         this.selectedIndex = 1
         this.openSnackBar("Initial Criteria Cannot be Empty", "Failed");
-
       } else {
         this.nextBtn = "Previous";
         this.saveBtn = false;
@@ -539,7 +539,6 @@ export class ObservationUtilitiesComponent implements OnInit {
       } else {
         this.openSnackBar("Criteria Cannot be Empty", "Failed");
       }
-
     }
   }
 
@@ -726,15 +725,15 @@ export class ObservationUtilitiesComponent implements OnInit {
   /** 
    * To handle the criteriaForm Validations
    */
-  // get critForm() { return this.criteriaForm.controls; }
+  get critForm() { return this.criteriaForm.controls; }
   /** 
      * To handle the solutionForm Validations
      */
-  // get solValid() { return this.solutionForm.controls; }
+  get solValid() { return this.solutionForm.controls; }
   /** 
     * To handle the selectCriteriaForm Validations
     */
-  // get questionSubmitForm() { return this.selectCriteriaForm.controls; }
+  get questionSubmitForm() { return this.selectCriteriaForm.controls; }
 
   /**
    * To close the criteria 
@@ -772,7 +771,7 @@ export class ObservationUtilitiesComponent implements OnInit {
     this.totalpages = this.DynamicFomServe.getPageNumbers();
     this.confirm = false;
     this.clikOk = false;
-    this.totalpages = $event.pages
+    this.totalpages = $event.pages;
     let _this = this;
     if ($event.action == 'all') {
       this.questionList = $event;
@@ -871,7 +870,7 @@ export class ObservationUtilitiesComponent implements OnInit {
       if ($event.data.data && $event.data.data._id) {
         _this.updateArray.push($event.data.data._id);
       }
-      const message = $event.data.data.field.position + ' ' + 'Question Updated Succesfully';
+      const message = $event.data.position + ' ' + 'Question Updated Succesfully';
       this.openSnackBar(message, "Updated");
     } else if ($event.action == 'delete') {
       let message = `Are you sure you want to delete this question?`;
@@ -969,7 +968,7 @@ export class ObservationUtilitiesComponent implements OnInit {
    */
   listDraftSection(frameWorkId) {
     this.frameWorkServ.draftSectionCreate(frameWorkId).subscribe(data => {
-      if (data['result']) {
+     if (data['result']) {
         this.draftSectionId = data['result']._id;
       }
     });
@@ -1020,11 +1019,11 @@ export class ObservationUtilitiesComponent implements OnInit {
     });
   }
 
- /**
-  * To update the draft question
-  * @param obj: Object that need to update 
-  * @param questionId: It is the id of the question to update
-  */
+  /**
+   * To update the draft question
+   * @param obj: Object that need to update 
+   * @param questionId: It is the id of the question to update
+   */
   updateDraftQuestion(obj, questionId) {
     let updateQuestionObj = {};
     if (obj.question && obj.question.length > 0) {
@@ -1580,9 +1579,9 @@ export class ObservationUtilitiesComponent implements OnInit {
       responseType: element.type,
       options: options,
       isDeleted: element.isDeleted ? element.isDeleted : false,
-      validation: {
-        required: element.validations.required ? element.validations.required : false
-      },
+      // validation: {
+      //   required: element.validations.required ? element.validations.required : false
+      // },
       visibleIf: element.visibleIf ? element.visibleIf : [],
       children: element.parentChildren ? element.parentChildren : [],
     }
@@ -1597,8 +1596,8 @@ export class ObservationUtilitiesComponent implements OnInit {
     updateQuestionObj['filerequired'] = element.filerequired ? element.filerequired : false;
 
     if (element.type == "date") {
-      updateQuestionObj.validation['max'] = element.validations.maxDate;
-      updateQuestionObj.validation['min'] = element.validations.minDate;
+      // updateQuestionObj.validation['max'] = element.validations.maxDate;
+      // updateQuestionObj.validation['min'] = element.validations.minDate;
       updateQuestionObj['autoCollect'] = element.autoCollect ? element.autoCollect : false;
       updateQuestionObj['dateformat'] = element.dateformat ? element.dateformat : "";
     } else if (element.type == "matrix") {

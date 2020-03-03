@@ -1,5 +1,5 @@
 /**
- * name : add-criteria.modal.coompoment.ts
+ * name : add-criteria.modal.component.ts
  * author : Rakesh Kumar
  * created-date : 0315Dec-2019
  * Description : To Open the add criteria modal

@@ -1,18 +1,23 @@
+/**
+ * Name : app.component.ts
+ * Author : Rakesh
+ * Created-date : 16-Dec-2019
+ * Description : Initial load of the application.
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService, ApiService } from 'shikshalokam';
 import { AuthService } from './modules/private-modules/auth-service/auth.service';
 import { environment } from 'src/environments/environment';
-// import { ApiService } from 'shikshalokam';
-// import { environment } from 'src/environments/environment';
-
-
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
+// To Load initial component 
 export class AppComponent implements OnInit {
   isLoggedIn: boolean;
   programId;
@@ -25,10 +30,6 @@ export class AppComponent implements OnInit {
   baseUrl;
   portalName;
   links = [];
-
-
-
-
 
   constructor(private route: ActivatedRoute, private authService: AuthService, private translate: TranslateService, private apiService: ApiService) {
     localStorage.setItem('canAcess', JSON.stringify(['home', 'parent', 'report', 'configurations']));
@@ -52,23 +53,23 @@ export class AppComponent implements OnInit {
     }
   }
 
+  /**
+     * Angular first displays the data-bound properties and sets the directive/component's input properties.
+     *  Called once, after the first ngOnChanges().
+     */
   async ngOnInit() {
-
-    let allowedArray = [];
     let res = await this.authService.getUserRoles();
     let roles = localStorage.getItem("roleInfo");
     let rolesI = JSON.parse(roles);
     let roleInfo = rolesI['roles'];
-    //  allowedArray = this.authService.getAllowedUrls();
     let subMenusOfWorkSpace = [];
-
     let createSubMenu = {
       value: "Create",
       anchorLink: "/workspace/create",
       route: '',
       icon: "description",
     }
-    
+
     let draftMenu = {
       value: "Drafts",
       anchorLink: "/workspace/draft",
@@ -140,6 +141,9 @@ export class AppComponent implements OnInit {
     ]
   }
 
+  /**
+   * This logout function is used to make user logout form the application
+   */
   onLogout() {
     this.authService.getLogout();
   }
